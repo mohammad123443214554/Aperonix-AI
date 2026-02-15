@@ -364,3 +364,25 @@ function renderHistory() {
 document.addEventListener('DOMContentLoaded', () => {
     renderHistory();
 });
+// 4. Purani Chat wapas load karne ke liye (Ye Missing tha)
+function loadOldChat(index) {
+    let history = JSON.parse(localStorage.getItem('chatHistory')) || [];
+    const item = history[index];
+    
+    // Screen saaf karo
+    const container = document.getElementById("messagesContainer");
+    container.innerHTML = ''; 
+    
+    // Purani baat wapas dikhao
+    addMessage("user", item.user);
+    addMessage("assistant", item.ai);
+}
+
+// 5. History Delete karne ke liye (Ye bhi Missing tha)
+function deleteHistory(event, index) {
+    event.stopPropagation(); // Chat load hone se rokega
+    let history = JSON.parse(localStorage.getItem('chatHistory')) || [];
+    history.splice(index, 1); // Delete item
+    localStorage.setItem('chatHistory', JSON.stringify(history));
+    renderHistory(); // List refresh karo
+}
