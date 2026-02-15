@@ -321,3 +321,20 @@ document.addEventListener("click", function (e) {
         }
     }
 });
+// Eye Button ko chalu karne ke liye
+document.querySelectorAll('.toggle-visibility').forEach(button => {
+    button.onclick = function() {
+        // Isse input box ko pakdenge
+        const input = this.parentElement.querySelector('input');
+        const icon = this.querySelector('svg');
+
+        if (input.type === "password") {
+            input.type = "text";
+            // Button ka color thoda badal dete hain taaki pata chale ki 'on' hai
+            this.style.color = "var(--accent-primary)";
+        } else {
+            input.type = "password";
+            this.style.color = "var(--text-muted)";
+        }
+    };
+});
