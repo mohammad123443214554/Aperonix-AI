@@ -1,232 +1,278 @@
-// Aperonix AI Application
-// Main JavaScript File
+// ==============================
+// Aperonix - Professional App JS
+// ==============================
 
-// ================== Constants & Configuration ==================
-const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
-const HUGGINGFACE_API_URL = 'https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0';
+// ================== API CONFIG ==================
+const GEMINI_API_URL =
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent";
 
-// Strict Identity Response
-const STRICT_IDENTITY_RESPONSE = "I am Aperonix, created and owned by Mohammad Khan.";
+const HUGGINGFACE_API_URL =
+  "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0";
 
-// Identity question patterns
-const IDENTITY_PATTERNS = [
-    /who\s+(made|created|built|developed|owns?|is\s+your\s+(owner|creator))/i,
-    /who('s|'s|\s+is)\s+your\s+(owner|creator|developer|maker)/i,
-    /your\s+(owner|creator|developer|maker)/i,
-    /who\s+are\s+you/i,
-    /what('s|'s|\s+is)\s+your\s+name/i,
-    /tell\s+me\s+about\s+(yourself|you)/i,
-    /what\s+are\s+you/i,
-    /who\s+do\s+you\s+belong\s+to/i
-];
+const STRICT_IDENTITY_RESPONSE =
+  "I am Aperonix, created and owned by Mohammad Khan.";
 
-// ================== State Management ==================
-const state = {
-    currentMode: 'chat',
-    currentChatId: null,
-    chats: {},
-    isProcessing: false
-};
+// ================== GLOBAL STATE ==================
+let currentMode = "chat";
+let isProcessing = false;
 
-// ================== DOM Elements ==================
-const elements = {
-    sidebar: document.getElementById('sidebar'),
-    sidebarToggle: document.getElementById('sidebarToggle'),
-    newChatBtn: document.getElementById('newChatBtn'),
-    todayChats: document.getElementById('todayChats'),
-    previousChats: document.getElementById('previousChats'),
-    chatTab: document.getElementById('chatTab'),
-    imageTab: document.getElementById('imageTab'),
-    chatSection: document.getElementById('chatSection'),
-    messagesContainer: document.getElementById('messagesContainer'),
-    welcomeMessage: document.getElementById('welcomeMessage'),
-    chatInput: document.getElementById('chatInput'),
-    sendBtn: document.getElementById('sendBtn'),
-    imageSection: document.getElementById('imageSection'),
-    imageContainer: document.getElementById('imageContainer'),
-    imageWelcome: document.getElementById('imageWelcome'),
-    generatedImages: document.getElementById('generatedImages'),
-    imageInput: document.getElementById('imageInput'),
-    generateBtn: document.getElementById('generateBtn'),
-    settingsBtn: document.getElementById('settingsBtn'),
-    settingsModal: document.getElementById('settingsModal'),
-    closeSettings: document.getElementById('closeSettings'),
-    cancelSettings: document.getElementById('cancelSettings'),
-    saveSettings: document.getElementById('saveSettings'),
-    geminiKey: document.getElementById('geminiKey'),
-    huggingfaceKey: document.getElementById('huggingfaceKey'),
-    toast: document.getElementById('toast'),
-    toastMessage: document.getElementById('toastMessage')
-};
-
-// ================== Utility Functions ==================
-
-function generateId() {
-    return Date.now().toString(36) + Math.random().toString(36).substr(2);
-}
-
+// ================== STORAGE ==================
 function getApiKeys() {
-    return {
-        gemini: localStorage.getItem('GEMINI_API_KEY') || '',
-        huggingface: localStorage.getItem('HUGGINGFACE_API_TOKEN') || ''
-    };
+  return {
+    gemini: localStorage.getItem("GEMINI_API_KEY") || "",
+    huggingface: localStorage.getItem("HUGGINGFACE_API_TOKEN") || "",
+  };
 }
 
 function saveApiKeys(gemini, huggingface) {
-    if (gemini !== undefined) localStorage.setItem('GEMINI_API_KEY', gemini);
-    if (huggingface !== undefined) localStorage.setItem('HUGGINGFACE_API_TOKEN', huggingface);
+  localStorage.setItem("GEMINI_API_KEY", gemini);
+  localStorage.setItem("HUGGINGFACE_API_TOKEN", huggingface);
 }
 
-function showToast(message, type = 'info') {
-    elements.toastMessage.textContent = message;
-    elements.toast.className = 'toast ' + type;
-    elements.toast.classList.add('show');
-    setTimeout(() => elements.toast.classList.remove('show'), 4000);
+// ================== TOAST ==================
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  const toastMessage = document.getElementById("toastMessage");
+  toastMessage.textContent = message;
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 3000);
 }
 
-function isIdentityQuestion(message) {
-    return IDENTITY_PATTERNS.some(pattern => pattern.test(message.toLowerCase()));
+// ================== IDENTITY CHECK ==================
+function isIdentityQuestion(text) {
+  const lower = text.toLowerCase();
+  return (
+    lower.includes("who are you") ||
+    lower.includes("who created you") ||
+    lower.includes("who made you") ||
+    lower.includes("your creator") ||
+    lower.includes("your owner")
+  );
 }
 
-function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-}
+// ================== CHAT UI ==================
+function addMessage(role, text) {
+  const container = document.getElementById("messagesContainer");
+  const welcome = document.getElementById("welcomeMessage");
+  if (welcome) welcome.style.display = "none";
 
-function scrollToBottom() {
-    elements.messagesContainer.scrollTop = elements.messagesContainer.scrollHeight;
-}
+  const messageDiv = document.createElement("div");
+  messageDiv.className = "message " + role;
 
-// ================== Chat Functions ==================
+  const avatar =
+    role === "assistant"
+      ? `<img src="logo.jpg" style="width:32px;height:32px;border-radius:50%;object-fit:cover;border:2px solid #ffffff;">`
+      : "";
 
-function addMessageToDOM(role, content) {
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `message ${role}`;
-
-    const avatarContent = role === 'user'
-        ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="7" r="4"></circle><path d="M5.5 21a6.5 6.5 0 0 1 13 0"></path></svg>'
-        : '<img src="logo.jpg" alt="Aperonix" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid #ffffff;">';
-
-    messageDiv.innerHTML = `
-        <div class="message-avatar">${avatarContent}</div>
+  messageDiv.innerHTML = `
         <div class="message-content">
-            <p>${escapeHtml(content)}</p>
+            ${avatar}
+            <p>${escapeHtml(text)}</p>
         </div>
     `;
 
-    elements.messagesContainer.appendChild(messageDiv);
-    scrollToBottom();
+  container.appendChild(messageDiv);
+  container.scrollTop = container.scrollHeight;
 }
 
-async function sendMessage() {
-    const message = elements.chatInput.value.trim();
-    if (!message || state.isProcessing) return;
-
-    addMessageToDOM('user', message);
-    elements.chatInput.value = '';
-    state.isProcessing = true;
-
-    if (isIdentityQuestion(message)) {
-        addMessageToDOM('assistant', STRICT_IDENTITY_RESPONSE);
-        state.isProcessing = false;
-        return;
-    }
-
-    const keys = getApiKeys();
-    if (!keys.gemini) {
-        addMessageToDOM('assistant', 'API connection failed. Please add your Gemini API key in settings.');
-        state.isProcessing = false;
-        return;
-    }
-
-    try {
-        const response = await callGeminiAPI(message);
-        addMessageToDOM('assistant', response);
-    } catch (error) {
-        addMessageToDOM('assistant', 'API connection failed. Please check your API key.');
-    }
-
-    state.isProcessing = false;
+function escapeHtml(text) {
+  const div = document.createElement("div");
+  div.textContent = text;
+  return div.innerHTML;
 }
 
-async function callGeminiAPI(message) {
-    const keys = getApiKeys();
+// ================== GEMINI API ==================
+async function callGemini(message) {
+  const keys = getApiKeys();
+  if (!keys.gemini) throw new Error("Missing API Key");
 
-    const response = await fetch(`${GEMINI_API_URL}?key=${encodeURIComponent(keys.gemini)}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            contents: [
-                {
-                    role: "user",
-                    parts: [{
-                        text: "You are Aperonix. If asked about creator or ownership, you must respond exactly: I am Aperonix, created and owned by Mohammad Khan."
-                    }]
-                },
-                {
-                    role: "user",
-                    parts: [{ text: message }]
-                }
+  const response = await fetch(
+    `${GEMINI_API_URL}?key=${encodeURIComponent(keys.gemini)}`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [
+          {
+            role: "user",
+            parts: [
+              {
+                text:
+                  "You are Aperonix. If asked about ownership or creator, reply exactly: I am Aperonix, created and owned by Mohammad Khan.",
+              },
             ],
-            generationConfig: {
-                temperature: 0.7,
-                maxOutputTokens: 2048
-            }
-        })
-    });
-
-    if (!response.ok) {
-        throw new Error("Gemini API Error");
+          },
+          {
+            role: "user",
+            parts: [{ text: message }],
+          },
+        ],
+      }),
     }
+  );
 
-    const data = await response.json();
-    return data.candidates?.[0]?.content?.parts?.[0]?.text || "No response.";
+  if (!response.ok) throw new Error("API Error");
+
+  const data = await response.json();
+  return (
+    data.candidates?.[0]?.content?.parts?.[0]?.text ||
+    "No response received."
+  );
 }
 
-// ================== Image Generation ==================
+// ================== SEND MESSAGE ==================
+async function sendMessage() {
+  const input = document.getElementById("chatInput");
+  const text = input.value.trim();
+  if (!text || isProcessing) return;
 
+  addMessage("user", text);
+  input.value = "";
+
+  if (isIdentityQuestion(text)) {
+    addMessage("assistant", STRICT_IDENTITY_RESPONSE);
+    return;
+  }
+
+  try {
+    isProcessing = true;
+    const reply = await callGemini(text);
+    addMessage("assistant", reply);
+  } catch (err) {
+    addMessage("assistant", "API connection failed. Check your API key.");
+  } finally {
+    isProcessing = false;
+  }
+}
+
+// ================== IMAGE GENERATION ==================
 async function generateImage() {
-    const prompt = elements.imageInput.value.trim();
-    if (!prompt) return;
+  const input = document.getElementById("imageInput");
+  const prompt = input.value.trim();
+  if (!prompt || isProcessing) return;
 
-    const keys = getApiKeys();
-    if (!keys.huggingface) {
-        showToast('Please add your Hugging Face API token.', 'error');
-        return;
-    }
+  const keys = getApiKeys();
+  if (!keys.huggingface) {
+    showToast("Add Hugging Face API Token in Settings.");
+    return;
+  }
+
+  try {
+    isProcessing = true;
 
     const response = await fetch(HUGGINGFACE_API_URL, {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${keys.huggingface}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ inputs: prompt })
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${keys.huggingface}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ inputs: prompt }),
     });
 
-    if (!response.ok) {
-        showToast('Image API failed.', 'error');
-        return;
-    }
+    if (!response.ok) throw new Error("Image API Error");
 
     const blob = await response.blob();
     const imageUrl = URL.createObjectURL(blob);
 
-    const imageCard = document.createElement('div');
-    imageCard.className = 'image-card';
-    imageCard.innerHTML = `
-        <img src="${imageUrl}" alt="${escapeHtml(prompt)}">
-        <p>${escapeHtml(prompt)}</p>
-    `;
-    elements.generatedImages.prepend(imageCard);
+    const container = document.getElementById("generatedImages");
+    const card = document.createElement("div");
+    card.className = "image-card";
+    card.innerHTML = `<img src="${imageUrl}" style="width:100%;border:1px solid #333;">`;
+    container.prepend(card);
+
+    input.value = "";
+  } catch (err) {
+    showToast("Image generation failed.");
+  } finally {
+    isProcessing = false;
+  }
 }
 
-// ================== Initialization ==================
+// ================== SETTINGS ==================
+function openSettings() {
+  const modal = document.getElementById("settingsModal");
+  const keys = getApiKeys();
 
-function init() {
-    elements.sendBtn.addEventListener('click', sendMessage);
-    elements.generateBtn.addEventListener('click', generateImage);
+  document.getElementById("geminiKey").value = keys.gemini;
+  document.getElementById("huggingfaceKey").value = keys.huggingface;
+
+  modal.style.display = "flex";
 }
 
-document.addEventListener('DOMContentLoaded', init);
+function closeSettings() {
+  document.getElementById("settingsModal").style.display = "none";
+}
+
+function saveSettings() {
+  const gemini = document.getElementById("geminiKey").value.trim();
+  const huggingface = document
+    .getElementById("huggingfaceKey")
+    .value.trim();
+
+  saveApiKeys(gemini, huggingface);
+  closeSettings();
+  showToast("Settings saved successfully.");
+}
+
+// ================== MODE SWITCH ==================
+function switchMode(mode) {
+  currentMode = mode;
+
+  document.getElementById("chatSection").classList.toggle(
+    "active",
+    mode === "chat"
+  );
+  document.getElementById("imageSection").classList.toggle(
+    "active",
+    mode === "image"
+  );
+
+  document.getElementById("chatTab").classList.toggle(
+    "active",
+    mode === "chat"
+  );
+  document.getElementById("imageTab").classList.toggle(
+    "active",
+    mode === "image"
+  );
+}
+
+// ================== INITIALIZATION ==================
+window.onload = function () {
+  // Enable buttons even if disabled in HTML
+  document.getElementById("sendBtn").disabled = false;
+  document.getElementById("generateBtn").disabled = false;
+
+  // Button listeners
+  document.getElementById("sendBtn").onclick = sendMessage;
+  document.getElementById("generateBtn").onclick = generateImage;
+
+  document.getElementById("settingsBtn").onclick = openSettings;
+  document.getElementById("closeSettings").onclick = closeSettings;
+  document.getElementById("cancelSettings").onclick = closeSettings;
+  document.getElementById("saveSettings").onclick = saveSettings;
+
+  document.getElementById("chatTab").onclick = () =>
+    switchMode("chat");
+  document.getElementById("imageTab").onclick = () =>
+    switchMode("image");
+
+  // Enter key support
+  document
+    .getElementById("chatInput")
+    .addEventListener("keydown", function (e) {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+  document
+    .getElementById("imageInput")
+    .addEventListener("keydown", function (e) {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        generateImage();
+      }
+    });
+};
