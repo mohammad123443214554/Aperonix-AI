@@ -985,3 +985,10 @@ body {
 .message.error .message-content p {
     color: var(--error-color);
   }
+/* Settings Modal ko dikhane ke liye Force Class */
+.show-modal {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    z-index: 99999 !important;
+}
