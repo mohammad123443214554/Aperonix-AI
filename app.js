@@ -299,3 +299,26 @@ document.addEventListener("click", function(e) {
         window.location.reload();
     }
 });
+document.addEventListener("DOMContentLoaded", function () {
+    const sBtn = document.getElementById("settingsBtn");
+    const sModal = document.querySelector(".modal-overlay"); // Class se pakadna behtar hai
+    const cBtn = document.getElementById("closeSettings") || document.querySelector(".modal-close");
+
+    if (sBtn && sModal) {
+        sBtn.onclick = function(e) {
+            e.preventDefault();
+            sModal.classList.add("active"); // Humne 'active' class add ki
+            console.log("Settings Button Clicked!");
+        };
+    }
+
+    if (cBtn && sModal) {
+        cBtn.onclick = function() {
+            sModal.classList.remove("active"); // Class hata di
+        };
+    }
+
+    // New Chat Button Fix
+    const nBtn = document.getElementById("newChatBtn");
+    if(nBtn) nBtn.onclick = () => window.location.reload();
+});
