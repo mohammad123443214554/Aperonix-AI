@@ -1,7 +1,7 @@
-// ================== GEMINI API CONFIG ==================
+// 1. API URL (Fixed)
 const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent";
 
-// 1. API Key nikaalne ke liye
+// 2. Settings se Key nikaalne ke liye
 function getApiKeys() {
     return {
         gemini: localStorage.getItem('gemini_api_key') || '',
@@ -9,12 +9,12 @@ function getApiKeys() {
     };
 }
 
-// 2. Gemini ko call karne ka sahi tarika
+// 3. Gemini API Function
 async function callGemini(message) {
     const keys = getApiKeys();
     if (!keys.gemini) {
-        alert("Bhai, Settings mein API Key daal do pehle!");
-        return "Error: API Key missing";
+        alert("Bhai, Settings mein ja kar API Key dalo!");
+        return "Error: No API Key";
     }
 
     try {
@@ -22,9 +22,7 @@ async function callGemini(message) {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                contents: [{
-                    parts: [{ text: "You are Aperonix, created by Mohammad Khan. " + message }]
-                }]
+                contents: [{ parts: [{ text: message }] }]
             })
         });
 
@@ -32,20 +30,19 @@ async function callGemini(message) {
         if (!response.ok) throw new Error(data.error?.message || "API Error");
         return data.candidates[0].content.parts[0].text;
     } catch (err) {
-        console.error(err);
         return "System Error: " + err.message;
     }
 }
 
-// 3. Message bhejnewala function (Fixed for your HTML)
+// 4. Message Send karne ka function (Fixed)
 let isProcessing = false;
 async function sendMessage() {
-    const input = document.getElementById("chatInput"); // Aapka HTML ID yahi hai
-    const text = input.value.trim();
+    const input = document.getElementById("chatInput");
+    if (!input) return;
     
+    const text = input.value.trim();
     if (!text || isProcessing) return;
 
-    // User ka message dikhao
     addMessage("user", text);
     input.value = "";
     isProcessing = true;
@@ -53,9 +50,7 @@ async function sendMessage() {
     try {
         const reply = await callGemini(text);
         addMessage("assistant", reply);
-        
-        // History save karne ka logic
-        saveToHistory(text, reply);
+        saveChatToHistory(text, reply);
     } catch (err) {
         addMessage("assistant", "Error: " + err.message);
     } finally {
@@ -63,11 +58,11 @@ async function sendMessage() {
     }
 }
 
-// 4. Message Screen par dikhane ke liye
+// 5. Message Screen par dikhane ke liye
 function addMessage(role, text) {
     const container = document.getElementById("messagesContainer");
-    if(!container) return;
-    
+    if (!container) return;
+
     const div = document.createElement("div");
     div.className = `message ${role}-message`;
     div.innerText = text;
@@ -75,24 +70,40 @@ function addMessage(role, text) {
     container.scrollTop = container.scrollHeight;
 }
 
-// 5. History logic
-function saveToHistory(u, a) {
-    let h = JSON.parse(localStorage.getItem('chatHistory')) || [];
-    h.unshift({ user: u, ai: a });
-    localStorage.setItem('chatHistory', JSON.stringify(h.slice(0, 10)));
+// 6. History Save aur Load
+function saveChatToHistory(u, a) {
+    let history = JSON.parse(localStorage.getItem('chatHistory')) || [];
+    history.unshift({ user: u, ai: a });
+    localStorage.setItem('chatHistory', JSON.stringify(history.slice(0, 10)));
     renderHistory();
 }
 
 function renderHistory() {
-    const list = document.getElementById("historyList") || document.querySelector('.history-list');
+    const list = document.querySelector('.history-list');
     if (!list) return;
-    let h = JSON.parse(localStorage.getItem('chatHistory')) || [];
-    list.innerHTML = h.map(item => `
-        <div class="history-item">
-            ${item.user.substring(0, 15)}...
+    let history = JSON.parse(localStorage.getItem('chatHistory')) || [];
+    list.innerHTML = history.map(item => `
+        <div class="history-item" style="padding: 10px; border-bottom: 1px solid #333; font-size: 14px; cursor: pointer;">
+            ${item.user.substring(0, 20)}...
         </div>
     `).join('');
 }
 
-// Page load hote hi history dikhao
-document.addEventListener('DOMContentLoaded', renderHistory);
+// 7. Event Listeners (Taki button kaam karein)
+document.addEventListener('DOMContentLoaded', () => {
+    renderHistory();
+    
+    // Send button click par
+    const sendBtn = document.querySelector('.send-button');
+    if (sendBtn) {
+        sendBtn.onclick = sendMessage;
+    }
+
+    // Enter key dabane par
+    const chatInput = document.getElementById('chatInput');
+    if (chatInput) {
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+    }
+});
