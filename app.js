@@ -4,7 +4,7 @@
 
 // ================== API CONFIG ==================
 const GEMINI_API_URL =
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent";
+  "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash-latest:generateContent";
 const HUGGINGFACE_API_URL =
   "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0";
 
