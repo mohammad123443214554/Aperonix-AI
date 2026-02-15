@@ -375,29 +375,80 @@ function renderHistory() {
     `).join('');
 }
 
-// 3. Page load hote hi history dikhao
-document.addEventListener('DOMContentLoaded', () => {
-    renderHistory();
-});
-// 4. Purani Chat wapas load karne ke liye (Ye Missing tha)
-function loadOldChat(index) {
-    let history = JSON.parse(localStorage.getItem('chatHistory')) || [];
-    const item = history[index];
+// ================== MASTER API & HISTORY FIX ==================
+
+// 1. Gemini API ko sahi tarike se call karne ke liye
+async function callGemini(message) {
+    const keys = getApiKeys();
+    if (!keys.gemini) throw new Error("Settings mein API Key nahi mili!");
+
+    const response = await fetch(`${GEMINI_API_URL}?key=${encodeURIComponent(keys.gemini)}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            contents: [{
+                parts: [{ text: `You are Aperonix, created by Mohammad Khan. User says: ${message}` }]
+            }]
+        })
+    });
+
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error?.message || "API ne mana kar diya");
     
-    // Screen saaf karo
-    const container = document.getElementById("messagesContainer");
-    container.innerHTML = ''; 
-    
-    // Purani baat wapas dikhao
-    addMessage("user", item.user);
-    addMessage("assistant", item.ai);
+    return data.candidates?.[0]?.content?.parts?.[0]?.text || "AI ne koi jawab nahi diya.";
 }
 
-// 5. History Delete karne ke liye (Ye bhi Missing tha)
-function deleteHistory(event, index) {
-    event.stopPropagation(); // Chat load hone se rokega
-    let history = JSON.parse(localStorage.getItem('chatHistory')) || [];
-    history.splice(index, 1); // Delete item
-    localStorage.setItem('chatHistory', JSON.stringify(history));
-    renderHistory(); // List refresh karo
+// 2. Message bhejte hi History Save karne ke liye
+async function sendMessage() {
+    const input = document.getElementById("chatInput");
+    const text = input.value.trim();
+    if (!text || isProcessing) return;
+
+    addMessage("user", text);
+    input.value = "";
+
+    try {
+        isProcessing = true;
+        const reply = await callGemini(text);
+        addMessage("assistant", reply);
+        
+        // History yahan save hogi
+        saveChatToHistory(text, reply); 
+    } catch (err) {
+        // Bhai, ab yahan asli error dikhega screen par
+        addMessage("assistant", "System Error: " + err.message);
+        console.error(err);
+    } finally {
+        isProcessing = false;
+    }
 }
+
+// 3. History functions (Save, Show, Load)
+function saveChatToHistory(u, a) {
+    let h = JSON.parse(localStorage.getItem('chatHistory')) || [];
+    h.unshift({ user: u, ai: a });
+    localStorage.setItem('chatHistory', JSON.stringify(h.slice(0, 20))); // Max 20 chats
+    renderHistory();
+}
+
+function renderHistory() {
+    const list = document.querySelector('.history-list');
+    if (!list) return;
+    let h = JSON.parse(localStorage.getItem('chatHistory')) || [];
+    list.innerHTML = h.map((item, i) => `
+        <button class="history-item" onclick="loadOldChat(${i})">
+            <span class="history-item-text">${item.user.substring(0, 20)}...</span>
+        </button>
+    `).join('');
+}
+
+function loadOldChat(i) {
+    let h = JSON.parse(localStorage.getItem('chatHistory')) || [];
+    const container = document.getElementById("messagesContainer");
+    container.innerHTML = ''; 
+    addMessage("user", h[i].user);
+    addMessage("assistant", h[i].ai);
+}
+
+// Initialize on Load
+document.addEventListener('DOMContentLoaded', renderHistory);
