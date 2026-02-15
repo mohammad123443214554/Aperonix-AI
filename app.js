@@ -276,3 +276,29 @@ window.onload = function () {
       }
     });
 };
+document.addEventListener("DOMContentLoaded", function () {
+    
+    const settingsBtn = document.getElementById("settingsBtn");
+    const closeSettings = document.getElementById("closeSettings");
+    const newChatBtn = document.getElementById("newChatBtn");
+    const settingsModal = document.getElementById("settingsModal");
+
+    if (settingsBtn && settingsModal) {
+        settingsBtn.addEventListener("click", function () {
+            settingsModal.style.display = "flex";
+        });
+    }
+
+    if (closeSettings && settingsModal) {
+        closeSettings.addEventListener("click", function () {
+            settingsModal.style.display = "none";
+        });
+    }
+
+    if (newChatBtn) {
+        newChatBtn.addEventListener("click", function () {
+            window.location.reload();
+        });
+    }
+
+});
