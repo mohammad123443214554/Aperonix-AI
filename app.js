@@ -1,172 +1,127 @@
 // ======================================================
-// APERONIX AI - FINAL COMPLETE CODE (NO EDITS NEEDED)
+// APERONIX AI - FINAL FIXED CODE
 // ======================================================
 
-// 1. CONFIGURATION
+// 1. GOOGLE API URL (Isme galti thi, ab ye sahi hai)
 const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent";
 
-// 2. API KEY MANAGEMENT
+// 2. API KEY SAMBHALNA
 function getApiKeys() {
-    return {
-        gemini: localStorage.getItem("GEMINI_API_KEY") || localStorage.getItem("gemini_api_key") || ""
-    };
+    // Ye check karega ki key 'gemini_api_key' naam se save hai ya 'GEMINI_API_KEY' se
+    return localStorage.getItem("gemini_api_key") || localStorage.getItem("GEMINI_API_KEY") || "";
 }
 
-// 3. CORE AI FUNCTION
+// 3. AI SE BAAT KARNA (Core Function)
 async function callGemini(message) {
-    const keys = getApiKeys();
-    
-    // Check if Key Exists
-    if (!keys.gemini) {
-        addMessage("assistant", "⚠️ Error: API Key missing! Please go to Settings and save your Gemini API Key.");
-        throw new Error("Missing API Key");
+    const apiKey = getApiKeys();
+
+    if (!apiKey) {
+        return "⚠️ Error: API Key missing. Please click Settings and save your API Key.";
     }
 
     try {
-        const response = await fetch(`${GEMINI_API_URL}?key=${keys.gemini}`, {
+        const response = await fetch(`${GEMINI_API_URL}?key=${apiKey}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 contents: [{
-                    parts: [{ text: "System: You are Aperonix. User: " + message }]
+                    parts: [{ text: "You are Aperonix. " + message }]
                 }]
             })
         });
 
         const data = await response.json();
 
+        // Agar Google ne error bheja
         if (!response.ok) {
-            console.error("API Error Details:", data);
-            throw new Error(data.error?.message || "Google API Refused Connection");
+            console.error("API Error:", data);
+            return `System Error: ${data.error?.message || "Something went wrong"}`;
         }
 
-        return data.candidates?.[0]?.content?.parts?.[0]?.text || "Mafi chahta hoon, koi jawab nahi mila.";
+        // Sahi jawab nikaalo
+        return data.candidates?.[0]?.content?.parts?.[0]?.text || "No response.";
     } catch (error) {
         console.error("Network Error:", error);
-        return "Connection Error: " + error.message;
+        return "Connection failed. Check your internet.";
     }
 }
 
-// 4. CHAT FUNCTIONS
+// 4. MESSAGE BHEJNA (Send Button Logic)
 async function sendMessage() {
-    // Input field dhoondne ki koshish (multiple IDs check karega)
-    const inputField = document.getElementById("chatInput") || 
-                       document.getElementById("userInput") || 
-                       document.querySelector("input[type='text']");
+    const input = document.getElementById("chatInput");
+    if (!input) return;
 
-    if (!inputField) {
-        alert("Error: Input box nahi mila! HTML check karo.");
-        return;
-    }
+    const message = input.value.trim();
+    if (!message) return;
 
-    const message = inputField.value.trim();
-    if (!message) return; // Agar khali hai to kuch mat karo
-
-    // 1. User ka message screen par dikhao
+    // 1. User ka message dikhao
     addMessage("user", message);
-    inputField.value = ""; // Input saaf karo
+    input.value = ""; // Box saaf karo
 
-    // 2. Loading indicator (Optional)
-    const loadingId = addMessage("assistant", "Soch raha hoon...");
+    // 2. "Typing..." dikhao
+    addMessage("assistant", "Thinking...");
 
-    // 3. AI se baat karo
+    // 3. AI ko call karo
     const reply = await callGemini(message);
 
-    // 4. Loading hata kar asli jawab likho
-    updateMessage(loadingId, reply);
-
-    // 5. History mein save karo
-    saveChatToHistory(message, reply);
+    // 4. "Typing..." hata kar asli jawab dikhao
+    // (Hum last message ko remove karke naya add karenge)
+    const messages = document.getElementById("messagesContainer");
+    messages.lastElementChild.remove(); 
+    addMessage("assistant", reply);
 }
 
-// Screen par message add karne ka function
-function addMessage(sender, text) {
-    const chatContainer = document.getElementById("messagesContainer") || 
-                          document.getElementById("chat-container") ||
-                          document.querySelector(".chat-box");
+// 5. SCREEN PAR MESSAGE DIKHANA
+function addMessage(role, text) {
+    const container = document.getElementById("messagesContainer");
+    if (!container) return;
+
+    const div = document.createElement("div");
+    // Class names aapke CSS ke hisaab se
+    div.className = `message ${role === "user" ? "user-message" : "ai-message"}`;
     
-    if (!chatContainer) return;
+    // Style thoda safai ke liye (agar CSS fail ho jaye)
+    div.style.padding = "10px";
+    div.style.margin = "5px 0";
+    div.style.borderRadius = "8px";
+    div.style.background = role === "user" ? "#007bff" : "#333";
+    div.style.color = "#fff";
+    div.style.textAlign = role === "user" ? "right" : "left";
 
-    const msgDiv = document.createElement("div");
-    msgDiv.className = sender === "user" ? "user-message" : "ai-message";
-    msgDiv.style.margin = "10px 0";
-    msgDiv.style.padding = "10px";
-    msgDiv.style.borderRadius = "10px";
-    msgDiv.style.backgroundColor = sender === "user" ? "#007bff" : "#333";
-    msgDiv.style.color = "#fff";
-    msgDiv.style.textAlign = sender === "user" ? "right" : "left";
-    msgDiv.innerText = text;
-
-    // Unique ID for updating later
-    const msgId = "msg-" + Date.now();
-    msgDiv.id = msgId;
-
-    chatContainer.appendChild(msgDiv);
-    chatContainer.scrollTop = chatContainer.scrollHeight;
+    div.innerText = text;
+    container.appendChild(div);
     
-    return msgId;
+    // Auto-scroll niche
+    container.scrollTop = container.scrollHeight;
 }
 
-// Loading message ko update karne ke liye
-function updateMessage(id, newText) {
-    const msgDiv = document.getElementById(id);
-    if (msgDiv) {
-        msgDiv.innerText = newText;
-    }
-}
-
-// 5. HISTORY FUNCTIONS
-function saveChatToHistory(userMsg, aiMsg) {
-    let history = JSON.parse(localStorage.getItem("chatHistory")) || [];
-    history.unshift({ user: userMsg, ai: aiMsg });
-    // Sirf last 20 messages rakho
-    localStorage.setItem("chatHistory", JSON.stringify(history.slice(0, 20)));
-    renderHistory();
-}
-
-function renderHistory() {
-    const historyList = document.querySelector(".history-list") || document.getElementById("historyList");
-    if (!historyList) return;
-
-    let history = JSON.parse(localStorage.getItem("chatHistory")) || [];
-    
-    historyList.innerHTML = history.map(chat => `
-        <div style="padding: 10px; border-bottom: 1px solid #444; cursor: pointer;" onclick="loadFromHistory('${chat.user}', '${chat.ai.replace(/'/g, "\\'")}')">
-            <strong>You:</strong> ${chat.user.substring(0, 20)}...
-        </div>
-    `).join("");
-}
-
-// History click karne par wapas dikhana
-window.loadFromHistory = function(u, a) {
-    addMessage("user", u);
-    addMessage("assistant", a);
-}
-
-// 6. EVENT LISTENERS (Buttons ko zinda karne ke liye)
+// 6. INITIALIZATION (Ye Buttons ko zinda karega)
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("Aperonix Loaded!");
-    renderHistory();
+    console.log("App Loaded Successfully");
 
-    // Send Button dhoondho (ID ya Class dono se)
-    const sendBtn = document.getElementById("sendBtn") || 
-                    document.querySelector(".send-button") || 
-                    document.querySelector("button");
-
+    // Send Button par click hone par
+    const sendBtn = document.getElementById("sendBtn") || document.querySelector(".send-button");
     if (sendBtn) {
-        sendBtn.onclick = sendMessage; // Click karne par message bhejo
-        console.log("Send Button Connected!");
-    } else {
-        console.error("Send Button nahi mila!");
+        sendBtn.onclick = sendMessage;
     }
 
-    // Enter button dabane par bhi send ho
-    const inputField = document.getElementById("chatInput") || document.querySelector("input");
-    if (inputField) {
-        inputField.addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                sendMessage();
-            }
+    // Enter dabane par bhi bhejo
+    const chatInput = document.getElementById("chatInput");
+    if (chatInput) {
+        chatInput.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") sendMessage();
         });
+    }
+
+    // Settings Button Logic (Simple Prompt)
+    const settingsBtn = document.getElementById("settingsBtn") || document.querySelector(".settings-button");
+    if (settingsBtn) {
+        settingsBtn.onclick = () => {
+            const newKey = prompt("Enter your Gemini API Key here:", getApiKeys());
+            if (newKey) {
+                localStorage.setItem("gemini_api_key", newKey.trim());
+                alert("Key Saved! Try chatting now.");
+            }
+        };
     }
 });
