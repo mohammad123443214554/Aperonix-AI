@@ -136,8 +136,12 @@ async function sendMessage() {
 
   try {
     isProcessing = true;
-    const reply = await callGemini(text);
-    addMessage("assistant", reply);
+    const reply = await callGemini(text); // API call
+    addMessage("assistant", reply); // Screen par dikhana
+
+    // ➤➤➤ YE LINE HISTORY SAVE KAREGI
+    saveChatToHistory(text, reply); 
+
   } catch (err) {
     addMessage("assistant", "API connection failed. Check your API key.");
   } finally {
