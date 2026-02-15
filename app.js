@@ -120,7 +120,7 @@ async function callGemini(message) {
   );
 }
 
-// ================== SEND MESSAGE ==================
+// ================== SEND MESSAGE (Updated) ==================
 async function sendMessage() {
   const input = document.getElementById("chatInput");
   const text = input.value.trim();
@@ -130,25 +130,28 @@ async function sendMessage() {
   input.value = "";
 
   if (isIdentityQuestion(text)) {
-    addMessage("assistant", STRICT_IDENTITY_RESPONSE);
+    const aiResponse = STRICT_IDENTITY_RESPONSE;
+    addMessage("assistant", aiResponse);
+    saveChatToHistory(text, aiResponse); // Identity question bhi save hoga
     return;
   }
 
   try {
     isProcessing = true;
-    const reply = await callGemini(text); // API call
-    addMessage("assistant", reply); // Screen par dikhana
-
-    // ➤➤➤ YE LINE HISTORY SAVE KAREGI
+    const reply = await callGemini(text);
+    addMessage("assistant", reply);
+    
+    // YE LINE HISTORY SAVE KAREGI (Sirf success hone par)
     saveChatToHistory(text, reply); 
 
   } catch (err) {
+    // Agar API fail hui toh ye error dikhega
     addMessage("assistant", "API connection failed. Check your API key.");
+    console.error("API Error:", err);
   } finally {
     isProcessing = false;
   }
 }
-
 // ================== IMAGE GENERATION ==================
 async function generateImage() {
   const input = document.getElementById("imageInput");
