@@ -299,32 +299,25 @@ document.addEventListener("click", function(e) {
         window.location.reload();
     }
 });
-document.addEventListener("DOMContentLoaded", function () {
-    const settingsBtn = document.getElementById("settingsBtn");
-    const settingsModal = document.querySelector(".modal-overlay"); // ID ki jagah class use kar rahe hain
-    const closeSettings = document.getElementById("closeSettings") || document.querySelector(".modal-close");
-    const newChatBtn = document.getElementById("newChatBtn");
-
-    // 1. Settings Kholne ke liye (Class add hogi)
-    if (settingsBtn && settingsModal) {
-        settingsBtn.onclick = function(e) {
-            e.preventDefault();
-            settingsModal.classList.add("show-modal"); // Ye aapki CSS wali class hai
-            console.log("Settings Opened!");
-        };
+document.addEventListener("click", function (e) {
+    // 1. Settings Button Dabane Par
+    if (e.target.closest('#settingsBtn')) {
+        const modal = document.querySelector('.modal-overlay');
+        if (modal) {
+            modal.style.setProperty('display', 'flex', 'important');
+            modal.style.setProperty('visibility', 'visible', 'important');
+            modal.style.setProperty('opacity', '1', 'important');
+            modal.style.zIndex = "99999";
+            console.log("Settings Khul Gaya!");
+        }
     }
 
-    // 2. Settings Band karne ke liye (Class hategi)
-    if (closeSettings && settingsModal) {
-        closeSettings.onclick = function() {
-            settingsModal.classList.remove("show-modal");
-        };
-    }
-
-    // 3. New Chat (Page reload hoga)
-    if (newChatBtn) {
-        newChatBtn.onclick = function() {
-            window.location.reload();
-        };
+    // 2. Close Button Dabane Par
+    if (e.target.closest('#closeSettings') || e.target.closest('.modal-close')) {
+        const modal = document.querySelector('.modal-overlay');
+        if (modal) {
+            modal.style.setProperty('display', 'none', 'important');
+            modal.style.setProperty('visibility', 'hidden', 'important');
+        }
     }
 });
