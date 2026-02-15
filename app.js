@@ -276,27 +276,26 @@ window.onload = function () {
       }
     });
 };
-document.addEventListener("DOMContentLoaded", function () {
-    const sBtn = document.getElementById("settingsBtn");
-    const sModal = document.getElementById("settingsModal");
-    const cBtn = document.getElementById("closeSettings");
-
-    if (sBtn && sModal) {
-        sBtn.onclick = function(e) {
-            e.preventDefault();
-            // Hum class add kar rahe hain jo CSS se modal dikhayegi
-            sModal.classList.add("show-modal");
-            console.log("Settings opened!");
-        };
+// Sabse asaan tarika - Har Button ko uski Class se pakadna
+document.addEventListener("click", function(e) {
+    // 1. Agar Settings button daba
+    if (e.target.closest('.settings-btn') || e.target.id === 'settingsBtn') {
+        const modal = document.querySelector('.modal-overlay') || document.getElementById('settingsModal');
+        if (modal) {
+            modal.style.display = 'flex';
+            modal.style.setProperty('display', 'flex', 'important');
+            modal.style.zIndex = '99999';
+        }
     }
 
-    if (cBtn && sModal) {
-        cBtn.onclick = function() {
-            sModal.classList.remove("show-modal");
-        };
+    // 2. Agar Settings band karne ka button daba
+    if (e.target.closest('.modal-close') || e.target.id === 'closeSettings' || e.target.closest('.btn-secondary')) {
+        const modal = document.querySelector('.modal-overlay') || document.getElementById('settingsModal');
+        if (modal) modal.style.display = 'none';
     }
-    
-    // New Chat Fix
-    const nBtn = document.getElementById("newChatBtn");
-    if(nBtn) nBtn.onclick = () => window.location.reload();
+
+    // 3. Agar New Chat button daba
+    if (e.target.closest('.new-chat-btn') || e.target.id === 'newChatBtn') {
+        window.location.reload();
+    }
 });
