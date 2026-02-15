@@ -277,24 +277,40 @@ window.onload = function () {
     });
 };
 document.addEventListener("DOMContentLoaded", function () {
-    
+
     const settingsBtn = document.getElementById("settingsBtn");
     const closeSettings = document.getElementById("closeSettings");
     const newChatBtn = document.getElementById("newChatBtn");
     const settingsModal = document.getElementById("settingsModal");
 
+    // FORCE OPEN SETTINGS MODAL
     if (settingsBtn && settingsModal) {
         settingsBtn.addEventListener("click", function () {
-            settingsModal.style.display = "flex";
+
+            // Force display with !important
+            settingsModal.style.setProperty("display", "flex", "important");
+
+            // Force top layer
+            settingsModal.style.zIndex = "10000";
+
+            // Optional safety: full screen overlay
+            settingsModal.style.position = "fixed";
+            settingsModal.style.top = "0";
+            settingsModal.style.left = "0";
+            settingsModal.style.width = "100%";
+            settingsModal.style.height = "100%";
+
         });
     }
 
+    // CLOSE SETTINGS MODAL
     if (closeSettings && settingsModal) {
         closeSettings.addEventListener("click", function () {
-            settingsModal.style.display = "none";
+            settingsModal.style.setProperty("display", "none", "important");
         });
     }
 
+    // NEW CHAT BUTTON
     if (newChatBtn) {
         newChatBtn.addEventListener("click", function () {
             window.location.reload();
