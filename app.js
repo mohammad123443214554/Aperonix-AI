@@ -300,25 +300,31 @@ document.addEventListener("click", function(e) {
     }
 });
 document.addEventListener("DOMContentLoaded", function () {
-    const sBtn = document.getElementById("settingsBtn");
-    const sModal = document.querySelector(".modal-overlay"); // Class se pakadna behtar hai
-    const cBtn = document.getElementById("closeSettings") || document.querySelector(".modal-close");
+    const settingsBtn = document.getElementById("settingsBtn");
+    const settingsModal = document.querySelector(".modal-overlay"); // ID ki jagah class use kar rahe hain
+    const closeSettings = document.getElementById("closeSettings") || document.querySelector(".modal-close");
+    const newChatBtn = document.getElementById("newChatBtn");
 
-    if (sBtn && sModal) {
-        sBtn.onclick = function(e) {
+    // 1. Settings Kholne ke liye (Class add hogi)
+    if (settingsBtn && settingsModal) {
+        settingsBtn.onclick = function(e) {
             e.preventDefault();
-            sModal.classList.add("active"); // Humne 'active' class add ki
-            console.log("Settings Button Clicked!");
+            settingsModal.classList.add("show-modal"); // Ye aapki CSS wali class hai
+            console.log("Settings Opened!");
         };
     }
 
-    if (cBtn && sModal) {
-        cBtn.onclick = function() {
-            sModal.classList.remove("active"); // Class hata di
+    // 2. Settings Band karne ke liye (Class hategi)
+    if (closeSettings && settingsModal) {
+        closeSettings.onclick = function() {
+            settingsModal.classList.remove("show-modal");
         };
     }
 
-    // New Chat Button Fix
-    const nBtn = document.getElementById("newChatBtn");
-    if(nBtn) nBtn.onclick = () => window.location.reload();
+    // 3. New Chat (Page reload hoga)
+    if (newChatBtn) {
+        newChatBtn.onclick = function() {
+            window.location.reload();
+        };
+    }
 });
