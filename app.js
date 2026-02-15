@@ -2,15 +2,6 @@
 // Aperonix - Professional App JS
 // ==============================
 
-// ================== API CONFIG ==================
-const GEMINI_API_URL =
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent";
-const HUGGINGFACE_API_URL =
-  "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0";
-
-const STRICT_IDENTITY_RESPONSE =
-  "I am Aperonix, created and owned by Mohammad Khan.";
-
 // ================== GLOBAL STATE ==================
 let currentMode = "chat";
 let isProcessing = false;
