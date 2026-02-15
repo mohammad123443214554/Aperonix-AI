@@ -1,39 +1,24 @@
-// ==========================================
-// 1. MASTER CONFIGURATION (Fixed URL)
-// ==========================================
+// ================== GEMINI API CONFIG ==================
 const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent";
-const STRICT_IDENTITY_RESPONSE = "I am Aperonix, a helpful AI assistant created by Mohammad Khan.";
 
-// ==========================================
-// 2. API KEY MANAGEMENT
-// ==========================================
+// 1. API Key nikaalne ke liye
 function getApiKeys() {
     return {
-        gemini: localStorage.getItem("GEMINI_API_KEY") || "",
-        huggingface: localStorage.getItem("HUGGINGFACE_API_TOKEN") || ""
+        gemini: localStorage.getItem('gemini_api_key') || '',
+        huggingface: localStorage.getItem('huggingface_token') || ''
     };
 }
 
-function saveApiKeys(geminiKey, hfToken) {
-    localStorage.setItem("GEMINI_API_KEY", geminiKey);
-    localStorage.setItem("HUGGINGFACE_API_TOKEN", hfToken);
-}
-
-// ==========================================
-// 3. CORE AI FUNCTION (Single & Fixed)
-// ==========================================
+// 2. Gemini ko call karne ka sahi tarika
 async function callGemini(message) {
     const keys = getApiKeys();
     if (!keys.gemini) {
-        alert("Bhai, Settings mein API Key dalo!");
-        throw new Error("Missing API Key");
+        alert("Bhai, Settings mein API Key daal do pehle!");
+        return "Error: API Key missing";
     }
 
-    // Is URL mein v1beta aur gemini-1.5-flash ekdum sahi hai
-    const apiEndpoint = `${GEMINI_API_URL}?key=${keys.gemini}`;
-
     try {
-        const response = await fetch(apiEndpoint, {
+        const response = await fetch(`${GEMINI_API_URL}?key=${keys.gemini}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -44,48 +29,70 @@ async function callGemini(message) {
         });
 
         const data = await response.json();
-        
-        if (!response.ok) {
-            console.error("Google API Error:", data);
-            // Agar "Model not found" aaye toh iska matlab Google v1beta support nahi kar raha
-            throw new Error(data.error?.message || "API connection failed.");
-        }
-
-        return data.candidates?.[0]?.content?.parts?.[0]?.text || "No response from AI.";
+        if (!response.ok) throw new Error(data.error?.message || "API Error");
+        return data.candidates[0].content.parts[0].text;
     } catch (err) {
-        console.error("Fetch Error:", err);
-        throw err;
+        console.error(err);
+        return "System Error: " + err.message;
     }
 }
 
-// ==========================================
-// 4. CHAT INTERFACE LOGIC
-// ==========================================
+// 3. Message bhejnewala function (Fixed for your HTML)
+let isProcessing = false;
 async function sendMessage() {
-    const input = document.getElementById("userInput");
-    const message = input.value.trim();
-    if (!message) return;
+    const input = document.getElementById("chatInput"); // Aapka HTML ID yahi hai
+    const text = input.value.trim();
+    
+    if (!text || isProcessing) return;
 
-    // UI par message dikhao
-    addMessage("user", message);
+    // User ka message dikhao
+    addMessage("user", text);
     input.value = "";
+    isProcessing = true;
 
     try {
-        const reply = await callGemini(message);
+        const reply = await callGemini(text);
         addMessage("assistant", reply);
+        
+        // History save karne ka logic
+        saveToHistory(text, reply);
     } catch (err) {
-        addMessage("assistant", "System Error: " + err.message);
+        addMessage("assistant", "Error: " + err.message);
+    } finally {
+        isProcessing = false;
     }
 }
 
+// 4. Message Screen par dikhane ke liye
 function addMessage(role, text) {
     const container = document.getElementById("messagesContainer");
-    const msgDiv = document.createElement("div");
-    msgDiv.className = `message ${role}`;
-    msgDiv.innerText = text;
-    container.appendChild(msgDiv);
+    if(!container) return;
+    
+    const div = document.createElement("div");
+    div.className = `message ${role}-message`;
+    div.innerText = text;
+    container.appendChild(div);
     container.scrollTop = container.scrollHeight;
 }
 
-// Button click event
-document.getElementById("sendBtn").onclick = sendMessage;
+// 5. History logic
+function saveToHistory(u, a) {
+    let h = JSON.parse(localStorage.getItem('chatHistory')) || [];
+    h.unshift({ user: u, ai: a });
+    localStorage.setItem('chatHistory', JSON.stringify(h.slice(0, 10)));
+    renderHistory();
+}
+
+function renderHistory() {
+    const list = document.getElementById("historyList") || document.querySelector('.history-list');
+    if (!list) return;
+    let h = JSON.parse(localStorage.getItem('chatHistory')) || [];
+    list.innerHTML = h.map(item => `
+        <div class="history-item">
+            ${item.user.substring(0, 15)}...
+        </div>
+    `).join('');
+}
+
+// Page load hote hi history dikhao
+document.addEventListener('DOMContentLoaded', renderHistory);
