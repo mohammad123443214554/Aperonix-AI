@@ -81,45 +81,53 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
-// ================== GEMINI API ==================
+// ================== GEMINI API (Updated & Fixed) ==================
 async function callGemini(message) {
   const keys = getApiKeys();
-  if (!keys.gemini) throw new Error("Missing API Key");
+  if (!keys.gemini) {
+    alert("Bhai, Settings mein API Key nahi mili!");
+    throw new Error("Missing API Key");
+  }
 
-  const response = await fetch(
-    `${GEMINI_API_URL}?key=${encodeURIComponent(keys.gemini)}`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [
-          {
-            role: "user",
-            parts: [
-              {
-                text:
-                  "You are Aperonix. If asked about ownership or creator, reply exactly: I am Aperonix, created and owned by Mohammad Khan.",
-              },
-            ],
-          },
-          {
-            role: "user",
-            parts: [{ text: message }],
-          },
-        ],
-      }),
+  try {
+    const response = await fetch(
+      `${GEMINI_API_URL}?key=${encodeURIComponent(keys.gemini)}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [
+            {
+              role: "user",
+              parts: [{ text: "System: You are Aperonix, created by Mohammad Khan. User Message: " + message }]
+            }
+          ],
+          generationConfig: {
+            temperature: 0.7,
+            topK: 40,
+            topP: 0.95,
+            maxOutputTokens: 1024,
+          }
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error("Gemini Error Detail:", data);
+      throw new Error(data.error?.message || "API Error");
     }
-  );
 
-  if (!response.ok) throw new Error("API Error");
-
-  const data = await response.json();
-  return (
-    data.candidates?.[0]?.content?.parts?.[0]?.text ||
-    "No response received."
-  );
+    return (
+      data.candidates?.[0]?.content?.parts?.[0]?.text ||
+      "Bhai, AI ne koi jawab nahi diya."
+    );
+  } catch (err) {
+    console.error("Fetch Error:", err);
+    throw err;
+  }
 }
-
 // ================== SEND MESSAGE (Updated) ==================
 async function sendMessage() {
   const input = document.getElementById("chatInput");
