@@ -338,3 +338,29 @@ document.querySelectorAll('.toggle-visibility').forEach(button => {
         }
     };
 });
+// 1. History Save karne ka function
+function saveChatToHistory(userMsg, aiMsg) {
+    let history = JSON.parse(localStorage.getItem('chatHistory')) || [];
+    history.unshift({ user: userMsg, ai: aiMsg, time: new Date().toLocaleString() });
+    localStorage.setItem('chatHistory', JSON.stringify(history));
+    renderHistory(); // Nayi list dikhane ke liye
+}
+
+// 2. History dikhane (Render) karne ka function
+function renderHistory() {
+    const historyList = document.querySelector('.history-list');
+    if (!historyList) return;
+
+    let history = JSON.parse(localStorage.getItem('chatHistory')) || [];
+    historyList.innerHTML = history.map((item, index) => `
+        <button class="history-item" onclick="loadOldChat(${index})">
+            <span class="history-item-text">${item.user.substring(0, 20)}...</span>
+            <span class="history-item-delete" onclick="deleteHistory(event, ${index})">×</span>
+        </button>
+    `).join('');
+}
+
+// 3. Page load hote hi history dikhao
+document.addEventListener('DOMContentLoaded', () => {
+    renderHistory();
+});
