@@ -277,44 +277,26 @@ window.onload = function () {
     });
 };
 document.addEventListener("DOMContentLoaded", function () {
+    const sBtn = document.getElementById("settingsBtn");
+    const sModal = document.getElementById("settingsModal");
+    const cBtn = document.getElementById("closeSettings");
 
-    const settingsBtn = document.getElementById("settingsBtn");
-    const closeSettings = document.getElementById("closeSettings");
-    const newChatBtn = document.getElementById("newChatBtn");
-    const settingsModal = document.getElementById("settingsModal");
-
-    // FORCE OPEN SETTINGS MODAL
-    if (settingsBtn && settingsModal) {
-        settingsBtn.addEventListener("click", function () {
-
-            // Force display with !important
-            settingsModal.style.setProperty("display", "flex", "important");
-
-            // Force top layer
-            settingsModal.style.zIndex = "10000";
-
-            // Optional safety: full screen overlay
-            settingsModal.style.position = "fixed";
-            settingsModal.style.top = "0";
-            settingsModal.style.left = "0";
-            settingsModal.style.width = "100%";
-            settingsModal.style.height = "100%";
-
-        });
+    if (sBtn && sModal) {
+        sBtn.onclick = function(e) {
+            e.preventDefault();
+            // Hum class add kar rahe hain jo CSS se modal dikhayegi
+            sModal.classList.add("show-modal");
+            console.log("Settings opened!");
+        };
     }
 
-    // CLOSE SETTINGS MODAL
-    if (closeSettings && settingsModal) {
-        closeSettings.addEventListener("click", function () {
-            settingsModal.style.setProperty("display", "none", "important");
-        });
+    if (cBtn && sModal) {
+        cBtn.onclick = function() {
+            sModal.classList.remove("show-modal");
+        };
     }
-
-    // NEW CHAT BUTTON
-    if (newChatBtn) {
-        newChatBtn.addEventListener("click", function () {
-            window.location.reload();
-        });
-    }
-
+    
+    // New Chat Fix
+    const nBtn = document.getElementById("newChatBtn");
+    if(nBtn) nBtn.onclick = () => window.location.reload();
 });
