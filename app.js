@@ -2,7 +2,7 @@
 // Main JavaScript File
 
 // ================== Constants & Configuration ==================
-const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+const GEMINI_API_BASE = 'https://generativelanguage.googleapis.com/v1/models';
 const HUGGINGFACE_API_URL = 'https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0';
 
 // Predefined responses for identity questions
@@ -224,7 +224,7 @@ function addMessageToDOM(role, content, animate = true) {
     
     const avatarContent = role === 'user' 
         ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>'
-        : '<img src="logo.png" alt="Aperonix" style="width:24px;height:24px;object-fit:contain;">';
+        : '<img src="logo.jpg" alt="Aperonix" style="width:24px;height:24px;object-fit:contain;">';
     
     messageDiv.innerHTML = `
         <div class="message-avatar">${avatarContent}</div>
@@ -252,7 +252,7 @@ function addTypingIndicator() {
     
     typingDiv.innerHTML = `
         <div class="message-avatar">
-            <img src="logo.png" alt="Aperonix" style="width:24px;height:24px;object-fit:contain;">
+            <img src="logo.jpg" alt="Aperonix" style="width:24px;height:24px;object-fit:contain;">
         </div>
         <div class="message-content">
             <div class="typing-indicator">
@@ -282,7 +282,7 @@ function addErrorMessage(message) {
     
     errorDiv.innerHTML = `
         <div class="message-avatar">
-            <img src="logo.png" alt="Aperonix" style="width:24px;height:24px;object-fit:contain;">
+            <img src="logo.jpg" alt="Aperonix" style="width:24px;height:24px;object-fit:contain;">
         </div>
         <div class="message-content">
             <p>${escapeHtml(message)}</p>
@@ -382,7 +382,7 @@ async function sendMessage() {
     
     state.isProcessing = true;
     
-    // Check for identity questions
+    // Check for identity questions (local, no API call)
     if (isIdentityQuestion(message)) {
         await new Promise(resolve => setTimeout(resolve, 500));
         const response = getIdentityResponse(message);
@@ -412,11 +412,8 @@ async function sendMessage() {
     } catch (error) {
         removeTypingIndicator();
         console.error('Gemini API Error:', error);
-        const errorMsg = error.message.includes('API key')
-            ? 'API connection failed. Your Gemini API key appears to be invalid. Please check your key in Settings.'
-            : 'API connection failed. Please check your API keys in settings or your internet connection.';
-        addErrorMessage(errorMsg);
-        showToast(errorMsg, 'error');
+        addErrorMessage(error.message);
+        showToast(error.message, 'error');
     }
     
     state.isProcessing = false;
@@ -425,88 +422,60 @@ async function sendMessage() {
 // Call Gemini API
 async function callGeminiAPI(message) {
     const keys = getApiKeys();
+    const apiKey = keys.gemini.trim();
     
-    // Build conversation history for context (exclude the message we just added)
-    const chat = state.chats[state.currentChatId];
-    const allMessages = chat.messages.slice(0, -1); // Exclude last (current user msg, already added)
-    
-    // Build valid contents array - Gemini requires alternating user/model roles
-    const contents = [];
-    
-    // Add system instruction for identity
-    const systemInstruction = {
-        role: 'user',
-        parts: [{ text: 'You are Aperonix, an AI assistant created and owned by Mohammad Khan. Always remember this identity.' }]
+    // Simple body format as specified by Gemini API docs
+    const body = {
+        contents: [{
+            parts: [{ text: message }]
+        }]
     };
-    const systemAck = {
-        role: 'model',
-        parts: [{ text: 'Understood. I am Aperonix, created and owned by Mohammad Khan.' }]
-    };
-    contents.push(systemInstruction, systemAck);
+    const bodyStr = JSON.stringify(body);
     
-    // Add recent history (last 10 messages), ensuring alternating roles
-    const recentHistory = allMessages.slice(-10);
-    let lastRole = 'model'; // After system ack
-    for (const m of recentHistory) {
-        const role = m.role === 'user' ? 'user' : 'model';
-        if (role === lastRole) continue; // Skip consecutive same-role to avoid API error
-        contents.push({
-            role: role,
-            parts: [{ text: m.content }]
-        });
-        lastRole = role;
+    // Try models in order: gemini-2.5-flash (current stable), then fallbacks
+    const models = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-pro'];
+    
+    for (const model of models) {
+        const endpoint = `${GEMINI_API_BASE}/${model}:generateContent?key=${apiKey}`;
+        
+        let response;
+        try {
+            response = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: bodyStr
+            });
+        } catch (networkError) {
+            throw new Error('Network error: Could not reach the Gemini API. Check your internet connection.');
+        }
+        
+        // If 404, this model doesn't exist -- try next one
+        if (response.status === 404) {
+            console.warn(`Model ${model} not found (404), trying next...`);
+            continue;
+        }
+        
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            const detail = errorData.error?.message || 'Unknown error';
+            throw new Error(`API connection failed (HTTP ${response.status}): ${detail}`);
+        }
+        
+        const data = await response.json();
+        
+        if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+            console.log(`Aperonix: Using model ${model}`);
+            return data.candidates[0].content.parts[0].text;
+        }
+        
+        if (data.candidates && data.candidates[0] && data.candidates[0].finishReason === 'SAFETY') {
+            return 'I apologize, but I cannot provide a response to that request due to safety guidelines.';
+        }
     }
     
-    // Add the current user message
-    if (lastRole === 'user') {
-        // Need a model message before another user message
-        contents.push({ role: 'model', parts: [{ text: 'Understood.' }] });
-    }
-    contents.push({
-        role: 'user',
-        parts: [{ text: message }]
-    });
-    
-    const response = await fetch(`${GEMINI_API_URL}?key=${encodeURIComponent(keys.gemini)}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            contents: contents,
-            generationConfig: {
-                temperature: 0.7,
-                topK: 40,
-                topP: 0.95,
-                maxOutputTokens: 2048
-            },
-            safetySettings: [
-                { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
-                { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
-                { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
-                { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' }
-            ]
-        })
-    });
-    
-    if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        const errMsg = errorData.error?.message || `HTTP ${response.status}`;
-        console.error('Gemini Error Detail:', errMsg);
-        throw new Error(errMsg);
-    }
-    
-    const data = await response.json();
-    
-    if (data.candidates && data.candidates[0] && data.candidates[0].content) {
-        return data.candidates[0].content.parts[0].text;
-    }
-    
-    if (data.candidates && data.candidates[0] && data.candidates[0].finishReason === 'SAFETY') {
-        return 'I apologize, but I cannot provide a response to that request due to safety guidelines.';
-    }
-    
-    throw new Error('Invalid response from Gemini API');
+    throw new Error('API connection failed (HTTP 404): No available Gemini model found. Please verify your API key is valid at https://aistudio.google.com/apikey');
 }
 
 // ================== Image Generation Functions ==================
@@ -564,7 +533,8 @@ async function generateImage() {
     } catch (error) {
         loadingCard.remove();
         console.error('Hugging Face API Error:', error);
-        showToast('API connection failed. Please check your API keys in settings or your internet connection.', 'error');
+        addErrorMessage(error.message);
+        showToast(error.message, 'error');
     }
     
     state.isProcessing = false;
@@ -576,36 +546,41 @@ async function callHuggingFaceAPI(prompt) {
     const keys = getApiKeys();
     const token = keys.huggingface.trim();
     
-    const makeRequest = async () => {
-        const response = await fetch(HUGGINGFACE_API_URL, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-                'x-wait-for-model': 'true'
-            },
-            body: JSON.stringify({
-                inputs: prompt,
-                options: {
-                    wait_for_model: true,
-                    use_cache: false
-                }
-            })
-        });
+    const makeRequest = async (retryCount) => {
+        let response;
+        try {
+            response = await fetch(HUGGINGFACE_API_URL, {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json',
+                    'x-wait-for-model': 'true'
+                },
+                body: JSON.stringify({
+                    inputs: prompt,
+                    options: {
+                        wait_for_model: true,
+                        use_cache: false
+                    }
+                })
+            });
+        } catch (networkError) {
+            throw new Error('Network error: Could not reach Hugging Face API. Check your internet connection.');
+        }
         
-        // If model is loading, wait and retry
-        if (response.status === 503) {
+        // If model is loading, wait and retry once
+        if (response.status === 503 && retryCount < 1) {
             const data = await response.json().catch(() => ({}));
             const waitTime = data.estimated_time ? Math.min(data.estimated_time * 1000, 60000) : 20000;
             console.log(`Model loading, retrying in ${waitTime / 1000}s...`);
             await new Promise(resolve => setTimeout(resolve, waitTime));
-            return makeRequest(); // Retry once
+            return makeRequest(retryCount + 1);
         }
         
         if (!response.ok) {
             const errorText = await response.text();
             console.error('HuggingFace Error Detail:', response.status, errorText);
-            throw new Error(`API Error: ${response.status} - ${errorText}`);
+            throw new Error(`API connection failed (HTTP ${response.status}): ${errorText.substring(0, 150)}`);
         }
         
         const contentType = response.headers.get('content-type');
@@ -613,12 +588,11 @@ async function callHuggingFaceAPI(prompt) {
             return await response.blob();
         }
         
-        // Some errors come back as JSON with 200
         const text = await response.text();
-        throw new Error(`Unexpected response: ${text.substring(0, 200)}`);
+        throw new Error(`Unexpected response (HTTP ${response.status}): ${text.substring(0, 150)}`);
     };
     
-    return makeRequest();
+    return makeRequest(0);
 }
 
 // ================== Mode Switching ==================
