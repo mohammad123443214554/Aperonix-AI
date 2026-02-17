@@ -1,4 +1,3 @@
-
 // Aperonix AI Application
 // Main JavaScript File
 
@@ -768,31 +767,3 @@ function init() {
 
 // Start the application
 document.addEventListener('DOMContentLoaded', init);
-// Plus button click karne par gallery khulegi
-document.getElementById('imageUploadBtn').addEventListener('click', () => {
-    document.getElementById('fileInput').click();
-});
-// --- FINAL FIX FOR BUTTONS ---
-
-// 1. Settings kholne ke liye (Modal ID check karli hai)
-if (elements.settingsBtn) {
-    elements.settingsBtn.addEventListener('click', () => {
-        elements.settingModal.style.display = 'block'; 
-    });
-}
-
-// 2. Send Button ko chalu karo
-if (elements.sendBtn) {
-    elements.sendBtn.disabled = false; // Isse HTML wala 'disabled' hat jayega
-    elements.sendBtn.addEventListener('click', sendMessage);
-}
-
-// 3. Enter key se message bhejo
-if (elements.chatInput) {
-    elements.chatInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            sendMessage();
-        }
-    });
-}
