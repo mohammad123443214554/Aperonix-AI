@@ -1018,62 +1018,57 @@ body {
     border-radius: 15px;
     border: 1px solid #30363d;
 }
-/* --- TYPE BAR FIX --- */
-/* Ye dabba (container) poori screen par fail jayega */
 .input-container {
-    display: flex !important;
-    align-items: center !important;
-    width: 90% !important;        /* Bar ko 90% lamba karne ke liye */
-    max-width: 1000px !important;  /* Zyada badi screen par control ke liye */
-    margin: 20px auto !important;  /* Screen ke beech mein lane ke liye */
-    background: #161b22 !important;
-    padding: 10px 20px !important;
-    border-radius: 25px !important;
-    border: 1px solid #30363d !important;
-    position: relative !important;
+    display: flex;
+    align-items: center;
+    background: #1c2128;
+    padding: 10px 15px;
+    border-radius: 25px;
+    border: 1px solid #30363d;
+    margin: 20px;
 }
 
-/* Ye wo jagah hai jahan aap type karte ho */
 #userInput {
-    flex: 1 !important;           /* Sabse zaruri: ye bar ko lamba karta hai */
-    background: transparent !important;
-    border: none !important;
-    color: white !important;
-    padding: 10px !important;
-    outline: none !important;
-    font-size: 16px !important;
-    min-width: 200px !important;   /* Minimum lambai */
-}
-/* --- FINAL FULL WIDTH FIX --- */
-
-/* 1. Poore container ko lamba karo */
-.input-container {
-    display: flex !important;
-    width: 95% !important;        /* Screen ki 95% jagah lega */
-    max-width: 1200px !important;  /* Badi screen par itna lamba rahega */
-    margin: 20px auto !important;  /* Beech mein set karega */
-    padding: 12px 25px !important;
-    background: #161b22 !important;
-    border-radius: 30px !important;
-    border: 1px solid #30363d !important;
-    box-sizing: border-box !important; /* Calculation sahi rakhega */
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 10px;
+    outline: none;
+    font-size: 16px;
+    resize: none;
 }
 
-/* 2. Typing area ko kheench kar lamba karo */
-#userInput {
-    flex-grow: 1 !important;      /* Ye sabse main hai, ye bar ko kheench deta hai */
-    width: 100% !important;       /* Poori bachi hui jagah lega */
-    background: transparent !important;
-    border: none !important;
-    color: white !important;
-    font-size: 16px !important;
-    outline: none !important;
-    resize: none !important;
-    margin: 0 15px !important;    /* Buttons se thodi doori */
+.action-btn, .send-btn {
+    background: none;
+    border: none;
+    color: #00d2ff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: 0.3s;
 }
 
-/* 3. Buttons ko apni jagah par rakho */
-.plus-btn, .send-btn, .action-btn {
-    flex-shrink: 0 !important;    /* Buttons chote nahi honge */
-    min-width: 40px !important;
+.send-btn:hover { color: #fff; transform: scale(1.1); }
+.message-wrapper { margin-bottom: 20px; display: flex; flex-direction: column; }
+.message-wrapper.user { align-items: flex-end; }
+.message-wrapper.ai { align-items: flex-start; }
+
+.message-info { font-size: 12px; color: #8b949e; margin-bottom: 5px; display: flex; align-items: center; gap: 5px; }
+.ai-mini-logo { width: 20px; height: 20px; border-radius: 50%; }
+
+.message-text { 
+    max-width: 80%; 
+    padding: 12px 16px; 
+    border-radius: 15px; 
+    line-height: 1.5;
+}
+.user .message-text { background: #00d2ff; color: black; border-bottom-right-radius: 2px; }
+.ai .message-text { background: #21262d; color: white; border-bottom-left-radius: 2px; }
+
+.chat-img-preview { 
+    max-width: 100%; 
+    border-radius: 10px; 
+    display: block; 
+    margin-bottom: 10px; 
 }
