@@ -772,41 +772,63 @@ const sendBtn = document.getElementById('sendBtn');
 const plusBtn = document.getElementById('imageUploadBtn');
 const fileInput = document.getElementById('fileInput');
 const messagesContainer = document.getElementById('messagesContainer');
+const welcomeMessage = document.getElementById('welcomeMessage');
 
-// Plus button click functionality
+// File select hone par image preview dikhane ke liye
 plusBtn.addEventListener('click', () => fileInput.click());
 
-// Image select hone par kya hoga
 fileInput.addEventListener('change', function() {
     if (this.files && this.files[0]) {
         const reader = new FileReader();
         reader.onload = function(e) {
-            addMessage("Image selected: " + fileInput.files[0].name, 'user');
+            if(welcomeMessage) welcomeMessage.style.display = 'none';
+            addMessage("", 'user', e.target.result); // Image preview bhej rahe hain
         };
         reader.readAsDataURL(this.files[0]);
     }
 });
 
-// Message send karne ka function
-function sendMessage() {
+function addMessage(text, sender, imageData = null) {
+    // Welcome message hatao agar hai toh
+    if(welcomeMessage) welcomeMessage.style.display = 'none';
+
+    const msgWrapper = document.createElement('div');
+    msgWrapper.classList.add('message-wrapper', sender);
+
+    let contentHTML = "";
+    
+    if (sender === 'user') {
+        contentHTML = `
+            <div class="message-info">You</div>
+            <div class="message-text">
+                ${imageData ? `<img src="${imageData}" class="chat-img-preview">` : ''}
+                ${text}
+            </div>`;
+    } else {
+        contentHTML = `
+            <div class="message-info">
+                <img src="logo.jpg" class="ai-mini-logo"> Aperonix
+            </div>
+            <div class="message-text">${text}</div>`;
+    }
+
+    msgWrapper.innerHTML = contentHTML;
+    messagesContainer.appendChild(msgWrapper);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+function handleSend() {
     const text = userInput.value.trim();
     if (text !== "") {
         addMessage(text, 'user');
         userInput.value = "";
-        // AI response ka simulation
-        setTimeout(() => addMessage("Bhai, main samajh gaya! Aapka message mil gaya.", 'ai'), 1000);
+        
+        // AI Response simulation
+        setTimeout(() => {
+            addMessage("Bhai, main aapka message process kar raha hoon!", 'ai');
+        }, 800);
     }
 }
 
-function addMessage(text, type) {
-    const msgDiv = document.createElement('div');
-    msgDiv.classList.add('message', type + '-message');
-    msgDiv.innerText = text;
-    messagesContainer.appendChild(msgDiv);
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-}
-
-sendBtn.addEventListener('click', sendMessage);
-userInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') sendMessage();
-});
+sendBtn.addEventListener('click', handleSend);
+userInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') handleSend(); });
