@@ -3,7 +3,7 @@
 
 // ================== Constants & Configuration ==================
 const GEMINI_API_BASE = 'https://generativelanguage.googleapis.com/v1/models';
-const HUGGINGFACE_API_URL = 'https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0';
+const GEMINI_API_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent";
 
 // Predefined responses for identity questions
 const IDENTITY_RESPONSES = {
