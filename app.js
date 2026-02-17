@@ -772,3 +772,27 @@ document.addEventListener('DOMContentLoaded', init);
 document.getElementById('imageUploadBtn').addEventListener('click', () => {
     document.getElementById('fileInput').click();
 });
+// --- BUTTONS KO ACTIVE KARNE KA SAHI CODE ---
+
+// 1. Settings Modal kholne ke liye
+if (elements.settingsBtn) {
+    elements.settingsBtn.onclick = () => {
+        elements.settingModal.style.display = 'block'; // Aapki modal ID 'idSettingModal' hai
+    };
+}
+
+// 2. Send Button ko chalu karne ke liye
+if (elements.sendBtn) {
+    elements.sendBtn.onclick = sendMessage;
+    // index.html mein line 106 se 'disabled' hata dena tabhi ye chalega
+}
+
+// 3. Enter key dabane par message bhejne ke liye
+if (elements.chatInput) {
+    elements.chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+        }
+    });
+}
