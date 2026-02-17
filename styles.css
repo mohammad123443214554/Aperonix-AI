@@ -603,15 +603,6 @@ body {
     flex-direction: column;
 }
 
-.generated-images {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
-}
-
 .image-card {
     background: var(--bg-secondary);
     border: 1px solid var(--border-color);
