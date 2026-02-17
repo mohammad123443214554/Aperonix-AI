@@ -3,154 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Aperonix</title>
+    <title>About Aperonix | Mohammad Khan</title>
     <style>
-        /* Global Styles */
-        body {
+        * {
             margin: 0;
             padding: 0;
-            background-color: #000000;
-            color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            box-sizing: border-box;
         }
 
-        /* Container for the About Section */
-        .about-container {
-            display: flex;
-            max-width: 900px;
-            width: 90%;
-            background: #0b0e14; /* Dark card background */
-            border: 1px solid #333;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 0 50px rgba(0, 210, 255, 0.1);
-        }
-
-        /* Left Side: Image */
-        .image-section {
-            flex: 1;
+        body, html {
+            height: 100%;
+            font-family: 'Segoe UI', Roboto, sans-serif;
             background-color: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            color: white;
             overflow: hidden;
         }
 
-        .image-section img {
+        /* Full Screen Background Image */
+        .bg-image {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            opacity: 0.9;
+            background-image: linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.2)), url('about-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
         }
 
-        /* Right Side: Content */
-        .content-section {
-            flex: 1;
-            padding: 40px;
+        /* Main Content Wrapper */
+        .overlay {
+            height: 100vh;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
+            align-items: center;
+            padding-left: 8%;
+        }
+
+        .content {
+            max-width: 600px;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .tagline {
+            color: #00d2ff;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: block;
         }
 
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, #fff, #00d2ff);
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #ffffff, #00d2ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .subtitle {
-            font-size: 1.1rem;
-            color: #00d2ff;
-            margin-bottom: 20px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
         p {
-            color: #aaa;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            font-size: 0.95rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #cccccc;
+            margin-bottom: 30px;
         }
 
-        /* Founder Info Box */
-        .founder-info {
-            border-top: 1px solid #333;
-            padding-top: 20px;
-            margin-top: 20px;
+        /* Founder Section */
+        .founder-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-left: 4px solid #00d2ff;
+            border-radius: 0 15px 15px 0;
+            margin-bottom: 40px;
         }
 
-        .founder-name {
-            font-size: 1.2rem;
-            color: white;
-            font-weight: bold;
+        .founder-card h3 {
+            font-size: 1.5rem;
+            color: #ffffff;
+            margin-bottom: 5px;
         }
 
-        .founder-role {
+        .founder-card span {
             color: #00d2ff;
             font-size: 0.9rem;
+            font-weight: 600;
         }
 
         .back-btn {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 10px 25px;
-            background: transparent;
-            border: 1px solid #00d2ff;
-            color: #00d2ff;
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 35px;
+            background: #00d2ff;
+            color: #000;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 50px;
             font-weight: bold;
+            font-size: 1rem;
             transition: 0.3s;
-            text-align: center;
-            width: fit-content;
+            box-shadow: 0 10px 20px rgba(0, 210, 255, 0.3);
         }
 
         .back-btn:hover {
-            background: #00d2ff;
-            color: #000;
-            box-shadow: 0 0 15px rgba(0, 210, 255, 0.5);
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 210, 255, 0.5);
+            background: #ffffff;
         }
 
-        /* Mobile Responsive */
+        /* Responsive */
         @media (max-width: 768px) {
-            .about-container {
-                flex-direction: column;
-            }
-            .image-section {
-                height: 250px;
-            }
+            h1 { font-size: 2.5rem; }
+            .overlay { padding: 20px; justify-content: center; text-align: center; }
+            .founder-card { border-radius: 15px; border-left: none; border-top: 4px solid #00d2ff; }
         }
     </style>
 </head>
 <body>
 
-    <div class="about-container">
-        <div class="image-section">
-            <img src="about-image.jpg" alt="Aperonix AI Vision">
-        </div>
+    <div class="bg-image"></div>
 
-        <div class="content-section">
-            <div class="subtitle">Next Gen AI</div>
-            <h1>About Aperonix</h1>
+    <div class="overlay">
+        <div class="content">
+            <span class="tagline">The Future is Here</span>
+            <h1>Aperonix AI</h1>
             <p>
-                Aperonix is not just a tool; it is a vision of the future. Designed to bridge the gap between human creativity and artificial intelligence, Aperonix provides seamless, intelligent, and secure assistance for everyone.
-            </p>
-            <p>
-                From generating complex code to creating stunning visuals, our mission is to empower the world with accessible and powerful AI technology.
+                Aperonix is a high-performance artificial intelligence platform designed to redefine human-digital interaction. Built with cutting-edge neural processing, it provides real-time intelligent solutions, creative content generation, and seamless problem-solving capabilities.
             </p>
 
-            <div class="founder-info">
-                <div class="founder-name">Mohammad Khan</div>
-                <div class="founder-role">Founder & Lead Developer</div>
-                <p style="margin-top: 5px; font-size: 0.85rem;">EST. 2024</p>
+            <div class="founder-card">
+                <h3>Mohammad Khan</h3>
+                <span>Founder & Lead Architect</span>
+                <p style="margin: 5px 0 0 0; font-size: 0.8rem; color: #888;">ESTABLISHED 2024</p>
             </div>
 
             <a href="index.html" class="back-btn">← Back to Chat</a>
