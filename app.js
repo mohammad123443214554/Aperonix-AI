@@ -669,7 +669,7 @@ function initEventListeners() {
         elements.chatInput.style.height = Math.min(elements.chatInput.scrollHeight, 150) + 'px';
         
         // Enable/disable send button
-        elements.sendBtn.disabled = !elements.chatInput.value.trim() || state.isProcessing;
+        elements.sendBtn = !elements.chatInput.value.trim() || state.isProcessing;
     });
     
     elements.chatInput.addEventListener('keydown', (e) => {
