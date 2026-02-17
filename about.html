@@ -6,64 +6,60 @@
     <title>About Aperonix | Mohammad Khan</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body, html { height: 100%; font-family: 'Segoe UI', sans-serif; background-color: #050505; color: white; overflow: hidden; }
+        body, html { height: 100%; font-family: 'Segoe UI', sans-serif; background-color: #050505; color: white; overflow-x: hidden; }
 
         /* FULL SCREEN BACKGROUND */
         .bg-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            /* YAHA CHECK KAREIN: bg-image.png sahi hona chahiye */
-            background: linear-gradient(to right, rgba(0,0,0,0.95) 20%, rgba(0,0,0,0.1) 100%), 
-                        url('./bg-image.png'); 
+            /* Bhai yaha dhyan dena, filename 'bg.jpg' hona chahiye */
+            background: linear-gradient(to right, rgba(0,0,0,0.9) 30%, rgba(0,0,0,0.2) 100%), 
+                        url('./bg.jpg'); 
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
             z-index: -1;
         }
 
         .main-wrapper { height: 100vh; display: flex; align-items: center; padding: 0 8%; }
-        .info-content { max-width: 600px; animation: fadeInUp 1s ease-out; }
+        .info-content { max-width: 600px; animation: fadeIn 1.2s ease-out; }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
 
-        h1 { font-size: 4.5rem; margin-bottom: 15px; background: linear-gradient(to right, #fff, #00d2ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; }
-        p { font-size: 1.1rem; line-height: 1.8; color: #bdc3c7; margin-bottom: 35px; }
+        h1 { font-size: 4.5rem; margin-bottom: 10px; background: linear-gradient(to right, #fff, #00d2ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; }
+        .tagline { color: #00d2ff; letter-spacing: 4px; font-weight: bold; text-transform: uppercase; font-size: 13px; margin-bottom: 25px; display: block; }
+        p { color: #bdc3c7; line-height: 1.8; margin-bottom: 35px; font-size: 1.15rem; }
 
+        /* FOUNDER CARD */
         .founder-box {
-            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px);
-            padding: 25px; border-left: 4px solid #00d2ff; border-radius: 0 15px 15px 0; margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px);
+            padding: 25px; border-left: 5px solid #00d2ff; border-radius: 0 20px 20px 0; margin-bottom: 40px;
         }
-        .founder-box h2 { font-size: 1.7rem; color: #fff; }
-        .founder-box .role { color: #00d2ff; font-weight: 600; font-size: 0.9rem; }
+        .founder-box h2 { font-size: 1.8rem; margin: 0; }
+        .founder-box .role { color: #00d2ff; font-weight: 600; font-size: 1rem; display: block; margin-top: 5px; }
 
-        .btn-return {
-            display: inline-block; padding: 12px 40px; background: #00d2ff; color: #00;
-            text-decoration: none; border-radius: 4px; font-weight: 800; transition: 0.3s;
+        .btn-back {
+            display: inline-block; padding: 14px 45px; background: #00d2ff; color: #000;
+            text-decoration: none; border-radius: 4px; font-weight: 800; text-transform: uppercase;
+            transition: 0.3s; box-shadow: 0 10px 20px rgba(0, 210, 255, 0.3);
         }
-        .btn-return:hover { background: #fff; transform: translateY(-3px); }
+        .btn-back:hover { background: #fff; transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0, 210, 255, 0.5); }
     </style>
 </head>
 <body>
-
     <div class="bg-container"></div>
-
     <div class="main-wrapper">
         <div class="info-content">
-            <span style="color:#00d2ff; letter-spacing:3px; font-weight:bold;">SYSTEM OVERVIEW</span>
+            <span class="tagline">Neural Network Interface</span>
             <h1>Aperonix AI</h1>
-            <p>Aperonix is a high-performance neural architecture built to empower creators. Engineered for precision, it bridges the gap between human intuition and machine processing.</p>
+            <p>Aperonix is a high-performance artificial intelligence platform designed by Mohammad Khan to bridge the gap between human creativity and machine logic. It provides seamless, real-time intelligent solutions for the modern era.</p>
 
             <div class="founder-box">
                 <h2>Mohammad Khan</h2>
                 <span class="role">Founder & Chief Architect</span>
-                <p style="margin-top: 5px; font-size: 0.8rem; color: #666;">ESTABLISHED 2026</p>
+                <p style="margin-top: 10px; font-size: 0.85rem; color: #888;">ESTABLISHED 2026</p>
             </div>
 
-            <a href="index.html" class="btn-return">← Back to Dashboard</a>
+            <a href="index.html" class="btn-back">← Back to Dashboard</a>
         </div>
     </div>
-
 </body>
 </html>
