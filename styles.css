@@ -1044,3 +1044,36 @@ body {
     font-size: 16px !important;
     min-width: 200px !important;   /* Minimum lambai */
 }
+/* --- FINAL FULL WIDTH FIX --- */
+
+/* 1. Poore container ko lamba karo */
+.input-container {
+    display: flex !important;
+    width: 95% !important;        /* Screen ki 95% jagah lega */
+    max-width: 1200px !important;  /* Badi screen par itna lamba rahega */
+    margin: 20px auto !important;  /* Beech mein set karega */
+    padding: 12px 25px !important;
+    background: #161b22 !important;
+    border-radius: 30px !important;
+    border: 1px solid #30363d !important;
+    box-sizing: border-box !important; /* Calculation sahi rakhega */
+}
+
+/* 2. Typing area ko kheench kar lamba karo */
+#userInput {
+    flex-grow: 1 !important;      /* Ye sabse main hai, ye bar ko kheench deta hai */
+    width: 100% !important;       /* Poori bachi hui jagah lega */
+    background: transparent !important;
+    border: none !important;
+    color: white !important;
+    font-size: 16px !important;
+    outline: none !important;
+    resize: none !important;
+    margin: 0 15px !important;    /* Buttons se thodi doori */
+}
+
+/* 3. Buttons ko apni jagah par rakho */
+.plus-btn, .send-btn, .action-btn {
+    flex-shrink: 0 !important;    /* Buttons chote nahi honge */
+    min-width: 40px !important;
+}
