@@ -1045,3 +1045,23 @@ body {
     margin-top: 10px;
     border: 2px solid #00d2ff;
 }
+/* --- TYPE BAR FULL WIDTH FIX --- */
+.input-container {
+    width: 95% !important;        /* Bar ko poora lamba karne ke liye */
+    max-width: 1100px !important;  /* Badi screen par limit ke liye */
+    margin: 20px auto !important;  /* Beech mein set karne ke liye */
+}
+
+.input-wrapper {
+    display: flex !important;
+    width: 100% !important;
+    align-items: center !important;
+}
+
+#userInput {
+    flex: 1 !important;           /* Ye asli 'Lamba' karne wala code hai */
+    min-height: 45px !important;
+    background: transparent !important;
+    border: none !important;
+    color: white !important;
+}
