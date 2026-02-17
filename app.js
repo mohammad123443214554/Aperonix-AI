@@ -767,7 +767,3 @@ function init() {
 
 // Start the application
 document.addEventListener('DOMContentLoaded', init);
-// Plus button click karne par gallery khulegi
-document.getElementById('imageUploadBtn').addEventListener('click', () => {
-    document.getElementById('fileInput').click();
-});
