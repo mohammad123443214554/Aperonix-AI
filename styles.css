@@ -1018,3 +1018,30 @@ body {
     border-radius: 15px;
     border: 1px solid #30363d;
 }
+/* Type bar ko lamba aur professional banane ke liye */
+.input-container {
+    display: flex !important;
+    width: 90% !important;
+    max-width: 1000px !important;
+    margin: 20px auto !important;
+    background: #161b22 !important;
+    padding: 10px 20px !important;
+    border-radius: 25px !important;
+}
+
+#userInput {
+    flex: 1 !important; /* Ye bar ko kheench kar lamba karega */
+    background: transparent !important;
+    border: none !important;
+    color: white !important;
+    outline: none !important;
+}
+
+/* AI jo image banayega uska size */
+.generated-image {
+    width: 100%;
+    max-width: 450px;
+    border-radius: 15px;
+    margin-top: 10px;
+    border: 2px solid #00d2ff;
+}
