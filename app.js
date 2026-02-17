@@ -1,3 +1,4 @@
+
 // Aperonix AI Application
 // Main JavaScript File
 
@@ -378,7 +379,7 @@ async function sendMessage() {
     // Clear input
     elements.chatInput.value = '';
     elements.chatInput.style.height = 'auto';
-    elements.sendBtn = true;
+    elements.sendBtn.disabled = true;
     
     state.isProcessing = true;
     
@@ -669,7 +670,7 @@ function initEventListeners() {
         elements.chatInput.style.height = Math.min(elements.chatInput.scrollHeight, 150) + 'px';
         
         // Enable/disable send button
-        elements.sendBtn = !elements.chatInput.value.trim() || state.isProcessing;
+        elements.sendBtn.disabled = !elements.chatInput.value.trim() || state.isProcessing;
     });
     
     elements.chatInput.addEventListener('keydown', (e) => {
