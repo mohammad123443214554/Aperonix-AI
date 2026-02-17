@@ -1018,3 +1018,35 @@ body {
     border-radius: 15px;
     border: 1px solid #30363d;
 }
+.input-container {
+    display: flex;
+    align-items: center;
+    background: #1c2128;
+    padding: 10px 15px;
+    border-radius: 25px;
+    border: 1px solid #30363d;
+    margin: 20px;
+}
+
+#userInput {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 10px;
+    outline: none;
+    font-size: 16px;
+    resize: none;
+}
+
+.action-btn, .send-btn {
+    background: none;
+    border: none;
+    color: #00d2ff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.send-btn:hover { color: #fff; transform: scale(1.1); }
