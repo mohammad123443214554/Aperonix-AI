@@ -1050,3 +1050,25 @@ body {
 }
 
 .send-btn:hover { color: #fff; transform: scale(1.1); }
+.message-wrapper { margin-bottom: 20px; display: flex; flex-direction: column; }
+.message-wrapper.user { align-items: flex-end; }
+.message-wrapper.ai { align-items: flex-start; }
+
+.message-info { font-size: 12px; color: #8b949e; margin-bottom: 5px; display: flex; align-items: center; gap: 5px; }
+.ai-mini-logo { width: 20px; height: 20px; border-radius: 50%; }
+
+.message-text { 
+    max-width: 80%; 
+    padding: 12px 16px; 
+    border-radius: 15px; 
+    line-height: 1.5;
+}
+.user .message-text { background: #00d2ff; color: black; border-bottom-right-radius: 2px; }
+.ai .message-text { background: #21262d; color: white; border-bottom-left-radius: 2px; }
+
+.chat-img-preview { 
+    max-width: 100%; 
+    border-radius: 10px; 
+    display: block; 
+    margin-bottom: 10px; 
+}
