@@ -368,6 +368,22 @@ async function sendMessage() {
     const message = elements.chatInput.value.trim();
     if (!message || state.isProcessing) return;
     
+    // --- NANO BANANA LOGIC START ---
+    const lowerText = message.toLowerCase();
+    if (lowerText.includes("photo") || lowerText.includes("banao") || lowerText.includes("image")) {
+        const seed = Math.floor(Math.random() * 1000);
+        const imageUrl = `https://pollinations.ai/p/${encodeURIComponent(message)}?width=1024&height=1024&seed=${seed}&model=flux`;
+        
+        // Image message ko screen par dikhana
+        addMessageToDOM('assistant', "Bhai, aapke liye image taiyar hai!", imageUrl); 
+        
+        // Input saaf karna aur processing rokna
+        elements.chatInput.value = '';
+        state.isProcessing = false;
+        return; 
+    }
+    // --- NANO BANANA LOGIC END ---
+    
     // Hide welcome message
     elements.welcomeMessage.style.display = 'none';
     
