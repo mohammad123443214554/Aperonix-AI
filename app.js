@@ -367,19 +367,7 @@ function addMessageToChat(role, content) {
 async function sendMessage() {
     const message = elements.chatInput.value.trim();
     if (!message || state.isProcessing) return;
-
-    // --- NANO BANANA LOGIC (YAHAN HONA CHAHIYE) ---
-    const lowerText = message.toLowerCase();
-    if (lowerText.includes("photo") || lowerText.includes("banao") || lowerText.includes("image")) {
-        const seed = Math.floor(Math.random() * 1000);
-        const imageUrl = `https://pollinations.ai/p/${encodeURIComponent(message)}?width=1024&height=1024&seed=${seed}&model=flux`;
-        
-        addMessageToDOM('assistant', "Bhai, aapke liye image taiyar hai!", imageUrl); 
-        
-        elements.chatInput.value = '';
-        state.isProcessing = false;
-        return; // YE 'RETURN' ZARURI HAI taaki Hugging Face tak code na jaye!
-        
+    
     // ----------------------------------------------
     }
     // Hide welcome message
