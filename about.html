@@ -4,35 +4,131 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About | Aperonix AI</title>
-<link rel="stylesheet" href="style.css">
-</head>
 
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI, sans-serif;
+}
+
+body{
+    background:#000;
+    color:#fff;
+}
+
+.about{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:80px 10%;
+    min-height:100vh;
+}
+
+.left{
+    max-width:600px;
+}
+
+.tag{
+    color:#00f7ff;
+    letter-spacing:3px;
+    font-size:14px;
+    margin-bottom:20px;
+}
+
+h1{
+    font-size:60px;
+    margin-bottom:20px;
+}
+
+h1 span{
+    color:#00f7ff;
+}
+
+.desc{
+    color:#aaa;
+    line-height:1.6;
+    margin-bottom:30px;
+}
+
+.card{
+    background:#111;
+    padding:25px;
+    border-left:4px solid #00f7ff;
+    border-radius:12px;
+    margin-bottom:30px;
+}
+
+.role{
+    color:#00f7ff;
+}
+
+.year{
+    font-size:13px;
+    color:#777;
+}
+
+.btn{
+    display:inline-block;
+    padding:12px 25px;
+    background:#00f7ff;
+    color:#000;
+    text-decoration:none;
+    border-radius:8px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.btn:hover{
+    background:#00cbd3;
+}
+
+.right img{
+    width:450px;
+    max-width:100%;
+}
+
+/* Mobile Responsive */
+@media(max-width:900px){
+    .about{
+        flex-direction:column;
+        text-align:center;
+    }
+    .right{
+        margin-top:40px;
+    }
+}
+</style>
+
+</head>
 <body>
 
-<section class="about-container">
+<section class="about">
 
-    <div class="about-left">
-        <h5 class="tagline">NEURAL NETWORK INTERFACE</h5>
-        <h1>Aperonix <span>AI</span></h1>
+<div class="left">
+<p class="tag">NEURAL NETWORK INTERFACE</p>
 
-        <p>
-            Aperonix is a high-performance artificial intelligence platform designed by
-            Mohammad Khan to bridge the gap between human creativity and machine logic.
-            It delivers seamless, real-time intelligent solutions for the modern digital era.
-        </p>
+<h1>Aperonix <span>AI</span></h1>
 
-        <div class="founder-card">
-            <h3>Mohammad Khan</h3>
-            <p class="role">Founder & Chief Architect</p>
-            <p class="year">ESTABLISHED 2026</p>
-        </div>
+<p class="desc">
+Aperonix is a high-performance artificial intelligence platform designed by 
+Mohammad Khan to bridge the gap between human creativity and machine logic. 
+It delivers seamless, real-time intelligent solutions for the modern digital era.
+</p>
 
-        <a href="index.html" class="btn">← BACK TO DASHBOARD</a>
-    </div>
+<div class="card">
+<h3>Mohammad Khan</h3>
+<p class="role">Founder & Chief Architect</p>
+<p class="year">ESTABLISHED 2026</p>
+</div>
 
-    <div class="about-right">
-        <img src="assets/ai-head.png" alt="Aperonix AI Head" class="ai-image">
-    </div>
+<a href="index.html" class="btn">← BACK TO DASHBOARD</a>
+</div>
+
+<div class="right">
+<img src="assets/ai-head.png" alt="AI Head">
+</div>
 
 </section>
 
