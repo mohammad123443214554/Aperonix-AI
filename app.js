@@ -772,20 +772,27 @@ document.addEventListener('DOMContentLoaded', init);
 document.getElementById('imageUploadBtn').addEventListener('click', () => {
     document.getElementById('fileInput').click();
 });
-// --- Yahan paste karein ---
+// --- FINAL FIX FOR BUTTONS ---
 
-// 1. Settings Button se Modal khulega
-document.getElementById('settingsBtn').onclick = () => {
-    document.getElementById('idSettingModal').style.display = 'block';
-};
+// 1. Settings kholne ke liye (Modal ID check karli hai)
+if (elements.settingsBtn) {
+    elements.settingsBtn.addEventListener('click', () => {
+        elements.settingModal.style.display = 'block'; 
+    });
+}
 
 // 2. Send Button ko chalu karo
-document.getElementById('sendBtn').onclick = sendMessage;
+if (elements.sendBtn) {
+    elements.sendBtn.disabled = false; // Isse HTML wala 'disabled' hat jayega
+    elements.sendBtn.addEventListener('click', sendMessage);
+}
 
-// 3. Enter key se message jaye
-document.getElementById('userInput').addEventListener('keypress', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        sendMessage();
-    }
-});
+// 3. Enter key se message bhejo
+if (elements.chatInput) {
+    elements.chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+        }
+    });
+}
