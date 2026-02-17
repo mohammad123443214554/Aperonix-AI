@@ -1018,3 +1018,29 @@ body {
     border-radius: 15px;
     border: 1px solid #30363d;
 }
+/* --- TYPE BAR FIX --- */
+/* Ye dabba (container) poori screen par fail jayega */
+.input-container {
+    display: flex !important;
+    align-items: center !important;
+    width: 90% !important;        /* Bar ko 90% lamba karne ke liye */
+    max-width: 1000px !important;  /* Zyada badi screen par control ke liye */
+    margin: 20px auto !important;  /* Screen ke beech mein lane ke liye */
+    background: #161b22 !important;
+    padding: 10px 20px !important;
+    border-radius: 25px !important;
+    border: 1px solid #30363d !important;
+    position: relative !important;
+}
+
+/* Ye wo jagah hai jahan aap type karte ho */
+#userInput {
+    flex: 1 !important;           /* Sabse zaruri: ye bar ko lamba karta hai */
+    background: transparent !important;
+    border: none !important;
+    color: white !important;
+    padding: 10px !important;
+    outline: none !important;
+    font-size: 16px !important;
+    min-width: 200px !important;   /* Minimum lambai */
+}
