@@ -378,7 +378,7 @@ async function sendMessage() {
     // Clear input
     elements.chatInput.value = '';
     elements.chatInput.style.height = 'auto';
-    elements.sendBtn.disabled = true;
+    elements.sendBtn = true;
     
     state.isProcessing = true;
     
