@@ -985,3 +985,36 @@ body {
 .message.error .message-content p {
     color: var(--error-color);
 }
+/* --- Image Upload Plus Button Styling --- */
+.action-btn {
+    background: transparent;
+    border: none;
+    color: #00d2ff; /* Aapka theme color */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    transition: all 0.3s ease;
+    border-radius: 50%;
+}
+
+.action-btn:hover {
+    background: rgba(0, 210, 255, 0.1);
+    transform: scale(1.1) rotate(90deg); /* Hover karne par ghumega */
+}
+
+.action-btn svg {
+    stroke: #00d2ff;
+}
+
+/* Input container ko thoda adjust karne ke liye */
+.input-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #161b22; /* Aapki chat box ka background color */
+    padding: 8px 15px;
+    border-radius: 15px;
+    border: 1px solid #30363d;
+}
