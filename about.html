@@ -4,45 +4,158 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Aperonix</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
+        /* Global Styles */
         body {
-            display: flex; justify-content: center; align-items: center;
-            min-height: 100vh; background: #0b0e14; margin: 0; font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1); padding: 40px;
-            border-radius: 24px; text-align: center; max-width: 450px; width: 90%;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+
+        /* Container for the About Section */
+        .about-container {
+            display: flex;
+            max-width: 900px;
+            width: 90%;
+            background: #0b0e14; /* Dark card background */
+            border: 1px solid #333;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(0, 210, 255, 0.1);
         }
-        h1 { color: #00d2ff; font-size: 2.2rem; margin-bottom: 10px; }
-        .creator { color: #888; margin-bottom: 30px; font-size: 0.9rem; letter-spacing: 1px; }
-        .feature-box {
-            text-align: left; background: rgba(0,0,0,0.2);
-            padding: 20px; border-radius: 15px; margin-bottom: 25px;
+
+        /* Left Side: Image */
+        .image-section {
+            flex: 1;
+            background-color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
         }
-        .feature-box p { color: #ccc; font-size: 0.95rem; margin: 8px 0; display: flex; align-items: center; gap: 10px; }
+
+        .image-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.9;
+        }
+
+        /* Right Side: Content */
+        .content-section {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #fff, #00d2ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #00d2ff;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        p {
+            color: #aaa;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        /* Founder Info Box */
+        .founder-info {
+            border-top: 1px solid #333;
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+
+        .founder-name {
+            font-size: 1.2rem;
+            color: white;
+            font-weight: bold;
+        }
+
+        .founder-role {
+            color: #00d2ff;
+            font-size: 0.9rem;
+        }
+
         .back-btn {
-            display: inline-block; background: #00d2ff; color: #000;
-            text-decoration: none; padding: 12px 30px; border-radius: 12px;
-            font-weight: bold; transition: 0.3s;
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 25px;
+            background: transparent;
+            border: 1px solid #00d2ff;
+            color: #00d2ff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: 0.3s;
+            text-align: center;
+            width: fit-content;
         }
-        .back-btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0, 210, 255, 0.4); }
+
+        .back-btn:hover {
+            background: #00d2ff;
+            color: #000;
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.5);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .about-container {
+                flex-direction: column;
+            }
+            .image-section {
+                height: 250px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="glass-card">
-        <h1>Aperonix AI</h1>
-        <p class="creator">BY <strong>[Mohammad khan]</strong></p>
-        
-        <div class="feature-box">
-            <p>🚀 <strong>Fast:</strong> Real-time AI responses.</p>
-            <p>🎨 <strong>Creative:</strong> Professional Image generation.</p>
-            <p>🔒 <strong>Secure:</strong> Encrypted API key storage.</p>
+
+    <div class="about-container">
+        <div class="image-section">
+            <img src="about-image.jpg" alt="Aperonix AI Vision">
         </div>
 
-        <a href="index.html" class="back-btn">← Back to Chat</a>
+        <div class="content-section">
+            <div class="subtitle">Next Gen AI</div>
+            <h1>About Aperonix</h1>
+            <p>
+                Aperonix is not just a tool; it is a vision of the future. Designed to bridge the gap between human creativity and artificial intelligence, Aperonix provides seamless, intelligent, and secure assistance for everyone.
+            </p>
+            <p>
+                From generating complex code to creating stunning visuals, our mission is to empower the world with accessible and powerful AI technology.
+            </p>
+
+            <div class="founder-info">
+                <div class="founder-name">Mohammad Khan</div>
+                <div class="founder-role">Founder & Lead Developer</div>
+                <p style="margin-top: 5px; font-size: 0.85rem;">EST. 2024</p>
+            </div>
+
+            <a href="index.html" class="back-btn">← Back to Chat</a>
+        </div>
     </div>
+
 </body>
 </html>
