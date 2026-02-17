@@ -767,7 +767,46 @@ function init() {
 
 // Start the application
 document.addEventListener('DOMContentLoaded', init);
-// Plus button click karne par gallery khulegi
-document.getElementById('imageUploadBtn').addEventListener('click', () => {
-    document.getElementById('fileInput').click();
+const userInput = document.getElementById('userInput');
+const sendBtn = document.getElementById('sendBtn');
+const plusBtn = document.getElementById('imageUploadBtn');
+const fileInput = document.getElementById('fileInput');
+const messagesContainer = document.getElementById('messagesContainer');
+
+// Plus button click functionality
+plusBtn.addEventListener('click', () => fileInput.click());
+
+// Image select hone par kya hoga
+fileInput.addEventListener('change', function() {
+    if (this.files && this.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            addMessage("Image selected: " + fileInput.files[0].name, 'user');
+        };
+        reader.readAsDataURL(this.files[0]);
+    }
+});
+
+// Message send karne ka function
+function sendMessage() {
+    const text = userInput.value.trim();
+    if (text !== "") {
+        addMessage(text, 'user');
+        userInput.value = "";
+        // AI response ka simulation
+        setTimeout(() => addMessage("Bhai, main samajh gaya! Aapka message mil gaya.", 'ai'), 1000);
+    }
+}
+
+function addMessage(text, type) {
+    const msgDiv = document.createElement('div');
+    msgDiv.classList.add('message', type + '-message');
+    msgDiv.innerText = text;
+    messagesContainer.appendChild(msgDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+sendBtn.addEventListener('click', sendMessage);
+userInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') sendMessage();
 });
