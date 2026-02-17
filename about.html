@@ -19,34 +19,36 @@
             overflow: hidden;
         }
 
-        /* Full Screen Background Image */
+        /* Full Screen Background Image (PNG Support) */
         .bg-image {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.2)), url('about-bg.jpg');
+            /* Bhai yahan dhyan dena, naam bg-image.png hona chahiye */
+            background-image: linear-gradient(to right, rgba(0,0,0,0.85), rgba(0,0,0,0.3)), url('bg-image.png');
             background-size: cover;
             background-position: center;
             z-index: -1;
         }
 
-        /* Main Content Wrapper */
+        /* Content Container */
         .overlay {
             height: 100vh;
             display: flex;
             align-items: center;
             padding-left: 8%;
+            background: radial-gradient(circle at 20%, rgba(0, 210, 255, 0.05) 0%, transparent 50%);
         }
 
         .content {
-            max-width: 600px;
-            animation: fadeIn 1.5s ease-out;
+            max-width: 650px;
+            animation: slideIn 1.2s ease-out;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateX(-30px); }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-50px); }
             to { opacity: 1; transform: translateX(0); }
         }
 
@@ -54,75 +56,84 @@
             color: #00d2ff;
             font-size: 14px;
             font-weight: bold;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             display: block;
         }
 
         h1 {
-            font-size: 4rem;
-            font-weight: 800;
+            font-size: 4.5rem;
+            font-weight: 900;
             margin-bottom: 20px;
-            background: linear-gradient(to right, #ffffff, #00d2ff);
+            background: linear-gradient(to right, #ffffff, #00d2ff, #ffffff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 10px rgba(0, 210, 255, 0.3));
         }
 
         p {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             line-height: 1.8;
-            color: #cccccc;
-            margin-bottom: 30px;
+            color: #bdc3c7;
+            margin-bottom: 35px;
         }
 
-        /* Founder Section */
-        .founder-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            padding: 20px;
-            border-left: 4px solid #00d2ff;
-            border-radius: 0 15px 15px 0;
+        /* Founder Professional Card */
+        .founder-box {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 25px;
+            border-left: 5px solid #00d2ff;
+            border-radius: 4px 20px 20px 4px;
             margin-bottom: 40px;
+            box-shadow: 20px 20px 50px rgba(0,0,0,0.5);
         }
 
-        .founder-card h3 {
-            font-size: 1.5rem;
+        .founder-box h3 {
+            font-size: 1.8rem;
             color: #ffffff;
-            margin-bottom: 5px;
+            margin: 0;
+            letter-spacing: 1px;
         }
 
-        .founder-card span {
+        .founder-box .role {
             color: #00d2ff;
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: 600;
+            display: block;
+            margin-top: 5px;
         }
 
         .back-btn {
             display: inline-flex;
             align-items: center;
-            padding: 12px 35px;
+            padding: 14px 40px;
             background: #00d2ff;
             color: #000;
             text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
+            border-radius: 4px;
+            font-weight: 800;
             font-size: 1rem;
-            transition: 0.3s;
-            box-shadow: 0 10px 20px rgba(0, 210, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.4s ease;
         }
 
         .back-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 30px rgba(0, 210, 255, 0.5);
             background: #ffffff;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 210, 255, 0.4);
         }
 
-        /* Responsive */
+        /* Responsive Design */
         @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            .overlay { padding: 20px; justify-content: center; text-align: center; }
-            .founder-card { border-radius: 15px; border-left: none; border-top: 4px solid #00d2ff; }
+            h1 { font-size: 2.8rem; }
+            .overlay { padding: 30px; justify-content: center; text-align: center; }
+            .content { max-width: 100%; }
+            .founder-box { border-left: none; border-top: 5px solid #00d2ff; border-radius: 20px; }
+            .bg-image { background-position: 70% center; }
         }
     </style>
 </head>
@@ -132,19 +143,19 @@
 
     <div class="overlay">
         <div class="content">
-            <span class="tagline">The Future is Here</span>
+            <span class="tagline">Next-Generation Neural Interface</span>
             <h1>Aperonix AI</h1>
             <p>
-                Aperonix is a high-performance artificial intelligence platform designed to redefine human-digital interaction. Built with cutting-edge neural processing, it provides real-time intelligent solutions, creative content generation, and seamless problem-solving capabilities.
+                Aperonix is a cutting-edge artificial intelligence architecture designed to push the boundaries of digital intelligence. Engineered for precision and speed, it bridges the gap between human intuition and machine processing to deliver unparalleled results in real-time.
             </p>
 
-            <div class="founder-card">
+            <div class="founder-box">
                 <h3>Mohammad Khan</h3>
-                <span>Founder & Lead Architect</span>
-                <p style="margin: 5px 0 0 0; font-size: 0.8rem; color: #888;">ESTABLISHED 2026</p>
+                <span class="role">Lead Architect & Visionary</span>
+                <p style="margin: 10px 0 0 0; font-size: 0.85rem; color: #888;">ESTABLISHED 2026</p>
             </div>
 
-            <a href="index.html" class="back-btn">← Back to Chat</a>
+            <a href="index.html" class="back-btn">← Return to Dashboard</a>
         </div>
     </div>
 
