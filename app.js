@@ -15,7 +15,7 @@ const IDENTITY_RESPONSES = {
     who_created: "I am Aperonix, created and owned by Mohammad Khan.",
     who_owns: "I am Aperonix, created and owned by Mohammad Khan.",
     your_name: "My name is Aperonix. I am an AI assistant created and owned by Mohammad Khan.",
-    about_you: "I am Aperonix, an AI assistant created and owned by Mohammad Khan. I'm here to help you with conversations."
+    about_you: "I am Aperonix, an AI assistant created and owned by Mohammad Khan. I'm here to help you with conversations and image generation."
 };
 
 // Identity question patterns
@@ -49,6 +49,7 @@ const elements = {
     
     // Mode tabs
     chatTab: document.getElementById('chatTab'),
+    imageTab: document.getElementById('imageTab'),
     
     // Chat section
     chatSection: document.getElementById('chatSection'),
@@ -72,6 +73,7 @@ const elements = {
     cancelSettings: document.getElementById('cancelSettings'),
     saveSettings: document.getElementById('saveSettings'),
     geminiKey: document.getElementById('geminiKey'),
+    huggingfaceKey: document.getElementById('huggingfaceKey'),
     
     // Toast
     toast: document.getElementById('toast'),
@@ -89,12 +91,14 @@ function generateId() {
 function getApiKeys() {
     return {
         gemini: localStorage.getItem('GEMINI_API_KEY') || '',
+        huggingface: localStorage.getItem('HUGGINGFACE_API_TOKEN') || ''
     };
 }
 
 // Save API keys
 function saveApiKeys(gemini, huggingface) {
     if (gemini !== undefined) localStorage.setItem('GEMINI_API_KEY', gemini);
+    if (huggingface !== undefined) localStorage.setItem('HUGGINGFACE_API_TOKEN', huggingface);
 }
 
 // Show toast notification
