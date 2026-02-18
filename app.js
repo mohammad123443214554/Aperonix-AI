@@ -382,6 +382,8 @@ async function sendMessage() {
     elements.chatInput.style.height = 'auto';
     elements.sendBtn.disabled = true;
     
+    state.isProcessing = true;
+    
     // Check for identity questions (local, no API call)
     if (isIdentityQuestion(message)) {
         await new Promise(resolve => setTimeout(resolve, 500));
@@ -494,6 +496,9 @@ async function generateImage() {
         showToast('Please add your Hugging Face API token in settings to generate images.', 'error');
         return;
     }
+    
+    state.isProcessing = true;
+    elements.generateBtn.disabled = true;
     
     // Show loading state
     const loadingCard = document.createElement('div');
