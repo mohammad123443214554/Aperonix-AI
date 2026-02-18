@@ -1,9 +1,11 @@
+
+
 // Aperonix AI Application
 // Main JavaScript File
 
 // ================== Constants & Configuration ==================
 const GEMINI_API_BASE = 'https://generativelanguage.googleapis.com/v1/models';
-const GEMINI_API_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent";
+const HUGGINGFACE_API_URL = 'https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0';
 
 // Predefined responses for identity questions
 const IDENTITY_RESPONSES = {
@@ -368,8 +370,6 @@ async function sendMessage() {
     const message = elements.chatInput.value.trim();
     if (!message || state.isProcessing) return;
     
-    // ----------------------------------------------
-    }
     // Hide welcome message
     elements.welcomeMessage.style.display = 'none';
     
@@ -381,6 +381,8 @@ async function sendMessage() {
     elements.chatInput.value = '';
     elements.chatInput.style.height = 'auto';
     elements.sendBtn.disabled = true;
+    
+    state.isProcessing = true;
     
     // Check for identity questions (local, no API call)
     if (isIdentityQuestion(message)) {
@@ -767,3 +769,7 @@ function init() {
 
 // Start the application
 document.addEventListener('DOMContentLoaded', init);
+// Plus button click karne par gallery khulegi
+document.getElementById('imageUploadBtn').addEventListener('click', () => {
+    document.getElementById('fileInput').click();
+});
