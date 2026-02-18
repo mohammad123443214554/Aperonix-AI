@@ -480,69 +480,6 @@ async function callGeminiAPI(message) {
     throw new Error('API connection failed (HTTP 404): No available Gemini model found. Please verify your API key is valid at https://aistudio.google.com/apikey');
 }
 
-// ================== Image Generation Functions ==================
-
-// Generate image
-async function generateImage() {
-    const prompt = elements.imageInput.value.trim();
-    if (!prompt || state.isProcessing) return;
-    
-    // Hide welcome message
-    elements.imageWelcome.style.display = 'none';
-    
-    // Check for API key
-    const keys = getApiKeys();
-    if (!keys.huggingface) {
-        showToast('Please add your Hugging Face API token in settings to generate images.', 'error');
-        return;
-    }
-    
-    state.isProcessing = true;
-    elements.generateBtn.disabled = true;
-    
-    // Show loading state
-    const loadingCard = document.createElement('div');
-    loadingCard.className = 'image-loading';
-    loadingCard.id = 'imageLoading';
-    loadingCard.innerHTML = `
-        <div class="image-loading-spinner"></div>
-        <span class="image-loading-text">Generating your image...</span>
-    `;
-    elements.generatedImages.prepend(loadingCard);
-    
-    try {
-        const imageBlob = await callHuggingFaceAPI(prompt);
-        
-        // Remove loading
-        loadingCard.remove();
-        
-        // Create image card
-        const imageUrl = URL.createObjectURL(imageBlob);
-        const imageCard = document.createElement('div');
-        imageCard.className = 'image-card';
-        imageCard.innerHTML = `
-            <img src="${imageUrl}" alt="${escapeHtml(prompt)}">
-            <div class="image-card-info">
-                <p class="image-card-prompt">${escapeHtml(prompt)}</p>
-            </div>
-        `;
-        elements.generatedImages.prepend(imageCard);
-        
-        // Clear input
-        elements.imageInput.value = '';
-        
-        showToast('Image generated successfully!', 'success');
-    } catch (error) {
-        loadingCard.remove();
-        console.error('Hugging Face API Error:', error);
-        addErrorMessage(error.message);
-        showToast(error.message, 'error');
-    }
-    
-    state.isProcessing = false;
-    elements.generateBtn.disabled = !elements.imageInput.value.trim();
-}
-
 // Call Hugging Face API
 async function callHuggingFaceAPI(prompt) {
     const keys = getApiKeys();
