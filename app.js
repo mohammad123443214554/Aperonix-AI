@@ -13,7 +13,7 @@ const IDENTITY_RESPONSES = {
     who_created: "I am Aperonix, created and owned by Mohammad Khan.",
     who_owns: "I am Aperonix, created and owned by Mohammad Khan.",
     your_name: "My name is Aperonix. I am an AI assistant created and owned by Mohammad Khan.",
-    about_you: "I am Aperonix, an AI assistant created and owned by Mohammad Khan. I'm here to help you with conversations and image generation."
+    about_you: "I am Aperonix, an AI assistant created and owned by Mohammad Khan. I'm here to help you with conversations"
 };
 
 // Identity question patterns
