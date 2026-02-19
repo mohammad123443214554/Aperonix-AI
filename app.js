@@ -56,15 +56,7 @@ const elements = {
     chatInput: document.getElementById('chatInput'),
     sendBtn: document.getElementById('sendBtn'),
     
-    // Image section
-    imageSection: document.getElementById('imageSection'),
-    imageContainer: document.getElementById('imageContainer'),
-    imageWelcome: document.getElementById('imageWelcome'),
-    generatedImages: document.getElementById('generatedImages'),
-    imageInput: document.getElementById('imageInput'),
-    generateBtn: document.getElementById('generateBtn'),
-    
-    // Settings
+       // Settings
     settingsBtn: document.getElementById('settingsBtn'),
     settingsModal: document.getElementById('settingsModal'),
     closeSettings: document.getElementById('closeSettings'),
