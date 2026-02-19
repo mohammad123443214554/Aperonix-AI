@@ -603,6 +603,15 @@ body {
     flex-direction: column;
 }
 
+.generated-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
 .image-card {
     background: var(--bg-secondary);
     border: 1px solid var(--border-color);
@@ -918,6 +927,10 @@ body {
     .message-content {
         padding: 12px 16px;
     }
+
+    .generated-images {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 480px) {
@@ -971,84 +984,4 @@ body {
 
 .message.error .message-content p {
     color: var(--error-color);
-}
-/* --- Image Upload Plus Button Styling --- */
-.action-btn {
-    background: transparent;
-    border: none;
-    color: #00d2ff; /* Aapka theme color */
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px;
-    transition: all 0.3s ease;
-    border-radius: 50%;
-}
-
-.action-btn:hover {
-    background: rgba(0, 210, 255, 0.1);
-    transform: scale(1.1) rotate(90deg); /* Hover karne par ghumega */
-}
-
-.action-btn svg {
-    stroke: #00d2ff;
-}
-
-/* Input container ko thoda adjust karne ke liye */
-.input-container {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: #161b22; /* Aapki chat box ka background color */
-    padding: 8px 15px;
-    border-radius: 15px;
-    border: 1px solid #30363d;
-}
-/* Type bar ko lamba aur professional banane ke liye */
-.input-container {
-    display: flex !important;
-    width: 90% !important;
-    max-width: 1000px !important;
-    margin: 20px auto !important;
-    background: #161b22 !important;
-    padding: 10px 20px !important;
-    border-radius: 25px !important;
-}
-
-#userInput {
-    flex: 1 !important; /* Ye bar ko kheench kar lamba karega */
-    background: transparent !important;
-    border: none !important;
-    color: white !important;
-    outline: none !important;
-}
-
-/* AI jo image banayega uska size */
-.generated-image {
-    width: 100%;
-    max-width: 450px;
-    border-radius: 15px;
-    margin-top: 10px;
-    border: 2px solid #00d2ff;
-}
-/* --- TYPE BAR FULL WIDTH FIX --- */
-.input-container {
-    width: 95% !important;        /* Bar ko poora lamba karne ke liye */
-    max-width: 1100px !important;  /* Badi screen par limit ke liye */
-    margin: 20px auto !important;  /* Beech mein set karne ke liye */
-}
-
-.input-wrapper {
-    display: flex !important;
-    width: 100% !important;
-    align-items: center !important;
-}
-
-#userInput {
-    flex: 1 !important;           /* Ye asli 'Lamba' karne wala code hai */
-    min-height: 45px !important;
-    background: transparent !important;
-    border: none !important;
-    color: white !important;
 }
