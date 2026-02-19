@@ -61,9 +61,7 @@ const elements = {
     imageSection: document.getElementById('imageSection'),
     imageContainer: document.getElementById('imageContainer'),
     imageWelcome: document.getElementById('imageWelcome'),
-    generatedImages: document.getElementById('generatedImages'),
     imageInput: document.getElementById('imageInput'),
-    generateBtn: document.getElementById('generateBtn'),
     
     // Settings
     settingsBtn: document.getElementById('settingsBtn'),
