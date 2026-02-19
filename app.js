@@ -1,3 +1,4 @@
+
 // Aperonix AI Application
 // Main JavaScript File
 
@@ -477,6 +478,13 @@ async function callGeminiAPI(message) {
     
     throw new Error('API connection failed (HTTP 404): No available Gemini model found. Please verify your API key is valid at https://aistudio.google.com/apikey');
 }
+
+// ================== Image Generation Functions ==================
+
+// Generate image
+async function generateImage() {
+    const prompt = elements.imageInput.value.trim();
+    if (!prompt || state.isProcessing) return;
     
     // Hide welcome message
     elements.imageWelcome.style.display = 'none';
