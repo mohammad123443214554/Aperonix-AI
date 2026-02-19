@@ -594,14 +594,6 @@ body {
     stroke: currentColor;
 }
 
-/* Image Section */
-.image-container {
-    flex: 1;
-    overflow-y: auto;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-}
 
 .generated-images {
     display: grid;
