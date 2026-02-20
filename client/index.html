@@ -1,175 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>APRONIX AI - Chat</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<title>Aperonix AI</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Top Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <!-- Logo & Brand -->
-            <div class="nav-brand">
-                <img src="logo.png" alt="APRONIX" class="logo-icon">
-                <span class="brand-name">APRONIX AI</span>
-            </div>
 
-            <!-- Navigation Links -->
-            <div class="nav-links">
-                <a href="index.html" class="nav-link active" data-page="chat">
-                    <span class="link-icon">💬</span>
-                    Chat
-                </a>
-                <a href="image.html" class="nav-link" data-page="image">
-                    <span class="link-icon">🎨</span>
-                    Image
-                </a>
-                <a href="about.html" class="nav-link" data-page="about">
-                    <span class="link-icon">ℹ️</span>
-                    About
-                </a>
-            </div>
-        </div>
-    </nav>
+<div class="sidebar">
+  <h2>Aperonix</h2>
+  <button onclick="newChat()">New Chat</button>
+</div>
 
-    <!-- Main Container -->
-    <div class="main-container">
-        <!-- Left Sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <button class="new-chat-btn" id="newChatBtn">
-                    <span class="btn-icon">+</span>
-                    New Chat
-                </button>
-            </div>
+<div class="main">
+  <div id="chatBox"></div>
 
-            <!-- Chat History Section -->
-            <div class="chat-history">
-                <h3 class="history-title">Chat History</h3>
-                <div class="history-list" id="historyList">
-                    <!-- Chat history items populated by JS -->
-                </div>
-            </div>
+  <!-- Ad Banner -->
+  <div class="ad-banner">
+    <!-- Paste AdSense code here -->
+  </div>
 
-            <!-- Sidebar Footer -->
-            <div class="sidebar-footer">
-                <button class="settings-btn" id="settingsBtn">
-                    <span class="btn-icon">⚙️</span>
-                    Settings
-                </button>
-            </div>
-        </aside>
+  <div class="input-area">
+    <input id="userInput" placeholder="Ask something..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
 
-        <!-- Chat Area -->
-        <main class="chat-area">
-            <!-- Welcome Screen -->
-            <div class="welcome-screen" id="welcomeScreen">
-                <div class="welcome-content">
-                    <div class="welcome-logo">
-                        <img src="logo.png" alt="APRONIX" class="welcome-logo-img">
-                    </div>
-                    <h1 class="welcome-title">HELLO! I'M APRONIX</h1>
-                    <p class="welcome-subtitle">Your advanced AI companion powered by Gemini</p>
-                    <div class="welcome-features">
-                        <div class="feature-card">
-                            <span class="feature-icon">🧠</span>
-                            <p>Intelligent Conversations</p>
-                        </div>
-                        <div class="feature-card">
-                            <span class="feature-icon">⚡</span>
-                            <p>Lightning Fast Responses</p>
-                        </div>
-                        <div class="feature-card">
-                            <span class="feature-icon">🔐</span>
-                            <p>Secure & Private</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Messages Container -->
-            <div class="messages-container" id="messagesContainer"></div>
-
-            <!-- Input Area -->
-            <div class="input-area">
-                <form class="message-form" id="messageForm">
-                    <input
-                        type="text"
-                        class="message-input"
-                        id="messageInput"
-                        placeholder="Type your message here..."
-                        autocomplete="off"
-                    >
-                    <button type="submit" class="send-btn" id="sendBtn">
-                        <span class="send-icon">⬆️</span>
-                    </button>
-                </form>
-                <p class="input-notice">APRONIX can make mistakes. Please verify important information.</p>
-            </div>
-        </main>
-    </div>
-
-    <!-- Settings Modal -->
-    <div class="settings-modal" id="settingsModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Settings</h2>
-                <button class="close-btn" id="closeSettingsBtn">&times;</button>
-            </div>
-
-            <div class="modal-body">
-                <!-- API Key Section -->
-                <div class="settings-section">
-                    <label class="settings-label">Gemini API Key</label>
-                    <div class="api-key-input-wrapper">
-                        <input
-                            type="password"
-                            class="api-key-input"
-                            id="apiKeyInput"
-                            placeholder="Enter your Gemini API key..."
-                        >
-                        <button type="button" class="toggle-key-btn" id="toggleKeyBtn">👁️</button>
-                    </div>
-                    <p class="settings-hint">Your API key is stored locally and never sent to servers.</p>
-                </div>
-
-                <!-- Theme Section -->
-                <div class="settings-section">
-                    <label class="settings-label">Theme</label>
-                    <div class="theme-grid">
-                        <div class="theme-option" data-theme="aquatic">
-                            <div class="theme-preview aquatic"></div>
-                            <span>Aquatic</span>
-                        </div>
-                        <div class="theme-option" data-theme="desert">
-                            <div class="theme-preview desert"></div>
-                            <span>Desert</span>
-                        </div>
-                        <div class="theme-option" data-theme="dusk">
-                            <div class="theme-preview dusk"></div>
-                            <span>Dusk</span>
-                        </div>
-                        <div class="theme-option" data-theme="night-sky">
-                            <div class="theme-preview night-sky"></div>
-                            <span>Night Sky</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Save Button -->
-                <button class="save-settings-btn" id="saveSettingsBtn">Save Settings</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Overlay for Modal -->
-    <div class="modal-overlay" id="modalOverlay"></div>
-
-    <script src="app.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
