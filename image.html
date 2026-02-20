@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APRONIX AI - Image Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <!-- Logo & Brand -->
+            <div class="nav-brand">
+                <img src="logo.png" alt="APRONIX" class="logo-icon">
+                <span class="brand-name">APRONIX AI</span>
+            </div>
+
+            <!-- Navigation Links -->
+            <div class="nav-links">
+                <a href="index.html" class="nav-link" data-page="chat">
+                    <span class="link-icon">💬</span>
+                    Chat
+                </a>
+                <a href="image.html" class="nav-link active" data-page="image">
+                    <span class="link-icon">🎨</span>
+                    Image
+                </a>
+                <a href="about.html" class="nav-link" data-page="about">
+                    <span class="link-icon">ℹ️</span>
+                    About
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container image-main">
+        <!-- Image Generator Section -->
+        <main class="image-area">
+            <div class="image-container">
+                <!-- Header -->
+                <div class="image-header">
+                    <h1 class="image-title">AI Image Generator</h1>
+                    <p class="image-subtitle">Create stunning images with advanced AI</p>
+                </div>
+
+                <!-- Input Section -->
+                <div class="image-input-section">
+                    <form class="image-form" id="imageForm">
+                        <div class="form-group">
+                            <label for="imagePrompt">Describe your image:</label>
+                            <textarea
+                                id="imagePrompt"
+                                class="image-prompt-input"
+                                placeholder="Enter a detailed description of the image you want to create..."
+                                rows="4"
+                            ></textarea>
+                        </div>
+                        <button type="submit" class="generate-btn" id="generateBtn">
+                            <span class="btn-text">Generate Image</span>
+                            <span class="btn-icon">✨</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Output Section -->
+                <div class="image-output-section">
+                    <!-- Loading State -->
+                    <div class="loading-state" id="loadingState" style="display: none;">
+                        <div class="spinner"></div>
+                        <p>Creating your image...</p>
+                    </div>
+
+                    <!-- Error State -->
+                    <div class="error-state" id="errorState" style="display: none;">
+                        <p class="error-message" id="errorMessage"></p>
+                    </div>
+
+                    <!-- Image Display -->
+                    <div class="image-display" id="imageDisplay" style="display: none;">
+                        <img id="generatedImage" src="" alt="Generated Image">
+                        <div class="image-actions">
+                            <button class="download-btn" id="downloadBtn">
+                                <span>⬇️</span> Download
+                            </button>
+                            <button class="new-image-btn" id="newImageBtn">
+                                <span>🔄</span> Generate Another
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Button -->
+                <button class="image-settings-btn" id="imageSettingsBtn">⚙️ API Settings</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="settings-modal" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Settings</h2>
+                <button class="close-btn" id="closeSettingsBtn">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <!-- API Key Section -->
+                <div class="settings-section">
+                    <label class="settings-label">Gemini API Key</label>
+                    <div class="api-key-input-wrapper">
+                        <input
+                            type="password"
+                            class="api-key-input"
+                            id="apiKeyInput"
+                            placeholder="Enter your Gemini API key..."
+                        >
+                        <button type="button" class="toggle-key-btn" id="toggleKeyBtn">👁️</button>
+                    </div>
+                    <p class="settings-hint">Your API key is stored locally and never sent to servers.</p>
+                </div>
+
+                <!-- Theme Section -->
+                <div class="settings-section">
+                    <label class="settings-label">Theme</label>
+                    <div class="theme-grid">
+                        <div class="theme-option" data-theme="aquatic">
+                            <div class="theme-preview aquatic"></div>
+                            <span>Aquatic</span>
+                        </div>
+                        <div class="theme-option" data-theme="desert">
+                            <div class="theme-preview desert"></div>
+                            <span>Desert</span>
+                        </div>
+                        <div class="theme-option" data-theme="dusk">
+                            <div class="theme-preview dusk"></div>
+                            <span>Dusk</span>
+                        </div>
+                        <div class="theme-option" data-theme="night-sky">
+                            <div class="theme-preview night-sky"></div>
+                            <span>Night Sky</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Save Button -->
+                <button class="save-settings-btn" id="saveSettingsBtn">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay for Modal -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+
+    <script src="image.js"></script>
+</body>
+</html>
