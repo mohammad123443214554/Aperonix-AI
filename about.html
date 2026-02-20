@@ -1,87 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aperonix AI - Image</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About | Aperonix AI</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+    background:#000;
+    color:#fff;
+}
+
+/* Main Section */
+.about{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:80px 10%;
+    min-height:100vh;
+    gap:60px;
+}
+
+/* LEFT IMAGE */
+.left img{
+    width:600px;
+    max-width:100%;
+    filter: drop-shadow(0 0 30px rgba(0,255,255,0.3));
+}
+
+/* RIGHT CONTENT */
+.right{
+    max-width:600px;
+}
+
+.tag{
+    color:#00f7ff;
+    letter-spacing:3px;
+    font-size:14px;
+    margin-bottom:20px;
+}
+
+h1{
+    font-size:64px;
+    margin-bottom:25px;
+}
+
+h1 span{
+    color:#00f7ff;
+}
+
+.desc{
+    color:#bdbdbd;
+    line-height:1.7;
+    margin-bottom:40px;
+    font-size:17px;
+}
+
+/* Founder Card */
+.card{
+    background:#111;
+    padding:30px;
+    border-left:5px solid #00f7ff;
+    border-radius:15px;
+    margin-bottom:35px;
+    box-shadow:0 0 25px rgba(0,255,255,0.1);
+}
+
+.card h3{
+    font-size:22px;
+    margin-bottom:8px;
+}
+
+.role{
+    color:#00f7ff;
+    margin-bottom:5px;
+}
+
+.year{
+    font-size:13px;
+    color:#777;
+}
+
+/* Button */
+.btn{
+    display:inline-block;
+    padding:14px 28px;
+    background:#00f7ff;
+    color:#000;
+    text-decoration:none;
+    border-radius:10px;
+    font-weight:bold;
+    transition:0.3s ease;
+}
+
+.btn:hover{
+    background:#00cbd3;
+    transform:translateY(-3px);
+}
+
+/* Responsive */
+@media(max-width:1000px){
+    .about{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .right{
+        margin-top:40px;
+    }
+
+    h1{
+        font-size:48px;
+    }
+}
+
+</style>
+
 </head>
+
 <body>
 
-    <aside class="sidebar">
-        <div class="sidebar-header">
-            <button onclick="window.location.href='index.html'" class="new-chat-btn">
-                <span class="material-icons">chat</span> Go to Chat
-            </button>
-        </div>
-        <div class="sidebar-footer">
-            <button id="settings-btn-img" class="sidebar-btn">
-                <span class="material-icons">settings</span> Settings
-            </button>
-        </div>
-    </aside>
+<section class="about">
 
-    <main class="main-content">
-        <nav class="top-nav">
-            <div class="nav-left">
-                <img src="logo.png" alt="Logo" class="nav-logo" onerror="this.src='https://placehold.co/50x50/222/fff?text=A'">
-                <span class="brand-name">Aperonix AI</span>
-            </div>
-            <div class="nav-right">
-                <a href="index.html" class="nav-link">Chat</a>
-                <a href="image.html" class="nav-link active">Image</a>
-                <a href="about.html" class="nav-link">About</a>
-            </div>
-        </nav>
+<!-- LEFT SIDE IMAGE -->
+<div class="left">
+    <img src="assetsai/ai-head.png" alt="Aperonix AI">
+</div>
 
-        <div class="image-gen-container">
-            <div class="image-input-section">
-                <h1>Imagine Anything</h1>
-                <p>Enter a prompt to generate an image.</p>
-                <div class="prompt-box">
-                    <textarea id="image-prompt" placeholder="A futuristic city with neon lights at night..."></textarea>
-                    <button id="generate-btn">Generate Image</button>
-                </div>
-            </div>
+<!-- RIGHT SIDE CONTENT -->
+<div class="right">
 
-            <div class="image-display-section" id="image-display">
-                <!-- Generated Image or Placeholder -->
-                <div class="placeholder-img">
-                    <span class="material-icons">image</span>
-                    <p>Image will appear here</p>
-                </div>
-                <div class="loading-overlay hidden" id="img-loading">
-                    <div class="spinner"></div>
-                    <p>Generating...</p>
-                </div>
-            </div>
-        </div>
-    </main>
+    <p class="tag">NEURAL NETWORK INTERFACE</p>
 
-    <!-- Reusing Modal Structure -->
-    <div id="settings-modal-img" class="modal">
-        <div class="modal-content">
-            <span class="close-modal-img">&times;</span>
-            <h2>Settings</h2>
-            <div class="setting-group">
-                <label>Gemini API Key</label>
-                <input type="password" id="api-key-input-img" placeholder="Enter your API Key">
-            </div>
-            <div class="setting-group">
-                <label>Theme Mode</label>
-                <div class="theme-options">
-                    <div class="theme-btn" data-theme="aquatic"></div>
-                    <div class="theme-btn" data-theme="desert"></div>
-                    <div class="theme-btn" data-theme="dusk"></div>
-                    <div class="theme-btn active" data-theme="night"></div>
-                </div>
-            </div>
-            <button class="primary-btn save-settings-img">Save Settings</button>
-        </div>
+    <h1>Aperonix <span>AI</span></h1>
+
+    <p class="desc">
+        Aperonix is a high-performance artificial intelligence platform designed 
+        by Mohammad Khan to bridge the gap between human creativity and machine logic. 
+        It delivers seamless, real-time intelligent solutions for the modern digital era.
+    </p>
+
+    <div class="card">
+        <h3>Mohammad Khan</h3>
+        <p class="role">Founder & Owner</p>
+        <p class="year">ESTABLISHED 2026</p>
     </div>
 
-    <script src="image.js"></script>
+    <a href="index.html" class="btn">← BACK TO DASHBOARD</a>
+
+</div>
+
+</section>
+
 </body>
 </html>
