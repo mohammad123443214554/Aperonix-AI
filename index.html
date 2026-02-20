@@ -1,68 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aperonix AI</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aperonix AI - Chat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body data-theme="night">
-
-<nav class="navbar">
-    <div class="nav-left">
-        <img src="logo.png" class="logo" id="mainLogo">
-        <span>Aperonix AI</span>
-    </div>
-    <div class="nav-right">
-        <a href="index.html">Chat</a>
-        <a href="image.html">Image</a>
-        <a href="about.html">About</a>
-    </div>
-</nav>
-
-<div class="container">
-    <aside class="sidebar">
-        <button id="newChatBtn">+ New Chat</button>
-        <div class="chat-history" id="chatHistory"></div>
-        <button class="settings-btn" id="openSettings">Settings</button>
-    </aside>
-
-    <main class="chat-area">
-        <div id="welcomeScreen" class="welcome">
-            <h1>HELLO! I'M APERONIX</h1>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <img src="logo.png" alt="Logo" class="nav-logo" id="nav-logo">
+            <span class="nav-brand">Aperonix AI</span>
         </div>
-
-        <div id="chatContainer" class="chat-container"></div>
-
-        <div class="input-area">
-            <input type="text" id="userInput" placeholder="Ask anything...">
-            <button id="sendBtn">Send</button>
+        <div class="nav-right">
+            <a href="index.html" class="nav-link active">Chat</a>
+            <a href="image.html" class="nav-link">Image</a>
+            <a href="about.html" class="nav-link">About</a>
         </div>
-    </main>
-</div>
+    </nav>
 
-<!-- SETTINGS MODAL -->
-<div class="modal" id="settingsModal">
-    <div class="modal-content">
-        <h2>Settings</h2>
+    <div class="main-container">
+        <aside class="sidebar">
+            <button id="new-chat-btn" class="btn-primary">
+                <span>+ New Chat</span>
+            </button>
+            <div class="chat-history-container">
+                <h3 class="history-title">History</h3>
+                <ul id="chat-history-list" class="history-list">
+                    </ul>
+            </div>
+            <button id="settings-btn" class="btn-secondary settings-btn">
+                ⚙️ Settings
+            </button>
+        </aside>
 
-        <label>Gemini API Key</label>
-        <input type="password" id="apiKeyInput" placeholder="Enter Gemini API Key">
-        <button id="saveApiKey">Save Key</button>
+        <main class="chat-area">
+            <div id="welcome-screen" class="welcome-screen">
+                <h1>HELLO! I'M APERONIX</h1>
+                <p>How can I assist you today?</p>
+            </div>
+            
+            <div id="chat-box" class="chat-box hidden">
+                </div>
 
-        <h3>Themes</h3>
-        <div class="theme-options">
-            <button data-theme="aquatic">Aquatic Mode</button>
-            <button data-theme="desert">Desert Mode</button>
-            <button data-theme="dusk">Dusk Mode</button>
-            <button data-theme="night">Night Sky Mode</button>
-        </div>
-
-        <button id="closeSettings">Close</button>
+            <div class="input-area">
+                <div class="input-wrapper">
+                    <input type="text" id="chat-input" placeholder="Message Aperonix AI..." autocomplete="off">
+                    <button id="send-btn" class="send-btn">➤</button>
+                </div>
+                <div class="disclaimer">Aperonix AI can make mistakes. Verify important information.</div>
+            </div>
+        </main>
     </div>
-</div>
 
-<script src="app.js"></script>
+    <div id="settings-modal" class="modal hidden">
+        <div class="modal-content glass-panel">
+            <h2>Settings</h2>
+            <div class="form-group">
+                <label for="api-key">Gemini API Key</label>
+                <input type="password" id="api-key" placeholder="Enter your API key">
+            </div>
+            <div class="form-group">
+                <label for="theme-selector">Theme</label>
+                <select id="theme-selector">
+                    <option value="night-sky">Night Sky Mode (Default)</option>
+                    <option value="aquatic">Aquatic Mode</option>
+                    <option value="desert">Desert Mode</option>
+                    <option value="dusk">Dusk Mode</option>
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button id="close-modal-btn" class="btn-secondary">Cancel</button>
+                <button id="save-settings-btn" class="btn-primary">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
 </body>
 </html>
