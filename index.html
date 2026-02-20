@@ -1,79 +1,107 @@
+
+---
+
+### 2️⃣ HTML FILES
+
+#### `index.html` (Chat Interface)
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aperonix AI - Chat</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-left">
-            <img src="logo.png" alt="Logo" class="nav-logo" id="nav-logo">
-            <span class="nav-brand">Aperonix AI</span>
-        </div>
-        <div class="nav-right">
-            <a href="index.html" class="nav-link active">Chat</a>
-            <a href="image.html" class="nav-link">Image</a>
-            <a href="about.html" class="nav-link">About</a>
-        </div>
-    </nav>
 
-    <div class="main-container">
-        <aside class="sidebar">
-            <button id="new-chat-btn" class="btn-primary">
-                <span>+ New Chat</span>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <button id="new-chat-btn" class="new-chat-btn">
+                <span class="material-icons">add</span> New Chat
             </button>
-            <div class="chat-history-container">
-                <h3 class="history-title">History</h3>
-                <ul id="chat-history-list" class="history-list">
-                    </ul>
+        </div>
+        
+        <div class="chat-history-container">
+            <h3>History</h3>
+            <ul id="chat-history-list">
+                <!-- History items injected via JS -->
+            </ul>
+        </div>
+
+        <div class="sidebar-footer">
+            <button id="settings-btn" class="sidebar-btn">
+                <span class="material-icons">settings</span> Settings
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Navigation -->
+        <nav class="top-nav">
+            <div class="nav-left">
+                <img src="logo.png" alt="Logo" class="nav-logo" onerror="this.src='https://placehold.co/50x50/222/fff?text=A'">
+                <span class="brand-name">Aperonix AI</span>
             </div>
-            <button id="settings-btn" class="btn-secondary settings-btn">
-                ⚙️ Settings
-            </button>
-        </aside>
+            <div class="nav-right">
+                <a href="index.html" class="nav-link active">Chat</a>
+                <a href="image.html" class="nav-link">Image</a>
+                <a href="about.html" class="nav-link">About</a>
+            </div>
+        </nav>
 
-        <main class="chat-area">
-            <div id="welcome-screen" class="welcome-screen">
+        <!-- Chat Container -->
+        <div class="chat-container" id="chat-container">
+            <div class="welcome-screen" id="welcome-screen">
                 <h1>HELLO! I'M APERONIX</h1>
-                <p>How can I assist you today?</p>
+                <p>How can I help you today?</p>
             </div>
             
-            <div id="chat-box" class="chat-box hidden">
-                </div>
-
-            <div class="input-area">
-                <div class="input-wrapper">
-                    <input type="text" id="chat-input" placeholder="Message Aperonix AI..." autocomplete="off">
-                    <button id="send-btn" class="send-btn">➤</button>
-                </div>
-                <div class="disclaimer">Aperonix AI can make mistakes. Verify important information.</div>
+            <div class="chat-messages" id="chat-messages">
+                <!-- Messages injected here -->
             </div>
-        </main>
-    </div>
+        </div>
 
-    <div id="settings-modal" class="modal hidden">
-        <div class="modal-content glass-panel">
+        <!-- Input Area -->
+        <div class="input-area">
+            <div class="input-wrapper">
+                <input type="text" id="user-input" placeholder="Message Aperonix..." autocomplete="off">
+                <button id="send-btn">
+                    <span class="material-icons">send</span>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
             <h2>Settings</h2>
-            <div class="form-group">
-                <label for="api-key">Gemini API Key</label>
-                <input type="password" id="api-key" placeholder="Enter your API key">
+            
+            <div class="setting-group">
+                <label>Gemini API Key</label>
+                <input type="password" id="api-key-input" placeholder="Enter your API Key">
+                <small>Your key is stored locally in your browser.</small>
             </div>
-            <div class="form-group">
-                <label for="theme-selector">Theme</label>
-                <select id="theme-selector">
-                    <option value="night-sky">Night Sky Mode (Default)</option>
-                    <option value="aquatic">Aquatic Mode</option>
-                    <option value="desert">Desert Mode</option>
-                    <option value="dusk">Dusk Mode</option>
-                </select>
+
+            <div class="setting-group">
+                <label>Theme Mode</label>
+                <div class="theme-options">
+                    <div class="theme-btn" data-theme="aquatic" style="background: #00bcd4;"></div>
+                    <div class="theme-btn" data-theme="desert" style="background: #ff9800;"></div>
+                    <div class="theme-btn" data-theme="dusk" style="background: #9c27b0;"></div>
+                    <div class="theme-btn active" data-theme="night" style="background: #121212; border: 1px solid #fff;"></div>
+                </div>
             </div>
-            <div class="modal-actions">
-                <button id="close-modal-btn" class="btn-secondary">Cancel</button>
-                <button id="save-settings-btn" class="btn-primary">Save Changes</button>
-            </div>
+
+            <button id="save-settings-btn" class="primary-btn">Save Settings</button>
         </div>
     </div>
 
