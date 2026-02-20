@@ -1,34 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aperonix AI - Image</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aperonix AI - Image Generation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body data-theme="night">
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <img src="logo.png" alt="Logo" class="nav-logo" id="nav-logo">
+            <span class="nav-brand">Aperonix AI</span>
+        </div>
+        <div class="nav-right">
+            <a href="index.html" class="nav-link">Chat</a>
+            <a href="image.html" class="nav-link active">Image</a>
+            <a href="about.html" class="nav-link">About</a>
+        </div>
+    </nav>
 
-<nav class="navbar">
-    <div class="nav-left">
-        <img src="logo.png" class="logo">
-        <span>Aperonix AI</span>
+    <div class="main-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h3>Image Studio</h3>
+                <p>Generate visuals from text.</p>
+            </div>
+            <div class="spacer"></div>
+            <button id="settings-btn" class="btn-secondary settings-btn">
+                ⚙️ Settings
+            </button>
+        </aside>
+
+        <main class="image-area">
+            <div class="image-workspace glass-panel">
+                <div id="image-result" class="image-result placeholder">
+                    <img id="generated-img" src="" alt="Generated Image" class="hidden">
+                    <div id="image-loading" class="hidden">
+                        <img src="logo.png" alt="Loading" class="spinner">
+                        <p>Aperonix is generating your image...</p>
+                    </div>
+                    <p id="placeholder-text">Your generated image will appear here</p>
+                </div>
+                
+                <div class="image-controls">
+                    <input type="text" id="image-prompt" placeholder="Describe the image you want to generate...">
+                    <button id="generate-image-btn" class="btn-primary">Generate</button>
+                </div>
+                <p id="image-error" class="error-text hidden"></p>
+            </div>
+        </main>
     </div>
-    <div class="nav-right">
-        <a href="index.html">Chat</a>
-        <a href="image.html">Image</a>
-        <a href="about.html">About</a>
+
+    <div id="settings-modal" class="modal hidden">
+        <div class="modal-content glass-panel">
+            <h2>Settings</h2>
+            <div class="form-group">
+                <label for="api-key">Gemini API Key</label>
+                <input type="password" id="api-key" placeholder="Enter your API key">
+            </div>
+            <div class="form-group">
+                <label for="theme-selector">Theme</label>
+                <select id="theme-selector">
+                    <option value="night-sky">Night Sky Mode (Default)</option>
+                    <option value="aquatic">Aquatic Mode</option>
+                    <option value="desert">Desert Mode</option>
+                    <option value="dusk">Dusk Mode</option>
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button id="close-modal-btn" class="btn-secondary">Cancel</button>
+                <button id="save-settings-btn" class="btn-primary">Save Changes</button>
+            </div>
+        </div>
     </div>
-</nav>
 
-<div class="image-container">
-    <h1>AI Image Generator</h1>
-    <input type="text" id="imagePrompt" placeholder="Describe your image...">
-    <button id="generateImageBtn">Generate</button>
-    <div id="imageLoader" class="loader hidden"></div>
-    <img id="generatedImage" class="generated-image hidden">
-</div>
-
-<script src="image.js"></script>
+    <script src="app.js"></script>
+    <script src="image.js"></script>
 </body>
 </html>
