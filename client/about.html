@@ -1,100 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>APRONIX AI - About</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Top Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <!-- Logo & Brand -->
-            <div class="nav-brand">
-                <img src="logo.png" alt="APRONIX" class="logo-icon">
-                <span class="brand-name">APRONIX AI</span>
-            </div>
 
-            <!-- Navigation Links -->
-            <div class="nav-links">
-                <a href="index.html" class="nav-link" data-page="chat">
-                    <span class="link-icon">💬</span>
-                    Chat
-                </a>
-                <a href="image.html" class="nav-link" data-page="image">
-                    <span class="link-icon">🎨</span>
-                    Image
-                </a>
-                <a href="about.html" class="nav-link active" data-page="about">
-                    <span class="link-icon">ℹ️</span>
-                    About
-                </a>
-            </div>
-        </div>
-    </nav>
+<div class="main">
+  <h1>Aperonix AI</h1>
+  <p>
+  Aperonix AI is a professional artificial intelligence platform built for real earning and productivity.
+  </p>
+  <p>Founder: Mohammad Khan</p>
+</div>
 
-    <!-- Main Container -->
-    <div class="main-container about-main">
-        <!-- About Section -->
-        <main class="about-area">
-            <div class="about-container">
-                <!-- Left Side - AI Head Image -->
-                <div class="about-left">
-                    <div class="ai-head-wrapper">
-                        <img src="ai-head.png" alt="AI Head" class="ai-head-image">
-                    </div>
-                </div>
-
-                <!-- Right Side - Content -->
-                <div class="about-right">
-                    <!-- Title -->
-                    <div class="about-title-section">
-                        <h2 class="about-subtitle-text">Neural Network Interface</h2>
-                        <h1 class="about-main-title">APRONIX AI</h1>
-                    </div>
-
-                    <!-- Description -->
-                    <p class="about-description">
-                        Apronix is a high-performance artificial intelligence platform designed by Mohammad Khan to bridge the gap between human creativity and machine logic. It delivers seamless, real-time intelligent solutions for the modern digital era.
-                    </p>
-
-                    <!-- Founder Card -->
-                    <div class="founder-card">
-                        <div class="founder-content">
-                            <h3 class="founder-name">Mohammad Khan</h3>
-                            <p class="founder-title">Founder & Owner</p>
-                            <p class="founder-date">Established 2026</p>
-                        </div>
-                    </div>
-
-                    <!-- Action Button -->
-                    <button class="back-to-dashboard-btn" onclick="window.location.href='index.html'">
-                        Back to Dashboard
-                    </button>
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <script>
-        // Initialize theme on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            const savedTheme = localStorage.getItem('apronix-theme') || 'night-sky';
-            document.documentElement.setAttribute('data-theme', savedTheme);
-        });
-
-        // Settings modal functionality
-        const settingsBtn = document.querySelector('[onclick*="settings"]') || document.getElementById('settingsBtn');
-        if (settingsBtn) {
-            settingsBtn.addEventListener('click', function() {
-                // Settings not needed on about page, redirect to chat
-                window.location.href = 'index.html';
-            });
-        }
-    </script>
 </body>
 </html>
