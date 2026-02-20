@@ -1,0 +1,352 @@
+# 📋 APRONIX AI - Complete Setup Guide
+
+## ⚡ Quick Start (5 minutes)
+
+### Step 1: Get Files
+Download all 8 files and place them in the same folder:
+- index.html
+- image.html  
+- about.html
+- style.css
+- app.js
+- image.js
+- logo.png
+- ai-head.png
+
+### Step 2: Get API Key
+1. Go to [Google AI Studio](https://aistudio.google.com/app/apikey)
+2. Click "Create API key in new project"
+3. Copy the API key
+
+### Step 3: Open App
+1. Open `index.html` in your browser
+2. Click Settings (⚙️) button
+3. Paste API key
+4. Click Save
+
+✅ **Done! You're ready to chat!**
+
+---
+
+## 🎯 Detailed Setup Instructions
+
+### Getting Your Gemini API Key
+
+#### Method 1: Using Google AI Studio (Easiest)
+1. Visit [Google AI Studio](https://aistudio.google.com/app/apikey)
+2. Sign in with your Google account
+3. Click "Create API key"
+4. Select "Create API key in new project"
+5. Your API key is generated instantly
+6. Copy it with the copy button
+
+#### Method 2: Using Google Cloud Console
+1. Go to [Google Cloud Console](https://console.cloud.google.com)
+2. Create a new project
+3. Enable "Generative Language API"
+4. Go to Credentials
+5. Create an API key
+6. Restrict it to Generative Language API (optional)
+
+### Important Notes About API Keys
+- ✅ Free to create
+- ✅ No credit card required
+- ✅ Rate limits apply (default: 60 requests/minute)
+- ⚠️ Keep it private - don't share with anyone
+- ⚠️ Delete if compromised
+
+---
+
+## 🚀 Using APRONIX AI
+
+### On First Launch
+
+1. **Set Up API Key**
+   - Click Settings button (⚙️) in bottom left
+   - Paste your Gemini API key
+   - Select your theme (Night Sky, Aquatic, Desert, Dusk)
+   - Click "Save Settings"
+
+2. **Start Chatting**
+   - Type your message in the input field
+   - Press Enter or click the send button (⬆️)
+   - Watch the spinning logo while AI thinks
+   - Read the response
+
+### Chat History
+- Automatically saved to your browser
+- Click any chat in the sidebar to load it
+- Hover over a chat and click ✕ to delete
+- Create new chats with "New Chat" button
+
+### Switching Themes
+1. Click Settings (⚙️)
+2. Select a theme:
+   - **Night Sky** - Cyberpunk blue (default)
+   - **Aquatic** - Ocean blue
+   - **Desert** - Golden warm
+   - **Dusk** - Purple pink
+3. Click "Save Settings"
+
+### Image Generation (Beta)
+1. Click "Image" in top navigation
+2. Describe what you want: "A futuristic city at sunset"
+3. Click "Generate Image"
+4. Download or generate another
+
+---
+
+## 🔧 Troubleshooting
+
+### "Please configure your API key" Error
+**Problem:** You see this when trying to chat
+**Solution:**
+- Click Settings (⚙️)
+- Paste your API key
+- Click Save Settings
+- Try chatting again
+
+### "Invalid API key" Error
+**Problem:** API key is not working
+**Solution:**
+1. Go to [Google AI Studio](https://aistudio.google.com/app/apikey)
+2. Check if your key still exists
+3. If deleted, create a new one
+4. Copy the new key and update settings
+5. Try again
+
+### Chat history is gone
+**Problem:** Previous conversations disappeared
+**Solution:**
+- Check browser settings (localStorage might be disabled)
+- Ensure you're not in Private/Incognito mode
+- Try using a regular window
+- Switch to a different browser if still broken
+
+### Settings not saving
+**Problem:** Theme/API key keeps resetting
+**Solution:**
+- Check Privacy > Cookies settings
+- Allow localStorage for this site
+- Disable private browsing mode
+- Clear browser cache and try again
+
+### Images won't generate
+**Problem:** Image generation fails
+**Solution:**
+- Not all API keys support image generation
+- Try chatting instead (always works)
+- Check if you're using the right API key
+- Ensure you have proper API permissions
+
+### App won't load at all
+**Problem:** Blank page or errors
+**Solution:**
+1. Ensure all 8 files are in the same folder
+2. Check browser console (F12 > Console) for errors
+3. Try a different browser
+4. Make sure you're opening index.html (not in a zip)
+5. Try opening from a local web server:
+
+```bash
+# Python 3
+python -m http.server 8000
+
+# Python 2
+python -m SimpleHTTPServer 8000
+
+# Node.js
+npx http-server
+```
+
+Then visit: http://localhost:8000
+
+---
+
+## 💡 Tips & Tricks
+
+### Keyboard Shortcuts
+- **Enter** - Send message
+- **Shift+Enter** - New line in message
+- **F12** - Open developer tools (for debugging)
+
+### Better Chat Results
+- Be specific with your prompts
+- Give context and examples
+- Ask follow-up questions for clarification
+- Break complex tasks into steps
+
+### API Limits
+- Free tier: 60 requests/minute
+- Slightly slower responses during high load
+- Daily limits may apply (see Google Cloud docs)
+
+### Browser Tips
+- Use Chrome or Edge for best performance
+- Desktop version has the best UX
+- Mobile works but text input is tighter
+- Use dark theme for less eye strain at night
+
+---
+
+## 📦 Installation Variations
+
+### As a Web Server
+```bash
+# If you have Python installed
+python -m http.server 8000
+# Visit: http://localhost:8000
+```
+
+### As a Desktop Shortcut (Windows)
+1. Create a new shortcut on desktop
+2. Target: `C:\path\to\index.html`
+3. Start in: `C:\path\to\`
+4. Click OK
+
+### As a PWA (Optional)
+The app can be installed as a Progressive Web App:
+1. Open in Chrome/Edge
+2. Click address bar icon > "Install"
+3. Appears in your apps list
+
+---
+
+## 🔐 Privacy & Security
+
+### What APRONIX AI Does
+✅ Stores data locally in your browser
+✅ Sends prompts only to Google's servers
+✅ Uses secure HTTPS connections
+✅ Never creates user accounts
+
+### What APRONIX AI Does NOT Do
+❌ Track you
+❌ Sell your data
+❌ Show ads
+❌ Require login
+❌ Access files on your computer
+
+### Your Data
+- All conversations are stored locally
+- Only you can access them
+- Cleared if you clear browser cache
+- Not backed up (backup manually if needed)
+
+---
+
+## 📋 System Requirements
+
+### Minimum
+- Browser: Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
+- RAM: 1GB
+- Storage: 100MB
+- Internet: Required for API calls only
+
+### Recommended
+- Browser: Latest version
+- RAM: 4GB+
+- Internet: Stable broadband
+
+### Mobile
+- iOS: Safari 14+
+- Android: Chrome, Firefox, Edge
+- Tablets: Full featured experience
+
+---
+
+## 🎓 Learning Resources
+
+### Understanding the Code
+- **app.js** - Read the comments to understand chat flow
+- **style.css** - See how CSS variables create themes
+- **image.js** - Learn about Gemini image API
+
+### Modifying the App
+1. Download all files
+2. Edit in your favorite code editor
+3. Open index.html in browser
+4. Changes appear when you refresh (F5)
+
+### Common Modifications
+- Change colors in style.css variables
+- Add new themes by creating new color variables
+- Customize API endpoints in app.js
+- Modify prompts in image.js
+
+---
+
+## 🆘 Getting Help
+
+### If Something Goes Wrong
+
+1. **Check the Console**
+   - Press F12
+   - Click "Console" tab
+   - Look for red error messages
+   - Screenshot the error
+
+2. **Verify Setup**
+   - All 8 files in same folder?
+   - API key correct and not expired?
+   - Not in private/incognito mode?
+   - JavaScript enabled in browser?
+
+3. **Try These**
+   - Refresh the page (Ctrl+F5)
+   - Clear browser cache
+   - Try different browser
+   - Restart your computer
+
+---
+
+## ✨ Next Steps
+
+Now that you've set up APRONIX AI:
+
+1. **Explore Features**
+   - Try different prompts
+   - Test each theme
+   - Visit the About page
+
+2. **Customize (Optional)**
+   - Edit colors in style.css
+   - Add more themes
+   - Modify button styles
+
+3. **Share**
+   - Send the folder to friends
+   - Host on a server
+   - Create a GitHub repo
+
+---
+
+## 📞 Support Checklist
+
+Before asking for help, verify:
+- [ ] All 8 files are in the same folder
+- [ ] Files are extracted (not in a zip)
+- [ ] API key is valid and copied correctly
+- [ ] JavaScript is enabled in browser
+- [ ] No Private/Incognito mode
+- [ ] Internet connection is working
+- [ ] Tried refreshing the page
+- [ ] Tried a different browser
+- [ ] Cleared browser cache
+
+---
+
+## 🚀 You're All Set!
+
+Congratulations! APRONIX AI is ready to use. Start by:
+1. Opening index.html
+2. Adding your API key
+3. Typing your first message
+
+**Enjoy the power of AI at your fingertips! 🎉**
+
+---
+
+**Last Updated:** February 2026
+**Version:** 1.0.0
+**Status:** Production Ready ✅
