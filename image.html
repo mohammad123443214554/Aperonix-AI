@@ -1,17 +1,167 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aperonix AI Image Generator — Create stunning AI-generated images from text descriptions using Google Gemini Imagen." />
+  <meta name="keywords" content="AI image generation, text to image, Gemini Imagen, Aperonix AI" />
+  <meta property="og:title" content="Aperonix AI — Image Generator" />
+  <meta property="og:description" content="Generate stunning AI images from text prompts with Aperonix AI." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Aperonix AI — Image Generator</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- AdSense Script Placeholder -->
+  <!-- REPLACE ca-pub-XXXXXXXXXXXXXXXX with your actual AdSense Publisher ID -->
+  <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<div class="main">
-  <h1>Image Generator</h1>
-  <input id="prompt" placeholder="Describe image">
-  <button onclick="generateImage()">Generate</button>
-  <div id="result"></div>
-</div>
+  <!-- Top Banner Ad Placement -->
+  <!-- ADSENSE PLACEMENT: Top Banner (728x90 leaderboard) -->
+  <div class="ad-banner-top" aria-label="Advertisement">
+    <!--
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="XXXXXXXXXX"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    -->
+  </div>
 
-<script src="image.js"></script>
+  <div class="app-wrapper">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <span class="logo-mark">⬡</span>
+          <span class="logo-text">Aperonix</span>
+        </div>
+        <a href="index.html" class="new-chat-btn" style="text-decoration:none; justify-content:center;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          New Chat
+        </a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="index.html" class="nav-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Chat
+        </a>
+        <a href="image.html" class="nav-link active">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          Image Gen
+        </a>
+        <a href="about.html" class="nav-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          About
+        </a>
+      </nav>
+
+      <!-- Sidebar Ad Placement -->
+      <!-- ADSENSE PLACEMENT: Sidebar (300x250 medium rectangle) -->
+      <div class="ad-sidebar" aria-label="Advertisement">
+        <!--
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="XXXXXXXXXX"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        -->
+      </div>
+
+      <div class="sidebar-footer">
+        <span>Powered by Gemini</span>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" style="overflow-y:auto;">
+      <header class="chat-header">
+        <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle Sidebar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <h1 class="chat-title">Image Generator</h1>
+        <div class="header-badge">IMAGEN</div>
+      </header>
+
+      <div class="image-page">
+        <h2>Create with AI</h2>
+        <p class="subtitle">Describe your vision and let Aperonix AI bring it to life with Google Imagen.</p>
+
+        <div class="image-prompt-area">
+          <textarea
+            id="imagePrompt"
+            class="image-textarea"
+            placeholder="A serene mountain lake at golden hour, photorealistic, cinematic lighting..."
+            rows="3"
+            aria-label="Image generation prompt"
+          ></textarea>
+
+          <button class="generate-btn" id="generateBtn" aria-label="Generate image">
+            <span id="btnContent">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:6px;"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              Generate Image
+            </span>
+          </button>
+        </div>
+
+        <!-- Prompt Tips -->
+        <div style="margin-top:20px;">
+          <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:12px;font-family:var(--font-mono);">PROMPT IDEAS</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <button class="image-action-btn prompt-example" data-prompt="A futuristic cyberpunk city at night, neon lights reflecting on wet streets, ultra detailed">Cyberpunk City</button>
+            <button class="image-action-btn prompt-example" data-prompt="A cozy cabin in a snowy forest, warm light glowing from windows, snowfall, cinematic">Cozy Cabin</button>
+            <button class="image-action-btn prompt-example" data-prompt="An astronaut floating in space with colorful nebulae in the background, photorealistic">Space Astronaut</button>
+            <button class="image-action-btn prompt-example" data-prompt="A beautiful underwater coral reef scene with tropical fish, bioluminescent creatures, magical lighting">Coral Reef</button>
+          </div>
+        </div>
+
+        <!-- Result Area -->
+        <div class="image-result" id="imageResult">
+          <img id="generatedImage" class="generated-image" src="" alt="AI Generated Image" />
+          <div class="image-actions">
+            <button class="image-action-btn" id="downloadBtn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:4px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download
+            </button>
+            <button class="image-action-btn" id="regenerateBtn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:4px;"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+              Regenerate
+            </button>
+          </div>
+        </div>
+
+        <!-- In-Content Ad Placement -->
+        <!-- ADSENSE PLACEMENT: In-content (responsive) -->
+        <div style="margin-top:30px;" aria-label="Advertisement">
+          <!--
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                 data-ad-slot="XXXXXXXXXX"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          -->
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Mobile overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <script src="image.js"></script>
 </body>
 </html>
