@@ -1,17 +1,145 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="About Aperonix AI — Learn about our AI platform powered by Google Gemini." />
+  <title>About — Aperonix AI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- AdSense Script Placeholder -->
+  <!-- REPLACE ca-pub-XXXXXXXXXXXXXXXX with your actual AdSense Publisher ID -->
+  <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<div class="main">
-  <h1>Aperonix AI</h1>
-  <p>
-  Aperonix AI is a professional artificial intelligence platform built for real earning and productivity.
-  </p>
-  <p>Founder: Mohammad Khan</p>
-</div>
+  <div class="ad-banner-top"></div>
 
+  <div class="app-wrapper">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <span class="logo-mark">⬡</span>
+          <span class="logo-text">Aperonix</span>
+        </div>
+        <a href="index.html" class="new-chat-btn" style="text-decoration:none; justify-content:center;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          New Chat
+        </a>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="index.html" class="nav-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Chat
+        </a>
+        <a href="image.html" class="nav-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          Image Gen
+        </a>
+        <a href="about.html" class="nav-link active">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          About
+        </a>
+      </nav>
+
+      <div class="ad-sidebar"></div>
+      <div class="sidebar-footer"><span>Powered by Gemini</span></div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" style="overflow-y:auto;">
+      <header class="chat-header">
+        <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle Sidebar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <h1 class="chat-title">About</h1>
+      </header>
+
+      <div class="about-content" style="animation:fadeInUp 0.5s ease;">
+        <h2>Aperonix AI</h2>
+        <p>
+          Aperonix AI is a next-generation artificial intelligence platform built on Google's Gemini models. 
+          Designed for speed, clarity, and creative power, it gives you access to state-of-the-art AI 
+          capabilities directly from your browser — no installation required.
+        </p>
+        <p>
+          Whether you're writing code, crafting content, generating images, solving complex problems, 
+          or just exploring ideas — Aperonix AI is built to handle it all with fluency and precision.
+        </p>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <span class="feature-icon">⚡</span>
+            <h3>Lightning Fast</h3>
+            <p>Powered by Gemini 1.5 Flash — optimized for low latency and rapid responses.</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">🎨</span>
+            <h3>Image Generation</h3>
+            <p>Create stunning visuals from text prompts using Google Imagen 3.</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">🔒</span>
+            <h3>Secure by Design</h3>
+            <p>Your API keys are never exposed. All calls go through secure serverless functions.</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">🌍</span>
+            <h3>Always Available</h3>
+            <p>Deployed on Vercel's global edge network for 99.9% uptime worldwide.</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">💬</span>
+            <h3>Conversational Memory</h3>
+            <p>Maintains full context throughout your conversation for coherent, connected replies.</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">📱</span>
+            <h3>Fully Responsive</h3>
+            <p>Optimized experience on desktop, tablet, and mobile devices.</p>
+          </div>
+        </div>
+
+        <div style="margin-top:36px; padding:20px; background:var(--bg-secondary); border:1px solid var(--border-subtle); border-radius:var(--radius-lg);">
+          <p style="font-family:var(--font-mono); font-size:0.8rem; color:var(--text-muted); margin-bottom:8px;">TECH STACK</p>
+          <p style="color:var(--text-secondary); font-size:0.88rem; margin:0;">
+            Built with <strong style="color:var(--text-primary)">Vanilla JS + HTML/CSS</strong> &middot; 
+            <strong style="color:var(--text-primary)">Node.js Serverless Functions</strong> &middot; 
+            <strong style="color:var(--text-primary)">Google Gemini API</strong> &middot; 
+            Deployed on <strong style="color:var(--text-primary)">Vercel</strong>
+          </p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <script>
+    // Minimal sidebar toggle for about page
+    document.getElementById("sidebarToggle").addEventListener("click", function () {
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("sidebarOverlay");
+      if (window.innerWidth <= 768) {
+        sidebar.classList.toggle("mobile-open");
+        overlay.classList.toggle("visible");
+      } else {
+        sidebar.classList.toggle("collapsed");
+      }
+    });
+
+    document.getElementById("sidebarOverlay").addEventListener("click", function () {
+      document.getElementById("sidebar").classList.remove("mobile-open");
+      this.classList.remove("visible");
+    });
+  </script>
 </body>
 </html>
