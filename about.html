@@ -3,47 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aperonix AI - About</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Aperonix AI - Image</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body class="about-page">
-    <nav class="navbar">
-        <div class="nav-left">
-            <img src="logo.png" alt="Logo" class="nav-logo">
-            <span class="nav-brand">Aperonix AI</span>
-        </div>
-        <div class="nav-right">
-            <a href="index.html" class="nav-link">Chat</a>
-            <a href="image.html" class="nav-link">Image</a>
-            <a href="about.html" class="nav-link active">About</a>
-        </div>
-    </nav>
+<body>
 
-    <div class="about-container">
-        <div class="about-content glass-panel">
-            <div class="about-left">
-                <img src="ai-head.png" alt="AI Neural Head" class="ai-head-image">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <button onclick="window.location.href='index.html'" class="new-chat-btn">
+                <span class="material-icons">chat</span> Go to Chat
+            </button>
+        </div>
+        <div class="sidebar-footer">
+            <button id="settings-btn-img" class="sidebar-btn">
+                <span class="material-icons">settings</span> Settings
+            </button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <nav class="top-nav">
+            <div class="nav-left">
+                <img src="logo.png" alt="Logo" class="nav-logo" onerror="this.src='https://placehold.co/50x50/222/fff?text=A'">
+                <span class="brand-name">Aperonix AI</span>
             </div>
-            <div class="about-right">
-                <h2 class="subtitle">Neural Network Interface</h2>
-                <h1 class="title">Aperonix AI</h1>
-                
-                <p class="description">
-                    Aperonix is a high-performance artificial intelligence platform designed by Mohammad Khan to bridge the gap between human creativity and machine logic. It delivers seamless, real-time intelligent solutions for the modern digital era.
-                </p>
+            <div class="nav-right">
+                <a href="index.html" class="nav-link">Chat</a>
+                <a href="image.html" class="nav-link active">Image</a>
+                <a href="about.html" class="nav-link">About</a>
+            </div>
+        </nav>
 
-                <div class="founder-card glass-panel">
-                    <h3>Mohammad Khan</h3>
-                    <p class="role">Founder & Owner</p>
-                    <p class="established">Established 2026</p>
+        <div class="image-gen-container">
+            <div class="image-input-section">
+                <h1>Imagine Anything</h1>
+                <p>Enter a prompt to generate an image.</p>
+                <div class="prompt-box">
+                    <textarea id="image-prompt" placeholder="A futuristic city with neon lights at night..."></textarea>
+                    <button id="generate-btn">Generate Image</button>
                 </div>
-
-                <a href="index.html" class="btn-primary back-btn">Back to Dashboard</a>
             </div>
+
+            <div class="image-display-section" id="image-display">
+                <!-- Generated Image or Placeholder -->
+                <div class="placeholder-img">
+                    <span class="material-icons">image</span>
+                    <p>Image will appear here</p>
+                </div>
+                <div class="loading-overlay hidden" id="img-loading">
+                    <div class="spinner"></div>
+                    <p>Generating...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Reusing Modal Structure -->
+    <div id="settings-modal-img" class="modal">
+        <div class="modal-content">
+            <span class="close-modal-img">&times;</span>
+            <h2>Settings</h2>
+            <div class="setting-group">
+                <label>Gemini API Key</label>
+                <input type="password" id="api-key-input-img" placeholder="Enter your API Key">
+            </div>
+            <div class="setting-group">
+                <label>Theme Mode</label>
+                <div class="theme-options">
+                    <div class="theme-btn" data-theme="aquatic"></div>
+                    <div class="theme-btn" data-theme="desert"></div>
+                    <div class="theme-btn" data-theme="dusk"></div>
+                    <div class="theme-btn active" data-theme="night"></div>
+                </div>
+            </div>
+            <button class="primary-btn save-settings-img">Save Settings</button>
         </div>
     </div>
-    
-    <script src="app.js"></script>
+
+    <script src="image.js"></script>
 </body>
 </html>
