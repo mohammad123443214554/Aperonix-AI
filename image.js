@@ -1,41 +1,84 @@
-const generateBtn=document.getElementById("generateImageBtn");
-const promptInput=document.getElementById("imagePrompt");
-const imageEl=document.getElementById("generatedImage");
-const loader=document.getElementById("imageLoader");
+// ==========================================
+// IMAGE GENERATION LOGIC (Only runs on image.html)
+// ==========================================
 
-generateBtn.onclick=async()=>{
-    const prompt=promptInput.value.trim();
-    if(!prompt) return alert("Enter prompt");
+const imagePrompt = document.getElementById('image-prompt');
+const generateBtn = document.getElementById('generate-image-btn');
+const generatedImg = document.getElementById('generated-img');
+const imageLoading = document.getElementById('image-loading');
+const placeholderText = document.getElementById('placeholder-text');
+const imageError = document.getElementById('image-error');
 
-    const apiKey=localStorage.getItem("gemini_api_key");
-    if(!apiKey) return alert("Add API key in settings");
+if (generateBtn && imagePrompt) {
+    generateBtn.addEventListener('click', handleImageGeneration);
+    imagePrompt.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handleImageGeneration();
+    });
+}
 
-    loader.classList.remove("hidden");
-    imageEl.classList.add("hidden");
+async function handleImageGeneration() {
+    const prompt = imagePrompt.value.trim();
+    if (!prompt) return;
 
-    try{
-        const response=await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`,{
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify({
-                contents:[{parts:[{text:`Generate image: ${prompt}`}]}]
+    const apiKey = localStorage.getItem('aperonix_api_key');
+    if (!apiKey) {
+        showError("Please set your API key in Settings.");
+        return;
+    }
+
+    // Reset UI State
+    imageError.classList.add('hidden');
+    generatedImg.classList.add('hidden');
+    placeholderText.classList.add('hidden');
+    imageLoading.classList.remove('hidden');
+    generateBtn.disabled = true;
+
+    try {
+        // NOTE: Google's standard developer API (generativelanguage) handles text/chat primarily. 
+        // For Image Generation, it typically requires Vertex AI or the specific Imagen endpoints.
+        // Assuming access to a standard Imagen generation REST endpoint via API key:
+        
+        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate:predict?key=${apiKey}`;
+        
+        const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                instances: [
+                    { prompt: prompt }
+                ],
+                parameters: {
+                    sampleCount: 1,
+                    outputOptions: { mimeType: "image/png" }
+                }
             })
         });
 
-        const data=await response.json();
-        loader.classList.add("hidden");
-
-        if(data.error){
-            alert(data.error.message);
-            return;
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error?.message || "Image Generation failed or model not available in your region/tier.");
         }
 
-        const base64=data.candidates[0].content.parts[0].inlineData.data;
-        imageEl.src=`data:image/png;base64,${base64}`;
-        imageEl.classList.remove("hidden");
+        const data = await response.json();
+        
+        // Extract base64 image depending on response format (assuming standard predictions format)
+        if (data.predictions && data.predictions[0] && data.predictions[0].bytesBase64Encoded) {
+            generatedImg.src = `data:image/png;base64,${data.predictions[0].bytesBase64Encoded}`;
+            generatedImg.classList.remove('hidden');
+        } else {
+            throw new Error("Invalid response format received from image endpoint.");
+        }
 
-    }catch(err){
-        loader.classList.add("hidden");
-        alert("Image generation failed");
+    } catch (error) {
+        showError(`Error: ${error.message}`);
+        placeholderText.classList.remove('hidden');
+    } finally {
+        imageLoading.classList.add('hidden');
+        generateBtn.disabled = false;
     }
-};
+}
+
+function showError(msg) {
+    imageError.textContent = msg;
+    imageError.classList.remove('hidden');
+}
