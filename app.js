@@ -603,7 +603,7 @@ function init() {
     
     // Check if API keys are configured
     const keys = getApiKeys();
-    if (!keys.gemini && !keys.huggingface) {
+    if (!keys.gemini)
         setTimeout(() => {
             showToast('Welcome to Aperonix! Configure your API keys in settings to get started.', 'info');
         }, 1000);
