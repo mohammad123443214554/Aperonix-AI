@@ -543,22 +543,6 @@ function initEventListeners() {
     
     elements.sendBtn.addEventListener('click', sendMessage);
     
-    // Image input
-    elements.imageInput.addEventListener('input', () => {
-        elements.imageInput.style.height = 'auto';
-        elements.imageInput.style.height = Math.min(elements.imageInput.scrollHeight, 150) + 'px';
-        elements.generateBtn.disabled = !elements.imageInput.value.trim() || state.isProcessing;
-    });
-    
-    elements.imageInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            generateImage();
-        }
-    });
-    
-    elements.generateBtn.addEventListener('click', generateImage);
-    
     // Settings
     elements.settingsBtn.addEventListener('click', openSettings);
     elements.closeSettings.addEventListener('click', closeSettingsModal);
