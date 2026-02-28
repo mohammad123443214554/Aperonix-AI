@@ -47,7 +47,6 @@ const elements = {
     
     // Mode tabs
     chatTab: document.getElementById('chatTab'),
-    imageTab: document.getElementById('imageTab'),
     
     // Chat section
     chatSection: document.getElementById('chatSection'),
