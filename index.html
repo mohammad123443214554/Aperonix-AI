@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Aperonix AI – Your Intelligent AI Assistant</title>
-  <meta name="description" content="Aperonix AI is a powerful AI chat assistant powered by Google Gemini." />
+  <meta name="description" content="Aperonix AI is a powerful AI chat assistant powered by Google Gemini. Ask anything, generate ideas, write code, and more." />
   <meta name="keywords" content="AI chat, Gemini AI, chatbot, Aperonix AI, artificial intelligence" />
   <meta name="author" content="Mohammad Khan" />
   <meta property="og:title" content="Aperonix AI – Your Intelligent AI Assistant" />
@@ -14,6 +14,8 @@
   <link rel="icon" type="image/png" href="logo.png" />
   <link rel="apple-touch-icon" href="logo.png" />
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Apply saved theme BEFORE render to prevent flash -->
   <script>
     (function() {
       try {
@@ -22,109 +24,96 @@
       } catch(e) {}
     })();
   </script>
-  <!-- Google AdSense Placeholder -->
+
+  <!-- Google AdSense — uncomment and add your publisher ID -->
   <!--
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
   -->
 
   <style>
-    /* ── TOPBAR NAV LINKS ── */
+    /* Extra styles specific to index.html */
+
+    /* Logo in sidebar */
+    .sidebar-logo-wrap {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .sidebar-logo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .sidebar-logo-wrap .logo-fb {
+      display: none;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--bg-base);
+    }
+
+    /* Hide sidebar footer nav */
+    .sidebar-footer { display: none !important; }
+
+    /* Topbar nav links */
     .topbar-nav {
       display: flex;
       align-items: center;
       gap: 2px;
     }
-
     .topbar-nav a,
-    .topbar-nav button {
+    .topbar-nav button.tnav {
       background: none;
       border: none;
       color: var(--text-secondary);
       font-size: 13px;
       font-family: var(--font-body);
-      padding: 6px 12px;
+      padding: 6px 11px;
       border-radius: 8px;
       cursor: pointer;
       text-decoration: none;
-      transition: all 0.2s;
+      transition: background 0.2s, color 0.2s;
       white-space: nowrap;
     }
-
     .topbar-nav a:hover,
-    .topbar-nav button:hover {
+    .topbar-nav button.tnav:hover {
       background: rgba(255,255,255,0.07);
       color: var(--text-primary);
     }
-
-    .topbar-nav .nav-divider {
+    .topbar-nav .tnav-divider {
       width: 1px;
       height: 16px;
       background: var(--border);
       margin: 0 4px;
+      flex-shrink: 0;
     }
-
-    .topbar-nav .settings-nav-btn {
+    .topbar-nav .tnav-settings {
       display: flex;
       align-items: center;
       gap: 6px;
       border: 1px solid var(--border);
       border-radius: 10px;
       padding: 6px 12px;
+      font-size: 13px;
     }
-
-    .topbar-nav .settings-nav-btn:hover {
+    .topbar-nav .tnav-settings:hover {
       border-color: var(--border-accent);
+      color: var(--text-primary);
     }
 
-    /* Logo image fix */
-    .logo-img {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      overflow: hidden;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
+    @media (max-width: 900px) {
+      .topbar-nav .hide-900 { display: none; }
     }
-
-    .logo-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-    }
-
-    .logo-img .logo-fallback {
-      font-weight: 700;
-      font-size: 15px;
-      color: var(--bg-base);
-      display: none;
-      font-family: var(--font-display);
-    }
-
-    /* Hide sidebar footer completely */
-    .sidebar-footer {
-      display: none !important;
-    }
-
-    /* Mobile topbar nav - hide some on small screens */
-    @media (max-width: 768px) {
-      .topbar-nav .hide-mobile {
-        display: none;
-      }
-      .topbar-nav a,
-      .topbar-nav button {
-        font-size: 12px;
-        padding: 5px 8px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .topbar-nav .hide-sm {
-        display: none;
-      }
+    @media (max-width: 600px) {
+      .topbar-nav .hide-600 { display: none; }
+      .topbar-nav .tnav-divider { display: none; }
     }
   </style>
 </head>
@@ -132,74 +121,71 @@
 
 <div class="app-shell">
 
-  <!-- ══════════════════════════════
+  <!-- ════════════════════════════
        SIDEBAR
-  ══════════════════════════════ -->
+  ════════════════════════════ -->
   <aside class="sidebar" id="sidebar">
 
-    <!-- Header: Logo + Name -->
+    <!-- Logo + Name -->
     <div class="sidebar-header">
-      <div class="logo-img" id="sidebar-logo">
+      <div class="sidebar-logo-wrap">
         <img
           src="logo.png"
           alt="Aperonix AI"
-          id="sidebar-logo-img"
-          onerror="this.style.display='none'; document.getElementById('sidebar-logo-fallback').style.display='flex';"
-        >
-        <span class="logo-fallback" id="sidebar-logo-fallback">A</span>
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+        />
+        <span class="logo-fb">A</span>
       </div>
       <span class="logo-name">Aperonix AI</span>
     </div>
 
-    <!-- New Chat Button -->
+    <!-- New Chat -->
     <button class="new-chat-btn btn-accent" onclick="newChat()">
       ＋ &nbsp;New Chat
     </button>
 
-    <!-- Chat List -->
+    <!-- Chat History List -->
     <div class="chat-list" id="chat-list"></div>
 
-    <!-- sidebar-footer hidden via CSS above -->
+    <!-- sidebar-footer hidden via CSS -->
   </aside>
 
-  <!-- Mobile overlay (tap to close sidebar) -->
+  <!-- Mobile overlay -->
   <div class="sidebar-overlay" onclick="closeSidebar()"></div>
 
-  <!-- ══════════════════════════════
+  <!-- ════════════════════════════
        MAIN AREA
-  ══════════════════════════════ -->
+  ════════════════════════════ -->
   <main class="main-area">
 
-    <!-- ── TOP BAR ── -->
+    <!-- Top Bar -->
     <div class="topbar">
-      <!-- Left: hamburger + current chat title -->
       <div class="topbar-left">
         <button class="hamburger" onclick="openSidebar()">☰</button>
         <span class="topbar-title" id="topbar-title">Aperonix AI</span>
       </div>
 
-      <!-- Right: All nav links in one row -->
       <div class="topbar-right">
         <nav class="topbar-nav">
-          <a href="about.html" class="hide-mobile">About</a>
-          <a href="contact.html" class="hide-mobile">Contact</a>
-          <a href="privacy.html" class="hide-mobile hide-sm">Privacy</a>
-          <a href="terms.html" class="hide-mobile hide-sm">Terms</a>
-          <div class="nav-divider hide-mobile"></div>
-          <button class="settings-nav-btn" onclick="openSettings()">
-            ⚙️ Settings
-          </button>
+          <a href="about.html"   class="hide-900">About</a>
+          <a href="contact.html" class="hide-900">Contact</a>
+          <a href="privacy.html" class="hide-900 hide-600">Privacy</a>
+          <a href="terms.html"   class="hide-900 hide-600">Terms</a>
+          <div class="tnav-divider hide-900"></div>
+          <button class="tnav tnav-settings" onclick="openSettings()">⚙️ Settings</button>
         </nav>
       </div>
     </div>
 
-    <!-- ── CHAT MESSAGES ── -->
-    <div class="chat-messages" id="chat-messages"></div>
+    <!-- Chat Messages -->
+    <div class="chat-messages" id="chat-messages">
+      <!-- Rendered by script.js -->
+    </div>
 
-    <!-- ── INPUT AREA ── -->
+    <!-- Input Area -->
     <div class="input-area">
       <div class="input-wrapper">
-        <div class="image-hint" id="image-hint">
+        <div class="image-hint">
           🖼️ Image prompt mode — describe what you want to generate
         </div>
         <textarea
@@ -208,32 +194,36 @@
           placeholder="Message Aperonix AI… (Enter to send · Shift+Enter for new line · /image for image prompts)"
         ></textarea>
         <div class="input-footer">
-          <span class="input-hint" id="char-count"></span>
+          <span class="input-hint"></span>
           <button class="send-btn btn-accent" id="send-btn" onclick="sendMessage()" disabled>➤</button>
         </div>
       </div>
-      <p class="disclaimer">Aperonix AI can make mistakes. Verify important information. Powered by Google Gemini.</p>
+      <p class="disclaimer">
+        Aperonix AI can make mistakes. Verify important information. Powered by Google Gemini.
+      </p>
     </div>
 
   </main>
 </div>
 
-<!-- ══════════════════════════════
+<!-- ════════════════════════════
      SETTINGS MODAL
-══════════════════════════════ -->
+════════════════════════════ -->
 <div class="modal-overlay" id="settings-modal">
   <div class="modal">
+
     <div class="modal-header">
       <span class="modal-title">🎨 Appearance</span>
       <button class="modal-close" onclick="closeSettings()">✕</button>
     </div>
+
     <div class="modal-body">
       <p class="modal-label">Choose a theme to personalize your experience</p>
       <div class="themes-grid">
 
         <!-- Midnight Blue -->
         <button class="theme-card" data-theme="midnight">
-          <div class="theme-preview" style="background:#070b14; position:relative;">
+          <div class="theme-preview" style="background:#070b14;position:relative;">
             <div style="position:absolute;left:8px;top:8px;bottom:8px;width:28px;border-radius:4px;background:#0d1526;"></div>
             <div class="theme-dot" style="background:linear-gradient(135deg,#4facfe,#00f2fe);"></div>
             <span class="check-icon">✓</span>
@@ -244,7 +234,7 @@
 
         <!-- Royal Purple Neon -->
         <button class="theme-card" data-theme="purple">
-          <div class="theme-preview" style="background:#08050f; position:relative;">
+          <div class="theme-preview" style="background:#08050f;position:relative;">
             <div style="position:absolute;left:8px;top:8px;bottom:8px;width:28px;border-radius:4px;background:#110a1f;"></div>
             <div class="theme-dot" style="background:linear-gradient(135deg,#a78bfa,#f472b6);"></div>
             <span class="check-icon">✓</span>
@@ -255,7 +245,7 @@
 
         <!-- Emerald Green -->
         <button class="theme-card" data-theme="emerald">
-          <div class="theme-preview" style="background:#030d0a; position:relative;">
+          <div class="theme-preview" style="background:#030d0a;position:relative;">
             <div style="position:absolute;left:8px;top:8px;bottom:8px;width:28px;border-radius:4px;background:#071510;"></div>
             <div class="theme-dot" style="background:linear-gradient(135deg,#34d399,#6ee7b7);"></div>
             <span class="check-icon">✓</span>
@@ -266,10 +256,10 @@
 
         <!-- Clean Light -->
         <button class="theme-card" data-theme="light">
-          <div class="theme-preview" style="background:#f0f4ff; position:relative;">
+          <div class="theme-preview" style="background:#f0f4ff;position:relative;">
             <div style="position:absolute;left:8px;top:8px;bottom:8px;width:28px;border-radius:4px;background:#fff;border:1px solid #e2e8f0;"></div>
             <div class="theme-dot" style="background:linear-gradient(135deg,#6366f1,#818cf8);"></div>
-            <span class="check-icon" style="color:#0f172a;">✓</span>
+            <span class="check-icon" style="background:#6366f1;color:#fff;">✓</span>
           </div>
           <span class="theme-name">Clean Light Minimal</span>
           <span class="theme-desc">Crisp white with indigo</span>
@@ -277,9 +267,11 @@
 
       </div>
     </div>
+
     <div class="modal-footer">
       <button class="btn-accent done-btn" onclick="closeSettings()">Done</button>
     </div>
+
   </div>
 </div>
 
