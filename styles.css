@@ -829,9 +829,8 @@ body {
         padding: 10px 14px;
     }
 
-    .messages-container,
-    .image-container {
-        padding: 16px;
+    .messages-container {
+    padding: 16px;
     }
 
     .input-container {
@@ -851,9 +850,6 @@ body {
         padding: 12px 16px;
     }
 
-    .generated-images {
-        grid-template-columns: 1fr;
-    }
 }
 
 @media (max-width: 480px) {
