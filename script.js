@@ -1,632 +1,769 @@
-/* =============================================
-   APERONIX AI — script.js  (Complete Rewrite)
-   ============================================= */
+// Aperonix AI Application
+// Main JavaScript File
 
-// ── GEMINI API CONFIG ────────────────────────
-// Replace with your actual Gemini API key
-const GEMINI_API_KEY = 'YOUR_GEMINI_API_KEY_HERE';
-const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1/models' + GEMINI_API_KEY;
+// ================== Constants & Configuration ==================
+const GEMINI_API_BASE = 'https://generativelanguage.googleapis.com/v1/models';
+const HUGGINGFACE_API_URL = 'https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0';
 
-const SYSTEM_PROMPT =
-  'You are Aperonix AI, a highly intelligent, helpful, and friendly AI assistant. ' +
-  'Provide accurate, detailed, and well-structured responses. ' +
-  'Use Markdown formatting — headers, bullet points, bold, code blocks where appropriate. ' +
-  'Be concise yet thorough. Always be respectful and professional.';
+// Predefined responses for identity questions
+const IDENTITY_RESPONSES = {
+    owner: "I am Aperonix, created and owned by Mohammad Khan.",
+    creator: "I am Aperonix, created and owned by Mohammad Khan.",
+    who_made: "I am Aperonix, created and owned by Mohammad Khan.",
+    who_created: "I am Aperonix, created and owned by Mohammad Khan.",
+    who_owns: "I am Aperonix, created and owned by Mohammad Khan.",
+    your_name: "My name is Aperonix. I am an AI assistant created and owned by Mohammad Khan.",
+    about_you: "I am Aperonix, an AI assistant created and owned by Mohammad Khan. I'm here to help you with conversations and image generation."
+};
 
-// ── APP STATE ─────────────────────────────────
-var chats = [];
-var activeChatId = null;
-var isLoading = false;
+// Identity question patterns
+const IDENTITY_PATTERNS = [
+    /who\s+(made|created|built|developed|owns?|is\s+your\s+(owner|creator))/i,
+    /who('s|'s|\s+is)\s+your\s+(owner|creator|developer|maker)/i,
+    /your\s+(owner|creator|developer|maker)/i,
+    /who\s+are\s+you/i,
+    /what('s|'s|\s+is)\s+your\s+name/i,
+    /tell\s+me\s+about\s+(yourself|you)/i,
+    /what\s+are\s+you/i,
+    /who\s+do\s+you\s+belong\s+to/i
+];
 
-// ── HELPERS ───────────────────────────────────
-function genId() {
-  return Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+// ================== State Management ==================
+const state = {
+    currentMode: 'chat',
+    currentChatId: null,
+    chats: {},
+    isProcessing: false
+};
+
+// ================== DOM Elements ==================
+const elements = {
+    // Sidebar
+    sidebar: document.getElementById('sidebar'),
+    sidebarToggle: document.getElementById('sidebarToggle'),
+    newChatBtn: document.getElementById('newChatBtn'),
+    todayChats: document.getElementById('todayChats'),
+    previousChats: document.getElementById('previousChats'),
+    
+    // Mode tabs
+    chatTab: document.getElementById('chatTab'),
+    imageTab: document.getElementById('imageTab'),
+    
+    // Chat section
+    chatSection: document.getElementById('chatSection'),
+    messagesContainer: document.getElementById('messagesContainer'),
+    welcomeMessage: document.getElementById('welcomeMessage'),
+    chatInput: document.getElementById('chatInput'),
+    sendBtn: document.getElementById('sendBtn'),
+    
+    // Image section
+    imageSection: document.getElementById('imageSection'),
+    imageContainer: document.getElementById('imageContainer'),
+    imageWelcome: document.getElementById('imageWelcome'),
+    generatedImages: document.getElementById('generatedImages'),
+    imageInput: document.getElementById('imageInput'),
+    generateBtn: document.getElementById('generateBtn'),
+    
+    // Settings
+    settingsBtn: document.getElementById('settingsBtn'),
+    settingsModal: document.getElementById('settingsModal'),
+    closeSettings: document.getElementById('closeSettings'),
+    cancelSettings: document.getElementById('cancelSettings'),
+    saveSettings: document.getElementById('saveSettings'),
+    geminiKey: document.getElementById('geminiKey'),
+    huggingfaceKey: document.getElementById('huggingfaceKey'),
+    
+    // Toast
+    toast: document.getElementById('toast'),
+    toastMessage: document.getElementById('toastMessage')
+};
+
+// ================== Utility Functions ==================
+
+// Generate unique ID
+function generateId() {
+    return Date.now().toString(36) + Math.random().toString(36).substr(2);
 }
 
-function saveData() {
-  try {
-    localStorage.setItem('aperonix-chats', JSON.stringify(chats));
-    localStorage.setItem('aperonix-active', activeChatId || '');
-  } catch(e) {}
-}
-
-function loadData() {
-  try {
-    var raw = localStorage.getItem('aperonix-chats');
-    var active = localStorage.getItem('aperonix-active');
-    if (raw) {
-      chats = JSON.parse(raw);
-      activeChatId = active || (chats[0] ? chats[0].id : null);
-    }
-  } catch(e) { chats = []; activeChatId = null; }
-}
-
-function getActive() {
-  return chats.find(function(c) { return c.id === activeChatId; }) || null;
-}
-
-function escHtml(str) {
-  return String(str)
-    .replace(/&/g,'&amp;')
-    .replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;');
-}
-
-function el(id) { return document.getElementById(id); }
-
-// ── THEME ─────────────────────────────────────
-function applyTheme(themeId) {
-  document.documentElement.setAttribute('data-theme', themeId);
-  try { localStorage.setItem('aperonix-theme', themeId); } catch(e) {}
-
-  document.querySelectorAll('.theme-card').forEach(function(card) {
-    card.classList.toggle('selected', card.getAttribute('data-theme') === themeId);
-  });
-}
-
-function initTheme() {
-  var t = 'midnight';
-  try { t = localStorage.getItem('aperonix-theme') || 'midnight'; } catch(e) {}
-  document.documentElement.setAttribute('data-theme', t);
-  // Sync cards if modal already in DOM
-  document.querySelectorAll('.theme-card').forEach(function(card) {
-    card.classList.toggle('selected', card.getAttribute('data-theme') === t);
-  });
-}
-
-// ── MARKDOWN RENDERER ─────────────────────────
-function renderMarkdown(text) {
-  var html = text;
-
-  // Code blocks
-  html = html.replace(/```(\w*)\n?([\s\S]*?)```/g, function(_, lang, code) {
-    var id = genId();
-    var escaped = code.trim()
-      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    return '<div class="code-block">' +
-      '<div class="code-header">' +
-        '<span class="code-lang">' + (lang || 'code') + '</span>' +
-        '<button class="copy-btn" onclick="copyCode(this,\'' + id + '\')">' +
-          '📋 Copy</button>' +
-      '</div>' +
-      '<pre id="code-' + id + '"><code>' + escaped + '</code></pre>' +
-    '</div>';
-  });
-
-  // Inline code
-  html = html.replace(/`([^`\n]+)`/g, '<code>$1</code>');
-
-  // Bold & Italic
-  html = html.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
-  html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-  html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
-
-  // Headers
-  html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
-  html = html.replace(/^## (.+)$/gm,  '<h2>$1</h2>');
-  html = html.replace(/^# (.+)$/gm,   '<h1>$1</h1>');
-
-  // Blockquote
-  html = html.replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>');
-
-  // HR
-  html = html.replace(/^---$/gm, '<hr style="border:none;border-top:1px solid var(--border);margin:10px 0;">');
-
-  // Lists
-  html = html.replace(/^[\-\*\+] (.+)$/gm, '<li>$1</li>');
-  html = html.replace(/^(\d+)\. (.+)$/gm,  '<li>$2</li>');
-  html = html.replace(/(<li>[\s\S]*?<\/li>)(\n(?=<li>)|$)/g, '$1');
-  html = html.replace(/((<li>.*<\/li>\n?)+)/g, '<ul>$1</ul>');
-
-  // Links
-  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g,
-    '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
-
-  // Paragraphs
-  var parts = html.split(/\n{2,}/);
-  html = parts.map(function(p) {
-    p = p.trim();
-    if (!p) return '';
-    if (/^<(h[1-6]|ul|ol|blockquote|div|pre|hr)/.test(p)) return p;
-    return '<p>' + p.replace(/\n/g, '<br>') + '</p>';
-  }).join('');
-
-  return html;
-}
-
-function copyCode(btn, id) {
-  var pre = el('code-' + id);
-  if (!pre) return;
-  navigator.clipboard.writeText(pre.innerText).then(function() {
-    btn.textContent = '✓ Copied!';
-    btn.classList.add('copied');
-    setTimeout(function() {
-      btn.textContent = '📋 Copy';
-      btn.classList.remove('copied');
-    }, 2000);
-  }).catch(function() {
-    // Fallback
-    var ta = document.createElement('textarea');
-    ta.value = pre.innerText;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    btn.textContent = '✓ Copied!';
-    setTimeout(function() { btn.textContent = '📋 Copy'; }, 2000);
-  });
-}
-
-// ── CHAT CRUD ─────────────────────────────────
-function createChat() {
-  return { id: genId(), title: 'New Chat', messages: [], createdAt: Date.now() };
-}
-
-function newChat() {
-  var chat = createChat();
-  chats.unshift(chat);
-  activeChatId = chat.id;
-  saveData();
-  renderSidebar();
-  renderMessages();
-  closeSidebar();
-}
-
-function selectChat(id) {
-  activeChatId = id;
-  saveData();
-  renderSidebar();
-  renderMessages();
-  closeSidebar();
-}
-
-function deleteChat(id) {
-  chats = chats.filter(function(c) { return c.id !== id; });
-  if (activeChatId === id) {
-    if (chats.length === 0) {
-      var fresh = createChat();
-      chats.push(fresh);
-      activeChatId = fresh.id;
-    } else {
-      activeChatId = chats[0].id;
-    }
-  }
-  saveData();
-  renderSidebar();
-  renderMessages();
-}
-
-function duplicateChat(id) {
-  var src = chats.find(function(c) { return c.id === id; });
-  if (!src) return;
-  var dup = {
-    id: genId(),
-    title: src.title + ' (copy)',
-    messages: JSON.parse(JSON.stringify(src.messages)),
-    createdAt: Date.now()
-  };
-  var idx = chats.findIndex(function(c) { return c.id === id; });
-  chats.splice(idx + 1, 0, dup);
-  activeChatId = dup.id;
-  saveData();
-  renderSidebar();
-  renderMessages();
-}
-
-function startRename(id) {
-  var item = document.querySelector('.chat-item[data-id="' + id + '"]');
-  if (!item) return;
-  var titleEl = item.querySelector('.chat-item-title');
-  var current = titleEl.textContent;
-
-  var input = document.createElement('input');
-  input.className = 'rename-input';
-  input.value = current;
-  titleEl.replaceWith(input);
-  input.focus(); input.select();
-
-  function finish() {
-    var val = input.value.trim() || current;
-    var chat = chats.find(function(c) { return c.id === id; });
-    if (chat) chat.title = val;
-    saveData();
-    renderSidebar();
-    if (activeChatId === id) {
-      var tt = el('topbar-title');
-      if (tt) tt.textContent = val;
-    }
-  }
-
-  input.addEventListener('blur', finish);
-  input.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter')  { input.blur(); }
-    if (e.key === 'Escape') { input.value = current; input.blur(); }
-  });
-}
-
-// ── DROPDOWN MENU ─────────────────────────────
-var _openMenuId = null;
-
-function toggleMenu(e, id) {
-  e.stopPropagation();
-  var menu = el('menu-' + id);
-  if (!menu) return;
-  var wasOpen = menu.classList.contains('open');
-  closeAllMenus();
-  if (!wasOpen) { menu.classList.add('open'); _openMenuId = id; }
-}
-
-function closeAllMenus() {
-  document.querySelectorAll('.dropdown-menu.open').forEach(function(m) {
-    m.classList.remove('open');
-  });
-  _openMenuId = null;
-}
-
-function renameMenu(id)    { closeAllMenus(); startRename(id); }
-function duplicateMenu(id) { closeAllMenus(); duplicateChat(id); }
-function deleteMenu(id)    { closeAllMenus(); deleteChat(id); }
-
-document.addEventListener('click', function(e) {
-  if (!e.target.closest('.chat-menu-btn') && !e.target.closest('.dropdown-menu')) {
-    closeAllMenus();
-  }
-});
-
-// ── SIDEBAR RENDER ────────────────────────────
-function renderSidebar() {
-  var list = el('chat-list');
-  if (!list) return;
-
-  if (chats.length === 0) {
-    list.innerHTML =
-      '<div style="text-align:center;padding:32px 12px;">' +
-        '<div style="font-size:28px;margin-bottom:8px;opacity:0.25">💬</div>' +
-        '<p style="font-size:11px;color:var(--text-muted)">No chats yet. Start a conversation!</p>' +
-      '</div>';
-    return;
-  }
-
-  list.innerHTML = chats.map(function(chat) {
-    var isActive = chat.id === activeChatId;
-    return '<div class="chat-item ' + (isActive ? 'active' : '') + '" ' +
-      'data-id="' + chat.id + '" onclick="selectChat(\'' + chat.id + '\')">' +
-      '<span class="chat-item-icon">💬</span>' +
-      '<span class="chat-item-title">' + escHtml(chat.title) + '</span>' +
-      '<button class="chat-menu-btn" onclick="toggleMenu(event,\'' + chat.id + '\')">⋯</button>' +
-      '<div class="dropdown-menu" id="menu-' + chat.id + '">' +
-        '<button class="dropdown-item" onclick="renameMenu(\'' + chat.id + '\')">✏️ Rename</button>' +
-        '<button class="dropdown-item" onclick="duplicateMenu(\'' + chat.id + '\')">📋 Duplicate</button>' +
-        '<div class="dropdown-divider"></div>' +
-        '<button class="dropdown-item delete" onclick="deleteMenu(\'' + chat.id + '\')">🗑️ Delete</button>' +
-      '</div>' +
-    '</div>';
-  }).join('');
-}
-
-// ── MESSAGES RENDER ───────────────────────────
-function renderMessages() {
-  var container = el('chat-messages');
-  var titleEl   = el('topbar-title');
-  if (!container) return;
-
-  var chat = getActive();
-
-  if (!chat || chat.messages.length === 0) {
-    container.innerHTML =
-      '<div class="welcome-screen">' +
-        '<div class="welcome-logo">' +
-          '<img src="logo.png" alt="Aperonix AI" ' +
-            'onerror="this.style.display=\'none\';this.parentElement.querySelector(\'.wl-fallback\').style.display=\'flex\'">' +
-          '<span class="wl-fallback" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:28px;color:var(--bg-base);">A</span>' +
-        '</div>' +
-        '<h1 class="welcome-title">Hello, I\'m Aperonix AI</h1>' +
-        '<p class="welcome-sub">' +
-          'Your intelligent AI assistant powered by Google Gemini. ' +
-          'Ask me anything — write, code, analyze, or type <code>/image</code> for image prompts.' +
-        '</p>' +
-        '<div class="suggestions-grid">' +
-          '<button class="suggestion-btn" onclick="fillInput(\'Explain quantum computing simply\')">' +
-            '<span class="suggestion-icon">💡</span> Explain quantum computing simply</button>' +
-          '<button class="suggestion-btn" onclick="fillInput(\'Write a Python web scraper\')">' +
-            '<span class="suggestion-icon">💻</span> Write a Python web scraper</button>' +
-          '<button class="suggestion-btn" onclick="fillInput(\'Summarize the history of AI\')">' +
-            '<span class="suggestion-icon">📖</span> Summarize the history of AI</button>' +
-          '<button class="suggestion-btn" onclick="fillInput(\'Give me productivity tips for developers\')">' +
-            '<span class="suggestion-icon">⚡</span> Productivity tips for developers</button>' +
-        '</div>' +
-      '</div>';
-
-    if (titleEl) titleEl.textContent = 'Aperonix AI';
-    return;
-  }
-
-  if (titleEl) titleEl.textContent = chat.title;
-  container.innerHTML = chat.messages.map(renderMessageHTML).join('');
-  scrollBottom();
-}
-
-function renderMessageHTML(msg) {
-  var isUser = msg.role === 'user';
-  var avatar = isUser
-    ? '<div class="msg-avatar user-avatar">U</div>'
-    : '<div class="msg-avatar ai-avatar">' +
-        '<img src="logo.png" alt="AI" ' +
-          'onerror="this.style.display=\'none\';this.parentElement.style.display=\'flex\';this.parentElement.style.alignItems=\'center\';this.parentElement.style.justifyContent=\'center\';this.parentElement.textContent=\'A\'">' +
-      '</div>';
-
-  var bubbleContent;
-  if (msg.error) {
-    bubbleContent = '<div class="error-text">⚠️ ' + escHtml(msg.error) + '</div>';
-  } else if (isUser) {
-    bubbleContent = escHtml(msg.content).replace(/\n/g, '<br>');
-  } else {
-    bubbleContent = renderMarkdown(msg.content);
-  }
-
-  return '<div class="message-row ' + (isUser ? 'user' : 'ai') + '">' +
-    avatar +
-    '<div class="msg-content">' +
-      '<div class="msg-bubble ' + (isUser ? 'user' : 'ai') + '">' +
-        bubbleContent +
-      '</div>' +
-    '</div>' +
-  '</div>';
-}
-
-function appendMessage(msg) {
-  var container = el('chat-messages');
-  if (!container) return;
-
-  var welcome = container.querySelector('.welcome-screen');
-  if (welcome) container.innerHTML = '';
-
-  var div = document.createElement('div');
-  div.innerHTML = renderMessageHTML(msg);
-  var node = div.firstElementChild;
-  if (node) {
-    container.appendChild(node);
-    scrollBottom();
-  }
-}
-
-function showTyping() {
-  var container = el('chat-messages');
-  if (!container) return;
-
-  var row = document.createElement('div');
-  row.className = 'message-row ai';
-  row.id = 'typing-row';
-  row.innerHTML =
-    '<div class="msg-avatar ai-avatar" style="overflow:hidden;">' +
-      '<img src="logo.png" alt="AI" class="logo-spin" ' +
-        'onerror="this.style.display=\'none\';this.parentElement.textContent=\'A\'">' +
-    '</div>' +
-    '<div class="msg-content">' +
-      '<div class="msg-bubble ai">' +
-        '<div class="typing-indicator">' +
-          '<div class="typing-dot"></div>' +
-          '<div class="typing-dot"></div>' +
-          '<div class="typing-dot"></div>' +
-        '</div>' +
-      '</div>' +
-    '</div>';
-
-  container.appendChild(row);
-  scrollBottom();
-}
-
-function hideTyping() {
-  var row = el('typing-row');
-  if (row) row.remove();
-}
-
-function scrollBottom() {
-  var c = el('chat-messages');
-  if (c) c.scrollTop = c.scrollHeight;
-}
-
-function fillInput(text) {
-  var inp = el('chat-input');
-  if (!inp) return;
-  inp.value = text;
-  inp.focus();
-  autoResize(inp);
-  updateSendBtn();
-}
-
-// ── SEND MESSAGE ──────────────────────────────
-async function sendMessage() {
-  if (isLoading) return;
-  var inp = el('chat-input');
-  var text = inp ? inp.value.trim() : '';
-  if (!text) return;
-
-  // Make sure we have an active chat
-  if (!activeChatId || !getActive()) newChat();
-  var chat = getActive();
-  if (!chat) return;
-
-  // Auto-title on first message
-  if (chat.messages.length === 0) {
-    chat.title = text.slice(0, 48) + (text.length > 48 ? '…' : '');
-  }
-
-  var userMsg = { id: genId(), role: 'user', content: text, ts: Date.now() };
-  chat.messages.push(userMsg);
-  saveData();
-  renderSidebar();
-  appendMessage(userMsg);
-
-  // Clear input
-  inp.value = '';
-  autoResize(inp);
-  updateSendBtn();
-  var hint = document.querySelector('.image-hint');
-  if (hint) hint.classList.remove('visible');
-
-  isLoading = true;
-  showTyping();
-  updateSendBtn();
-
-  try {
-    // Build conversation history for Gemini
-    var history = chat.messages.slice(0, -1).map(function(m) {
-      return { role: m.role === 'user' ? 'user' : 'model', parts: [{ text: m.content }] };
-    });
-
-    var body = {
-      system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
-      contents: history.concat([{ role: 'user', parts: [{ text: text }] }]),
-      generationConfig: { temperature: 0.8, topK: 40, topP: 0.95, maxOutputTokens: 8192 }
+// Get stored API keys
+function getApiKeys() {
+    return {
+        gemini: localStorage.getItem('GEMINI_API_KEY') || '',
+        huggingface: localStorage.getItem('HUGGINGFACE_API_TOKEN') || ''
     };
+}
 
-    var res = await fetch(GEMINI_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
+// Save API keys
+function saveApiKeys(gemini, huggingface) {
+    if (gemini !== undefined) localStorage.setItem('GEMINI_API_KEY', gemini);
+    if (huggingface !== undefined) localStorage.setItem('HUGGINGFACE_API_TOKEN', huggingface);
+}
+
+// Show toast notification
+function showToast(message, type = 'info') {
+    elements.toastMessage.textContent = message;
+    elements.toast.className = 'toast ' + type;
+    elements.toast.classList.add('show');
+    
+    setTimeout(() => {
+        elements.toast.classList.remove('show');
+    }, 4000);
+}
+
+// Check if message is an identity question
+function isIdentityQuestion(message) {
+    const lowerMessage = message.toLowerCase();
+    return IDENTITY_PATTERNS.some(pattern => pattern.test(lowerMessage));
+}
+
+// Get identity response
+function getIdentityResponse(message) {
+    return IDENTITY_RESPONSES.owner;
+}
+
+// Format date for chat history
+function formatChatDate(timestamp) {
+    const date = new Date(timestamp);
+    const now = new Date();
+    const isToday = date.toDateString() === now.toDateString();
+    
+    return isToday ? 'today' : 'previous';
+}
+
+// Get chat title from first message
+function getChatTitle(messages) {
+    if (!messages || messages.length === 0) return 'New Chat';
+    const firstUserMessage = messages.find(m => m.role === 'user');
+    if (!firstUserMessage) return 'New Chat';
+    return firstUserMessage.content.slice(0, 30) + (firstUserMessage.content.length > 30 ? '...' : '');
+}
+
+// ================== Storage Functions ==================
+
+// Load chats from localStorage
+function loadChats() {
+    const stored = localStorage.getItem('aperonix_chats');
+    if (stored) {
+        state.chats = JSON.parse(stored);
+    }
+}
+
+// Save chats to localStorage
+function saveChats() {
+    localStorage.setItem('aperonix_chats', JSON.stringify(state.chats));
+}
+
+// ================== UI Functions ==================
+
+// Render chat history
+function renderChatHistory() {
+    elements.todayChats.innerHTML = '';
+    elements.previousChats.innerHTML = '';
+    
+    const chatIds = Object.keys(state.chats).sort((a, b) => {
+        return state.chats[b].updatedAt - state.chats[a].updatedAt;
     });
+    
+    chatIds.forEach(id => {
+        const chat = state.chats[id];
+        const category = formatChatDate(chat.updatedAt);
+        const container = category === 'today' ? elements.todayChats : elements.previousChats;
+        
+        const item = document.createElement('button');
+        item.className = 'history-item' + (id === state.currentChatId ? ' active' : '');
+        item.innerHTML = `
+            <span class="history-item-text">${getChatTitle(chat.messages)}</span>
+            <span class="history-item-delete" data-id="${id}">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="3 6 5 6 21 6"></polyline>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                </svg>
+            </span>
+        `;
+        
+        item.addEventListener('click', (e) => {
+            if (!e.target.closest('.history-item-delete')) {
+                loadChat(id);
+            }
+        });
+        
+        const deleteBtn = item.querySelector('.history-item-delete');
+        deleteBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            deleteChat(id);
+        });
+        
+        container.appendChild(item);
+    });
+}
 
-    var data = await res.json();
-
-    if (!res.ok) {
-      var errMsg = (data && data.error && data.error.message) || ('HTTP ' + res.status);
-      throw new Error(errMsg);
+// Render messages
+function renderMessages(messages) {
+    // Clear existing messages except welcome
+    const existingMessages = elements.messagesContainer.querySelectorAll('.message');
+    existingMessages.forEach(m => m.remove());
+    
+    if (!messages || messages.length === 0) {
+        elements.welcomeMessage.style.display = 'flex';
+        return;
     }
+    
+    elements.welcomeMessage.style.display = 'none';
+    
+    messages.forEach(msg => {
+        addMessageToDOM(msg.role, msg.content, false);
+    });
+    
+    scrollToBottom();
+}
 
-    var aiText = (data.candidates &&
-                  data.candidates[0] &&
-                  data.candidates[0].content &&
-                  data.candidates[0].content.parts &&
-                  data.candidates[0].content.parts[0] &&
-                  data.candidates[0].content.parts[0].text) || 'No response received.';
-
-    var aiMsg = { id: genId(), role: 'assistant', content: aiText, ts: Date.now() };
-    chat.messages.push(aiMsg);
-    saveData();
-    hideTyping();
-    appendMessage(aiMsg);
-
-  } catch(err) {
-    console.error('Gemini Error:', err);
-    var errText = err.message || 'Failed to get response. Please try again.';
-    if (errText.includes('API_KEY_INVALID') || errText.includes('API key not valid')) {
-      errText = 'Invalid API key. Open script.js and replace YOUR_GEMINI_API_KEY_HERE with your real key.';
-    } else if (errText.includes('RESOURCE_EXHAUSTED') || errText.includes('quota')) {
-      errText = 'API quota exceeded. Please try again later.';
+// Add message to DOM
+function addMessageToDOM(role, content, animate = true) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${role}`;
+    
+    const avatarContent = role === 'user' 
+        ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>'
+        : '<img src="logo.jpg" alt="Aperonix" style="width:24px;height:24px;object-fit:contain;">';
+    
+    messageDiv.innerHTML = `
+        <div class="message-avatar">${avatarContent}</div>
+        <div class="message-content">
+            <p>${escapeHtml(content)}</p>
+        </div>
+    `;
+    
+    if (!animate) {
+        messageDiv.style.animation = 'none';
     }
-    var eMsg = { id: genId(), role: 'assistant', content: '', error: errText, ts: Date.now() };
-    chat.messages.push(eMsg);
-    saveData();
-    hideTyping();
-    appendMessage(eMsg);
-  } finally {
-    isLoading = false;
-    updateSendBtn();
-  }
+    
+    elements.messagesContainer.appendChild(messageDiv);
+    
+    if (animate) {
+        scrollToBottom();
+    }
 }
 
-// ── INPUT HELPERS ─────────────────────────────
-function autoResize(inp) {
-  inp.style.height = 'auto';
-  inp.style.height = Math.min(inp.scrollHeight, 180) + 'px';
+// Add typing indicator
+function addTypingIndicator() {
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'message assistant';
+    typingDiv.id = 'typingIndicator';
+    
+    typingDiv.innerHTML = `
+        <div class="message-avatar">
+            <img src="logo.jpg" alt="Aperonix" style="width:24px;height:24px;object-fit:contain;">
+        </div>
+        <div class="message-content">
+            <div class="typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    `;
+    
+    elements.messagesContainer.appendChild(typingDiv);
+    scrollToBottom();
 }
 
-function updateSendBtn() {
-  var btn = el('send-btn');
-  var inp = el('chat-input');
-  if (!btn || !inp) return;
-  btn.disabled = (!inp.value.trim()) || isLoading;
+// Remove typing indicator
+function removeTypingIndicator() {
+    const indicator = document.getElementById('typingIndicator');
+    if (indicator) {
+        indicator.remove();
+    }
 }
 
-// ── SIDEBAR TOGGLE ────────────────────────────
-function openSidebar() {
-  var sb = el('sidebar');
-  var ov = document.querySelector('.sidebar-overlay');
-  if (sb) sb.classList.add('open');
-  if (ov) ov.classList.add('open');
+// Add error message
+function addErrorMessage(message) {
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'message assistant error';
+    
+    errorDiv.innerHTML = `
+        <div class="message-avatar">
+            <img src="logo.jpg" alt="Aperonix" style="width:24px;height:24px;object-fit:contain;">
+        </div>
+        <div class="message-content">
+            <p>${escapeHtml(message)}</p>
+        </div>
+    `;
+    
+    elements.messagesContainer.appendChild(errorDiv);
+    scrollToBottom();
 }
 
-function closeSidebar() {
-  var sb = el('sidebar');
-  var ov = document.querySelector('.sidebar-overlay');
-  if (sb) sb.classList.remove('open');
-  if (ov) ov.classList.remove('open');
+// Escape HTML
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
 }
 
-// ── SETTINGS MODAL ────────────────────────────
+// Scroll to bottom
+function scrollToBottom() {
+    elements.messagesContainer.scrollTop = elements.messagesContainer.scrollHeight;
+}
+
+// ================== Chat Functions ==================
+
+// Create new chat
+function createNewChat() {
+    const id = generateId();
+    state.chats[id] = {
+        id,
+        messages: [],
+        createdAt: Date.now(),
+        updatedAt: Date.now()
+    };
+    state.currentChatId = id;
+    saveChats();
+    renderChatHistory();
+    renderMessages([]);
+    elements.chatInput.focus();
+}
+
+// Load chat
+function loadChat(id) {
+    state.currentChatId = id;
+    const chat = state.chats[id];
+    if (chat) {
+        renderMessages(chat.messages);
+        renderChatHistory();
+    }
+}
+
+// Delete chat
+function deleteChat(id) {
+    delete state.chats[id];
+    saveChats();
+    
+    if (state.currentChatId === id) {
+        const remainingIds = Object.keys(state.chats);
+        if (remainingIds.length > 0) {
+            loadChat(remainingIds[0]);
+        } else {
+            createNewChat();
+        }
+    }
+    
+    renderChatHistory();
+}
+
+// Add message to chat
+function addMessageToChat(role, content) {
+    if (!state.currentChatId) {
+        createNewChat();
+    }
+    
+    const chat = state.chats[state.currentChatId];
+    chat.messages.push({ role, content, timestamp: Date.now() });
+    chat.updatedAt = Date.now();
+    saveChats();
+    renderChatHistory();
+}
+
+// Send message
+async function sendMessage() {
+    const message = elements.chatInput.value.trim();
+    if (!message || state.isProcessing) return;
+    
+    // Hide welcome message
+    elements.welcomeMessage.style.display = 'none';
+    
+    // Add user message
+    addMessageToChat('user', message);
+    addMessageToDOM('user', message);
+    
+    // Clear input
+    elements.chatInput.value = '';
+    elements.chatInput.style.height = 'auto';
+    elements.sendBtn.disabled = true;
+    
+    state.isProcessing = true;
+    
+    // Check for identity questions (local, no API call)
+    if (isIdentityQuestion(message)) {
+        await new Promise(resolve => setTimeout(resolve, 500));
+        const response = getIdentityResponse(message);
+        addMessageToChat('assistant', response);
+        addMessageToDOM('assistant', response);
+        state.isProcessing = false;
+        return;
+    }
+    
+    // Check for API key
+    const keys = getApiKeys();
+    if (!keys.gemini) {
+        addErrorMessage('API connection failed. Please add your Gemini API key in settings to enable chat functionality.');
+        showToast('Please configure your Gemini API key in settings', 'error');
+        state.isProcessing = false;
+        return;
+    }
+    
+    // Show typing indicator
+    addTypingIndicator();
+    
+    try {
+        const response = await callGeminiAPI(message);
+        removeTypingIndicator();
+        addMessageToChat('assistant', response);
+        addMessageToDOM('assistant', response);
+    } catch (error) {
+        removeTypingIndicator();
+        console.error('Gemini API Error:', error);
+        addErrorMessage(error.message);
+        showToast(error.message, 'error');
+    }
+    
+    state.isProcessing = false;
+}
+
+// Call Gemini API
+async function callGeminiAPI(message) {
+    const keys = getApiKeys();
+    const apiKey = keys.gemini.trim();
+    
+    // Simple body format as specified by Gemini API docs
+    const body = {
+        contents: [{
+            parts: [{ text: message }]
+        }]
+    };
+    const bodyStr = JSON.stringify(body);
+    
+    // Try models in order: gemini-2.5-flash (current stable), then fallbacks
+    const models = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-pro'];
+    
+    for (const model of models) {
+        const endpoint = `${GEMINI_API_BASE}/${model}:generateContent?key=${apiKey}`;
+        
+        let response;
+        try {
+            response = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: bodyStr
+            });
+        } catch (networkError) {
+            throw new Error('Network error: Could not reach the Gemini API. Check your internet connection.');
+        }
+        
+        // If 404, this model doesn't exist -- try next one
+        if (response.status === 404) {
+            console.warn(`Model ${model} not found (404), trying next...`);
+            continue;
+        }
+        
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            const detail = errorData.error?.message || 'Unknown error';
+            throw new Error(`API connection failed (HTTP ${response.status}): ${detail}`);
+        }
+        
+        const data = await response.json();
+        
+        if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+            console.log(`Aperonix: Using model ${model}`);
+            return data.candidates[0].content.parts[0].text;
+        }
+        
+        if (data.candidates && data.candidates[0] && data.candidates[0].finishReason === 'SAFETY') {
+            return 'I apologize, but I cannot provide a response to that request due to safety guidelines.';
+        }
+    }
+    
+    throw new Error('API connection failed (HTTP 404): No available Gemini model found. Please verify your API key is valid at https://aistudio.google.com/apikey');
+}
+
+// ================== Image Generation Functions ==================
+
+// Generate image
+async function generateImage() {
+    const prompt = elements.imageInput.value.trim();
+    if (!prompt || state.isProcessing) return;
+    
+    // Hide welcome message
+    elements.imageWelcome.style.display = 'none';
+    
+    // Check for API key
+    const keys = getApiKeys();
+    if (!keys.huggingface) {
+        showToast('Please add your Hugging Face API token in settings to generate images.', 'error');
+        return;
+    }
+    
+    state.isProcessing = true;
+    elements.generateBtn.disabled = true;
+    
+    // Show loading state
+    const loadingCard = document.createElement('div');
+    loadingCard.className = 'image-loading';
+    loadingCard.id = 'imageLoading';
+    loadingCard.innerHTML = `
+        <div class="image-loading-spinner"></div>
+        <span class="image-loading-text">Generating your image...</span>
+    `;
+    elements.generatedImages.prepend(loadingCard);
+    
+    try {
+        const imageBlob = await callHuggingFaceAPI(prompt);
+        
+        // Remove loading
+        loadingCard.remove();
+        
+        // Create image card
+        const imageUrl = URL.createObjectURL(imageBlob);
+        const imageCard = document.createElement('div');
+        imageCard.className = 'image-card';
+        imageCard.innerHTML = `
+            <img src="${imageUrl}" alt="${escapeHtml(prompt)}">
+            <div class="image-card-info">
+                <p class="image-card-prompt">${escapeHtml(prompt)}</p>
+            </div>
+        `;
+        elements.generatedImages.prepend(imageCard);
+        
+        // Clear input
+        elements.imageInput.value = '';
+        
+        showToast('Image generated successfully!', 'success');
+    } catch (error) {
+        loadingCard.remove();
+        console.error('Hugging Face API Error:', error);
+        addErrorMessage(error.message);
+        showToast(error.message, 'error');
+    }
+    
+    state.isProcessing = false;
+    elements.generateBtn.disabled = !elements.imageInput.value.trim();
+}
+
+// Call Hugging Face API
+async function callHuggingFaceAPI(prompt) {
+    const keys = getApiKeys();
+    const token = keys.huggingface.trim();
+    
+    const makeRequest = async (retryCount) => {
+        let response;
+        try {
+            response = await fetch(HUGGINGFACE_API_URL, {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json',
+                    'x-wait-for-model': 'true'
+                },
+                body: JSON.stringify({
+                    inputs: prompt,
+                    options: {
+                        wait_for_model: true,
+                        use_cache: false
+                    }
+                })
+            });
+        } catch (networkError) {
+            throw new Error('Network error: Could not reach Hugging Face API. Check your internet connection.');
+        }
+        
+        // If model is loading, wait and retry once
+        if (response.status === 503 && retryCount < 1) {
+            const data = await response.json().catch(() => ({}));
+            const waitTime = data.estimated_time ? Math.min(data.estimated_time * 1000, 60000) : 20000;
+            console.log(`Model loading, retrying in ${waitTime / 1000}s...`);
+            await new Promise(resolve => setTimeout(resolve, waitTime));
+            return makeRequest(retryCount + 1);
+        }
+        
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('HuggingFace Error Detail:', response.status, errorText);
+            throw new Error(`API connection failed (HTTP ${response.status}): ${errorText.substring(0, 150)}`);
+        }
+        
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('image')) {
+            return await response.blob();
+        }
+        
+        const text = await response.text();
+        throw new Error(`Unexpected response (HTTP ${response.status}): ${text.substring(0, 150)}`);
+    };
+    
+    return makeRequest(0);
+}
+
+// ================== Mode Switching ==================
+
+function switchMode(mode) {
+    state.currentMode = mode;
+    
+    // Update tabs
+    elements.chatTab.classList.toggle('active', mode === 'chat');
+    elements.imageTab.classList.toggle('active', mode === 'image');
+    
+    // Update sections
+    elements.chatSection.classList.toggle('active', mode === 'chat');
+    elements.imageSection.classList.toggle('active', mode === 'image');
+    
+    // Focus appropriate input
+    if (mode === 'chat') {
+        elements.chatInput.focus();
+    } else {
+        elements.imageInput.focus();
+    }
+}
+
+// ================== Settings Modal ==================
+
 function openSettings() {
-  var m = el('settings-modal');
-  if (m) m.classList.add('open');
-  // Sync selected theme when modal opens
-  var t = 'midnight';
-  try { t = localStorage.getItem('aperonix-theme') || 'midnight'; } catch(e) {}
-  document.querySelectorAll('.theme-card').forEach(function(card) {
-    card.classList.toggle('selected', card.getAttribute('data-theme') === t);
-  });
+    const keys = getApiKeys();
+    elements.geminiKey.value = keys.gemini;
+    elements.huggingfaceKey.value = keys.huggingface;
+    elements.settingsModal.classList.add('active');
 }
 
-function closeSettings() {
-  var m = el('settings-modal');
-  if (m) m.classList.remove('open');
+function closeSettingsModal() {
+    elements.settingsModal.classList.remove('active');
 }
 
-// ── INIT ─────────────────────────────────────
-document.addEventListener('DOMContentLoaded', function() {
-  // 1. Apply saved theme
-  initTheme();
+function saveSettingsModal() {
+    const gemini = elements.geminiKey.value.trim();
+    const huggingface = elements.huggingfaceKey.value.trim();
+    
+    saveApiKeys(gemini, huggingface);
+    closeSettingsModal();
+    showToast('Settings saved successfully!', 'success');
+}
 
-  // 2. Load saved chats
-  loadData();
+// ================== Event Listeners ==================
 
-  // 3. Ensure at least one chat exists
-  if (chats.length === 0) {
-    var c = createChat();
-    chats.push(c);
-    activeChatId = c.id;
-    saveData();
-  } else if (!activeChatId) {
-    activeChatId = chats[0].id;
-  }
-
-  // 4. Render
-  renderSidebar();
-  renderMessages();
-
-  // 5. Input event listeners
-  var inp = el('chat-input');
-  if (inp) {
-    inp.addEventListener('input', function() {
-      autoResize(inp);
-      updateSendBtn();
-      var hint = document.querySelector('.image-hint');
-      if (hint) hint.classList.toggle('visible', inp.value.startsWith('/image'));
+function initEventListeners() {
+    // Sidebar toggle (mobile)
+    elements.sidebarToggle.addEventListener('click', () => {
+        elements.sidebar.classList.toggle('open');
     });
-
-    inp.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        sendMessage();
-      }
+    
+    // Close sidebar when clicking outside (mobile)
+    document.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768) {
+            if (!elements.sidebar.contains(e.target) && !elements.sidebarToggle.contains(e.target)) {
+                elements.sidebar.classList.remove('open');
+            }
+        }
     });
-  }
-
-  // 6. Theme card click listeners
-  document.querySelectorAll('.theme-card').forEach(function(card) {
-    card.addEventListener('click', function() {
-      applyTheme(card.getAttribute('data-theme'));
+    
+    // New chat
+    elements.newChatBtn.addEventListener('click', createNewChat);
+    
+    // Mode tabs
+    elements.chatTab.addEventListener('click', () => switchMode('chat'));
+    elements.imageTab.addEventListener('click', () => switchMode('image'));
+    
+    // Chat input
+    elements.chatInput.addEventListener('input', () => {
+        // Auto-resize textarea
+        elements.chatInput.style.height = 'auto';
+        elements.chatInput.style.height = Math.min(elements.chatInput.scrollHeight, 150) + 'px';
+        
+        // Enable/disable send button
+        elements.sendBtn.disabled = !elements.chatInput.value.trim() || state.isProcessing;
     });
-  });
-
-  // 7. Close modal on overlay click
-  var modal = el('settings-modal');
-  if (modal) {
-    modal.addEventListener('click', function(e) {
-      if (e.target === modal) closeSettings();
+    
+    elements.chatInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+        }
     });
-  }
+    
+    elements.sendBtn.addEventListener('click', sendMessage);
+    
+    // Image input
+    elements.imageInput.addEventListener('input', () => {
+        elements.imageInput.style.height = 'auto';
+        elements.imageInput.style.height = Math.min(elements.imageInput.scrollHeight, 150) + 'px';
+        elements.generateBtn.disabled = !elements.imageInput.value.trim() || state.isProcessing;
+    });
+    
+    elements.imageInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            generateImage();
+        }
+    });
+    
+    elements.generateBtn.addEventListener('click', generateImage);
+    
+    // Settings
+    elements.settingsBtn.addEventListener('click', openSettings);
+    elements.closeSettings.addEventListener('click', closeSettingsModal);
+    elements.cancelSettings.addEventListener('click', closeSettingsModal);
+    elements.saveSettings.addEventListener('click', saveSettingsModal);
+    
+    // Close modal on overlay click
+    elements.settingsModal.addEventListener('click', (e) => {
+        if (e.target === elements.settingsModal) {
+            closeSettingsModal();
+        }
+    });
+    
+    // Toggle password visibility
+    document.querySelectorAll('.toggle-visibility').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetId = btn.getAttribute('data-target');
+            const input = document.getElementById(targetId);
+            input.type = input.type === 'password' ? 'text' : 'password';
+        });
+    });
+    
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+        // Escape to close modal
+        if (e.key === 'Escape') {
+            closeSettingsModal();
+        }
+        
+        // Ctrl/Cmd + N for new chat
+        if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
+            e.preventDefault();
+            createNewChat();
+        }
+    });
+}
 
-  // 8. Initial send button state
-  updateSendBtn();
-});
+// ================== Initialization ==================
+
+function init() {
+    // Load saved chats
+    loadChats();
+    
+    // Initialize event listeners
+    initEventListeners();
+    
+    // Render chat history
+    renderChatHistory();
+    
+    // Load last chat or create new one
+    const chatIds = Object.keys(state.chats);
+    if (chatIds.length > 0) {
+        // Sort by updatedAt and load most recent
+        const sortedIds = chatIds.sort((a, b) => state.chats[b].updatedAt - state.chats[a].updatedAt);
+        loadChat(sortedIds[0]);
+    } else {
+        createNewChat();
+    }
+    
+    // Check if API keys are configured
+    const keys = getApiKeys();
+    if (!keys.gemini && !keys.huggingface) {
+        setTimeout(() => {
+            showToast('Welcome to Aperonix! Configure your API keys in settings to get started.', 'info');
+        }, 1000);
+    }
+}
+
+// Start the application
+document.addEventListener('DOMContentLoaded', init);
