@@ -522,7 +522,6 @@ function initEventListeners() {
     
     // Mode tabs
     elements.chatTab.addEventListener('click', () => switchMode('chat'));
-    elements.imageTab.addEventListener('click', () => switchMode('image'));
     
     // Chat input
     elements.chatInput.addEventListener('input', () => {
