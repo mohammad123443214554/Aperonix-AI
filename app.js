@@ -472,22 +472,10 @@ async function callGeminiAPI(message) {
 // ================== Mode Switching ==================
 
 function switchMode(mode) {
-    state.currentMode = mode;
-    
-    // Update tabs
-    elements.chatTab.classList.toggle('active', mode === 'chat');
-    elements.imageTab.classList.toggle('active', mode === 'image');
-    
-    // Update sections
-    elements.chatSection.classList.toggle('active', mode === 'chat');
-    elements.imageSection.classList.toggle('active', mode === 'image');
-    
-    // Focus appropriate input
-    if (mode === 'chat') {
-        elements.chatInput.focus();
-    } else {
-        elements.imageInput.focus();
-    }
+    state.currentMode = 'chat';
+    elements.chatTab.classList.add('active');
+    elements.chatSection.classList.add('active');
+    elements.chatInput.focus();
 }
 
 // ================== Settings Modal ==================
