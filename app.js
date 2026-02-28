@@ -605,7 +605,6 @@ function init() {
             showToast('Welcome to Aperonix! Configure your API keys in settings to get started.', 'info');
         }, 1000);
     }
-}
 
 // Start the application
 document.addEventListener('DOMContentLoaded', init);
