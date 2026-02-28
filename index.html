@@ -316,9 +316,9 @@ body{background:var(--bg-base);color:var(--tp);background-image:radial-gradient(
 
 <script>
 /* ── CONFIG — Replace with your Gemini API key ── */
-var GEMINI_API_KEY = 'AIzaSyBAVL52ohqvufyCnHpYgIoad-9ckam2FB0';
-var GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + GEMINI_API_KEY;
-var SYSTEM_PROMPT = 'You are Aperonix AI, a highly intelligent, helpful, and friendly AI assistant powered by Google Gemini. Provide accurate, detailed, well-structured responses. Use Markdown formatting — headers, bullet points, bold, code blocks where appropriate. Be concise yet thorough.';
+// API call goes to Vercel serverless function (no key in frontend!)
+
+
 
 /* ── STATE ── */
 var chats = [];
@@ -547,27 +547,24 @@ async function sendMessage(){
   var hint=document.querySelector('.image-hint');if(hint)hint.classList.remove('visible');
   isLoading=true;showTyping();updBtn();
   try{
-    var hist=chat.messages.slice(0,-1).map(function(m){
-      return{role:m.role==='user'?'user':'model',parts:[{text:m.content}]};
+    // Send to our secure backend — API key never exposed to browser
+    var allMsgs=chat.messages.map(function(m){return{role:m.role,content:m.content};});
+    var res=await fetch('/api/chat',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({messages:allMsgs})
     });
-    var body={
-      system_instruction:{parts:[{text:SYSTEM_PROMPT}]},
-      contents:hist.concat([{role:'user',parts:[{text:txt}]}]),
-      generationConfig:{temperature:.8,topK:40,topP:.95,maxOutputTokens:8192}
-    };
-    var res=await fetch(GEMINI_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
     var data=await res.json();
-    if(!res.ok)throw new Error((data&&data.error&&data.error.message)||'HTTP '+res.status);
-    var at=((data.candidates||[])[0]||{}).content;
-    var aiText=(at&&at.parts&&at.parts[0]&&at.parts[0].text)||'No response received.';
+    if(!res.ok||data.error)throw new Error(data.error||'HTTP '+res.status);
+    var aiText=data.content||'No response received.';
     var am={id:genId(),role:'assistant',content:aiText,ts:Date.now()};
     chat.messages.push(am);save();hideTyping();addMsg(am);
   }catch(err){
     var et=err.message||'Failed to get response. Please try again.';
-    if(et.includes('API_KEY_INVALID')||et.includes('API key not valid'))
-      et='Invalid API key. Open the HTML file and replace YOUR_GEMINI_API_KEY_HERE with your real key from aistudio.google.com';
-    else if(et.includes('RESOURCE_EXHAUSTED')||et.includes('quota'))
+    if(et.includes('quota')||et.includes('RESOURCE_EXHAUSTED'))
       et='API quota exceeded. Please try again later.';
+    else if(et.includes('not configured'))
+      et='API key not set. Add GEMINI_API_KEY in Vercel Environment Variables.';
     var em={id:genId(),role:'assistant',content:'',error:et,ts:Date.now()};
     chat.messages.push(em);save();hideTyping();addMsg(em);
   }finally{isLoading=false;updBtn();}
