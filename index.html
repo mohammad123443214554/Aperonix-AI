@@ -3,76 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Veltrix AI - Smart Mode</title>
+    <title>Veltrix AI - Global Edition</title>
     <style>
-        /* Modern Design - Aapke 40k laptop par makkhan chalega */
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background: #0f172a; 
-            color: white; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
-            margin: 0; 
-        }
-        #chat-container { 
-            width: 380px; 
-            background: #1e293b; 
-            border-radius: 15px; 
-            padding: 20px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6); 
-            border: 1px solid #334155;
-        }
-        h3 { text-align: center; color: #3b82f6; margin-top: 0; }
-        #messages { 
-            height: 350px; 
-            overflow-y: auto; 
-            border-bottom: 1px solid #334155; 
-            margin-bottom: 15px; 
-            padding: 10px;
-            scrollbar-width: thin;
-        }
-        #messages p { margin: 8px 0; line-height: 1.4; }
-        .input-area { display: flex; gap: 8px; }
-        input { 
-            flex: 1; 
-            padding: 12px; 
-            border: none; 
-            border-radius: 8px; 
-            background: #334155; 
-            color: white; 
-            outline: none;
-        }
-        button { 
-            padding: 10px 15px; 
-            border: none; 
-            border-radius: 8px; 
-            background: #3b82f6; 
-            color: white; 
-            cursor: pointer; 
-            font-weight: bold;
-            transition: 0.3s;
-        }
-        button:hover { opacity: 0.8; }
-        .learn-btn { background: #10b981; }
+        body { font-family: 'Segoe UI', sans-serif; background: #0f172a; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        #chat-container { width: 400px; background: #1e293b; border-radius: 15px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid #334155; }
+        h3 { text-align: center; color: #3b82f6; margin-bottom: 20px; }
+        #messages { height: 350px; overflow-y: auto; margin-bottom: 15px; padding: 10px; border-bottom: 1px solid #334155; scroll-behavior: smooth; }
+        .input-area { display: flex; gap: 10px; }
+        input { flex: 1; padding: 12px; border-radius: 8px; border: none; background: #334155; color: white; outline: none; }
+        button { padding: 10px 20px; border-radius: 8px; border: none; background: #3b82f6; color: white; cursor: pointer; font-weight: bold; }
+        button:hover { background: #2563eb; }
+        .bot-msg { color: #3b82f6; margin: 10px 0; }
+        .user-msg { color: #f8fafc; margin: 10px 0; }
     </style>
 </head>
 <body>
 
     <div id="chat-container">
-        <h3>Veltrix AI (Smart Mode)</h3>
+        <h3>Veltrix AI v2.0</h3>
         <div id="messages">
-            <p style="color: #94a3b8; font-size: 0.9em; text-align: center;">AI is online. Type 'hi' to start.</p>
+            <p style="text-align:center; color:#64748b;">System: Data loaded from cloud/local JSON.</p>
         </div>
-        
         <div class="input-area">
-            <input type="text" id="userInput" placeholder="Kuch pucho ya sikhao...">
+            <input type="text" id="userInput" placeholder="Ask me something...">
             <button onclick="askAI()">Send</button>
-        </div>
-        
-        <div style="margin-top: 10px; text-align: center;">
-            <button class="learn-btn" onclick="activateLearnMode()" style="width: 100%;">Teach AI (Learn Mode)</button>
         </div>
     </div>
 
