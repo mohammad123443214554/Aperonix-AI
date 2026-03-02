@@ -2,64 +2,80 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Veltrix AI - My Own Creation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veltrix AI - Smart Mode</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #0f172a; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        #chat-container { width: 350px; background: #1e293b; border-radius: 10px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
-        #messages { height: 300px; overflow-y: auto; border-bottom: 1px solid #334155; margin-bottom: 10px; padding: 5px; }
-        input { width: 80%; padding: 10px; border: none; border-radius: 5px; background: #334155; color: white; }
-        button { padding: 10px; border: none; border-radius: 5px; background: #3b82f6; color: white; cursor: pointer; }
+        /* Modern Design - Aapke 40k laptop par makkhan chalega */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: #0f172a; 
+            color: white; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0; 
+        }
+        #chat-container { 
+            width: 380px; 
+            background: #1e293b; 
+            border-radius: 15px; 
+            padding: 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6); 
+            border: 1px solid #334155;
+        }
+        h3 { text-align: center; color: #3b82f6; margin-top: 0; }
+        #messages { 
+            height: 350px; 
+            overflow-y: auto; 
+            border-bottom: 1px solid #334155; 
+            margin-bottom: 15px; 
+            padding: 10px;
+            scrollbar-width: thin;
+        }
+        #messages p { margin: 8px 0; line-height: 1.4; }
+        .input-area { display: flex; gap: 8px; }
+        input { 
+            flex: 1; 
+            padding: 12px; 
+            border: none; 
+            border-radius: 8px; 
+            background: #334155; 
+            color: white; 
+            outline: none;
+        }
+        button { 
+            padding: 10px 15px; 
+            border: none; 
+            border-radius: 8px; 
+            background: #3b82f6; 
+            color: white; 
+            cursor: pointer; 
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        button:hover { opacity: 0.8; }
+        .learn-btn { background: #10b981; }
     </style>
 </head>
 <body>
+
+    <div id="chat-container">
+        <h3>Veltrix AI (Smart Mode)</h3>
+        <div id="messages">
+            <p style="color: #94a3b8; font-size: 0.9em; text-align: center;">AI is online. Type 'hi' to start.</p>
+        </div>
+        
+        <div class="input-area">
+            <input type="text" id="userInput" placeholder="Kuch pucho ya sikhao...">
+            <button onclick="askAI()">Send</button>
+        </div>
+        
+        <div style="margin-top: 10px; text-align: center;">
+            <button class="learn-btn" onclick="activateLearnMode()" style="width: 100%;">Teach AI (Learn Mode)</button>
+        </div>
+    </div>
+
     <script src="script.js"></script>
-
-<div id="chat-container">
-    <h3>Veltrix AI (Self-Made)</h3>
-    <div id="messages"></div>
-    <input type="text" id="userInput" placeholder="Kuch pucho...">
-    <button onclick="askAI()">Send</button>
-</div>
-
-<script>
-    // Ye hai aapka chota sa AI Dimaag (Brain)
-    // Aap is list mein jitne sawal-jawab daaloge, AI utna smart lagega
-    const knowledgeBase = {
-       "hi": "Hello bhai! Kaise ho?",
-        "kaise ho": "Main ekdam badhiya hoon, aap batao?",
-        "kaun ho": "Main Veltrix AI hoon, mujhe 14 saal ke ek super developer ne banaya hai!",
-        "ghar ki pareshani": "Bhai, fikar mat karo, mehnat rang layegi aur sab theek ho jayega.",
-        "kamar dard": "Bhai, thoda rest kar lo, coding mein dimaag lagao, sharir ko thoda araam do.",
-        "paisa kaise kamaye": "Website approve hone do, phir ads se kamai shuru hogi!",
-        "aapka naam kya hai": "Mera naam Veltrix AI hai, aapka chota sa assistant."
-    };
-
-    function askAI() {
-        const input = document.getElementById("userInput").value.toLowerCase();
-        const chatBox = document.getElementById("messages");
-        
-        // User ka message dikhana
-        chatBox.innerHTML += `<p><b>Aap:</b> ${input}</p>`;
-        
-        // AI ka dimaag lagana
-        let response = "Hmm... mujhe iska jawab nahi pata, par main seekh raha hoon!";
-        
-        for (let key in knowledgeBase) {
-            if (input.includes(key)) {
-                response = knowledgeBase[key];
-                break;
-            }
-        }
-        
-        // AI ka jawab dikhana
-        setTimeout(() => {
-            chatBox.innerHTML += `<p style="color: #3b82f6;"><b>AI:</b> ${response}</p>`;
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }, 500);
-
-        document.getElementById("userInput").value = "";
-    }
-</script>
-
 </body>
 </html>
