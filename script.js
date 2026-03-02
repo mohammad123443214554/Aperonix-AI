@@ -1,119 +1,44 @@
-// Spelling mistakes ko samajhne wala function
-function getSimilarity(s1, s2) {
-    let longer = s1.length < s2.length ? s2 : s1;
-    let shorter = s1.length < s2.length ? s1 : s2;
-    if (longer.length == 0) return 1.0;
-    
-    let costs = new Array();
-    for (let i = 0; i <= s1.length; i++) {
-        let lastValue = i;
-        for (let j = 0; j <= s2.length; j++) {
-            if (i == 0) costs[j] = j;
-            else {
-                if (j > 0) {
-                    let newValue = costs[j - 1];
-                    if (s1.charAt(i - 1) != s2.charAt(j - 1))
-                        newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
-                    costs[j - 1] = lastValue;
-                    lastValue = newValue;
-                }
-            }
-        }
-        if (i > 0) costs[s2.length] = lastValue;
+let aiKnowledge = {};
+
+// 1. JSON File se Data Load Karna
+async function loadData() {
+    try {
+        const response = await fetch('data.json');
+        aiKnowledge = await response.json();
+        console.log("AI Knowledge is ready!");
+    } catch (err) {
+        console.error("Data load nahi hua bhai!", err);
     }
-    return (longer.length - costs[s2.length]) / parseFloat(longer.length);
 }
 
-// Memory aur naye words jode gaye hain
-let userName = localStorage.getItem("savedName") || "";
-
-const knowledgeBase = {
-    "hi": "Hello bhai! Kaise ho?",
-    "hey": "Hey! Kya chal raha hai?",
-    "hello": "Hello! Main aapki kya madad kar sakta hoon?",
-    "kaise ho": "Main ekdam badhiya hoon, aap batao?",
-    "kise ho": "Main ekdam badhiya hoon, aap batao?", // Spelling mistake handle karne ke liye
-    "he": "Hello bhai!",
-    "kaun ho": "Main Veltrix AI hoon, aapka personal assistant.",
-    "bye": "Alvida! Apna khayal rakhna."
-};
-
-function askAI() {
+// 2. Chat Function
+async function askAI() {
     const inputField = document.getElementById("userInput");
     const input = inputField.value.toLowerCase().trim();
     const chatBox = document.getElementById("messages");
+
     if (!input) return;
 
-    chatBox.innerHTML += `<p><b>Aap:</b> ${input}</p>`;
-    
-    let bestMatch = null;
-    let highestScore = 0;
+    // User Message
+    chatBox.innerHTML += `<div class="user-msg"><b>Aap:</b> ${input}</div>`;
+    inputField.value = "";
 
-    for (let key in knowledgeBase) {
-        let score = getSimilarity(input, key);
-        if (score > highestScore) {
-            highestScore = score;
-            bestMatch = key;
+    let response = "Hmm... iska jawab mere data mein nahi hai, par main seekh raha hoon!";
+
+    // Logic: Match Dhundna
+    for (let key in aiKnowledge) {
+        if (input.includes(key)) {
+            response = aiKnowledge[key];
+            break;
         }
     }
 
-    // Similarity score ko 0.4 kar diya hai taaki chote words bhi samajh aayein
-    let response = "Maaf karna bhai, mujhe ye samajh nahi aaya. Kya aap thoda alag likh sakte ho?";
-    if (highestScore > 0.4) {
-        response = knowledgeBase[bestMatch];
-    }
-
+    // AI Response with delay for realism
     setTimeout(() => {
-        chatBox.innerHTML += `<p style="color: #3b82f6;"><b>AI:</b> ${response}</p>`;
-        chatBox.scrollTop = chatBox.scrollHeight;
+        chatBox.innerHTML += `<div class="bot-msg"><b>AI:</b> ${response}</div>`;
+        chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll niche ke liye
     }, 400);
-
-    inputField.value = "";
-}
-// Browser ki memory se purana data load karna
-let customKnowledge = JSON.parse(localStorage.getItem("aiMemory")) || {};
-
-// Pehle se feed ki gayi knowledge
-const baseKnowledge = {
-    "hi": "Hello bhai! Kaise ho?",
-    "kaise ho": "Main ekdam badhiya hoon, aap batao?",
-    "kaun ho": "Main Veltrix AI hoon, aapka personal assistant.",
-    "bye": "Alvida! Apna khayal rakhna."
-};
-
-function askAI() {
-    const inputField = document.getElementById("userInput");
-    const input = inputField.value.toLowerCase().trim();
-    const chatBox = document.getElementById("messages");
-    if (!input) return;
-
-    chatBox.innerHTML += `<p><b>Aap:</b> ${input}</p>`;
-    
-    // Pehle custom memory mein check karega, phir base knowledge mein
-    let response = customKnowledge[input] || baseKnowledge[input];
-
-    if (!response) {
-        response = "Mujhe iska jawab nahi pata. 'Learn' button dabao aur mujhe sikhao!";
-    }
-
-    setTimeout(() => {
-        chatBox.innerHTML += `<p style="color: #3b82f6;"><b>AI:</b> ${response}</p>`;
-        chatBox.scrollTop = chatBox.scrollHeight;
-    }, 400);
-
-    inputField.value = "";
 }
 
-// AI ko sikhane wala function
-function activateLearnMode() {
-    const question = prompt("Aap mujhse kya puchna chahte hain?");
-    if (question) {
-        const answer = prompt(`Jab aap "${question}" puchein, toh mujhe kya jawab dena chahiye?`);
-        if (answer) {
-            // Memory mein save karna
-            customKnowledge[question.toLowerCase().trim()] = answer;
-            localStorage.setItem("aiMemory", JSON.stringify(customKnowledge));
-            alert("Shukriya bhai! Maine ye yaad kar liya hai.");
-        }
-    }
-}
+// Start Loading
+loadData();
