@@ -7,7 +7,7 @@ CORS(app) # Isse website ko access milega
 
 # Aperonix AI Model Load karna
 print("Aperonix AI Brain load ho raha hai...")
-llm = AutoModelForCausalLM.from_checkpoint(
+llm = AutoModelForCausalLM.from_pretrained(
     "TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF", 
     model_file="tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf", 
     model_type="llama"
