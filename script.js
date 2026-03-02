@@ -1,10 +1,9 @@
-// 1. Spelling Check Karne wala Function (Fuzzy Match)
+// Spelling mistakes ko samajhne wala function
 function getSimilarity(s1, s2) {
     let longer = s1.length < s2.length ? s2 : s1;
     let shorter = s1.length < s2.length ? s1 : s2;
     if (longer.length == 0) return 1.0;
     
-    // Do words ke beech ka antar nikalna
     let costs = new Array();
     for (let i = 0; i <= s1.length; i++) {
         let lastValue = i;
@@ -25,16 +24,23 @@ function getSimilarity(s1, s2) {
     return (longer.length - costs[s2.length]) / parseFloat(longer.length);
 }
 
-// 2. AI Logic
+// Memory aur naye words jode gaye hain
+let userName = localStorage.getItem("savedName") || "";
+
 const knowledgeBase = {
-    "hello": "Hi bhai! Kaise ho?",
-    "kaise ho": "Main ekdam badiya! Aap sunao?",
-    "veltrix": "Veltrix aapka banaya hua super IDE hai.",
-    "bye": "Alvida! Phir milenge."
+    "hi": "Hello bhai! Kaise ho?",
+    "hey": "Hey! Kya chal raha hai?",
+    "hello": "Hello! Main aapki kya madad kar sakta hoon?",
+    "kaise ho": "Main ekdam badhiya hoon, aap batao?",
+    "kise ho": "Main ekdam badhiya hoon, aap batao?", // Spelling mistake handle karne ke liye
+    "he": "Hello bhai!",
+    "kaun ho": "Main Veltrix AI hoon, aapka personal assistant.",
+    "bye": "Alvida! Apna khayal rakhna."
 };
 
 function askAI() {
-    const input = document.getElementById("userInput").value.toLowerCase().trim();
+    const inputField = document.getElementById("userInput");
+    const input = inputField.value.toLowerCase().trim();
     const chatBox = document.getElementById("messages");
     if (!input) return;
 
@@ -43,7 +49,6 @@ function askAI() {
     let bestMatch = null;
     let highestScore = 0;
 
-    // Har sawal ko check karna (Spelling ki galti pakadne ke liye)
     for (let key in knowledgeBase) {
         let score = getSimilarity(input, key);
         if (score > highestScore) {
@@ -52,16 +57,16 @@ function askAI() {
         }
     }
 
-    // Agar 60% se zyada match milta hai, toh jawab do
-    let response = "Maaf karna bhai, ye abhi meri knowledge mein nahi hai.";
-    if (highestScore > 0.6) {
+    // Similarity score ko 0.4 kar diya hai taaki chote words bhi samajh aayein
+    let response = "Maaf karna bhai, mujhe ye samajh nahi aaya. Kya aap thoda alag likh sakte ho?";
+    if (highestScore > 0.4) {
         response = knowledgeBase[bestMatch];
     }
 
     setTimeout(() => {
         chatBox.innerHTML += `<p style="color: #3b82f6;"><b>AI:</b> ${response}</p>`;
         chatBox.scrollTop = chatBox.scrollHeight;
-    }, 500);
+    }, 400);
 
-    document.getElementById("userInput").value = "";
+    inputField.value = "";
 }
