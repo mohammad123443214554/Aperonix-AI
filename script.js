@@ -10,7 +10,7 @@ async function askAI() {
 
     try {
         // Aapke local Python server se baat karna
-        const response = await fetch('http://127.0.0.1:5000/ask', {
+        const response = await fetch('https://vonnie-reserveless-lisbeth.ngrok-free.dev', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ question: input })
