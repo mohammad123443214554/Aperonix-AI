@@ -70,3 +70,50 @@ function askAI() {
 
     inputField.value = "";
 }
+// Browser ki memory se purana data load karna
+let customKnowledge = JSON.parse(localStorage.getItem("aiMemory")) || {};
+
+// Pehle se feed ki gayi knowledge
+const baseKnowledge = {
+    "hi": "Hello bhai! Kaise ho?",
+    "kaise ho": "Main ekdam badhiya hoon, aap batao?",
+    "kaun ho": "Main Veltrix AI hoon, aapka personal assistant.",
+    "bye": "Alvida! Apna khayal rakhna."
+};
+
+function askAI() {
+    const inputField = document.getElementById("userInput");
+    const input = inputField.value.toLowerCase().trim();
+    const chatBox = document.getElementById("messages");
+    if (!input) return;
+
+    chatBox.innerHTML += `<p><b>Aap:</b> ${input}</p>`;
+    
+    // Pehle custom memory mein check karega, phir base knowledge mein
+    let response = customKnowledge[input] || baseKnowledge[input];
+
+    if (!response) {
+        response = "Mujhe iska jawab nahi pata. 'Learn' button dabao aur mujhe sikhao!";
+    }
+
+    setTimeout(() => {
+        chatBox.innerHTML += `<p style="color: #3b82f6;"><b>AI:</b> ${response}</p>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }, 400);
+
+    inputField.value = "";
+}
+
+// AI ko sikhane wala function
+function activateLearnMode() {
+    const question = prompt("Aap mujhse kya puchna chahte hain?");
+    if (question) {
+        const answer = prompt(`Jab aap "${question}" puchein, toh mujhe kya jawab dena chahiye?`);
+        if (answer) {
+            // Memory mein save karna
+            customKnowledge[question.toLowerCase().trim()] = answer;
+            localStorage.setItem("aiMemory", JSON.stringify(customKnowledge));
+            alert("Shukriya bhai! Maine ye yaad kar liya hai.");
+        }
+    }
+}
