@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="Aperonix AI — Professional AI assistant powered by Gemini 1.5 Flash. Chat, code, create images, and get intelligent responses instantly."/>
-<meta name="keywords" content="Aperonix AI, Gemini AI, AI chatbot, Mohammad Khan, intelligent assistant, image generation, AI tools"/>
+<meta name="description" content="Aperonix AI — Professional AI assistant powered by Gemini 1.5 Flash. Chat, generate ideas, write code, and create content instantly."/>
+<meta name="keywords" content="Aperonix AI, Gemini AI, AI chatbot, Mohammad Khan, intelligent assistant, AI tools 2026"/>
 <meta name="author" content="Mohammad Khan"/>
 <meta name="robots" content="index, follow"/>
 <meta property="og:title" content="Aperonix AI — Professional AI Assistant"/>
 <meta property="og:description" content="Chat with Aperonix AI — powered by Gemini 1.5 Flash. Smart, fast, professional."/>
 <meta property="og:type" content="website"/>
 <meta name="theme-color" content="#000000"/>
-<!-- Google AdSense (replace with your publisher ID) -->
+<!-- Google AdSense — replace publisher ID -->
 <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
 <title>Aperonix AI — Intelligent Assistant</title>
 
@@ -22,89 +22,49 @@
 <link id="hljs-css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"/>
 
 <style>
-/* ══════════════════════════════════════════════════
-   THEME VARIABLES
-══════════════════════════════════════════════════ */
-[data-theme="pure-dark"] {
-  --bg:        #000000;
-  --bg-s:      #0b0b0b;
-  --bg-c:      #111111;
-  --bg-h:      #181818;
-  --bg-i:      #0e0e0e;
-  --bd:        #1e1e1e;
-  --bd2:       #2c2c2c;
-  --t1:        #ffffff;
-  --t2:        #999999;
-  --t3:        #444444;
-  --ub:        #181818;
-  --ab:        #0b0b0b;
-  --btn:       #ffffff;
-  --btn-t:     #000000;
-  --sh:        0 24px 64px rgba(0,0,0,.95);
-  --sc:        #222222;
-  --glow:      rgba(255,255,255,0.15);
+/* ══════════════════════════════════════════
+   THEME TOKENS
+══════════════════════════════════════════ */
+[data-theme="pure-dark"]{
+  --bg:#000;--bg-s:#0b0b0b;--bg-c:#111;--bg-h:#181818;--bg-i:#0e0e0e;
+  --bd:#1e1e1e;--bd2:#2c2c2c;
+  --t1:#fff;--t2:#999;--t3:#444;
+  --ub:#181818;--ab:#0b0b0b;
+  --btn:#fff;--btn-t:#000;
+  --sh:0 20px 60px rgba(0,0,0,.95);--sc:#222;
+  --glow-c:rgba(255,255,255,.18);
 }
-[data-theme="slate"] {
-  --bg:        #0d1117;
-  --bg-s:      #161b22;
-  --bg-c:      #1c2128;
-  --bg-h:      #21262d;
-  --bg-i:      #191f27;
-  --bd:        #30363d;
-  --bd2:       #3d444d;
-  --t1:        #e6edf3;
-  --t2:        #848d97;
-  --t3:        #484f58;
-  --ub:        #1c2128;
-  --ab:        #13181f;
-  --btn:       #e6edf3;
-  --btn-t:     #0d1117;
-  --sh:        0 16px 48px rgba(0,0,0,.7);
-  --sc:        #30363d;
-  --glow:      rgba(230,237,243,0.12);
+[data-theme="slate"]{
+  --bg:#0d1117;--bg-s:#161b22;--bg-c:#1c2128;--bg-h:#21262d;--bg-i:#191f27;
+  --bd:#30363d;--bd2:#3d444d;
+  --t1:#e6edf3;--t2:#848d97;--t3:#484f58;
+  --ub:#1c2128;--ab:#13181f;
+  --btn:#e6edf3;--btn-t:#0d1117;
+  --sh:0 16px 48px rgba(0,0,0,.7);--sc:#30363d;
+  --glow-c:rgba(230,237,243,.15);
 }
-[data-theme="pure-light"] {
-  --bg:        #ffffff;
-  --bg-s:      #fafafa;
-  --bg-c:      #f4f4f4;
-  --bg-h:      #eeeeee;
-  --bg-i:      #f7f7f7;
-  --bd:        #e4e4e4;
-  --bd2:       #d0d0d0;
-  --t1:        #000000;
-  --t2:        #555555;
-  --t3:        #aaaaaa;
-  --ub:        #000000;
-  --ab:        #f4f4f4;
-  --btn:       #000000;
-  --btn-t:     #ffffff;
-  --sh:        0 8px 32px rgba(0,0,0,.08);
-  --sc:        #cccccc;
-  --glow:      rgba(0,0,0,0.1);
+[data-theme="pure-light"]{
+  --bg:#fff;--bg-s:#fafafa;--bg-c:#f4f4f4;--bg-h:#eee;--bg-i:#f7f7f7;
+  --bd:#e4e4e4;--bd2:#d0d0d0;
+  --t1:#000;--t2:#555;--t3:#aaa;
+  --ub:#000;--ab:#f4f4f4;
+  --btn:#000;--btn-t:#fff;
+  --sh:0 8px 32px rgba(0,0,0,.08);--sc:#ccc;
+  --glow-c:rgba(0,0,0,.12);
 }
-[data-theme="soft-gray"] {
-  --bg:        #f2f2f2;
-  --bg-s:      #eaeaea;
-  --bg-c:      #e2e2e2;
-  --bg-h:      #d9d9d9;
-  --bg-i:      #e6e6e6;
-  --bd:        #d0d0d0;
-  --bd2:       #bebebe;
-  --t1:        #1a1a1a;
-  --t2:        #555555;
-  --t3:        #999999;
-  --ub:        #1a1a1a;
-  --ab:        #dadada;
-  --btn:       #1a1a1a;
-  --btn-t:     #f2f2f2;
-  --sh:        0 6px 24px rgba(0,0,0,.07);
-  --sc:        #b8b8b8;
-  --glow:      rgba(0,0,0,0.08);
+[data-theme="soft-gray"]{
+  --bg:#f2f2f2;--bg-s:#eaeaea;--bg-c:#e2e2e2;--bg-h:#d9d9d9;--bg-i:#e6e6e6;
+  --bd:#d0d0d0;--bd2:#bebebe;
+  --t1:#1a1a1a;--t2:#555;--t3:#999;
+  --ub:#1a1a1a;--ab:#dadada;
+  --btn:#1a1a1a;--btn-t:#f2f2f2;
+  --sh:0 6px 24px rgba(0,0,0,.07);--sc:#b8b8b8;
+  --glow-c:rgba(0,0,0,.1);
 }
 
-/* ══════════════════════════════════════════════════
+/* ══════════════════════════════════════════
    RESET
-══════════════════════════════════════════════════ */
+══════════════════════════════════════════ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{height:100%}
 body{
@@ -120,9 +80,9 @@ textarea,input{font-family:'Figtree',sans-serif}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--sc);border-radius:2px}
 
-/* ══════════════════════════════════════════════════
+/* ══════════════════════════════════════════
    SIDEBAR
-══════════════════════════════════════════════════ */
+══════════════════════════════════════════ */
 #sidebar{
   width:256px;min-width:256px;height:100vh;
   background:var(--bg-s);border-right:1px solid var(--bd);
@@ -130,18 +90,18 @@ textarea,input{font-family:'Figtree',sans-serif}
   transition:background .3s,border-color .3s,transform .3s;
   z-index:50;overflow:hidden;
 }
-
-/* header */
 .sb-head{
   padding:15px 13px 12px;border-bottom:1px solid var(--bd);
   display:flex;align-items:center;gap:10px;flex-shrink:0;
 }
+
+/* ── Logo + Gemini spin ── */
 .logo-wrap{position:relative;width:36px;height:36px;flex-shrink:0}
 #logo-img{
   width:36px;height:36px;border-radius:9px;
-  object-fit:cover;display:block;transition:filter .3s;
+  object-fit:cover;display:block;
 }
-#logo-fallback{
+#logo-fb{
   width:36px;height:36px;border-radius:9px;
   background:var(--t1);color:var(--bg);
   display:none;align-items:center;justify-content:center;
@@ -153,42 +113,39 @@ textarea,input{font-family:'Figtree',sans-serif}
   transition:opacity .3s;
 }
 
-/* Gemini-style spin + glow */
+/* Gemini-style animation — smooth multi-stage spin */
 @keyframes gemSpin{
-  0%  {transform:rotate(0deg)   scale(1)   ;filter:brightness(1.1)}
-  25% {transform:rotate(90deg)  scale(1.07);filter:brightness(1.4)}
-  50% {transform:rotate(180deg) scale(1)   ;filter:brightness(1.6)}
-  75% {transform:rotate(270deg) scale(1.07);filter:brightness(1.4)}
-  100%{transform:rotate(360deg) scale(1)   ;filter:brightness(1.1)}
+  0%  {transform:rotate(0deg)   scale(1)   ;filter:brightness(1.1) drop-shadow(0 0 0px transparent)}
+  20% {transform:rotate(72deg)  scale(1.06);filter:brightness(1.5) drop-shadow(0 0 6px var(--glow-c))}
+  40% {transform:rotate(144deg) scale(1.02);filter:brightness(1.3) drop-shadow(0 0 10px var(--glow-c))}
+  60% {transform:rotate(216deg) scale(1.06);filter:brightness(1.6) drop-shadow(0 0 14px var(--glow-c))}
+  80% {transform:rotate(288deg) scale(1.02);filter:brightness(1.4) drop-shadow(0 0 8px var(--glow-c))}
+  100%{transform:rotate(360deg) scale(1)   ;filter:brightness(1.1) drop-shadow(0 0 0px transparent)}
 }
-@keyframes haloAnim{
-  0%,100%{border-color:var(--t1);opacity:.4;box-shadow:0 0 8px var(--glow)}
-  50%    {border-color:var(--t1);opacity:1 ;box-shadow:0 0 22px var(--glow),0 0 44px var(--glow)}
+@keyframes haloPulse{
+  0%,100%{border-color:var(--t1);opacity:.35;box-shadow:0 0 6px var(--glow-c)}
+  50%    {border-color:var(--t1);opacity:1  ;box-shadow:0 0 18px var(--glow-c),0 0 36px var(--glow-c)}
 }
 .generating #logo-img,
-.generating #logo-fallback{animation:gemSpin 1.6s cubic-bezier(.5,0,.5,1) infinite}
-.generating .halo{opacity:1;animation:haloAnim 1.6s ease-in-out infinite}
+.generating #logo-fb{animation:gemSpin 1.6s cubic-bezier(.45,0,.55,1) infinite}
+.generating .halo{opacity:1;animation:haloPulse 1.6s ease-in-out infinite}
 
 .sb-name{font-family:'Syne',sans-serif;font-weight:800;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--t1);line-height:1}
 .sb-ver{font-family:'Fira Code',monospace;font-size:9px;color:var(--t3);letter-spacing:.1em;margin-top:2px;text-transform:uppercase}
 
-/* new chat */
+/* New Chat btn */
 .new-btn{
   margin:10px 10px 6px;padding:9px 14px;
   border:1px solid var(--bd2);border-radius:9px;
   color:var(--t1);font-size:13px;font-weight:500;
   display:flex;align-items:center;gap:8px;
-  transition:all .18s;letter-spacing:.01em;flex-shrink:0;
+  transition:all .18s;flex-shrink:0;
 }
 .new-btn:hover{background:var(--bg-h);border-color:var(--t3)}
 .new-btn svg{width:14px;height:14px;flex-shrink:0}
 
-/* history */
-.sb-lbl{
-  padding:6px 14px 3px;
-  font-family:'Fira Code',monospace;font-size:9px;color:var(--t3);
-  letter-spacing:.1em;text-transform:uppercase;flex-shrink:0;
-}
+/* History */
+.sb-sec{padding:6px 14px 3px;font-family:'Fira Code',monospace;font-size:9px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;flex-shrink:0}
 #hist{flex:1;overflow-y:auto;padding:2px 6px}
 .h-item{
   padding:8px 10px;border-radius:8px;font-size:12.5px;color:var(--t2);
@@ -197,281 +154,182 @@ textarea,input{font-family:'Figtree',sans-serif}
 }
 .h-item:hover{background:var(--bg-h);color:var(--t1)}
 .h-item.active{background:var(--bg-c);color:var(--t1);border-color:var(--bd)}
-.h-lbl{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.h-lbl{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px}
 .h-item svg{width:12px;height:12px;opacity:.4;flex-shrink:0}
-.h-del{
-  opacity:0;padding:2px 5px;border-radius:4px;
-  color:var(--t3);font-size:11px;line-height:1;
-  transition:opacity .15s,color .15s;flex-shrink:0;
-}
+.h-del{opacity:0;padding:2px 5px;border-radius:4px;color:var(--t3);font-size:11px;transition:opacity .15s,color .15s;flex-shrink:0}
 .h-item:hover .h-del{opacity:1}
 .h-del:hover{color:var(--t1);background:var(--bg-h)}
 .hist-empty{padding:12px 14px;font-family:'Fira Code',monospace;font-size:11px;color:var(--t3)}
 
-/* sidebar footer */
-.sb-foot{
-  padding:10px;border-top:1px solid var(--bd);
-  display:flex;align-items:center;gap:8px;flex-shrink:0;
-}
-.gear{
-  width:34px;height:34px;border:1px solid var(--bd);border-radius:8px;
-  background:var(--bg-c);color:var(--t2);
-  display:flex;align-items:center;justify-content:center;transition:all .18s;flex-shrink:0;
-}
+/* Sidebar footer */
+.sb-foot{padding:10px;border-top:1px solid var(--bd);display:flex;align-items:center;gap:8px;flex-shrink:0}
+.gear{width:34px;height:34px;border:1px solid var(--bd);border-radius:8px;background:var(--bg-c);color:var(--t2);display:flex;align-items:center;justify-content:center;transition:all .18s;flex-shrink:0}
 .gear:hover{color:var(--t1);border-color:var(--t3);background:var(--bg-h)}
 .gear svg{width:15px;height:15px}
 .sb-copy{font-family:'Fira Code',monospace;font-size:9px;color:var(--t3);letter-spacing:.04em;line-height:1.5}
 
-/* ══════════════════════════════════════════════════
+/* ══════════════════════════════════════════
    MAIN
-══════════════════════════════════════════════════ */
+══════════════════════════════════════════ */
 #main{flex:1;display:flex;flex-direction:column;height:100vh;overflow:hidden;background:var(--bg);transition:background .3s}
 
-/* topbar */
+/* Topbar */
 #topbar{
   height:50px;flex-shrink:0;border-bottom:1px solid var(--bd);
   display:flex;align-items:center;justify-content:space-between;padding:0 18px;
   background:var(--bg);transition:background .3s,border-color .3s;
 }
-.tb-t{font-family:'Syne',sans-serif;font-size:13px;font-weight:600;color:var(--t2);letter-spacing:.02em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:55%}
+.tb-t{font-family:'Syne',sans-serif;font-size:13px;font-weight:600;color:var(--t2);letter-spacing:.02em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:60%}
 .tb-r{display:flex;align-items:center;gap:8px}
 .online{display:flex;align-items:center;gap:5px;font-family:'Fira Code',monospace;font-size:10px;color:var(--t3)}
-.dot{width:6px;height:6px;border-radius:50%;background:#22c55e;animation:pulse 2.5s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.mob-btn{
-  display:none;width:32px;height:32px;border:1px solid var(--bd);border-radius:7px;
-  color:var(--t2);align-items:center;justify-content:center;transition:all .18s;
-}
+.dot{width:6px;height:6px;border-radius:50%;background:#22c55e;animation:blink 2.5s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.mob-btn{display:none;width:32px;height:32px;border:1px solid var(--bd);border-radius:7px;color:var(--t2);align-items:center;justify-content:center;transition:all .18s}
 .mob-btn:hover{color:var(--t1);border-color:var(--t3)}
 .mob-btn svg{width:15px;height:15px}
 
-/* messages */
+/* Messages */
 #msgs{flex:1;overflow-y:auto;padding:20px 0 12px;display:flex;flex-direction:column}
-#msgs-inner{max-width:700px;margin:0 auto;width:100%;padding:0 18px;display:flex;flex-direction:column;gap:3px}
+#msgs-inner{max-width:720px;margin:0 auto;width:100%;padding:0 20px;display:flex;flex-direction:column;gap:3px}
 
-/* welcome */
-#welcome{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  flex:1;text-align:center;padding:40px 20px;gap:14px;
-  animation:fadeUp .5s ease;
-}
+/* Welcome */
+#welcome{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;text-align:center;padding:40px 20px;gap:14px;animation:fadeUp .5s ease}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-.wlc-ico{
-  width:60px;height:60px;border-radius:15px;background:var(--t1);color:var(--bg);
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Syne',sans-serif;font-size:26px;font-weight:800;letter-spacing:-1px;margin-bottom:4px;
-}
-.wlc-h{font-family:'Syne',sans-serif;font-size:clamp(22px,4vw,34px);font-weight:700;color:var(--t1);letter-spacing:-.02em}
-.wlc-p{font-size:13.5px;color:var(--t2);max-width:380px;line-height:1.65;font-weight:300}
-.chips{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-top:10px}
-.chip{
-  padding:7px 15px;border:1px solid var(--bd2);border-radius:100px;
-  font-size:11.5px;color:var(--t2);background:var(--bg-c);cursor:pointer;
-  transition:all .18s;font-family:'Fira Code',monospace;letter-spacing:.02em;
-}
+.wlc-ico{width:64px;height:64px;border-radius:16px;background:var(--t1);color:var(--bg);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:28px;font-weight:800;letter-spacing:-1px;margin-bottom:4px}
+.wlc-h{font-family:'Syne',sans-serif;font-size:clamp(22px,3.5vw,36px);font-weight:700;color:var(--t1);letter-spacing:-.02em}
+.wlc-p{font-size:14px;color:var(--t2);max-width:400px;line-height:1.65;font-weight:300}
+.chips{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-top:12px}
+.chip{padding:7px 15px;border:1px solid var(--bd2);border-radius:100px;font-size:11.5px;color:var(--t2);background:var(--bg-c);cursor:pointer;transition:all .18s;font-family:'Fira Code',monospace;letter-spacing:.02em}
 .chip:hover{border-color:var(--t2);color:var(--t1);background:var(--bg-h)}
 
-/* message groups */
+/* Messages */
 .msg-g{display:flex;flex-direction:column;gap:2px;animation:msgIn .22s ease}
 @keyframes msgIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 .msg-r{display:flex;align-items:flex-end;gap:9px;padding:1px 0}
 .msg-r.u{flex-direction:row-reverse}
-.av{
-  width:27px;height:27px;border-radius:7px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:.04em;
-}
+.av{width:27px;height:27px;border-radius:7px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:.04em}
 .av.u{background:var(--t1);color:var(--bg)}
 .av.a{background:var(--bg-c);color:var(--t1);border:1px solid var(--bd2)}
-.bub{
-  max-width:min(74%,560px);padding:10px 14px;border-radius:13px;
-  font-size:13.5px;line-height:1.68;font-weight:300;word-break:break-word;transition:background .3s;
-}
-.bub.u{background:var(--ub);color:#ffffff;border-bottom-right-radius:3px}
+.bub{max-width:min(74%,580px);padding:10px 14px;border-radius:13px;font-size:13.5px;line-height:1.68;font-weight:300;word-break:break-word;transition:background .3s}
+.bub.u{background:var(--ub);color:#fff;border-bottom-right-radius:3px}
 [data-theme="pure-light"] .bub.u,[data-theme="soft-gray"] .bub.u{color:#fff}
 .bub.a{background:var(--ab);color:var(--t1);border:1px solid var(--bd);border-bottom-left-radius:3px}
 .msg-meta{font-family:'Fira Code',monospace;font-size:9px;color:var(--t3);letter-spacing:.03em;padding:0 2px}
 
-/* bubble content */
+/* Bubble content */
 .bub p{margin-bottom:7px}.bub p:last-child{margin-bottom:0}
 .bub ul,.bub ol{padding-left:18px;margin-bottom:7px}
 .bub li{margin-bottom:3px}
 .bub strong{font-weight:600}.bub em{font-style:italic}
-.bub code:not(pre code){
-  font-family:'Fira Code',monospace;font-size:11.5px;
-  background:var(--bg-h);border:1px solid var(--bd2);padding:1px 5px;border-radius:4px;
-}
+.bub code:not(pre code){font-family:'Fira Code',monospace;font-size:11.5px;background:var(--bg-h);border:1px solid var(--bd2);padding:1px 5px;border-radius:4px}
 .bub pre{background:var(--bg-c);border:1px solid var(--bd);border-radius:9px;margin:8px 0;overflow:hidden}
-.c-bar{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:6px 13px;border-bottom:1px solid var(--bd);background:var(--bg-s);
-}
+.c-bar{display:flex;align-items:center;justify-content:space-between;padding:6px 13px;border-bottom:1px solid var(--bd);background:var(--bg-s)}
 .c-lang{font-family:'Fira Code',monospace;font-size:9.5px;color:var(--t3);letter-spacing:.08em;text-transform:uppercase}
-.c-cp{
-  font-family:'Fira Code',monospace;font-size:9.5px;color:var(--t3);
-  padding:2px 8px;border-radius:4px;border:1px solid transparent;transition:all .18s;
-}
+.c-cp{font-family:'Fira Code',monospace;font-size:9.5px;color:var(--t3);padding:2px 8px;border-radius:4px;border:1px solid transparent;transition:all .18s}
 .c-cp:hover{color:var(--t1);background:var(--bg-h);border-color:var(--bd2)}
 .bub pre code{display:block;padding:12px;font-size:11.5px;line-height:1.65;overflow-x:auto}
 
-/* typing */
+/* Typing indicator */
 .typ-r{display:flex;align-items:center;gap:9px;padding:4px 0}
-.typ-b{
-  background:var(--ab);border:1px solid var(--bd);
-  border-radius:13px;border-bottom-left-radius:3px;padding:11px 14px;display:flex;gap:4px;
-}
+.typ-b{background:var(--ab);border:1px solid var(--bd);border-radius:13px;border-bottom-left-radius:3px;padding:11px 14px;display:flex;gap:4px}
 .typ-b span{width:5px;height:5px;background:var(--t3);border-radius:50%;animation:td 1.2s ease-in-out infinite}
 .typ-b span:nth-child(2){animation-delay:.15s}
 .typ-b span:nth-child(3){animation-delay:.3s}
 @keyframes td{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
 
-/* ══════════════════════════════════════════════════
-   INPUT
-══════════════════════════════════════════════════ */
-#inp-zone{padding:10px 18px 18px;flex-shrink:0;background:var(--bg);transition:background .3s}
-#inp-inner{max-width:700px;margin:0 auto}
-.feat-r{display:flex;gap:7px;margin-bottom:8px;align-items:center}
-.f-btn{
-  display:flex;align-items:center;gap:6px;padding:6px 13px;
-  border:1px solid var(--bd2);border-radius:8px;font-size:12px;color:var(--t2);
-  background:var(--bg-c);transition:all .18s;letter-spacing:.01em;
+/* Error alert bubble */
+.err-bub{
+  background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.25);
+  border-radius:10px;padding:12px 16px;font-size:13px;color:#f87171;
+  display:flex;align-items:flex-start;gap:10px;margin:4px 0;
 }
+.err-bub svg{width:16px;height:16px;flex-shrink:0;margin-top:1px;color:#f87171}
+.err-text{line-height:1.6}
+.err-text strong{font-weight:600;display:block;margin-bottom:3px}
+
+/* ══════════════════════════════════════════
+   INPUT ZONE
+══════════════════════════════════════════ */
+#inp-zone{padding:10px 18px 18px;flex-shrink:0;background:var(--bg);transition:background .3s}
+#inp-inner{max-width:720px;margin:0 auto}
+.feat-r{display:flex;gap:7px;margin-bottom:8px;align-items:center}
+.f-btn{display:flex;align-items:center;gap:6px;padding:6px 13px;border:1px solid var(--bd2);border-radius:8px;font-size:12px;color:var(--t2);background:var(--bg-c);transition:all .18s;letter-spacing:.01em}
 .f-btn:hover{color:var(--t1);border-color:var(--t3);background:var(--bg-h)}
 .f-btn svg{width:13px;height:13px}
-.inp-box{
-  background:var(--bg-i);border:1px solid var(--bd2);border-radius:13px;
-  display:flex;flex-direction:column;overflow:hidden;
-  transition:border-color .2s,background .3s;box-shadow:var(--sh);
-}
+.inp-box{background:var(--bg-i);border:1px solid var(--bd2);border-radius:13px;display:flex;flex-direction:column;overflow:hidden;transition:border-color .2s,background .3s;box-shadow:var(--sh)}
 .inp-box:focus-within{border-color:var(--t3)}
-#inp{
-  background:transparent;border:none;outline:none;
-  color:var(--t1);font-size:13.5px;font-weight:300;
-  padding:12px 15px 8px;resize:none;min-height:48px;max-height:150px;line-height:1.5;width:100%;
-}
+#inp{background:transparent;border:none;outline:none;color:var(--t1);font-size:13.5px;font-weight:300;padding:12px 15px 8px;resize:none;min-height:48px;max-height:150px;line-height:1.5;width:100%}
 #inp::placeholder{color:var(--t3)}
 .inp-acts{display:flex;align-items:center;justify-content:space-between;padding:7px 9px 9px}
 .inp-l{display:flex;gap:6px}
-.inp-sm{
-  display:flex;align-items:center;gap:5px;padding:5px 10px;
-  border:1px solid var(--bd);border-radius:7px;font-size:11px;color:var(--t3);
-  background:var(--bg-s);transition:all .18s;
-}
+.inp-sm{display:flex;align-items:center;gap:5px;padding:5px 10px;border:1px solid var(--bd);border-radius:7px;font-size:11px;color:var(--t3);background:var(--bg-s);transition:all .18s}
 .inp-sm:hover{color:var(--t1);border-color:var(--t3)}
 .inp-sm svg{width:11px;height:11px}
-#send{
-  width:33px;height:33px;border-radius:8px;background:var(--btn);color:var(--btn-t);
-  display:flex;align-items:center;justify-content:center;transition:all .18s;flex-shrink:0;
-}
-#send:hover:not(:disabled){opacity:.82;transform:scale(.96)}
-#send:disabled{opacity:.2;cursor:not-allowed;transform:none}
-#send svg{width:14px;height:14px}
+#send-btn{width:33px;height:33px;border-radius:8px;background:var(--btn);color:var(--btn-t);display:flex;align-items:center;justify-content:center;transition:all .18s;flex-shrink:0}
+#send-btn:hover:not(:disabled){opacity:.82;transform:scale(.96)}
+#send-btn:disabled{opacity:.22;cursor:not-allowed;transform:none}
+#send-btn svg{width:14px;height:14px}
 .hint{text-align:center;font-family:'Fira Code',monospace;font-size:9.5px;color:var(--t3);letter-spacing:.04em;margin-top:7px}
 
-/* ══════════════════════════════════════════════════
+/* ══════════════════════════════════════════
    MODALS
-══════════════════════════════════════════════════ */
-.ov{
-  position:fixed;inset:0;background:rgba(0,0,0,.75);
-  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-  z-index:200;display:flex;align-items:center;justify-content:center;
-  padding:20px;opacity:0;pointer-events:none;transition:opacity .2s;
-}
+══════════════════════════════════════════ */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .2s}
 .ov.open{opacity:1;pointer-events:all}
-.modal{
-  background:var(--bg-s);border:1px solid var(--bd2);border-radius:20px;
-  width:100%;max-width:460px;padding:26px;
-  transform:scale(.93) translateY(14px);
-  transition:transform .2s,background .3s,border-color .3s;
-}
+.modal{background:var(--bg-s);border:1px solid var(--bd2);border-radius:20px;width:100%;max-width:460px;padding:26px;transform:scale(.93) translateY(14px);transition:transform .2s,background .3s,border-color .3s}
 .ov.open .modal{transform:scale(1) translateY(0)}
 .m-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
 .m-ttl{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--t1)}
-.m-x{
-  width:30px;height:30px;border-radius:8px;background:var(--bg-c);border:1px solid var(--bd);
-  color:var(--t2);display:flex;align-items:center;justify-content:center;transition:all .18s;
-}
+.m-x{width:30px;height:30px;border-radius:8px;background:var(--bg-c);border:1px solid var(--bd);color:var(--t2);display:flex;align-items:center;justify-content:center;transition:all .18s}
 .m-x:hover{color:var(--t1);border-color:var(--t3)}
 .m-x svg{width:13px;height:13px}
 
-/* settings */
+/* Theme grid */
 .s-lbl{display:block;font-family:'Fira Code',monospace;font-size:9.5px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:9px}
 .t-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px}
-.t-opt{
-  padding:11px 13px;border-radius:10px;border:2px solid var(--bd);cursor:pointer;
-  display:flex;align-items:center;gap:10px;transition:all .18s;background:var(--bg-c);
-}
+.t-opt{padding:11px 13px;border-radius:10px;border:2px solid var(--bd);cursor:pointer;display:flex;align-items:center;gap:10px;transition:all .18s;background:var(--bg-c)}
 .t-opt:hover{border-color:var(--t3)}
 .t-opt.active{border-color:var(--t1)}
 .t-sw{width:20px;height:20px;border-radius:5px;border:1px solid rgba(128,128,128,.3);flex-shrink:0}
 .t-n{font-size:12.5px;font-weight:500;color:var(--t1)}
 .t-sub{font-size:9.5px;color:var(--t3);font-family:'Fira Code',monospace}
 
-/* api zone */
+/* API zone */
 #api-zone{display:none;padding-top:18px;border-top:1px solid var(--bd);margin-top:4px}
 #api-zone.show{display:block}
 .api-wrap{position:relative}
-.api-inp{
-  width:100%;background:var(--bg-i);border:1px solid var(--bd2);border-radius:9px;
-  padding:10px 40px 10px 13px;color:var(--t1);font-family:'Fira Code',monospace;
-  font-size:11.5px;outline:none;transition:border-color .2s,background .3s;letter-spacing:.03em;
-}
+.api-inp{width:100%;background:var(--bg-i);border:1px solid var(--bd2);border-radius:9px;padding:10px 40px 10px 13px;color:var(--t1);font-family:'Fira Code',monospace;font-size:11.5px;outline:none;transition:border-color .2s,background .3s;letter-spacing:.03em}
 .api-inp:focus{border-color:var(--t2)}
 .api-inp::placeholder{color:var(--t3)}
-.eye{
-  position:absolute;right:10px;top:50%;transform:translateY(-50%);
-  color:var(--t3);padding:3px;transition:color .18s;
-}
+.eye{position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--t3);padding:3px;transition:color .18s}
 .eye:hover{color:var(--t1)}
 .eye svg{width:14px;height:14px}
-.api-save{
-  margin-top:9px;width:100%;padding:9px;background:var(--btn);color:var(--btn-t);
-  border-radius:9px;font-size:12.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;transition:opacity .18s;
-}
+.api-save{margin-top:9px;width:100%;padding:9px;background:var(--btn);color:var(--btn-t);border-radius:9px;font-size:12.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;transition:opacity .18s}
 .api-save:hover{opacity:.82}
-.api-note{margin-top:7px;font-family:'Fira Code',monospace;font-size:9.5px;color:var(--t3);letter-spacing:.03em}
+.api-note{margin-top:7px;font-family:'Fira Code',monospace;font-size:9.5px;color:var(--t3);letter-spacing:.03em;line-height:1.6}
+.api-get-link{color:var(--t2);text-decoration:underline;text-underline-offset:2px}
+.api-get-link:hover{color:var(--t1)}
 .m-foot{margin-top:16px;padding-top:14px;border-top:1px solid var(--bd);text-align:center;font-family:'Fira Code',monospace;font-size:9.5px;color:var(--t3);letter-spacing:.04em}
 
-/* image modal */
-.img-ta{
-  width:100%;background:var(--bg-i);border:1px solid var(--bd2);border-radius:10px;
-  padding:11px 13px;color:var(--t1);font-size:13px;outline:none;resize:none;
-  min-height:80px;line-height:1.55;transition:border-color .2s,background .3s;
-}
+/* Image modal */
+.img-modal{max-width:490px}
+.img-ta{width:100%;background:var(--bg-i);border:1px solid var(--bd2);border-radius:10px;padding:11px 13px;color:var(--t1);font-size:13px;outline:none;resize:none;min-height:84px;line-height:1.55;transition:border-color .2s,background .3s}
 .img-ta:focus{border-color:var(--t2)}
 .img-ta::placeholder{color:var(--t3)}
 .style-r{display:flex;flex-wrap:wrap;gap:6px;margin:11px 0}
-.st-chip{
-  padding:5px 12px;border:1px solid var(--bd2);border-radius:100px;
-  font-size:11px;color:var(--t2);background:var(--bg-c);cursor:pointer;
-  transition:all .18s;font-family:'Fira Code',monospace;
-}
-.st-chip.on{background:var(--btn);color:var(--btn-t);border-color:var(--btn)}
-.gen-btn{
-  width:100%;padding:11px;background:var(--btn);color:var(--btn-t);border-radius:9px;
-  font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:.07em;
-  text-transform:uppercase;margin-bottom:13px;transition:opacity .18s;
-}
+.st{padding:5px 12px;border:1px solid var(--bd2);border-radius:100px;font-size:11px;color:var(--t2);background:var(--bg-c);cursor:pointer;transition:all .18s;font-family:'Fira Code',monospace}
+.st.on{background:var(--btn);color:var(--btn-t);border-color:var(--btn)}
+.gen-btn{width:100%;padding:11px;background:var(--btn);color:var(--btn-t);border-radius:9px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:13px;transition:opacity .18s}
 .gen-btn:hover{opacity:.82}
-.prev-box{
-  width:100%;aspect-ratio:1;max-height:220px;background:var(--bg-c);
-  border:1px dashed var(--bd2);border-radius:11px;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;
-  color:var(--t3);font-family:'Fira Code',monospace;font-size:10px;letter-spacing:.06em;
-  text-transform:uppercase;position:relative;overflow:hidden;transition:background .3s;
-}
+.prev-box{width:100%;aspect-ratio:1;max-height:220px;background:var(--bg-c);border:1px dashed var(--bd2);border-radius:11px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;color:var(--t3);font-family:'Fira Code',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;position:relative;overflow:hidden;transition:background .3s}
 .prev-box svg{width:26px;height:26px;opacity:.3}
-.shim{
-  position:absolute;inset:0;
-  background:linear-gradient(90deg,transparent 0%,var(--bd2) 50%,transparent 100%);
-  background-size:200% 100%;animation:shimmer 1.6s ease-in-out infinite;display:none;
-}
+.shim{position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,var(--bd2) 50%,transparent 100%);background-size:200% 100%;animation:shim 1.6s ease-in-out infinite;display:none}
 .shim-on .shim{display:block}
-@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes shim{0%{background-position:-200% 0}100%{background-position:200% 0}}
 
-/* ══════════════════════════════════════════════════
+/* ══════════════════════════════════════════
    MOBILE
-══════════════════════════════════════════════════ */
+══════════════════════════════════════════ */
 #sb-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:49}
 @media(max-width:768px){
   #sidebar{position:fixed;top:0;left:0;bottom:0;transform:translateX(-100%);z-index:50}
@@ -479,19 +337,20 @@ textarea,input{font-family:'Figtree',sans-serif}
   #sb-ov.open{display:block}
   .mob-btn{display:flex}
 }
-/* hljs light */
+
+/* HLJS light theme overrides */
 [data-theme="pure-light"] .hljs,[data-theme="soft-gray"] .hljs{background:var(--bg-c) !important;color:#24292e !important}
 </style>
 </head>
 <body>
 
-<!-- ▌SIDEBAR ▌-->
-<aside id="sidebar">
+<!-- ━━━ SIDEBAR ━━━ -->
+<aside id="sidebar" aria-label="Sidebar">
   <div class="sb-head">
-    <div class="logo-wrap" id="logo-wrap">
-      <img id="logo-img" src="logo.png" alt="Aperonix AI"
-           onerror="this.style.display='none';document.getElementById('logo-fallback').style.display='flex'"/>
-      <div id="logo-fallback">A</div>
+    <div class="logo-wrap" id="logoWrap">
+      <img id="logo-img" src="logo.png" alt="Aperonix AI Logo"
+           onerror="this.style.display='none';document.getElementById('logo-fb').style.display='flex'"/>
+      <div id="logo-fb" aria-hidden="true">A</div>
       <div class="halo" id="halo"></div>
     </div>
     <div>
@@ -500,17 +359,19 @@ textarea,input{font-family:'Figtree',sans-serif}
     </div>
   </div>
 
-  <button class="new-btn" id="newBtn">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+  <button class="new-btn" id="newBtn" aria-label="New chat">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+    </svg>
     New Chat
   </button>
 
-  <div class="sb-lbl">Recent Chats</div>
-  <div id="hist" role="list"></div>
+  <div class="sb-sec">Recent Chats</div>
+  <div id="hist" role="list" aria-label="Chat history"></div>
 
   <div class="sb-foot">
-    <button class="gear" id="gearBtn" aria-label="Settings">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+    <button class="gear" id="gearBtn" aria-label="Open settings">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
         <circle cx="12" cy="12" r="3"/>
         <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
       </svg>
@@ -518,29 +379,33 @@ textarea,input{font-family:'Figtree',sans-serif}
     <div class="sb-copy">© 2026 Aperonix AI<br/>Developed by Mohammad Khan</div>
   </div>
 </aside>
-<div id="sb-ov" onclick="closeSb()"></div>
+<div id="sb-ov" onclick="closeSb()" aria-hidden="true"></div>
 
-<!-- ▌MAIN ▌-->
-<div id="main">
+<!-- ━━━ MAIN ━━━ -->
+<div id="main" role="main">
+  <!-- Topbar -->
   <div id="topbar">
-    <div style="display:flex;align-items:center;gap:10px;min-width:0">
-      <button class="mob-btn" id="mobBtn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    <div style="display:flex;align-items:center;gap:10px;min-width:0;">
+      <button class="mob-btn" id="mobBtn" aria-label="Open sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
       </button>
       <span class="tb-t" id="tbTitle">New Conversation</span>
     </div>
     <div class="tb-r">
-      <div class="online"><span class="dot"></span>Online</div>
+      <div class="online"><span class="dot" aria-hidden="true"></span>Online</div>
     </div>
   </div>
 
-  <div id="msgs" role="log" aria-live="polite">
+  <!-- Messages -->
+  <div id="msgs" role="log" aria-live="polite" aria-label="Conversation">
     <div id="msgs-inner">
-      <div id="welcome">
-        <div class="wlc-ico">A</div>
+      <div id="welcome" aria-label="Welcome screen">
+        <div class="wlc-ico" aria-hidden="true">A</div>
         <h1 class="wlc-h">Hello, I'm Aperonix AI</h1>
         <p class="wlc-p">Your intelligent assistant for writing, code, research, and creative work. Powered by Gemini 1.5 Flash.</p>
-        <div class="chips">
+        <div class="chips" role="list" aria-label="Suggested prompts">
           <button class="chip" onclick="useChip(this)">Explain neural networks</button>
           <button class="chip" onclick="useChip(this)">Write a Python function</button>
           <button class="chip" onclick="useChip(this)">Debug my JavaScript</button>
@@ -551,29 +416,48 @@ textarea,input{font-family:'Figtree',sans-serif}
     </div>
   </div>
 
+  <!-- Input -->
   <div id="inp-zone">
     <div id="inp-inner">
       <div class="feat-r">
-        <button class="f-btn" id="imgBtn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <button class="f-btn" id="imgOpenBtn" aria-label="Open image generator">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="3"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21 15 16 10 5 21"/>
+          </svg>
           Create Image
         </button>
-        <button class="f-btn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <button class="f-btn" aria-label="Model info">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
           Gemini 1.5 Flash
         </button>
       </div>
-      <div class="inp-box">
-        <textarea id="inp" placeholder="Message Aperonix AI…" rows="1" autocomplete="off" spellcheck="true" aria-label="Message input"></textarea>
+      <div class="inp-box" role="form" aria-label="Chat input">
+        <textarea
+          id="inp"
+          placeholder="Message Aperonix AI…"
+          aria-label="Type your message"
+          rows="1"
+          autocomplete="off"
+          spellcheck="true"
+        ></textarea>
         <div class="inp-acts">
           <div class="inp-l">
-            <button class="inp-sm">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg>
+            <button class="inp-sm" aria-label="Attach file">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/>
+              </svg>
               Attach
             </button>
           </div>
-          <button id="send" disabled aria-label="Send message">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          <button id="send-btn" disabled aria-label="Send message">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+              <line x1="22" y1="2" x2="11" y2="13"/>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
           </button>
         </div>
       </div>
@@ -582,113 +466,155 @@ textarea,input{font-family:'Figtree',sans-serif}
   </div>
 </div>
 
-<!-- ▌SETTINGS MODAL ▌-->
-<div class="ov" id="stgOv">
+<!-- ━━━ SETTINGS MODAL ━━━ -->
+<div class="ov" id="stgOv" role="dialog" aria-modal="true" aria-labelledby="stgTitle">
   <div class="modal">
     <div class="m-hdr">
-      <span class="m-ttl">Settings</span>
-      <button class="m-x" id="stgClose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      <span class="m-ttl" id="stgTitle">Settings</span>
+      <button class="m-x" id="stgClose" aria-label="Close settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
     </div>
 
     <span class="s-lbl">Appearance</span>
     <div class="t-grid">
-      <button class="t-opt" data-t="pure-dark" onclick="setTheme('pure-dark')">
+      <button class="t-opt" data-t="pure-dark" onclick="setTheme('pure-dark')" aria-label="Pure Dark theme">
         <div class="t-sw" style="background:#000"></div>
         <div><div class="t-n">Pure Dark</div><div class="t-sub">Pitch black</div></div>
       </button>
-      <button class="t-opt" data-t="slate" onclick="setTheme('slate')">
+      <button class="t-opt" data-t="slate" onclick="setTheme('slate')" aria-label="Slate theme">
         <div class="t-sw" style="background:#0d1117"></div>
         <div><div class="t-n">Slate</div><div class="t-sub">GitHub dark</div></div>
       </button>
-      <button class="t-opt" data-t="pure-light" onclick="setTheme('pure-light')">
+      <button class="t-opt" data-t="pure-light" onclick="setTheme('pure-light')" aria-label="Pure Light theme">
         <div class="t-sw" style="background:#fff;border-color:#ccc"></div>
         <div><div class="t-n">Pure Light</div><div class="t-sub">Clean white</div></div>
       </button>
-      <button class="t-opt" data-t="soft-gray" onclick="setTheme('soft-gray')">
+      <button class="t-opt" data-t="soft-gray" onclick="setTheme('soft-gray')" aria-label="Soft Gray theme">
         <div class="t-sw" style="background:#f2f2f2;border-color:#ccc"></div>
         <div><div class="t-n">Soft Gray</div><div class="t-sub">Easy on eyes</div></div>
       </button>
     </div>
 
+    <!-- Hidden until /open-admin -->
     <div id="api-zone">
       <span class="s-lbl">Gemini API Key</span>
       <div class="api-wrap">
-        <input type="password" id="apiKey" class="api-inp" placeholder="AIzaSy…" aria-label="Gemini API Key"/>
-        <button class="eye" id="eyeBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        <input
+          type="password"
+          id="apiKey"
+          class="api-inp"
+          placeholder="AIzaSy…  (paste your Gemini key here)"
+          aria-label="Gemini API Key"
+          autocomplete="off"
+        />
+        <button class="eye" id="eyeBtn" aria-label="Toggle key visibility">
+          <svg id="eyeIco" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </button>
       </div>
-      <button class="api-save" id="saveKey">Save API Key</button>
-      <p class="api-note">Stored locally · Never sent to any server · Used only for Gemini API calls</p>
+      <button class="api-save" id="saveKeyBtn">Save API Key</button>
+      <p class="api-note">
+        Stored in your browser only · Never sent anywhere except directly to Google's Gemini API.<br/>
+        Get a free key at <a class="api-get-link" href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">aistudio.google.com</a>
+      </p>
     </div>
 
     <div class="m-foot">© 2026 Aperonix AI — Developed by Mohammad Khan</div>
   </div>
 </div>
 
-<!-- ▌IMAGE MODAL ▌-->
-<div class="ov" id="imgOv">
-  <div class="modal" style="max-width:480px">
+<!-- ━━━ IMAGE MODAL ━━━ -->
+<div class="ov" id="imgOv" role="dialog" aria-modal="true" aria-labelledby="imgTitle">
+  <div class="modal img-modal">
     <div class="m-hdr">
-      <span class="m-ttl">Create Image</span>
-      <button class="m-x" id="imgClose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      <span class="m-ttl" id="imgTitle">Create Image</span>
+      <button class="m-x" id="imgClose" aria-label="Close image generator">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
     </div>
-    <textarea id="imgPrompt" class="img-ta" placeholder="Describe the image… e.g. 'A minimal dark cityscape at night, soft neon glow on rain-slicked streets'" rows="3"></textarea>
-    <div class="style-r" id="styleRow">
-      <button class="st-chip on" onclick="pickStyle(this)">Photorealistic</button>
-      <button class="st-chip" onclick="pickStyle(this)">Illustration</button>
-      <button class="st-chip" onclick="pickStyle(this)">Minimalist</button>
-      <button class="st-chip" onclick="pickStyle(this)">Cinematic</button>
-      <button class="st-chip" onclick="pickStyle(this)">Abstract</button>
+
+    <textarea
+      id="imgPrompt"
+      class="img-ta"
+      placeholder="Describe the image… e.g. 'A minimal dark cityscape at night with soft neon reflections on wet streets'"
+      aria-label="Image generation prompt"
+      rows="3"
+    ></textarea>
+
+    <div class="style-r" role="group" aria-label="Image style">
+      <button class="st on" onclick="pickSt(this)">Photorealistic</button>
+      <button class="st" onclick="pickSt(this)">Illustration</button>
+      <button class="st" onclick="pickSt(this)">Minimalist</button>
+      <button class="st" onclick="pickSt(this)">Cinematic</button>
+      <button class="st" onclick="pickSt(this)">Abstract</button>
     </div>
+
     <button class="gen-btn" id="genBtn">✦ &nbsp;Generate Image</button>
-    <div class="prev-box" id="prevBox">
-      <div class="shim" id="shim"></div>
-      <svg id="prevIco" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+
+    <div class="prev-box" id="prevBox" aria-live="polite">
+      <div class="shim" id="shim" aria-hidden="true"></div>
+      <svg id="prevIco" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+        <rect x="3" y="3" width="18" height="18" rx="3"/>
+        <circle cx="8.5" cy="8.5" r="1.5"/>
+        <polyline points="21 15 16 10 5 21"/>
+      </svg>
       <span id="prevTxt">Preview appears here</span>
     </div>
   </div>
 </div>
 
-<!-- ▌JAVASCRIPT ▌-->
+<!-- ━━━ SCRIPT ━━━ -->
 <script>
 'use strict';
 
-/* ─────────────────────────────────
-   CONSTANTS — FIXED API ENDPOINT
-───────────────────────────────── */
-// ✅ Correct model: gemini-1.5-flash
-// ✅ Correct endpoint: v1beta with generateContent
-const GEMINI_MODEL    = 'gemini-1.5-flash';
-const GEMINI_ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/models/'
-                       + GEMINI_MODEL + ':generateContent';
+/* ═════════════════════════════════════════════
+   API CONFIGURATION  ←  THE FIX IS HERE
+   Using stable v1 endpoint (not v1beta)
+   Model: gemini-1.5-flash
+═════════════════════════════════════════════ */
+var GEMINI_MODEL = 'gemini-1.5-flash';
+var GEMINI_URL   = 'https://generativelanguage.googleapis.com/v1/models/'
+                 + GEMINI_MODEL + ':generateContent';
 
-const SYSTEM_PROMPT =
-  'You are Aperonix AI, a professional, helpful, and intelligent AI assistant. ' +
-  'You were developed and created by Mohammad Khan. ' +
-  'If anyone asks who you are, respond: "I am Aperonix AI, your intelligent assistant." ' +
-  'If anyone asks who created you or who your owner is, respond: "I was developed by Mohammad Khan." ' +
-  'Be concise, accurate, and helpful. Format code in markdown code blocks.';
+/* System instruction injected as first user turn
+   (v1 API does not support system_instruction field — use contents array) */
+var SYS_MSG =
+  'You are Aperonix AI, a professional and intelligent AI assistant. ' +
+  'You were developed and founded by Mohammad Khan. ' +
+  'Always respond helpfully and accurately. ' +
+  'If anyone asks "Who are you?" respond exactly: "I am Aperonix AI, your intelligent assistant." ' +
+  'If anyone asks who created you, who your owner is, or who developed you, respond exactly: ' +
+  '"I was developed and founded by Mohammad Khan." ' +
+  'Format code using markdown code blocks with the language name.';
 
 /* ─────────────────────────────────
    STATE
 ───────────────────────────────── */
-let cid      = null;   // current chat id
-let chats    = {};     // { id: { title, msgs:[] } }
-let busy     = false;
-let theme    = 'pure-dark';
-let admin    = false;
-let eyeVis   = false;
+var cid    = null;
+var chats  = {};
+var busy   = false;
+var eyeOn  = false;
+var theme  = 'pure-dark';
+var admin  = false;
 
 /* ─────────────────────────────────
-   BOOT
+   INIT
 ───────────────────────────────── */
-(function init() {
+(function boot() {
   try {
-    const sc = localStorage.getItem('apx_chats');
+    var sc = localStorage.getItem('apx_chats');
     if (sc) chats = JSON.parse(sc);
-    const st = localStorage.getItem('apx_theme');
+    var st = localStorage.getItem('apx_theme');
     if (st) theme = st;
     admin = localStorage.getItem('apx_admin') === '1';
-    const sk = localStorage.getItem('apx_key');
+    var sk = localStorage.getItem('apx_key');
     if (sk) document.getElementById('apiKey').value = sk;
   } catch(e) {}
 
@@ -698,26 +624,26 @@ let eyeVis   = false;
 
   hljs.configure({ ignoreUnescapedHTML: true });
 
-  /* Input */
-  const inp = document.getElementById('inp');
-  inp.addEventListener('input', onInp);
+  /* Input auto-resize + enable send */
+  var inp = document.getElementById('inp');
+  inp.addEventListener('input', onInpChange);
   inp.addEventListener('keydown', function(e) {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); doSend(); }
   });
 
-  /* Buttons */
-  document.getElementById('send').addEventListener('click', doSend);
+  /* Wire buttons */
+  document.getElementById('send-btn').addEventListener('click', doSend);
   document.getElementById('newBtn').addEventListener('click', newChat);
   document.getElementById('gearBtn').addEventListener('click', function(){ openOv('stgOv'); });
   document.getElementById('stgClose').addEventListener('click', function(){ closeOv('stgOv'); });
-  document.getElementById('imgBtn').addEventListener('click', function(){ openOv('imgOv'); });
+  document.getElementById('imgOpenBtn').addEventListener('click', function(){ openOv('imgOv'); });
   document.getElementById('imgClose').addEventListener('click', function(){ closeOv('imgOv'); });
   document.getElementById('mobBtn').addEventListener('click', openSb);
   document.getElementById('genBtn').addEventListener('click', doGenImg);
-  document.getElementById('saveKey').addEventListener('click', saveApiKey);
+  document.getElementById('saveKeyBtn').addEventListener('click', saveKey);
   document.getElementById('eyeBtn').addEventListener('click', toggleEye);
 
-  /* Click-outside close */
+  /* Close modals on overlay click */
   ['stgOv','imgOv'].forEach(function(id) {
     document.getElementById(id).addEventListener('click', function(e) {
       if (e.target === this) closeOv(id);
@@ -737,7 +663,7 @@ function applyTheme(t, save) {
   document.querySelectorAll('.t-opt').forEach(function(el) {
     el.classList.toggle('active', el.dataset.t === t);
   });
-  const light = t === 'pure-light' || t === 'soft-gray';
+  var light = (t === 'pure-light' || t === 'soft-gray');
   document.getElementById('hljs-css').href = light
     ? 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css'
     : 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css';
@@ -754,23 +680,26 @@ function closeOv(id) { document.getElementById(id).classList.remove('open'); }
 /* ─────────────────────────────────
    SIDEBAR MOBILE
 ───────────────────────────────── */
-function openSb()  { document.getElementById('sidebar').classList.add('open'); document.getElementById('sb-ov').classList.add('open'); }
-function closeSb() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sb-ov').classList.remove('open'); }
+function openSb()  {
+  document.getElementById('sidebar').classList.add('open');
+  document.getElementById('sb-ov').classList.add('open');
+}
+function closeSb() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sb-ov').classList.remove('open');
+}
 
 /* ─────────────────────────────────
    CHAT MANAGEMENT
 ───────────────────────────────── */
 function uid() { return 'c' + Date.now() + Math.random().toString(36).slice(2,6); }
-function persist() { try { localStorage.setItem('apx_chats', JSON.stringify(chats)); } catch(e) {} }
+function save() { try { localStorage.setItem('apx_chats', JSON.stringify(chats)); } catch(e) {} }
 
 function newChat() {
   var id = uid();
   chats[id] = { title: 'New Chat', msgs: [] };
   cid = id;
-  persist();
-  renderHist();
-  renderMsgs();
-  closeSb();
+  save(); renderHist(); renderMsgs(); closeSb();
 }
 
 function loadChat(id) { cid = id; renderHist(); renderMsgs(); closeSb(); }
@@ -779,24 +708,25 @@ function delChat(id, e) {
   e.stopPropagation();
   delete chats[id];
   if (cid === id) { cid = null; renderMsgs(); }
-  persist();
-  renderHist();
+  save(); renderHist();
 }
 
 function renderHist() {
-  var el = document.getElementById('hist');
+  var el   = document.getElementById('hist');
   var keys = Object.keys(chats).reverse();
   if (!keys.length) { el.innerHTML = '<div class="hist-empty">No chats yet</div>'; return; }
   el.innerHTML = '';
   keys.forEach(function(id) {
-    var c = chats[id];
-    var d = document.createElement('div');
+    var c  = chats[id];
+    var d  = document.createElement('div');
     d.className = 'h-item' + (id === cid ? ' active' : '');
-    d.setAttribute('role', 'listitem');
+    d.setAttribute('role','listitem');
     d.innerHTML =
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">' +
+        '<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>' +
+      '</svg>' +
       '<span class="h-lbl">' + esc(c.title) + '</span>' +
-      '<button class="h-del" title="Delete">✕</button>';
+      '<button class="h-del" title="Delete chat" aria-label="Delete chat">✕</button>';
     d.querySelector('.h-del').addEventListener('click', function(e) { delChat(id, e); });
     d.addEventListener('click', function() { loadChat(id); });
     el.appendChild(d);
@@ -828,60 +758,99 @@ function renderMsgs() {
 function mkBubble(role, text, time) {
   var g   = document.createElement('div'); g.className = 'msg-g';
   var row = document.createElement('div'); row.className = 'msg-r ' + (role === 'u' ? 'u' : 'a');
-  var av  = document.createElement('div'); av.className = 'av ' + (role === 'u' ? 'u' : 'a');
+  var av  = document.createElement('div'); av.className = 'av '   + (role === 'u' ? 'u' : 'a');
   av.textContent = role === 'u' ? 'You' : 'AI';
   var bub = document.createElement('div'); bub.className = 'bub ' + (role === 'u' ? 'u' : 'a');
   bub.innerHTML = role === 'u' ? esc(text).replace(/\n/g,'<br/>') : parseMD(text);
-  bub.querySelectorAll('pre code').forEach(function(el) { try { hljs.highlightElement(el); } catch(e) {} });
+  bub.querySelectorAll('pre code').forEach(function(el) {
+    try { hljs.highlightElement(el); } catch(x) {}
+  });
   row.appendChild(av); row.appendChild(bub);
   var meta = document.createElement('div'); meta.className = 'msg-meta';
-  meta.style.cssText = role === 'u' ? 'text-align:right;padding-right:36px' : 'padding-left:36px';
+  meta.style.cssText = role === 'u'
+    ? 'text-align:right;padding-right:36px'
+    : 'padding-left:36px';
   meta.textContent = time || '';
   g.appendChild(row); g.appendChild(meta);
   return g;
 }
 
+function mkError(title, detail) {
+  var wrap = document.createElement('div');
+  wrap.className = 'msg-g';
+  wrap.innerHTML =
+    '<div class="err-bub">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">' +
+        '<circle cx="12" cy="12" r="10"/>' +
+        '<line x1="12" y1="8" x2="12" y2="12"/>' +
+        '<line x1="12" y1="16" x2="12.01" y2="16"/>' +
+      '</svg>' +
+      '<div class="err-text">' +
+        '<strong>' + esc(title) + '</strong>' +
+        esc(detail) +
+      '</div>' +
+    '</div>';
+  return wrap;
+}
+
 function addTyping() {
   document.getElementById('welcome').style.display = 'none';
   var inner = document.getElementById('msgs-inner');
-  var r = document.createElement('div'); r.id = 'typing'; r.className = 'typ-r';
+  var r  = document.createElement('div'); r.id = 'typingRow'; r.className = 'typ-r';
   var av = document.createElement('div'); av.className = 'av a'; av.textContent = 'AI';
   var b  = document.createElement('div'); b.className = 'typ-b';
   b.innerHTML = '<span></span><span></span><span></span>';
-  r.appendChild(av); r.appendChild(b); inner.appendChild(r); scrollBot();
+  r.appendChild(av); r.appendChild(b);
+  inner.appendChild(r); scrollBot();
+}
+
+function removeTyping() {
+  var el = document.getElementById('typingRow');
+  if (el) el.remove();
 }
 
 function scrollBot() {
-  var el = document.getElementById('msgs'); el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
+  var el = document.getElementById('msgs');
+  el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
 }
 
 /* ─────────────────────────────────
    MARKDOWN PARSER
 ───────────────────────────────── */
 function parseMD(raw) {
-  var t = raw;
-  // fenced code blocks
+  var t = String(raw);
+  /* fenced code blocks */
   t = t.replace(/```(\w+)?\n?([\s\S]*?)```/g, function(_, lang, code) {
     var l  = (lang || 'plaintext').toLowerCase();
-    var id = 'cx' + Math.random().toString(36).slice(2,8);
-    return '<pre><div class="c-bar"><span class="c-lang">' + l + '</span>' +
-           '<button class="c-cp" onclick="cpCode(\'' + id + '\')">Copy</button></div>' +
-           '<code id="' + id + '">' + esc(code.trim()) + '</code></pre>';
+    var id = 'cx' + Math.random().toString(36).slice(2,9);
+    return '<pre><div class="c-bar">' +
+           '<span class="c-lang">' + l + '</span>' +
+           '<button class="c-cp" onclick="cpCode(\'' + id + '\')">Copy</button>' +
+           '</div><code id="' + id + '">' + esc(code.trim()) + '</code></pre>';
   });
   t = t.replace(/`([^`\n]+)`/g, '<code>$1</code>');
   t = t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
   t = t.replace(/\*(.+?)\*/g, '<em>$1</em>');
   t = t.split('\n\n').map(function(p) {
     if (p.trim().startsWith('<pre>')) return p;
-    if (/^[-*] /m.test(p)) return '<ul>' + p.trim().split('\n').map(function(l){ return '<li>' + l.replace(/^[-*] /,'') + '</li>'; }).join('') + '</ul>';
-    if (/^\d+\. /m.test(p)) return '<ol>' + p.trim().split('\n').map(function(l){ return '<li>' + l.replace(/^\d+\. /,'') + '</li>'; }).join('') + '</ol>';
+    if (/^[-*] /m.test(p)) {
+      return '<ul>' + p.trim().split('\n').map(function(l) {
+        return '<li>' + l.replace(/^[-*] /, '') + '</li>';
+      }).join('') + '</ul>';
+    }
+    if (/^\d+\. /m.test(p)) {
+      return '<ol>' + p.trim().split('\n').map(function(l) {
+        return '<li>' + l.replace(/^\d+\. /, '') + '</li>';
+      }).join('') + '</ol>';
+    }
     return '<p>' + p.replace(/\n/g,'<br/>') + '</p>';
   }).join('');
   return t;
 }
 
 function cpCode(id) {
-  var el = document.getElementById(id); if (!el) return;
+  var el = document.getElementById(id);
+  if (!el) return;
   navigator.clipboard.writeText(el.innerText).then(function() {
     var btn = el.closest('pre').querySelector('.c-cp');
     if (btn) { btn.textContent = 'Copied!'; setTimeout(function(){ btn.textContent = 'Copy'; }, 1800); }
@@ -891,29 +860,30 @@ function cpCode(id) {
 /* ─────────────────────────────────
    IDENTITY INTERCEPTORS
 ───────────────────────────────── */
-var ID_CHECKS = [
+var ID = [
   {
-    rx: /who\s+are\s+you|what\s+(?:are|is)\s+you|what.+your\s+name|your\s+name|tum\s+kaun|aap\s+kaun|introduce\s+yourself|tell\s+me\s+about\s+yourself|what\s+(?:should|do)\s+i\s+call\s+you/i,
+    rx: /who\s+are\s+you|what\s+(?:are|is)\s+you|what.+your\s+name|your\s+name|tum\s+kaun|aap\s+kaun|introduce\s+yourself|tell\s+about\s+yourself|what\s+(?:should|can|do)\s+i\s+call\s+you/i,
     ans: 'I am Aperonix AI, your intelligent assistant.'
   },
   {
-    rx: /who\s+(?:created|made|built|developed|founded|owns?|designed)\s+you|who\s+is\s+your\s+(?:creator|owner|developer|maker|founder|author)|tumhe\s+kisne\s+banaya|kisne\s+banaya|who\s+is\s+behind\s+you|your\s+(?:creator|owner|developer)/i,
-    ans: 'I was developed by Mohammad Khan.'
+    rx: /who\s+(?:created|made|built|developed|owns?|founded|designed)\s+you|who\s+is\s+your\s+(?:creator|owner|developer|maker|founder|author)|tumhe\s+kisne\s+banaya|kisne\s+banaya|who\s+is\s+behind|your\s+(?:creator|owner|developer)/i,
+    ans: 'I was developed and founded by Mohammad Khan.'
   }
 ];
 
 function checkID(msg) {
-  for (var i = 0; i < ID_CHECKS.length; i++) {
-    if (ID_CHECKS[i].rx.test(msg)) return ID_CHECKS[i].ans;
+  for (var i = 0; i < ID.length; i++) {
+    if (ID[i].rx.test(msg)) return ID[i].ans;
   }
   return null;
 }
 
 /* ─────────────────────────────────
-   SEND MESSAGE
+   SEND  ←  CORE LOGIC
 ───────────────────────────────── */
-function nowT() { return new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' }); }
-function sleep(ms) { return new Promise(function(r){ setTimeout(r, ms); }); }
+function nowT() {
+  return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
 
 async function doSend() {
   if (busy) return;
@@ -921,16 +891,16 @@ async function doSend() {
   var txt = inp.value.trim();
   if (!txt) return;
 
-  /* Secret admin command */
+  /* ── Secret admin command ── */
   if (txt === '/open-admin') {
     unlockAdmin();
     inp.value = ''; inp.style.height = 'auto';
-    document.getElementById('send').disabled = true;
+    document.getElementById('send-btn').disabled = true;
     openOv('stgOv');
     return;
   }
 
-  /* Ensure chat */
+  /* ── Ensure active chat ── */
   if (!cid) {
     var nid = uid();
     chats[nid] = { title: txt.slice(0,34) + (txt.length > 34 ? '…' : ''), msgs: [] };
@@ -938,160 +908,225 @@ async function doSend() {
   }
 
   busy = true;
-  document.getElementById('send').disabled = true;
+  document.getElementById('send-btn').disabled = true;
   inp.value = ''; inp.style.height = 'auto';
 
-  /* Identity check */
+  /* ── Identity bypass (no API call needed) ── */
   var identity = checkID(txt);
 
-  /* Push user msg */
+  /* ── Push user message ── */
   var chat = chats[cid];
-  chat.msgs.push({ r: 'u', t: txt, ts: nowT() });
+  var uTime = nowT();
+  chat.msgs.push({ r: 'u', t: txt, ts: uTime });
   if (chat.msgs.length === 1) {
     chat.title = txt.slice(0,36) + (txt.length > 36 ? '…' : '');
     document.getElementById('tbTitle').textContent = chat.title;
   }
 
-  /* Render user bubble */
+  /* ── Show user bubble immediately ── */
   document.getElementById('welcome').style.display = 'none';
   var inner = document.getElementById('msgs-inner');
-  inner.appendChild(mkBubble('u', txt, chat.msgs[chat.msgs.length-1].ts));
+  inner.appendChild(mkBubble('u', txt, uTime));
   scrollBot();
 
-  /* Start Gemini-style animation */
-  document.getElementById('logo-wrap').classList.add('generating');
+  /* ── Start logo animation ── */
+  document.getElementById('logoWrap').classList.add('generating');
 
-  /* Typing dots */
+  /* ── Show typing dots ── */
   addTyping();
-  await sleep(500 + Math.random() * 500);
+  await sleep(400 + rand(400));
 
   var reply = '';
 
   if (identity) {
-    /* Identity bypass — no API call */
+    /* Identity: answer instantly without API */
     reply = identity;
-    await sleep(300);
+    await sleep(250);
   } else {
     var key = localStorage.getItem('apx_key') || '';
 
-    if (key && key.length > 8) {
-      /* ───────────────────────────────────────────
-         REAL GEMINI 1.5 FLASH API CALL
-         Model : gemini-1.5-flash
-         API   : v1beta/models/gemini-1.5-flash:generateContent
-      ─────────────────────────────────────────── */
+    if (key && key.trim().length > 10) {
+      /* ════════════════════════════════════════════
+         GEMINI v1 API CALL  ←  CORRECT ENDPOINT
+         URL: /v1/models/gemini-1.5-flash:generateContent
+         Payload: { contents: [ {role, parts:[{text}]} ] }
+         NOTE: v1 does NOT support system_instruction.
+               We inject it as the first user turn instead.
+      ════════════════════════════════════════════ */
       try {
-        /* Build contents array (exclude system-like msgs, map roles) */
-        var contents = chat.msgs.slice(0, -1).map(function(m) {
-          return { role: m.r === 'u' ? 'user' : 'model', parts: [{ text: m.t }] };
+        /* Build the full conversation for the API */
+        var contents = [];
+
+        /* Inject system context as first user+model exchange */
+        contents.push({
+          role: 'user',
+          parts: [{ text: SYS_MSG + '\n\nAcknowledge that you understand.' }]
         });
+        contents.push({
+          role: 'model',
+          parts: [{ text: 'Understood. I am Aperonix AI, developed by Mohammad Khan. I am ready to assist you.' }]
+        });
+
+        /* Add prior conversation turns (skip the very last push = current user msg) */
+        var history = chat.msgs.slice(0, -1);
+        history.forEach(function(m) {
+          contents.push({
+            role: m.r === 'u' ? 'user' : 'model',
+            parts: [{ text: m.t }]
+          });
+        });
+
         /* Add current user message */
         contents.push({ role: 'user', parts: [{ text: txt }] });
 
-        var body = {
-          system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+        /* ── Correct v1 payload structure ── */
+        var payload = {
           contents: contents,
           generationConfig: {
-            temperature: 0.9,
+            temperature: 0.85,
             topK: 40,
             topP: 0.95,
-            maxOutputTokens: 2048
-          },
-          safetySettings: [
-            { category: 'HARM_CATEGORY_HARASSMENT',        threshold: 'BLOCK_NONE' },
-            { category: 'HARM_CATEGORY_HATE_SPEECH',       threshold: 'BLOCK_NONE' },
-            { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_NONE' },
-            { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_NONE' }
-          ]
+            maxOutputTokens: 2048,
+            stopSequences: []
+          }
         };
 
-        var res = await fetch(GEMINI_ENDPOINT + '?key=' + encodeURIComponent(key), {
+        /* Fetch with clean API key (trimmed) */
+        var res = await fetch(GEMINI_URL + '?key=' + encodeURIComponent(key.trim()), {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body)
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
         });
 
+        var data;
+        try { data = await res.json(); } catch(je) { data = {}; }
+
         if (res.ok) {
-          var data = await res.json();
-          /* Extract text safely */
-          var candidate = data.candidates && data.candidates[0];
-          if (candidate && candidate.content && candidate.content.parts && candidate.content.parts[0]) {
-            reply = candidate.content.parts[0].text || 'No text in response.';
-          } else if (candidate && candidate.finishReason === 'SAFETY') {
-            reply = 'This response was blocked due to safety filters. Please rephrase your question.';
+          /* ── Extract text from correct path ── */
+          var cand = data.candidates && data.candidates[0];
+          if (cand && cand.content && cand.content.parts && cand.content.parts.length) {
+            reply = cand.content.parts.map(function(p){ return p.text || ''; }).join('');
+          } else if (cand && cand.finishReason === 'SAFETY') {
+            reply = '⚠️ This response was blocked by safety filters. Please rephrase your question.';
+          } else if (cand && cand.finishReason === 'RECITATION') {
+            reply = '⚠️ Response blocked due to recitation policy. Please try a different question.';
           } else {
-            reply = 'Received an unexpected response format. Please try again.';
+            reply = '⚠️ Received an empty or unexpected response. Please try again.';
           }
         } else {
-          var errData = {};
-          try { errData = await res.json(); } catch(e) {}
-          var errMsg = (errData.error && errData.error.message) ? errData.error.message : 'Unknown API error.';
-          reply = '⚠️ API Error ' + res.status + ': ' + errMsg +
-                  '\n\nTip: Make sure your Gemini API key is valid and has access to `gemini-1.5-flash`.';
+          /* ── Structured error display ── */
+          var errMsg = 'Unknown error.';
+          if (data && data.error) {
+            errMsg = data.error.message || errMsg;
+          }
+          removeTyping();
+          document.getElementById('logoWrap').classList.remove('generating');
+          inner.appendChild(mkError(
+            'API Error ' + res.status,
+            errMsg + (res.status === 400 ? ' — Check your API key and ensure it has Gemini access.' : '')
+          ));
+          scrollBot();
+          save(); renderHist();
+          busy = false;
+          document.getElementById('send-btn').disabled = !inp.value.trim();
+          return;
         }
-      } catch(e) {
-        reply = '⚠️ Network error: ' + e.message + '\n\nPlease check your internet connection and try again.';
+      } catch(networkErr) {
+        removeTyping();
+        document.getElementById('logoWrap').classList.remove('generating');
+        inner.appendChild(mkError(
+          'Network Error',
+          'Could not reach the Gemini API. Check your internet connection and try again. (' + networkErr.message + ')'
+        ));
+        scrollBot();
+        busy = false;
+        document.getElementById('send-btn').disabled = !inp.value.trim();
+        return;
       }
     } else {
-      /* No API key — smart fallback */
+      /* ── No API key: smart fallback responses ── */
       reply = getFallback(txt);
     }
   }
 
-  /* Stop animation */
-  document.getElementById('logo-wrap').classList.remove('generating');
-  document.getElementById('typing') && document.getElementById('typing').remove();
+  /* ── Stop animation & typing ── */
+  document.getElementById('logoWrap').classList.remove('generating');
+  removeTyping();
 
-  /* Push AI msg */
-  var ts = nowT();
-  chat.msgs.push({ r: 'a', t: reply, ts: ts });
-  persist();
+  /* ── Append AI reply ── */
+  var aTime = nowT();
+  chat.msgs.push({ r: 'a', t: reply, ts: aTime });
+  save();
   renderHist();
-  inner.appendChild(mkBubble('a', reply, ts));
+  inner.appendChild(mkBubble('a', reply, aTime));
   scrollBot();
 
   busy = false;
-  document.getElementById('send').disabled = !inp.value.trim();
+  document.getElementById('send-btn').disabled = !inp.value.trim();
 }
 
 /* ─────────────────────────────────
-   FALLBACK RESPONSES (no API key)
+   FALLBACK (no API key)
 ───────────────────────────────── */
 var FB = [
-  { rx:/python|scraper|beautifulsoup|web\s*scraping/i, fn:function(){
-    return 'Here\'s a clean Python web scraper:\n\n```python\nimport requests\nfrom bs4 import BeautifulSoup\n\ndef scrape(url: str) -> dict:\n    headers = {\'User-Agent\': \'Mozilla/5.0\'}\n    r = requests.get(url, headers=headers, timeout=10)\n    r.raise_for_status()\n    soup = BeautifulSoup(r.text, \'html.parser\')\n    return {\n        \'title\':  soup.title.string if soup.title else None,\n        \'h1s\':    [h.get_text() for h in soup.find_all(\'h1\')],\n        \'links\':  [a[\'href\'] for a in soup.find_all(\'a\', href=True)][:10]\n    }\n\nif __name__ == \'__main__\':\n    print(scrape(\'https://example.com\'))\n```\n\nInstall with: `pip install requests beautifulsoup4`';
-  }},
-  { rx:/javascript|debug|error|bug|console/i, fn:function(){
-    return 'JavaScript debugging essentials:\n\n```javascript\n// 1. Structured logging\nconsole.log(\'%c[Debug]\', \'color:#0af\', { value, context });\nconsole.table(arrayOfObjects);\nconsole.trace(\'Call stack\');\n\n// 2. Safe async pattern\nasync function safeFetch(url) {\n  try {\n    const res = await fetch(url);\n    if (!res.ok) throw new Error(`HTTP ${res.status}`);\n    return await res.json();\n  } catch (err) {\n    console.error(\'[safeFetch]\', err.message);\n    throw err;\n  }\n}\n\n// 3. Optional chaining\nconst city = user?.address?.city ?? \'Unknown\';\n```\n\nPaste your error and I\'ll diagnose it.';
-  }},
-  { rx:/neural|machine\s+learning|deep\s+learning/i, fn:function(){
-    return '**Neural Networks** are computing systems inspired by biological brains.\n\n**Core concepts:**\n\n- **Neurons** — receive weighted inputs, apply activation functions\n- **Layers** — input → hidden → output\n- **Backpropagation** — adjusts weights to minimize loss\n- **Activation functions** — ReLU, Sigmoid, Softmax\n\n**Popular frameworks:** PyTorch, TensorFlow, JAX\n\nWant a code implementation example?';
-  }},
-  { rx:/rest\s*api|endpoint|openapi/i, fn:function(){
-    return 'Clean REST API structure:\n\n```yaml\nGET    /v1/users        → List all users\nPOST   /v1/users        → Create user\nGET    /v1/users/{id}   → Get user\nPATCH  /v1/users/{id}   → Partial update\nDELETE /v1/users/{id}   → Delete user\n```\n\n**Best practices:**\n- Plural nouns for collections\n- Consistent error format: `{ "error": { "code": 404, "message": "Not found" } }`\n- Versioning via URL prefix `/v1/`\n- PATCH for partial, PUT for full replacement';
-  }},
-  { rx:/.*/,fn:function(q){
-    if (!q || q.length < 8) return 'Could you elaborate? I want to give you the most useful response.';
-    return 'I understand you\'re asking about **"' + q.slice(0,55) + (q.length>55?'…':'') + '"**.\n\n' +
-           'To get real AI-powered responses, add your **Gemini API key** via Settings (or type `/open-admin` to unlock it).\n\n' +
-           'Your free key is available at: `https://aistudio.google.com/app/apikey`\n\n' +
-           'In the meantime, I can help with:\n- Code examples and debugging\n- Explaining technical concepts\n- Writing and editing\n- API design\n\nWhat specifically would you like help with?';
-  }}
+  {
+    rx: /python|scraper|beautifulsoup|web.?scraping/i,
+    fn: function() {
+      return 'Here\'s a clean Python web scraper:\n\n```python\nimport requests\nfrom bs4 import BeautifulSoup\n\ndef scrape(url: str) -> dict:\n    headers = {"User-Agent": "Mozilla/5.0"}\n    r = requests.get(url, headers=headers, timeout=10)\n    r.raise_for_status()\n    soup = BeautifulSoup(r.text, "html.parser")\n    return {\n        "title":  soup.title.string if soup.title else None,\n        "h1s":    [h.get_text() for h in soup.find_all("h1")],\n        "links":  [a["href"] for a in soup.find_all("a", href=True)][:10]\n    }\n\nif __name__ == "__main__":\n    print(scrape("https://example.com"))\n```\n\nInstall: `pip install requests beautifulsoup4`';
+    }
+  },
+  {
+    rx: /javascript|debug|error|bug|console/i,
+    fn: function() {
+      return 'Essential JavaScript debugging:\n\n```javascript\n// Structured logging\nconsole.log("%c[Debug]", "color:#0af", { value, context });\nconsole.table(myArray);\n\n// Safe async\nasync function safeFetch(url) {\n  try {\n    const res = await fetch(url);\n    if (!res.ok) throw new Error(`HTTP ${res.status}`);\n    return await res.json();\n  } catch (err) {\n    console.error("[Error]", err.message);\n    throw err;\n  }\n}\n\n// Optional chaining\nconst city = user?.address?.city ?? "Unknown";\n```';
+    }
+  },
+  {
+    rx: /neural|machine.?learning|deep.?learning|ai.?model/i,
+    fn: function() {
+      return '**Neural Networks** — computing systems modelled on biological brains.\n\n**Core concepts:**\n\n- **Neurons** — weighted inputs passed through activation functions\n- **Layers** — input → hidden → output\n- **Backpropagation** — gradient-based weight updates\n- **Activations** — ReLU, Sigmoid, Softmax, GeLU\n\n**Modern architectures:** Transformers (GPT, BERT), CNNs (vision), RNNs (sequences)\n\n**Frameworks:** PyTorch · TensorFlow · JAX\n\nWant a specific code example?';
+    }
+  },
+  {
+    rx: /rest.?api|endpoint|openapi|http.?method/i,
+    fn: function() {
+      return 'Clean REST API design:\n\n```\nGET    /v1/users         → List\nPOST   /v1/users         → Create\nGET    /v1/users/{id}    → Read\nPATCH  /v1/users/{id}    → Partial update\nDELETE /v1/users/{id}    → Delete\n```\n\n**Rules:** Plural nouns · PATCH partial / PUT full · Consistent errors:\n`{ "error": { "code": 404, "message": "Not found" } }` · Versioning via `/v1/`';
+    }
+  },
+  {
+    rx: /email|draft|write\s+(?:a|an|the|my)/i,
+    fn: function() {
+      return 'Professional email template:\n\n---\n\n**Subject:** [Specific, action-oriented subject]\n\nHi [Name],\n\nI hope this message finds you well.\n\n[Opening — state your purpose in one sentence.]\n\n[Body — 2–3 short paragraphs with details, context, or requests.]\n\n[Closing — clear call to action and next steps.]\n\nBest regards,\n[Your Name]\n[Title · Company · Contact]\n\n---\n\nShare your specific context and I\'ll write the full email for you.';
+    }
+  },
+  {
+    rx: /.*/,
+    fn: function(q) {
+      if (!q || q.length < 6) return 'Could you give me a bit more context? I want to give you the most useful answer.';
+      return 'I\'ve received your message about **"' + q.slice(0,55) + (q.length > 55 ? '…' : '') + '"**.\n\n' +
+             'To unlock full AI-powered responses, add your **Gemini API key** in Settings.\n\n' +
+             '**How to get your free key:**\n1. Go to [aistudio.google.com/app/apikey](https://aistudio.google.com)\n2. Sign in with Google\n3. Click "Create API Key"\n4. Type `/open-admin` in the chat → paste your key in Settings\n\nIn the meantime, I can help with: code, writing, API design, debugging, and more.';
+    }
+  }
 ];
 
 function getFallback(q) {
-  for (var i = 0; i < FB.length; i++) { if (FB[i].rx.test(q)) return FB[i].fn(q); }
+  for (var i = 0; i < FB.length; i++) {
+    if (FB[i].rx.test(q)) return FB[i].fn(q);
+  }
   return FB[FB.length-1].fn(q);
 }
 
 /* ─────────────────────────────────
-   INPUT CHANGE
+   INPUT HELPERS
 ───────────────────────────────── */
-function onInp() {
+function onInpChange() {
   var inp = document.getElementById('inp');
   inp.style.height = 'auto';
   inp.style.height = Math.min(inp.scrollHeight, 150) + 'px';
-  document.getElementById('send').disabled = !inp.value.trim();
+  document.getElementById('send-btn').disabled = !inp.value.trim();
 }
 
 function useChip(el) {
@@ -1102,34 +1137,38 @@ function useChip(el) {
 }
 
 /* ─────────────────────────────────
-   ADMIN / API KEY
+   ADMIN + API KEY
 ───────────────────────────────── */
 function showApiZone() { document.getElementById('api-zone').classList.add('show'); }
+
 function unlockAdmin() {
   if (admin) return;
   admin = true;
-  try { localStorage.setItem('apx_admin', '1'); } catch(e) {}
+  try { localStorage.setItem('apx_admin','1'); } catch(e) {}
   showApiZone();
 }
-function saveApiKey() {
+
+function saveKey() {
   var v = document.getElementById('apiKey').value.trim();
   try { localStorage.setItem('apx_key', v); } catch(e) {}
-  var btn = document.getElementById('saveKey');
+  var btn = document.getElementById('saveKeyBtn');
   btn.textContent = '✓ Key Saved';
-  setTimeout(function(){ btn.textContent = 'Save API Key'; }, 2000);
+  setTimeout(function(){ btn.textContent = 'Save API Key'; }, 2200);
 }
+
 function toggleEye() {
-  eyeVis = !eyeVis;
-  document.getElementById('apiKey').type = eyeVis ? 'text' : 'password';
+  eyeOn = !eyeOn;
+  document.getElementById('apiKey').type = eyeOn ? 'text' : 'password';
 }
 
 /* ─────────────────────────────────
    IMAGE MODAL
 ───────────────────────────────── */
-function pickStyle(el) {
-  document.querySelectorAll('.st-chip').forEach(function(c){ c.classList.remove('on'); });
+function pickSt(el) {
+  document.querySelectorAll('.st').forEach(function(c){ c.classList.remove('on'); });
   el.classList.add('on');
 }
+
 function doGenImg() {
   var p = document.getElementById('imgPrompt').value.trim();
   if (!p) { document.getElementById('imgPrompt').focus(); return; }
@@ -1140,10 +1179,9 @@ function doGenImg() {
   setTimeout(function() {
     box.classList.remove('shim-on');
     document.getElementById('prevTxt').innerHTML =
-      '<span style="font-family:\'Fira Code\',monospace;font-size:10px;opacity:.55;' +
-      'padding:18px;text-align:center;line-height:1.9;text-transform:none;letter-spacing:.02em;">' +
-      '✦ Image generation requires Gemini Imagen or DALL·E API.<br/>' +
-      'Connect an image model API key to enable this feature.</span>';
+      '<span style="font-family:\'Fira Code\',monospace;font-size:10px;letter-spacing:.02em;' +
+      'opacity:.55;padding:18px;text-align:center;line-height:1.9;text-transform:none;">' +
+      '✦ Connect a Gemini Imagen or DALL·E API key<br/>to enable real image generation.</span>';
   }, 2600);
 }
 
@@ -1151,8 +1189,14 @@ function doGenImg() {
    UTILS
 ───────────────────────────────── */
 function esc(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  return String(s)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
 }
+function sleep(ms) { return new Promise(function(r){ setTimeout(r, ms); }); }
+function rand(n)   { return Math.floor(Math.random() * n); }
 </script>
 
 </body>
