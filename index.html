@@ -1,35 +1,908 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Veltrix AI - Global Edition</title>
-    <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #0f172a; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        #chat-container { width: 400px; background: #1e293b; border-radius: 15px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid #334155; }
-        h3 { text-align: center; color: #3b82f6; margin-bottom: 20px; }
-        #messages { height: 350px; overflow-y: auto; margin-bottom: 15px; padding: 10px; border-bottom: 1px solid #334155; scroll-behavior: smooth; }
-        .input-area { display: flex; gap: 10px; }
-        input { flex: 1; padding: 12px; border-radius: 8px; border: none; background: #334155; color: white; outline: none; }
-        button { padding: 10px 20px; border-radius: 8px; border: none; background: #3b82f6; color: white; cursor: pointer; font-weight: bold; }
-        button:hover { background: #2563eb; }
-        .bot-msg { color: #3b82f6; margin: 10px 0; }
-        .user-msg { color: #f8fafc; margin: 10px 0; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aperonix AI — A minimal, professional AI chatbot interface. Ask anything, get intelligent responses instantly." />
+  <meta name="keywords" content="AI chatbot, Aperonix AI, artificial intelligence, chat assistant, Mohammad Khan" />
+  <meta name="author" content="Mohammad Khan" />
+  <meta property="og:title" content="Aperonix AI — Intelligent Chat Assistant" />
+  <meta property="og:description" content="A minimal, professional AI chatbot interface. Ask anything, get intelligent responses instantly." />
+  <meta property="og:type" content="website" />
+  <meta name="robots" content="index, follow" />
+  <title>Aperonix AI — Intelligent Chat Assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hljs-theme" />
+
+  <style>
+    /* ── CSS VARIABLES / THEMES ──────────────────────────────── */
+    :root {
+      --bg:         #000000;
+      --bg2:        #0a0a0a;
+      --bg3:        #111111;
+      --border:     #222222;
+      --border2:    #2e2e2e;
+      --text:       #ffffff;
+      --text2:      #a0a0a0;
+      --text3:      #606060;
+      --user-bubble:#1a1a1a;
+      --ai-bubble:  #0d0d0d;
+      --input-bg:   #111111;
+      --btn-bg:     #ffffff;
+      --btn-text:   #000000;
+      --shadow:     rgba(255,255,255,0.04);
+      --code-bg:    #0d0d0d;
+      --scrollbar:  #2a2a2a;
+    }
+    [data-theme="light-dark"] {
+      --bg:#121212; --bg2:#1a1a1a; --bg3:#222222;
+      --border:#2e2e2e; --border2:#3a3a3a;
+      --text:#e0e0e0; --text2:#909090; --text3:#555555;
+      --user-bubble:#252525; --ai-bubble:#1c1c1c;
+      --input-bg:#1e1e1e; --btn-bg:#e0e0e0; --btn-text:#121212;
+      --shadow:rgba(255,255,255,0.03); --code-bg:#1a1a1a; --scrollbar:#333333;
+    }
+    [data-theme="pure-light"] {
+      --bg:#ffffff; --bg2:#f8f8f8; --bg3:#f0f0f0;
+      --border:#e0e0e0; --border2:#d0d0d0;
+      --text:#000000; --text2:#555555; --text3:#999999;
+      --user-bubble:#000000; --ai-bubble:#f5f5f5;
+      --input-bg:#f5f5f5; --btn-bg:#000000; --btn-text:#ffffff;
+      --shadow:rgba(0,0,0,0.06); --code-bg:#f0f0f0; --scrollbar:#cccccc;
+    }
+    [data-theme="soft-light"] {
+      --bg:#f5f5f5; --bg2:#eeeeee; --bg3:#e8e8e8;
+      --border:#dcdcdc; --border2:#cccccc;
+      --text:#1a1a1a; --text2:#505050; --text3:#909090;
+      --user-bubble:#1a1a1a; --ai-bubble:#ebebeb;
+      --input-bg:#ebebeb; --btn-bg:#1a1a1a; --btn-text:#f5f5f5;
+      --shadow:rgba(0,0,0,0.05); --code-bg:#e5e5e5; --scrollbar:#c8c8c8;
+    }
+
+    /* ── BASE ────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background 0.3s ease, color 0.3s ease;
+      overflow-x: hidden;
+    }
+
+    /* ── SCROLLBAR ───────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--scrollbar); border-radius: 2px; }
+
+    /* ── NAVBAR ──────────────────────────────────────────────── */
+    #navbar {
+      position: fixed; top:0; left:0; right:0; z-index:100;
+      height: 56px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 17px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--text);
+      display: flex; align-items: center; gap: 9px;
+    }
+    .nav-logo-dot {
+      width: 7px; height: 7px;
+      background: var(--text); border-radius: 50%;
+      animation: blink 2.4s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%,100% { opacity:1; transform:scale(1); }
+      50% { opacity:0.25; transform:scale(0.6); }
+    }
+    .nav-right { display:flex; align-items:center; gap:14px; }
+    .nav-creator {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; color: var(--text3); letter-spacing: 0.04em;
+    }
+    .theme-switcher {
+      display: flex; align-items: center; gap: 4px;
+      border: 1px solid var(--border); border-radius: 7px;
+      padding: 3px; background: var(--bg2);
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .theme-btn {
+      width: 22px; height: 22px; border-radius: 5px;
+      border: 1px solid transparent; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .theme-btn:hover { transform: scale(1.12); }
+    .theme-btn.active { border-color: var(--text2) !important; }
+    .theme-btn[data-t="pure-dark"]  { background: #000000; border-color: #444; }
+    .theme-btn[data-t="light-dark"] { background: #121212; border-color: #333; }
+    .theme-btn[data-t="pure-light"] { background: #ffffff; border-color: #ccc; }
+    .theme-btn[data-t="soft-light"] { background: #f5f5f5; border-color: #ddd; }
+
+    /* ── TOP AD ──────────────────────────────────────────────── */
+    .ad-top {
+      margin-top: 56px;
+      background: var(--bg2); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center; height: 60px;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .ad-placeholder {
+      font-family: 'DM Mono', monospace; font-size: 10px;
+      color: var(--text3); letter-spacing: 0.12em; text-transform: uppercase;
+      border: 1px dashed var(--border2); padding: 5px 18px; border-radius: 4px;
+    }
+
+    /* ── MAIN LAYOUT ─────────────────────────────────────────── */
+    .main-layout {
+      flex: 1; display: flex; position: relative;
+      max-width: 1280px; margin: 0 auto; width: 100%; padding: 0 16px;
+    }
+
+    /* ── SIDEBAR AD ──────────────────────────────────────────── */
+    .sidebar-ad {
+      width: 160px; flex-shrink: 0;
+      padding: 24px 0;
+      display: flex; align-items: flex-start; justify-content: center;
+    }
+    .sidebar-ad-inner {
+      width: 140px; height: 320px;
+      border: 1px dashed var(--border2); border-radius: 8px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 6px;
+      background: var(--bg2);
+      transition: background 0.3s, border-color 0.3s;
+      position: sticky; top: 80px;
+    }
+    .sidebar-ad-inner span {
+      font-family: 'DM Mono', monospace; font-size: 9px;
+      color: var(--text3); letter-spacing: 0.12em; text-transform: uppercase;
+      writing-mode: vertical-lr;
+    }
+    @media (max-width: 1024px) { .sidebar-ad { display: none; } }
+
+    /* ── CHAT SECTION ────────────────────────────────────────── */
+    .chat-section {
+      flex: 1; display: flex; flex-direction: column;
+      min-height: calc(100vh - 56px - 60px - 220px);
+      padding: 28px 0 210px;
+      max-width: 760px; margin: 0 auto; width: 100%;
+    }
+
+    /* ── WELCOME ─────────────────────────────────────────────── */
+    .welcome-screen {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 60px 20px; text-align: center; gap: 14px;
+      animation: fadeUp 0.5s ease forwards;
+    }
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(18px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .welcome-logo {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(34px, 6vw, 54px);
+      letter-spacing: 0.06em; text-transform: uppercase; line-height: 1;
+      color: var(--text);
+    }
+    .welcome-tagline {
+      font-size: 13px; color: var(--text3);
+      font-family: 'DM Mono', monospace; letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .welcome-sub {
+      font-size: 14px; color: var(--text2); max-width: 380px;
+      line-height: 1.65; font-weight: 300; margin-top: 4px;
+    }
+    .welcome-chips {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      justify-content: center; margin-top: 14px;
+    }
+    .chip {
+      font-family: 'DM Mono', monospace; font-size: 11px;
+      color: var(--text2); border: 1px solid var(--border2);
+      padding: 7px 16px; border-radius: 100px; cursor: pointer;
+      transition: all 0.18s; background: var(--bg2); white-space: nowrap;
+      letter-spacing: 0.03em;
+    }
+    .chip:hover { background: var(--text); color: var(--btn-text); border-color: var(--text); }
+
+    /* ── MESSAGES ────────────────────────────────────────────── */
+    #messages-container {
+      display: flex; flex-direction: column; gap: 6px; padding: 0 4px;
+    }
+    .message-group {
+      display: flex; flex-direction: column; gap: 3px;
+      animation: msgIn 0.28s ease forwards;
+    }
+    @keyframes msgIn {
+      from { opacity:0; transform:translateY(7px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .message-row {
+      display: flex; align-items: flex-end; gap: 10px;
+    }
+    .message-row.user { flex-direction: row-reverse; }
+    .avatar {
+      width: 28px; height: 28px; border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-family: 'Syne', sans-serif; font-size: 9px;
+      font-weight: 700; letter-spacing: 0.06em;
+    }
+    .avatar.ai  { background: var(--text);    color: var(--btn-text); }
+    .avatar.user{ background: var(--border2); color: var(--text2); border: 1px solid var(--border); }
+
+    .bubble {
+      max-width: min(74%, 580px);
+      padding: 12px 16px; border-radius: 14px;
+      font-size: 14px; line-height: 1.68;
+      font-weight: 300; word-break: break-word;
+      transition: background 0.3s;
+    }
+    .bubble.ai {
+      background: var(--ai-bubble); color: var(--text);
+      border: 1px solid var(--border); border-bottom-left-radius: 4px;
+    }
+    .bubble.user {
+      background: var(--user-bubble); color: #ffffff;
+      border: 1px solid transparent; border-bottom-right-radius: 4px;
+    }
+    [data-theme="pure-light"] .bubble.user,
+    [data-theme="soft-light"] .bubble.user { color: #ffffff; }
+
+    .bubble p { margin-bottom: 8px; }
+    .bubble p:last-child { margin-bottom: 0; }
+    .bubble ul, .bubble ol { padding-left: 20px; margin-bottom: 8px; }
+    .bubble li { margin-bottom: 4px; }
+
+    .bubble pre {
+      background: var(--code-bg); border: 1px solid var(--border);
+      border-radius: 9px; margin: 10px 0; overflow: hidden;
+    }
+    .code-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 6px 14px; border-bottom: 1px solid var(--border);
+      background: var(--bg3);
+    }
+    .code-lang {
+      font-family: 'DM Mono', monospace; font-size: 10px;
+      color: var(--text3); letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .copy-btn {
+      font-family: 'DM Mono', monospace; font-size: 10px;
+      color: var(--text3); background: none; border: none; cursor: pointer;
+      padding: 2px 7px; border-radius: 3px; transition: all 0.18s;
+      letter-spacing: 0.04em;
+    }
+    .copy-btn:hover { color: var(--text); background: var(--border); }
+    .bubble pre code {
+      display: block; padding: 14px;
+      font-family: 'DM Mono', monospace; font-size: 12px;
+      line-height: 1.7; overflow-x: auto;
+    }
+    .bubble code:not(pre code) {
+      font-family: 'DM Mono', monospace; font-size: 12px;
+      background: var(--code-bg); border: 1px solid var(--border);
+      padding: 1px 5px; border-radius: 3px;
+    }
+    .msg-time {
+      font-family: 'DM Mono', monospace; font-size: 9px;
+      color: var(--text3); letter-spacing: 0.04em;
+    }
+
+    /* ── TYPING INDICATOR ────────────────────────────────────── */
+    .typing-indicator {
+      display: flex; align-items: center; gap: 10px; padding: 4px 4px;
+    }
+    .typing-dots {
+      display: flex; gap: 4px; padding: 11px 15px;
+      background: var(--ai-bubble); border: 1px solid var(--border);
+      border-radius: 14px; border-bottom-left-radius: 4px;
+    }
+    .typing-dots span {
+      width: 5px; height: 5px; background: var(--text3); border-radius: 50%;
+      animation: tdot 1.2s ease-in-out infinite;
+    }
+    .typing-dots span:nth-child(2) { animation-delay: 0.15s; }
+    .typing-dots span:nth-child(3) { animation-delay: 0.3s; }
+    @keyframes tdot {
+      0%,60%,100% { transform: translateY(0); }
+      30% { transform: translateY(-5px); }
+    }
+
+    /* ── INPUT BAR ───────────────────────────────────────────── */
+    .input-bar-wrap {
+      position: fixed; bottom:0; left:0; right:0; z-index:50;
+      background: linear-gradient(to top, var(--bg) 65%, transparent);
+      padding: 14px 16px 22px;
+      transition: background 0.3s;
+    }
+    .input-bar-inner { max-width: 760px; margin: 0 auto; }
+    .input-container {
+      background: var(--input-bg); border: 1px solid var(--border2);
+      border-radius: 14px; display: flex; flex-direction: column;
+      overflow: hidden; transition: border-color 0.2s, background 0.3s;
+      box-shadow: 0 4px 28px var(--shadow);
+    }
+    .input-container:focus-within { border-color: var(--text2); }
+    #message-input {
+      width: 100%; background: transparent; border: none; outline: none;
+      color: var(--text); font-family: 'DM Sans', sans-serif;
+      font-size: 14px; font-weight: 300;
+      padding: 14px 16px 10px; resize: none;
+      min-height: 50px; max-height: 160px; line-height: 1.55;
+    }
+    #message-input::placeholder { color: var(--text3); }
+    .input-actions {
+      display: flex; align-items: center;
+      justify-content: space-between; padding: 8px 10px 10px; gap: 8px;
+    }
+    .input-left { display: flex; align-items: center; gap: 6px; }
+    .action-btn {
+      display: flex; align-items: center; gap: 6px;
+      padding: 6px 13px; border-radius: 8px;
+      border: 1px solid var(--border2); background: var(--bg3);
+      color: var(--text2); font-family: 'DM Mono', monospace;
+      font-size: 11px; cursor: pointer; transition: all 0.18s;
+      white-space: nowrap; letter-spacing: 0.03em;
+    }
+    .action-btn:hover { color: var(--text); border-color: var(--text3); background: var(--border); }
+    .action-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
+    .send-btn {
+      width: 36px; height: 36px; border-radius: 9px; border: none;
+      background: var(--btn-bg); color: var(--btn-text);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: all 0.18s; flex-shrink: 0;
+    }
+    .send-btn:hover { opacity: 0.82; transform: scale(0.97); }
+    .send-btn:disabled { opacity: 0.28; cursor: not-allowed; transform: none; }
+    .send-btn svg { width: 15px; height: 15px; }
+    .input-hint {
+      text-align: center; font-family: 'DM Mono', monospace;
+      font-size: 10px; color: var(--text3);
+      margin-top: 7px; letter-spacing: 0.04em;
+    }
+
+    /* ── IMAGE MODAL ─────────────────────────────────────────── */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.75); backdrop-filter: blur(10px);
+      z-index: 200; display: flex; align-items: center; justify-content: center;
+      padding: 20px; opacity: 0; pointer-events: none;
+      transition: opacity 0.22s ease;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--bg2); border: 1px solid var(--border2);
+      border-radius: 18px; width: 100%; max-width: 480px; padding: 28px;
+      position: relative;
+      transform: scale(0.94) translateY(12px);
+      transition: transform 0.22s ease, background 0.3s, border-color 0.3s;
+    }
+    .modal-overlay.open .modal { transform: scale(1) translateY(0); }
+    .modal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .modal-title {
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: 15px; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--text);
+    }
+    .modal-close {
+      width: 30px; height: 30px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 7px; cursor: pointer; color: var(--text2);
+      transition: all 0.18s;
+    }
+    .modal-close:hover { color: var(--text); border-color: var(--text3); }
+    .modal-close svg { width: 14px; height: 14px; }
+    .modal-input {
+      width: 100%; background: var(--input-bg);
+      border: 1px solid var(--border2); border-radius: 10px;
+      padding: 12px 14px; color: var(--text);
+      font-family: 'DM Sans', sans-serif; font-size: 13px;
+      outline: none; resize: none; min-height: 84px; line-height: 1.5;
+      transition: border-color 0.2s, background 0.3s;
+    }
+    .modal-input:focus { border-color: var(--text3); }
+    .modal-input::placeholder { color: var(--text3); }
+    .modal-generate-btn {
+      width: 100%; margin-top: 12px; padding: 11px;
+      background: var(--btn-bg); color: var(--btn-text); border: none;
+      border-radius: 10px; font-family: 'Syne', sans-serif;
+      font-weight: 700; font-size: 12px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      cursor: pointer; transition: opacity 0.18s;
+    }
+    .modal-generate-btn:hover { opacity: 0.82; }
+    .img-preview-area {
+      margin-top: 16px; width: 100%; aspect-ratio: 1; max-height: 240px;
+      background: var(--bg3); border: 1px dashed var(--border2);
+      border-radius: 10px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 10px;
+      color: var(--text3); font-family: 'DM Mono', monospace;
+      font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+      transition: background 0.3s; position: relative; overflow: hidden;
+    }
+    .img-preview-area svg { width: 30px; height: 30px; opacity: 0.35; }
+    .img-gen-shimmer {
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent 0%, var(--border2) 50%, transparent 100%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s ease-in-out infinite; display: none;
+    }
+    .generating .img-gen-shimmer { display: block; }
+    @keyframes shimmer {
+      0%   { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    /* ── FOOTER ──────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border); background: var(--bg2);
+      padding: 32px 24px; text-align: center;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .footer-ad {
+      max-width: 728px; height: 90px; margin: 0 auto 28px;
+      border: 1px dashed var(--border2); border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--bg3); transition: background 0.3s;
+    }
+    .footer-links {
+      display: flex; align-items: center; justify-content: center;
+      gap: 18px; margin-bottom: 14px; flex-wrap: wrap;
+    }
+    .footer-links a {
+      font-family: 'DM Mono', monospace; font-size: 11px;
+      color: var(--text3); text-decoration: none;
+      letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.18s;
+    }
+    .footer-links a:hover { color: var(--text2); }
+    .footer-sep { color: var(--border2); font-size: 10px; }
+    .footer-copy {
+      font-family: 'DM Mono', monospace; font-size: 10px;
+      color: var(--text3); letter-spacing: 0.06em;
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      #navbar { padding: 0 14px; }
+      .nav-creator { display: none; }
+      .input-bar-wrap { padding: 10px 12px 18px; }
+      .welcome-logo { font-size: 28px; }
+      .action-btn span { display: none; }
+      .action-btn { padding: 6px 10px; }
+    }
+
+    /* ── HLJS LIGHT OVERRIDES ────────────────────────────────── */
+    [data-theme="pure-light"] .hljs,
+    [data-theme="soft-light"] .hljs {
+      background: var(--code-bg) !important; color: #333 !important;
+    }
+  </style>
 </head>
 <body>
 
-    <div id="chat-container">
-        <h3>Veltrix AI v2.0</h3>
-        <div id="messages">
-            <p style="text-align:center; color:#64748b;">System: Data loaded from cloud/local JSON.</p>
-        </div>
-        <div class="input-area">
-            <input type="text" id="userInput" placeholder="Ask me something...">
-            <button onclick="askAI()">Send</button>
-        </div>
+<!-- ══ NAVBAR ══════════════════════════════════════════════════ -->
+<nav id="navbar" role="banner">
+  <div class="nav-logo">
+    <span class="nav-logo-dot" aria-hidden="true"></span>
+    Aperonix AI
+  </div>
+  <div class="nav-right">
+    <span class="nav-creator">Created by Mohammad Khan</span>
+    <div class="theme-switcher" role="group" aria-label="Select colour theme">
+      <button class="theme-btn active" data-t="pure-dark"  title="Pure Dark"  aria-label="Pure Dark"></button>
+      <button class="theme-btn"        data-t="light-dark" title="Light Dark" aria-label="Light Dark"></button>
+      <button class="theme-btn"        data-t="pure-light" title="Pure Light" aria-label="Pure Light"></button>
+      <button class="theme-btn"        data-t="soft-light" title="Soft Light" aria-label="Soft Light"></button>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ TOP AD BANNER ═══════════════════════════════════════════ -->
+<div class="ad-top" role="complementary" aria-label="Advertisement banner">
+  <!-- AdSense: Replace with your ad unit code -->
+  <div class="ad-placeholder">Advertisement · 728 × 60</div>
+</div>
+
+<!-- ══ MAIN LAYOUT ═════════════════════════════════════════════ -->
+<main class="main-layout" role="main">
+
+  <!-- Sidebar Ad (Left) -->
+  <aside class="sidebar-ad" role="complementary" aria-label="Sidebar advertisement">
+    <!-- AdSense: Replace with your ad unit code -->
+    <div class="sidebar-ad-inner"><span>Ad · 160 × 320</span></div>
+  </aside>
+
+  <!-- Chat Section -->
+  <section class="chat-section" aria-label="Chat conversation">
+
+    <!-- Welcome / Empty state -->
+    <div class="welcome-screen" id="welcome-screen">
+      <div class="welcome-logo">Aperonix AI</div>
+      <p class="welcome-tagline">Intelligent · Minimal · Instant</p>
+      <p class="welcome-sub">Ask me anything — writing, code, research, analysis, creative ideas, and more.</p>
+      <div class="welcome-chips" role="list" aria-label="Suggested prompts">
+        <button class="chip" role="listitem" onclick="useChip(this)">Explain quantum computing</button>
+        <button class="chip" role="listitem" onclick="useChip(this)">Write a Python web scraper</button>
+        <button class="chip" role="listitem" onclick="useChip(this)">Debug my JavaScript code</button>
+        <button class="chip" role="listitem" onclick="useChip(this)">Design a REST API schema</button>
+        <button class="chip" role="listitem" onclick="useChip(this)">Summarise a research paper</button>
+      </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Message feed -->
+    <div id="messages-container" role="log" aria-live="polite" aria-label="Chat messages"></div>
+
+  </section>
+
+  <!-- Sidebar Ad (Right) -->
+  <aside class="sidebar-ad" role="complementary" aria-label="Sidebar advertisement">
+    <!-- AdSense: Replace with your ad unit code -->
+    <div class="sidebar-ad-inner"><span>Ad · 160 × 320</span></div>
+  </aside>
+
+</main>
+
+<!-- ══ INPUT BAR ════════════════════════════════════════════════ -->
+<div class="input-bar-wrap" role="form" aria-label="Send a message">
+  <div class="input-bar-inner">
+    <div class="input-container">
+      <textarea
+        id="message-input"
+        rows="1"
+        placeholder="Message Aperonix AI…"
+        aria-label="Type your message here"
+        autocomplete="off"
+        spellcheck="true"
+      ></textarea>
+      <div class="input-actions">
+        <div class="input-left">
+          <button class="action-btn" onclick="openImageModal()" aria-label="Open image generation">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="3"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            <span>Generate Image</span>
+          </button>
+        </div>
+        <button class="send-btn" id="send-btn" onclick="sendMessage()" disabled aria-label="Send message">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+            <line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <p class="input-hint">Enter to send &nbsp;·&nbsp; Shift + Enter for new line</p>
+  </div>
+</div>
+
+<!-- ══ IMAGE GENERATION MODAL ══════════════════════════════════ -->
+<div class="modal-overlay" id="image-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="modal-title-text">Generate Image</span>
+      <button class="modal-close" onclick="closeImageModal()" aria-label="Close modal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+    <textarea
+      class="modal-input"
+      id="img-prompt"
+      placeholder="Describe the image… e.g. 'A futuristic city skyline at night, neon reflections on wet streets'"
+      aria-label="Image generation prompt"
+    ></textarea>
+
+    <button class="modal-generate-btn" onclick="generateImagePlaceholder()">
+      ✦ &nbsp; Generate Image
+    </button>
+
+    <div class="img-preview-area" id="img-preview" aria-live="polite" aria-label="Image preview area">
+      <div class="img-gen-shimmer" aria-hidden="true"></div>
+      <svg id="preview-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+        <rect x="3" y="3" width="18" height="18" rx="3"/>
+        <circle cx="8.5" cy="8.5" r="1.5"/>
+        <polyline points="21 15 16 10 5 21"/>
+      </svg>
+      <span id="preview-label">Preview will appear here</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ═══════════════════════════════════════════════════ -->
+<footer>
+  <!-- Footer Ad -->
+  <div class="footer-ad" role="complementary" aria-label="Footer advertisement">
+    <!-- AdSense: Replace with your ad unit code -->
+    <div class="ad-placeholder">Advertisement · 728 × 90</div>
+  </div>
+
+  <nav class="footer-links" aria-label="Footer navigation">
+    <a href="#" onclick="return false;">Privacy Policy</a>
+    <span class="footer-sep" aria-hidden="true">·</span>
+    <a href="#" onclick="return false;">Terms of Service</a>
+    <span class="footer-sep" aria-hidden="true">·</span>
+    <a href="#" onclick="return false;">About Us</a>
+  </nav>
+  <p class="footer-copy">© 2026 Aperonix AI — Developed by Mohammad Khan</p>
+</footer>
+
+<!-- ══ JAVASCRIPT ════════════════════════════════════════════════ -->
+<script>
+'use strict';
+
+/* ── Highlight.js ─────────────────────────────────────────────── */
+hljs.configure({ ignoreUnescapedHTML: true });
+
+/* ── Theme ────────────────────────────────────────────────────── */
+const themeBtns  = document.querySelectorAll('.theme-btn');
+const hljsTheme  = document.getElementById('hljs-theme');
+const lightSet   = new Set(['pure-light', 'soft-light']);
+const CDN_HLJS   = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/';
+
+function setTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  themeBtns.forEach(b => b.classList.toggle('active', b.dataset.t === t));
+  hljsTheme.href = CDN_HLJS + (lightSet.has(t) ? 'github.min.css' : 'github-dark.min.css');
+  try { localStorage.setItem('aperonix-theme', t); } catch(_) {}
+}
+
+themeBtns.forEach(b => b.addEventListener('click', () => setTheme(b.dataset.t)));
+try { const s = localStorage.getItem('aperonix-theme'); if (s) setTheme(s); } catch(_) {}
+
+/* ── Input helpers ────────────────────────────────────────────── */
+const msgInput = document.getElementById('message-input');
+const sendBtn  = document.getElementById('send-btn');
+
+msgInput.addEventListener('input', () => {
+  msgInput.style.height = 'auto';
+  msgInput.style.height = Math.min(msgInput.scrollHeight, 160) + 'px';
+  sendBtn.disabled = !msgInput.value.trim();
+});
+
+msgInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    if (!sendBtn.disabled) sendMessage();
+  }
+});
+
+function useChip(el) {
+  msgInput.value = el.textContent.trim();
+  msgInput.dispatchEvent(new Event('input'));
+  msgInput.focus();
+}
+
+/* ── DOM refs ─────────────────────────────────────────────────── */
+const msgContainer  = document.getElementById('messages-container');
+const welcomeScreen = document.getElementById('welcome-screen');
+let   isGenerating  = false;
+
+/* ── Utilities ────────────────────────────────────────────────── */
+function getTime() {
+  return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
+function esc(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function renderMarkdown(raw) {
+  let t = raw;
+  // Fenced code blocks
+  t = t.replace(/```(\w+)?\n?([\s\S]*?)```/g, (_, lang, code) => {
+    const l = (lang || 'plaintext').toLowerCase();
+    let hi;
+    try {
+      hi = lang && hljs.getLanguage(l)
+        ? hljs.highlight(code.trim(), { language: l }).value
+        : esc(code.trim());
+    } catch(_) { hi = esc(code.trim()); }
+    const id = 'c' + Math.random().toString(36).slice(2,9);
+    return `<pre><div class="code-header"><span class="code-lang">${l}</span><button class="copy-btn" onclick="copyCode('${id}')">Copy</button></div><code id="${id}" class="hljs language-${l}">${hi}</code></pre>`;
+  });
+  // Inline code
+  t = t.replace(/`([^`\n]+)`/g, '<code>$1</code>');
+  // Bold / italic
+  t = t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  t = t.replace(/\*(.+?)\*/g, '<em>$1</em>');
+  // Paragraphs
+  t = t.split('\n\n').map(p => {
+    if (p.trimStart().startsWith('<pre>')) return p;
+    if (/^[-*] /m.test(p)) {
+      const items = p.trim().split('\n').map(l => `<li>${l.replace(/^[-*] /,'')}</li>`).join('');
+      return `<ul>${items}</ul>`;
+    }
+    if (/^\d+\. /m.test(p)) {
+      const items = p.trim().split('\n').map(l => `<li>${l.replace(/^\d+\. /,'')}</li>`).join('');
+      return `<ol>${items}</ol>`;
+    }
+    return `<p>${p.replace(/\n/g,'<br/>')}</p>`;
+  }).join('');
+  return t;
+}
+
+function copyCode(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  navigator.clipboard.writeText(el.innerText).then(() => {
+    const btn = el.closest('pre')?.querySelector('.copy-btn');
+    if (btn) { btn.textContent = 'Copied!'; setTimeout(() => btn.textContent = 'Copy', 1800); }
+  }).catch(() => {});
+}
+
+/* ── Append message ───────────────────────────────────────────── */
+function appendMessage(role, html, time) {
+  welcomeScreen.style.display = 'none';
+  const isUser = role === 'user';
+  const group  = document.createElement('div');
+  group.className = 'message-group';
+  group.innerHTML = `
+    <div class="message-row ${role}">
+      <div class="avatar ${role}">${isUser ? 'You' : 'AI'}</div>
+      <div class="bubble ${role}">${html}</div>
+    </div>
+    <div class="msg-time" style="
+      padding-left:${isUser?'0':'38px'};
+      padding-right:${isUser?'38px':'0'};
+      ${isUser?'text-align:right':''}
+    ">${time}</div>
+  `;
+  msgContainer.appendChild(group);
+  scrollBottom();
+}
+
+function appendTyping() {
+  welcomeScreen.style.display = 'none';
+  const el = document.createElement('div');
+  el.className = 'typing-indicator';
+  el.id = 'typing-ind';
+  el.innerHTML = `
+    <div class="avatar ai">AI</div>
+    <div class="typing-dots" aria-label="AI is typing">
+      <span></span><span></span><span></span>
+    </div>
+  `;
+  msgContainer.appendChild(el);
+  scrollBottom();
+  return el;
+}
+
+function scrollBottom() {
+  window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+}
+
+/* ── Mock AI responses ────────────────────────────────────────── */
+const RESPONSES = [
+  {
+    rx: /\b(hello|hi|hey)\b/i,
+    fn: () => `Hello! I'm **Aperonix AI** — your intelligent, minimal assistant.\n\nI can help you with writing, code, research, analysis, creative work, and much more. What would you like to explore today?`
+  },
+  {
+    rx: /python|web scraper|scraping|beautifulsoup/i,
+    fn: () => `Here's a complete Python web scraper using \`requests\` and \`BeautifulSoup\`:\n\n\`\`\`python\nimport requests\nfrom bs4 import BeautifulSoup\n\ndef scrape_page(url: str) -> dict:\n    headers = {\n        'User-Agent': 'Mozilla/5.0 (compatible; AperonixBot/1.0)'\n    }\n    resp = requests.get(url, headers=headers, timeout=10)\n    resp.raise_for_status()\n\n    soup = BeautifulSoup(resp.text, 'html.parser')\n\n    return {\n        'title':      soup.title.get_text() if soup.title else 'N/A',\n        'headings':   [h.get_text(strip=True) for h in soup.find_all(['h1','h2'])],\n        'paragraphs': [p.get_text(strip=True) for p in soup.find_all('p')][:6],\n        'links':      [a['href'] for a in soup.find_all('a', href=True)][:10],\n    }\n\nif __name__ == '__main__':\n    data = scrape_page('https://example.com')\n    for key, val in data.items():\n        print(f'{key}: {val}')\n\`\`\`\n\nInstall the dependencies first:\n\`\`\`bash\npip install requests beautifulsoup4\n\`\`\`\n\nWant me to extend this with pagination, async fetching, or data export?`
+  },
+  {
+    rx: /javascript|js|debug|error|bug/i,
+    fn: () => `Here are the essential JavaScript debugging patterns:\n\n\`\`\`javascript\n// ── 1. Structured console logging ────────────────\nconsole.log('%c[Debug]', 'color:#888', { value, context });\nconsole.table(arrayOfObjects); // great for arrays\nconsole.trace('Call stack here');\n\n// ── 2. Defensive async/await ─────────────────────\nasync function fetchData(url) {\n  try {\n    const res = await fetch(url);\n    if (!res.ok) throw new Error(\`HTTP \${res.status}: \${res.statusText}\`);\n    return await res.json();\n  } catch (err) {\n    console.error('[fetchData] Failed:', err.message);\n    throw err; // re-throw for the caller to handle\n  }\n}\n\n// ── 3. Optional chaining to prevent crashes ───────\nconst city = user?.address?.city ?? 'Unknown';\n\n// ── 4. Type checks ────────────────────────────────\nif (typeof value !== 'string') {\n  throw new TypeError(\`Expected string, got \${typeof value}\`);\n}\n\`\`\`\n\nPaste your specific error or code snippet and I'll diagnose the issue directly.`
+  },
+  {
+    rx: /quantum/i,
+    fn: () => `**Quantum computing** exploits quantum mechanical phenomena to process information in ways classical computers cannot.\n\n**Core principles:**\n\n- **Qubit** — the quantum analogue of a classical bit; can exist as 0, 1, or any superposition of both simultaneously\n- **Superposition** — enables a quantum system to explore exponentially many states in parallel\n- **Entanglement** — two qubits become correlated; measuring one instantly determines the state of the other regardless of distance\n- **Quantum interference** — algorithms amplify paths leading to correct answers and cancel incorrect ones\n\n**Promising applications:**\n- Breaking RSA encryption via Shor's factoring algorithm\n- Drug discovery through molecular simulation\n- Portfolio and logistics optimisation\n- Machine learning acceleration\n\n**Current landscape:** We're in the **NISQ era** (Noisy Intermediate-Scale Quantum) — today's systems are powerful but error-prone. Fault-tolerant universal quantum computers remain a decade or more away.`
+  },
+  {
+    rx: /rest api|api schema|endpoint|openapi/i,
+    fn: () => `Here's a clean OpenAPI 3.1 schema for a \`/users\` resource:\n\n\`\`\`yaml\nopenapi: 3.1.0\ninfo:\n  title: Aperonix API\n  version: 1.0.0\n  description: Minimal REST API example\n\npaths:\n  /users:\n    get:\n      summary: List all users\n      tags: [Users]\n      parameters:\n        - name: limit\n          in: query\n          schema: { type: integer, default: 20 }\n      responses:\n        200:\n          description: Array of user objects\n\n    post:\n      summary: Create a new user\n      tags: [Users]\n      requestBody:\n        required: true\n        content:\n          application/json:\n            schema:\n              $ref: '#/components/schemas/UserInput'\n      responses:\n        201: { description: User created }\n\n  /users/{id}:\n    get:    { summary: Get user by ID,     tags: [Users] }\n    patch:  { summary: Partially update,   tags: [Users] }\n    delete: { summary: Delete user,        tags: [Users] }\n\`\`\`\n\n**Design principles I follow:**\n- Plural nouns for collection endpoints (\`/users\`, \`/posts\`)\n- HTTP verbs map cleanly to CRUD operations\n- \`PATCH\` for partial updates, \`PUT\` for full replacement\n- Consistent error envelopes: \`{ "error": { "code": 404, "message": "User not found" } }\``
+  },
+  {
+    rx: /research|paper|summarise|summarize|summary/i,
+    fn: () => `To summarise a research paper effectively, I follow this structured approach:\n\n**1. Extract the core claim**\nIdentify the main hypothesis or research question in the abstract and introduction.\n\n**2. Evaluate methodology**\nAssess whether the methods are appropriate, reproducible, and free from obvious confounds.\n\n**3. Distil key findings**\nSummarise results tables and figures into plain-language takeaways.\n\n**4. Check limitations**\nMost papers include a limitations section — this is critical for proper interpretation.\n\n**5. Contextualise**\nHow does this paper relate to prior work? Does it confirm, challenge, or extend existing knowledge?\n\nPaste the paper text, abstract, or DOI and I'll produce a concise structured summary for you.`
+  },
+  {
+    rx: /.*/,
+    fn: (q) => {
+      if (q.length < 10) return `Could you expand on that? I want to make sure I give you the most useful response.`;
+      return `I've received your query regarding **"${q.slice(0,55)}${q.length>55?'…':''}"**.\n\nI'm ready to help. Here's how I can approach this:\n\n- **Technical breakdown** — deep dive with code examples or step-by-step logic\n- **Plain-language explanation** — concise, jargon-free overview\n- **Critical analysis** — pros, cons, edge cases, and alternatives\n- **Creative take** — if this is a writing or ideation task\n\nWhich angle would be most useful to you?`;
+    }
+  }
+];
+
+function getAIReply(userMsg) {
+  for (const r of RESPONSES) {
+    if (r.rx.test(userMsg)) return r.fn(userMsg);
+  }
+  return `I'm here to help! Could you provide a bit more detail so I can give you the most accurate response?`;
+}
+
+/* ── Send ─────────────────────────────────────────────────────── */
+async function sendMessage() {
+  if (isGenerating) return;
+  const text = msgInput.value.trim();
+  if (!text) return;
+
+  isGenerating = true;
+  sendBtn.disabled = true;
+  msgInput.value = '';
+  msgInput.style.height = 'auto';
+
+  appendMessage('user', esc(text).replace(/\n/g,'<br/>'), getTime());
+
+  const typing = appendTyping();
+  await new Promise(r => setTimeout(r, 700 + Math.random() * 800));
+  typing.remove();
+
+  const reply = getAIReply(text);
+  appendMessage('ai', renderMarkdown(reply), getTime());
+
+  isGenerating = false;
+  sendBtn.disabled = !msgInput.value.trim();
+  msgInput.focus();
+}
+
+/* ── Image Modal ──────────────────────────────────────────────── */
+const imageModal   = document.getElementById('image-modal');
+const imgPreview   = document.getElementById('img-preview');
+const previewLabel = document.getElementById('preview-label');
+const previewIcon  = document.getElementById('preview-icon');
+
+function openImageModal() {
+  imageModal.classList.add('open');
+  document.getElementById('img-prompt').focus();
+}
+
+function closeImageModal() {
+  imageModal.classList.remove('open');
+}
+
+imageModal.addEventListener('click', e => { if (e.target === imageModal) closeImageModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeImageModal(); });
+
+function generateImagePlaceholder() {
+  const prompt = document.getElementById('img-prompt').value.trim();
+  if (!prompt) { document.getElementById('img-prompt').focus(); return; }
+
+  imgPreview.classList.add('generating');
+  previewIcon.style.display = 'none';
+  previewLabel.textContent = 'Generating image…';
+
+  setTimeout(() => {
+    imgPreview.classList.remove('generating');
+    previewLabel.innerHTML = `
+      <span style="
+        font-size:11px; letter-spacing:0.03em; line-height:1.7;
+        font-family:'DM Mono',monospace; text-align:center; padding:16px;
+        opacity:0.65; text-transform:none;
+      ">
+        ✦ Image generation requires an image model API key.<br/>
+        Connect a provider (DALL·E, Stable Diffusion, etc.) to enable this feature.
+      </span>
+    `;
+  }, 2200);
+}
+</script>
+
 </body>
 </html>
