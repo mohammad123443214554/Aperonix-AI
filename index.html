@@ -2,458 +2,1368 @@
 <html lang="en" data-theme="pure-dark">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="Aperonix AI — Professional AI assistant powered by Gemini 1.5 Flash. Chat, generate ideas, write code, and create content instantly."/>
-<meta name="keywords" content="Aperonix AI, Gemini AI, AI chatbot, Mohammad Khan, intelligent assistant, AI tools 2026"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="description" content="Aperonix AI — Next-generation AI assistant. Powered by Gemini 1.5 Flash. Developed and founded by Mohammad Khan."/>
+<meta name="keywords" content="Aperonix AI, Gemini, AI assistant, Mohammad Khan, chatbot, image generation"/>
 <meta name="author" content="Mohammad Khan"/>
-<meta name="robots" content="index, follow"/>
-<meta property="og:title" content="Aperonix AI — Professional AI Assistant"/>
-<meta property="og:description" content="Chat with Aperonix AI — powered by Gemini 1.5 Flash. Smart, fast, professional."/>
+<meta name="robots" content="index,follow"/>
+<meta property="og:title" content="Aperonix AI"/>
+<meta property="og:description" content="Professional AI assistant developed by Mohammad Khan."/>
 <meta property="og:type" content="website"/>
-<meta name="theme-color" content="#000000"/>
-<!-- Google AdSense — replace publisher ID -->
+<!-- AdSense ready: replace ca-pub-XXXXXXXX -->
 <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
-<title>Aperonix AI — Intelligent Assistant</title>
-
+<title>Aperonix AI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Figtree:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link id="hljs-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark-dimmed.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-<link id="hljs-css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"/>
-
 <style>
-/* ══════════════════════════════════════════
-   THEME TOKENS
-══════════════════════════════════════════ */
-[data-theme="pure-dark"]{
-  --bg:#000;--bg-s:#0b0b0b;--bg-c:#111;--bg-h:#181818;--bg-i:#0e0e0e;
-  --bd:#1e1e1e;--bd2:#2c2c2c;
-  --t1:#fff;--t2:#999;--t3:#444;
-  --ub:#181818;--ab:#0b0b0b;
-  --btn:#fff;--btn-t:#000;
-  --sh:0 20px 60px rgba(0,0,0,.95);--sc:#222;
-  --glow-c:rgba(255,255,255,.18);
+/* ═══════════════════════════════════════════════════════
+   THEME SYSTEM
+═══════════════════════════════════════════════════════ */
+:root {
+  --sidebar-w: 260px;
 }
-[data-theme="slate"]{
-  --bg:#0d1117;--bg-s:#161b22;--bg-c:#1c2128;--bg-h:#21262d;--bg-i:#191f27;
-  --bd:#30363d;--bd2:#3d444d;
-  --t1:#e6edf3;--t2:#848d97;--t3:#484f58;
-  --ub:#1c2128;--ab:#13181f;
-  --btn:#e6edf3;--btn-t:#0d1117;
-  --sh:0 16px 48px rgba(0,0,0,.7);--sc:#30363d;
-  --glow-c:rgba(230,237,243,.15);
+[data-theme="pure-dark"] {
+  --bg:        #050507;
+  --bg-s:      #0a0a0f;
+  --bg-c:      #0f0f16;
+  --bg-h:      #16161f;
+  --bg-i:      #0c0c14;
+  --bd:        #1a1a28;
+  --bd2:       #252538;
+  --t1:        #e8e8ff;
+  --t2:        #7878a0;
+  --t3:        #383858;
+  --accent:    #4040ff;
+  --accent2:   #8080ff;
+  --glow:      rgba(64,64,255,0.35);
+  --glow2:     rgba(128,128,255,0.15);
+  --ub:        #16162a;
+  --ab:        #0a0a14;
+  --btn:       #4040ff;
+  --btn-t:     #ffffff;
+  --sh:        0 0 40px rgba(64,64,255,0.08);
+  --sc:        #1a1a30;
+  --grid-c:    rgba(64,64,255,0.04);
 }
-[data-theme="pure-light"]{
-  --bg:#fff;--bg-s:#fafafa;--bg-c:#f4f4f4;--bg-h:#eee;--bg-i:#f7f7f7;
-  --bd:#e4e4e4;--bd2:#d0d0d0;
-  --t1:#000;--t2:#555;--t3:#aaa;
-  --ub:#000;--ab:#f4f4f4;
-  --btn:#000;--btn-t:#fff;
-  --sh:0 8px 32px rgba(0,0,0,.08);--sc:#ccc;
-  --glow-c:rgba(0,0,0,.12);
+[data-theme="slate"] {
+  --bg:        #080c12;
+  --bg-s:      #0d1117;
+  --bg-c:      #131920;
+  --bg-h:      #1a2030;
+  --bg-i:      #0f1520;
+  --bd:        #1e2736;
+  --bd2:       #28364a;
+  --t1:        #cdd9e8;
+  --t2:        #6a7f96;
+  --t3:        #344050;
+  --accent:    #2060c0;
+  --accent2:   #4090e0;
+  --glow:      rgba(32,96,192,0.4);
+  --glow2:     rgba(64,144,224,0.15);
+  --ub:        #132040;
+  --ab:        #0a1020;
+  --btn:       #2060c0;
+  --btn-t:     #ffffff;
+  --sh:        0 0 40px rgba(32,96,192,0.08);
+  --sc:        #1e2736;
+  --grid-c:    rgba(32,96,192,0.05);
 }
-[data-theme="soft-gray"]{
-  --bg:#f2f2f2;--bg-s:#eaeaea;--bg-c:#e2e2e2;--bg-h:#d9d9d9;--bg-i:#e6e6e6;
-  --bd:#d0d0d0;--bd2:#bebebe;
-  --t1:#1a1a1a;--t2:#555;--t3:#999;
-  --ub:#1a1a1a;--ab:#dadada;
-  --btn:#1a1a1a;--btn-t:#f2f2f2;
-  --sh:0 6px 24px rgba(0,0,0,.07);--sc:#b8b8b8;
-  --glow-c:rgba(0,0,0,.1);
+[data-theme="silver"] {
+  --bg:        #f0f0f5;
+  --bg-s:      #e8e8f0;
+  --bg-c:      #e0e0ec;
+  --bg-h:      #d8d8e8;
+  --bg-i:      #ebebf5;
+  --bd:        #c8c8dc;
+  --bd2:       #b8b8cc;
+  --t1:        #101018;
+  --t2:        #484860;
+  --t3:        #9898b0;
+  --accent:    #3030c0;
+  --accent2:   #5050d0;
+  --glow:      rgba(48,48,192,0.25);
+  --glow2:     rgba(80,80,208,0.12);
+  --ub:        #101028;
+  --ab:        #dcdcec;
+  --btn:       #3030c0;
+  --btn-t:     #ffffff;
+  --sh:        0 4px 24px rgba(48,48,192,0.08);
+  --sc:        #b0b0c8;
+  --grid-c:    rgba(48,48,192,0.04);
+}
+[data-theme="ghost-white"] {
+  --bg:        #ffffff;
+  --bg-s:      #f8f8fc;
+  --bg-c:      #f0f0f8;
+  --bg-h:      #e8e8f4;
+  --bg-i:      #fafaff;
+  --bd:        #dcdcec;
+  --bd2:       #c8c8dc;
+  --t1:        #080810;
+  --t2:        #50505c;
+  --t3:        #a0a0b0;
+  --accent:    #2020a0;
+  --accent2:   #4040c0;
+  --glow:      rgba(32,32,160,0.2);
+  --glow2:     rgba(64,64,192,0.1);
+  --ub:        #080820;
+  --ab:        #f0f0f8;
+  --btn:       #2020a0;
+  --btn-t:     #ffffff;
+  --sh:        0 4px 20px rgba(32,32,160,0.06);
+  --sc:        #c0c0d0;
+  --grid-c:    rgba(32,32,160,0.03);
 }
 
-/* ══════════════════════════════════════════
-   RESET
-══════════════════════════════════════════ */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{height:100%}
-body{
-  font-family:'Figtree',sans-serif;
-  background:var(--bg);color:var(--t1);
-  height:100vh;display:flex;overflow:hidden;
-  transition:background .3s,color .3s;
-  -webkit-font-smoothing:antialiased;
+/* ═══════════════════════════════════════════════════════
+   BASE RESET
+═══════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { height: 100%; }
+body {
+  font-family: 'Rajdhani', sans-serif;
+  background: var(--bg);
+  color: var(--t1);
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+  transition: background .3s, color .3s;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
 }
-button{font-family:'Figtree',sans-serif;cursor:pointer;border:none;background:none;outline:none;color:inherit}
-textarea,input{font-family:'Figtree',sans-serif}
-::-webkit-scrollbar{width:3px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--sc);border-radius:2px}
 
-/* ══════════════════════════════════════════
+/* Subtle grid background overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid-c) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-c) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+button { font-family: 'Rajdhani', sans-serif; cursor: pointer; border: none; background: none; outline: none; color: inherit; }
+textarea, input { font-family: 'Rajdhani', sans-serif; }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--bd2); border-radius: 2px; }
+
+/* ═══════════════════════════════════════════════════════
    SIDEBAR
-══════════════════════════════════════════ */
-#sidebar{
-  width:256px;min-width:256px;height:100vh;
-  background:var(--bg-s);border-right:1px solid var(--bd);
-  display:flex;flex-direction:column;
-  transition:background .3s,border-color .3s,transform .3s;
-  z-index:50;overflow:hidden;
-}
-.sb-head{
-  padding:15px 13px 12px;border-bottom:1px solid var(--bd);
-  display:flex;align-items:center;gap:10px;flex-shrink:0;
-}
-
-/* ── Logo + Gemini spin ── */
-.logo-wrap{position:relative;width:36px;height:36px;flex-shrink:0}
-#logo-img{
-  width:36px;height:36px;border-radius:9px;
-  object-fit:cover;display:block;
-}
-#logo-fb{
-  width:36px;height:36px;border-radius:9px;
-  background:var(--t1);color:var(--bg);
-  display:none;align-items:center;justify-content:center;
-  font-family:'Syne',sans-serif;font-weight:800;font-size:18px;letter-spacing:-1px;
-}
-.halo{
-  position:absolute;inset:-4px;border-radius:13px;
-  border:2px solid transparent;pointer-events:none;opacity:0;
-  transition:opacity .3s;
+═══════════════════════════════════════════════════════ */
+#sidebar {
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  height: 100vh;
+  background: var(--bg-s);
+  border-right: 1px solid var(--bd);
+  display: flex;
+  flex-direction: column;
+  transition: background .3s, border-color .3s, transform .3s ease;
+  z-index: 50;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Gemini-style animation — smooth multi-stage spin */
-@keyframes gemSpin{
-  0%  {transform:rotate(0deg)   scale(1)   ;filter:brightness(1.1) drop-shadow(0 0 0px transparent)}
-  20% {transform:rotate(72deg)  scale(1.06);filter:brightness(1.5) drop-shadow(0 0 6px var(--glow-c))}
-  40% {transform:rotate(144deg) scale(1.02);filter:brightness(1.3) drop-shadow(0 0 10px var(--glow-c))}
-  60% {transform:rotate(216deg) scale(1.06);filter:brightness(1.6) drop-shadow(0 0 14px var(--glow-c))}
-  80% {transform:rotate(288deg) scale(1.02);filter:brightness(1.4) drop-shadow(0 0 8px var(--glow-c))}
-  100%{transform:rotate(360deg) scale(1)   ;filter:brightness(1.1) drop-shadow(0 0 0px transparent)}
+/* decorative corner line */
+#sidebar::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 2px; height: 100%;
+  background: linear-gradient(180deg, var(--accent) 0%, transparent 40%, transparent 60%, var(--accent) 100%);
+  opacity: .4;
 }
-@keyframes haloPulse{
-  0%,100%{border-color:var(--t1);opacity:.35;box-shadow:0 0 6px var(--glow-c)}
-  50%    {border-color:var(--t1);opacity:1  ;box-shadow:0 0 18px var(--glow-c),0 0 36px var(--glow-c)}
+
+/* ── Logo header ── */
+.sb-head {
+  padding: 14px 14px 12px;
+  border-bottom: 1px solid var(--bd);
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  flex-shrink: 0;
+  position: relative;
 }
-.generating #logo-img,
-.generating #logo-fb{animation:gemSpin 1.6s cubic-bezier(.45,0,.55,1) infinite}
-.generating .halo{opacity:1;animation:haloPulse 1.6s ease-in-out infinite}
 
-.sb-name{font-family:'Syne',sans-serif;font-weight:800;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--t1);line-height:1}
-.sb-ver{font-family:'Fira Code',monospace;font-size:9px;color:var(--t3);letter-spacing:.1em;margin-top:2px;text-transform:uppercase}
-
-/* New Chat btn */
-.new-btn{
-  margin:10px 10px 6px;padding:9px 14px;
-  border:1px solid var(--bd2);border-radius:9px;
-  color:var(--t1);font-size:13px;font-weight:500;
-  display:flex;align-items:center;gap:8px;
-  transition:all .18s;flex-shrink:0;
+.logo-frame {
+  position: relative;
+  width: 38px; height: 38px;
+  flex-shrink: 0;
 }
-.new-btn:hover{background:var(--bg-h);border-color:var(--t3)}
-.new-btn svg{width:14px;height:14px;flex-shrink:0}
 
-/* History */
-.sb-sec{padding:6px 14px 3px;font-family:'Fira Code',monospace;font-size:9px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;flex-shrink:0}
-#hist{flex:1;overflow-y:auto;padding:2px 6px}
-.h-item{
-  padding:8px 10px;border-radius:8px;font-size:12.5px;color:var(--t2);
-  cursor:pointer;display:flex;align-items:center;gap:7px;
-  transition:all .18s;border:1px solid transparent;
+#logo-img {
+  width: 38px; height: 38px;
+  border-radius: 8px;
+  object-fit: cover;
+  display: block;
+  position: relative;
+  z-index: 2;
 }
-.h-item:hover{background:var(--bg-h);color:var(--t1)}
-.h-item.active{background:var(--bg-c);color:var(--t1);border-color:var(--bd)}
-.h-lbl{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px}
-.h-item svg{width:12px;height:12px;opacity:.4;flex-shrink:0}
-.h-del{opacity:0;padding:2px 5px;border-radius:4px;color:var(--t3);font-size:11px;transition:opacity .15s,color .15s;flex-shrink:0}
-.h-item:hover .h-del{opacity:1}
-.h-del:hover{color:var(--t1);background:var(--bg-h)}
-.hist-empty{padding:12px 14px;font-family:'Fira Code',monospace;font-size:11px;color:var(--t3)}
 
-/* Sidebar footer */
-.sb-foot{padding:10px;border-top:1px solid var(--bd);display:flex;align-items:center;gap:8px;flex-shrink:0}
-.gear{width:34px;height:34px;border:1px solid var(--bd);border-radius:8px;background:var(--bg-c);color:var(--t2);display:flex;align-items:center;justify-content:center;transition:all .18s;flex-shrink:0}
-.gear:hover{color:var(--t1);border-color:var(--t3);background:var(--bg-h)}
-.gear svg{width:15px;height:15px}
-.sb-copy{font-family:'Fira Code',monospace;font-size:9px;color:var(--t3);letter-spacing:.04em;line-height:1.5}
-
-/* ══════════════════════════════════════════
-   MAIN
-══════════════════════════════════════════ */
-#main{flex:1;display:flex;flex-direction:column;height:100vh;overflow:hidden;background:var(--bg);transition:background .3s}
-
-/* Topbar */
-#topbar{
-  height:50px;flex-shrink:0;border-bottom:1px solid var(--bd);
-  display:flex;align-items:center;justify-content:space-between;padding:0 18px;
-  background:var(--bg);transition:background .3s,border-color .3s;
+#logo-fallback {
+  width: 38px; height: 38px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  font-size: 17px;
+  color: #fff;
+  position: relative;
+  z-index: 2;
 }
-.tb-t{font-family:'Syne',sans-serif;font-size:13px;font-weight:600;color:var(--t2);letter-spacing:.02em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:60%}
-.tb-r{display:flex;align-items:center;gap:8px}
-.online{display:flex;align-items:center;gap:5px;font-family:'Fira Code',monospace;font-size:10px;color:var(--t3)}
-.dot{width:6px;height:6px;border-radius:50%;background:#22c55e;animation:blink 2.5s ease-in-out infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.mob-btn{display:none;width:32px;height:32px;border:1px solid var(--bd);border-radius:7px;color:var(--t2);align-items:center;justify-content:center;transition:all .18s}
-.mob-btn:hover{color:var(--t1);border-color:var(--t3)}
-.mob-btn svg{width:15px;height:15px}
 
-/* Messages */
-#msgs{flex:1;overflow-y:auto;padding:20px 0 12px;display:flex;flex-direction:column}
-#msgs-inner{max-width:720px;margin:0 auto;width:100%;padding:0 20px;display:flex;flex-direction:column;gap:3px}
-
-/* Welcome */
-#welcome{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;text-align:center;padding:40px 20px;gap:14px;animation:fadeUp .5s ease}
-@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-.wlc-ico{width:64px;height:64px;border-radius:16px;background:var(--t1);color:var(--bg);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:28px;font-weight:800;letter-spacing:-1px;margin-bottom:4px}
-.wlc-h{font-family:'Syne',sans-serif;font-size:clamp(22px,3.5vw,36px);font-weight:700;color:var(--t1);letter-spacing:-.02em}
-.wlc-p{font-size:14px;color:var(--t2);max-width:400px;line-height:1.65;font-weight:300}
-.chips{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-top:12px}
-.chip{padding:7px 15px;border:1px solid var(--bd2);border-radius:100px;font-size:11.5px;color:var(--t2);background:var(--bg-c);cursor:pointer;transition:all .18s;font-family:'Fira Code',monospace;letter-spacing:.02em}
-.chip:hover{border-color:var(--t2);color:var(--t1);background:var(--bg-h)}
-
-/* Messages */
-.msg-g{display:flex;flex-direction:column;gap:2px;animation:msgIn .22s ease}
-@keyframes msgIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
-.msg-r{display:flex;align-items:flex-end;gap:9px;padding:1px 0}
-.msg-r.u{flex-direction:row-reverse}
-.av{width:27px;height:27px;border-radius:7px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:.04em}
-.av.u{background:var(--t1);color:var(--bg)}
-.av.a{background:var(--bg-c);color:var(--t1);border:1px solid var(--bd2)}
-.bub{max-width:min(74%,580px);padding:10px 14px;border-radius:13px;font-size:13.5px;line-height:1.68;font-weight:300;word-break:break-word;transition:background .3s}
-.bub.u{background:var(--ub);color:#fff;border-bottom-right-radius:3px}
-[data-theme="pure-light"] .bub.u,[data-theme="soft-gray"] .bub.u{color:#fff}
-.bub.a{background:var(--ab);color:var(--t1);border:1px solid var(--bd);border-bottom-left-radius:3px}
-.msg-meta{font-family:'Fira Code',monospace;font-size:9px;color:var(--t3);letter-spacing:.03em;padding:0 2px}
-
-/* Bubble content */
-.bub p{margin-bottom:7px}.bub p:last-child{margin-bottom:0}
-.bub ul,.bub ol{padding-left:18px;margin-bottom:7px}
-.bub li{margin-bottom:3px}
-.bub strong{font-weight:600}.bub em{font-style:italic}
-.bub code:not(pre code){font-family:'Fira Code',monospace;font-size:11.5px;background:var(--bg-h);border:1px solid var(--bd2);padding:1px 5px;border-radius:4px}
-.bub pre{background:var(--bg-c);border:1px solid var(--bd);border-radius:9px;margin:8px 0;overflow:hidden}
-.c-bar{display:flex;align-items:center;justify-content:space-between;padding:6px 13px;border-bottom:1px solid var(--bd);background:var(--bg-s)}
-.c-lang{font-family:'Fira Code',monospace;font-size:9.5px;color:var(--t3);letter-spacing:.08em;text-transform:uppercase}
-.c-cp{font-family:'Fira Code',monospace;font-size:9.5px;color:var(--t3);padding:2px 8px;border-radius:4px;border:1px solid transparent;transition:all .18s}
-.c-cp:hover{color:var(--t1);background:var(--bg-h);border-color:var(--bd2)}
-.bub pre code{display:block;padding:12px;font-size:11.5px;line-height:1.65;overflow-x:auto}
-
-/* Typing indicator */
-.typ-r{display:flex;align-items:center;gap:9px;padding:4px 0}
-.typ-b{background:var(--ab);border:1px solid var(--bd);border-radius:13px;border-bottom-left-radius:3px;padding:11px 14px;display:flex;gap:4px}
-.typ-b span{width:5px;height:5px;background:var(--t3);border-radius:50%;animation:td 1.2s ease-in-out infinite}
-.typ-b span:nth-child(2){animation-delay:.15s}
-.typ-b span:nth-child(3){animation-delay:.3s}
-@keyframes td{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
-
-/* Error alert bubble */
-.err-bub{
-  background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.25);
-  border-radius:10px;padding:12px 16px;font-size:13px;color:#f87171;
-  display:flex;align-items:flex-start;gap:10px;margin:4px 0;
+/* ── Gemini-style orbit ring ── */
+.logo-ring {
+  position: absolute;
+  inset: -5px;
+  border-radius: 13px;
+  border: 1.5px solid transparent;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 1;
 }
-.err-bub svg{width:16px;height:16px;flex-shrink:0;margin-top:1px;color:#f87171}
-.err-text{line-height:1.6}
-.err-text strong{font-weight:600;display:block;margin-bottom:3px}
 
-/* ══════════════════════════════════════════
+/* ── The full Gemini-style animation ── */
+@keyframes logoSpin {
+  0%   { transform: rotate(0deg)   scale(1);    filter: brightness(1)   drop-shadow(0 0 2px  transparent); }
+  15%  { transform: rotate(54deg)  scale(1.08); filter: brightness(1.4) drop-shadow(0 0 8px  var(--glow)); }
+  30%  { transform: rotate(108deg) scale(1.04); filter: brightness(1.2) drop-shadow(0 0 12px var(--glow)); }
+  50%  { transform: rotate(180deg) scale(1.1);  filter: brightness(1.6) drop-shadow(0 0 16px var(--glow)); }
+  70%  { transform: rotate(252deg) scale(1.04); filter: brightness(1.3) drop-shadow(0 0 10px var(--glow)); }
+  85%  { transform: rotate(306deg) scale(1.08); filter: brightness(1.5) drop-shadow(0 0 14px var(--glow)); }
+  100% { transform: rotate(360deg) scale(1);    filter: brightness(1)   drop-shadow(0 0 2px  transparent); }
+}
+
+@keyframes ringPulse {
+  0%,100% { border-color: var(--accent); opacity: .5; box-shadow: 0 0 8px var(--glow), inset 0 0 8px var(--glow2); }
+  50%      { border-color: var(--accent2); opacity: 1; box-shadow: 0 0 24px var(--glow), 0 0 48px var(--glow2), inset 0 0 12px var(--glow2); }
+}
+
+@keyframes logoPulseScale {
+  0%,100% { transform: scale(1); }
+  50%      { transform: scale(1.05); }
+}
+
+/* Applied to logo-frame when generating */
+.generating-active #logo-img,
+.generating-active #logo-fallback {
+  animation: logoSpin 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+.generating-active .logo-ring {
+  opacity: 1;
+  animation: ringPulse 2s ease-in-out infinite;
+}
+
+/* ── Brand text ── */
+.sb-brand {
+  flex: 1;
+  min-width: 0;
+}
+.sb-name {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--t1);
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sb-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8.5px;
+  color: var(--accent2);
+  letter-spacing: .15em;
+  margin-top: 3px;
+  text-transform: uppercase;
+}
+
+/* ── New chat ── */
+.new-btn {
+  margin: 10px 10px 6px;
+  padding: 9px 13px;
+  border: 1px solid var(--bd2);
+  border-radius: 7px;
+  background: transparent;
+  color: var(--t1);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all .2s;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+.new-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity .2s;
+}
+.new-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent2);
+  box-shadow: 0 0 12px var(--glow2);
+}
+.new-btn:hover::before { opacity: .08; }
+.new-btn svg { width: 13px; height: 13px; flex-shrink: 0; position: relative; }
+
+/* ── History section ── */
+.sb-section-lbl {
+  padding: 8px 14px 3px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8.5px;
+  color: var(--t3);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+#hist-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 2px 6px;
+}
+
+.hist-item {
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--t2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all .18s;
+  border: 1px solid transparent;
+  position: relative;
+}
+.hist-item:hover { background: var(--bg-h); color: var(--t1); border-color: var(--bd); }
+.hist-item.active {
+  background: var(--bg-c);
+  color: var(--t1);
+  border-color: var(--accent);
+  box-shadow: 0 0 8px var(--glow2);
+}
+.hist-item.active::before {
+  content: '';
+  position: absolute;
+  left: -1px; top: 20%; bottom: 20%;
+  width: 2px;
+  background: var(--accent);
+  border-radius: 0 1px 1px 0;
+}
+.hist-lbl { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; }
+.hist-icon { width: 12px; height: 12px; opacity: .4; flex-shrink: 0; }
+.hist-del {
+  opacity: 0;
+  padding: 2px 5px;
+  border-radius: 4px;
+  color: var(--t3);
+  font-size: 10px;
+  transition: opacity .15s, color .15s, background .15s;
+  flex-shrink: 0;
+}
+.hist-item:hover .hist-del { opacity: 1; }
+.hist-del:hover { color: var(--t1); background: var(--bg-h); }
+.hist-empty {
+  padding: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--t3);
+  letter-spacing: .06em;
+}
+
+/* ── Sidebar footer ── */
+.sb-foot {
+  padding: 10px;
+  border-top: 1px solid var(--bd);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.settings-btn {
+  width: 34px; height: 34px;
+  border: 1px solid var(--bd);
+  border-radius: 7px;
+  background: var(--bg-c);
+  color: var(--t2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .18s;
+  flex-shrink: 0;
+}
+.settings-btn:hover {
+  color: var(--accent2);
+  border-color: var(--accent);
+  box-shadow: 0 0 10px var(--glow2);
+  background: var(--bg-h);
+}
+.settings-btn svg { width: 15px; height: 15px; }
+.sb-credits {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8.5px;
+  color: var(--t3);
+  letter-spacing: .05em;
+  line-height: 1.6;
+}
+
+/* ═══════════════════════════════════════════════════════
+   MAIN PANEL
+═══════════════════════════════════════════════════════ */
+#main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--bg);
+  transition: background .3s;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Top bar ── */
+#topbar {
+  height: 50px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--bd);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  background: var(--bg-s);
+  transition: background .3s, border-color .3s;
+  position: relative;
+  z-index: 2;
+}
+#topbar::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent), transparent 50%, var(--accent));
+  opacity: .3;
+}
+.topbar-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.mob-menu-btn {
+  display: none;
+  width: 32px; height: 32px;
+  border: 1px solid var(--bd);
+  border-radius: 6px;
+  color: var(--t2);
+  align-items: center;
+  justify-content: center;
+  transition: all .18s;
+  flex-shrink: 0;
+}
+.mob-menu-btn:hover { color: var(--t1); border-color: var(--accent); }
+.mob-menu-btn svg { width: 14px; height: 14px; }
+#chat-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--t2);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 55%;
+}
+.topbar-right { display: flex; align-items: center; gap: 8px; }
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--t3);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.status-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #00d084;
+  box-shadow: 0 0 6px rgba(0,208,132,.5);
+  animation: statusPulse 2.5s ease-in-out infinite;
+}
+@keyframes statusPulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+/* ── Messages ── */
+#messages-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 0 8px;
+  display: flex;
+  flex-direction: column;
+}
+#messages-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ── Welcome screen ── */
+#welcome-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  text-align: center;
+  padding: 60px 24px;
+  gap: 16px;
+  animation: welcomeFade .6s ease;
+}
+@keyframes welcomeFade { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+.wlc-logo-big {
+  width: 72px; height: 72px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  font-size: 30px;
+  color: #fff;
+  margin-bottom: 6px;
+  box-shadow: 0 0 30px var(--glow);
+  position: relative;
+}
+.wlc-logo-big::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 18px;
+  border: 1px solid var(--accent);
+  opacity: .4;
+  animation: logoPulseScale 3s ease-in-out infinite;
+}
+
+.wlc-headline {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(20px, 3.5vw, 32px);
+  font-weight: 700;
+  color: var(--t1);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.wlc-sub {
+  font-size: 15px;
+  color: var(--t2);
+  max-width: 420px;
+  line-height: 1.65;
+  font-weight: 400;
+  letter-spacing: .02em;
+}
+.wlc-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 10px;
+}
+.wlc-chip {
+  padding: 7px 16px;
+  border: 1px solid var(--bd2);
+  border-radius: 4px;
+  font-size: 11.5px;
+  color: var(--t2);
+  background: var(--bg-c);
+  cursor: pointer;
+  transition: all .18s;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+}
+.wlc-chip::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity .2s;
+}
+.wlc-chip:hover {
+  border-color: var(--accent);
+  color: var(--accent2);
+  box-shadow: 0 0 10px var(--glow2);
+}
+.wlc-chip:hover::before { opacity: .08; }
+.wlc-chip span { position: relative; }
+
+/* ── Message groups ── */
+.msg-group { display: flex; flex-direction: column; gap: 2px; animation: msgAppear .22s ease; }
+@keyframes msgAppear { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+
+.msg-row { display: flex; align-items: flex-end; gap: 10px; padding: 1px 0; }
+.msg-row.user { flex-direction: row-reverse; }
+
+.avatar {
+  width: 28px; height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8.5px;
+  font-weight: 500;
+  letter-spacing: .06em;
+  flex-shrink: 0;
+}
+.avatar.user {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 0 8px var(--glow2);
+  text-transform: uppercase;
+}
+.avatar.ai {
+  background: var(--bg-c);
+  color: var(--accent2);
+  border: 1px solid var(--bd2);
+}
+
+.bubble {
+  max-width: min(72%, 600px);
+  padding: 10px 14px;
+  font-size: 14px;
+  line-height: 1.7;
+  font-weight: 400;
+  word-break: break-word;
+  transition: background .3s;
+  letter-spacing: .02em;
+}
+.bubble.user {
+  background: var(--ub);
+  color: var(--t1);
+  border: 1px solid var(--bd2);
+  border-radius: 10px 10px 2px 10px;
+}
+.bubble.ai {
+  background: var(--ab);
+  color: var(--t1);
+  border: 1px solid var(--bd);
+  border-radius: 10px 10px 10px 2px;
+}
+
+/* ── Message metadata ── */
+.msg-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8.5px;
+  color: var(--t3);
+  letter-spacing: .05em;
+  padding: 0 2px;
+}
+
+/* ── Bubble content ── */
+.bubble p { margin-bottom: 8px; }
+.bubble p:last-child { margin-bottom: 0; }
+.bubble ul, .bubble ol { padding-left: 18px; margin-bottom: 8px; }
+.bubble li { margin-bottom: 4px; }
+.bubble strong { font-weight: 700; color: var(--t1); }
+.bubble em { font-style: italic; }
+.bubble h1,.bubble h2,.bubble h3 {
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: .06em;
+  margin-bottom: 8px;
+  color: var(--accent2);
+}
+.bubble h1 { font-size: 16px; }
+.bubble h2 { font-size: 14px; }
+.bubble h3 { font-size: 13px; }
+.bubble code:not(pre code) {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  background: var(--bg-h);
+  border: 1px solid var(--bd2);
+  padding: 1px 6px;
+  border-radius: 3px;
+  color: var(--accent2);
+}
+.bubble pre {
+  background: var(--bg-c);
+  border: 1px solid var(--bd2);
+  border-radius: 8px;
+  margin: 10px 0;
+  overflow: hidden;
+  position: relative;
+}
+.code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--bd2);
+  background: var(--bg-s);
+}
+.code-lang {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--accent2);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.copy-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--t3);
+  padding: 2px 8px;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  transition: all .18s;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.copy-btn:hover { color: var(--accent2); border-color: var(--accent); background: var(--bg-h); }
+.bubble pre code { display: block; padding: 12px; font-size: 12px; line-height: 1.6; overflow-x: auto; }
+
+/* ── Typing indicator ── */
+.typing-row { display: flex; align-items: center; gap: 10px; padding: 4px 0; }
+.typing-bubble {
+  background: var(--ab);
+  border: 1px solid var(--bd);
+  border-radius: 10px 10px 10px 2px;
+  padding: 12px 16px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.typing-dot {
+  width: 5px; height: 5px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: typingBounce 1.2s ease-in-out infinite;
+  box-shadow: 0 0 4px var(--glow);
+}
+.typing-dot:nth-child(2) { animation-delay: .15s; background: var(--accent2); }
+.typing-dot:nth-child(3) { animation-delay: .30s; }
+@keyframes typingBounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-6px)} }
+
+/* ── Error bubble ── */
+.error-bubble {
+  margin: 4px 0;
+  padding: 12px 16px;
+  background: rgba(255,60,60,.06);
+  border: 1px solid rgba(255,60,60,.2);
+  border-radius: 8px;
+  color: #ff6060;
+  font-size: 13px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.error-bubble svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px; }
+.error-content strong { font-weight: 700; display: block; margin-bottom: 3px; font-family: 'Orbitron', sans-serif; font-size: 11px; letter-spacing: .06em; }
+.error-content { line-height: 1.6; font-size: 13px; }
+
+/* ═══════════════════════════════════════════════════════
    INPUT ZONE
-══════════════════════════════════════════ */
-#inp-zone{padding:10px 18px 18px;flex-shrink:0;background:var(--bg);transition:background .3s}
-#inp-inner{max-width:720px;margin:0 auto}
-.feat-r{display:flex;gap:7px;margin-bottom:8px;align-items:center}
-.f-btn{display:flex;align-items:center;gap:6px;padding:6px 13px;border:1px solid var(--bd2);border-radius:8px;font-size:12px;color:var(--t2);background:var(--bg-c);transition:all .18s;letter-spacing:.01em}
-.f-btn:hover{color:var(--t1);border-color:var(--t3);background:var(--bg-h)}
-.f-btn svg{width:13px;height:13px}
-.inp-box{background:var(--bg-i);border:1px solid var(--bd2);border-radius:13px;display:flex;flex-direction:column;overflow:hidden;transition:border-color .2s,background .3s;box-shadow:var(--sh)}
-.inp-box:focus-within{border-color:var(--t3)}
-#inp{background:transparent;border:none;outline:none;color:var(--t1);font-size:13.5px;font-weight:300;padding:12px 15px 8px;resize:none;min-height:48px;max-height:150px;line-height:1.5;width:100%}
-#inp::placeholder{color:var(--t3)}
-.inp-acts{display:flex;align-items:center;justify-content:space-between;padding:7px 9px 9px}
-.inp-l{display:flex;gap:6px}
-.inp-sm{display:flex;align-items:center;gap:5px;padding:5px 10px;border:1px solid var(--bd);border-radius:7px;font-size:11px;color:var(--t3);background:var(--bg-s);transition:all .18s}
-.inp-sm:hover{color:var(--t1);border-color:var(--t3)}
-.inp-sm svg{width:11px;height:11px}
-#send-btn{width:33px;height:33px;border-radius:8px;background:var(--btn);color:var(--btn-t);display:flex;align-items:center;justify-content:center;transition:all .18s;flex-shrink:0}
-#send-btn:hover:not(:disabled){opacity:.82;transform:scale(.96)}
-#send-btn:disabled{opacity:.22;cursor:not-allowed;transform:none}
-#send-btn svg{width:14px;height:14px}
-.hint{text-align:center;font-family:'Fira Code',monospace;font-size:9.5px;color:var(--t3);letter-spacing:.04em;margin-top:7px}
+═══════════════════════════════════════════════════════ */
+#input-zone {
+  padding: 10px 18px 18px;
+  flex-shrink: 0;
+  background: var(--bg);
+  transition: background .3s;
+  position: relative;
+  z-index: 2;
+}
+#input-zone::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: .2;
+}
+#input-inner { max-width: 760px; margin: 0 auto; }
 
-/* ══════════════════════════════════════════
+.feature-bar { display: flex; gap: 7px; margin-bottom: 9px; align-items: center; }
+.feat-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 13px;
+  border: 1px solid var(--bd2);
+  border-radius: 5px;
+  font-size: 11.5px;
+  color: var(--t2);
+  background: var(--bg-c);
+  transition: all .18s;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+}
+.feat-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity .2s;
+}
+.feat-btn:hover {
+  color: var(--accent2);
+  border-color: var(--accent);
+  box-shadow: 0 0 10px var(--glow2);
+}
+.feat-btn:hover::before { opacity: .08; }
+.feat-btn svg, .feat-btn span { position: relative; }
+.feat-btn svg { width: 13px; height: 13px; }
+
+.input-shell {
+  background: var(--bg-i);
+  border: 1px solid var(--bd2);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: border-color .2s, background .3s, box-shadow .2s;
+  box-shadow: var(--sh);
+}
+.input-shell:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 20px var(--glow2);
+}
+
+#chat-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--t1);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: .02em;
+  padding: 12px 15px 8px;
+  resize: none;
+  min-height: 50px;
+  max-height: 150px;
+  line-height: 1.5;
+  width: 100%;
+}
+#chat-input::placeholder { color: var(--t3); letter-spacing: .04em; }
+
+.input-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 10px 10px;
+}
+.input-left { display: flex; gap: 6px; }
+.attach-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border: 1px solid var(--bd);
+  border-radius: 4px;
+  font-size: 11px;
+  color: var(--t3);
+  background: var(--bg-s);
+  transition: all .18s;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.attach-btn:hover { color: var(--t1); border-color: var(--accent); }
+.attach-btn svg { width: 11px; height: 11px; }
+
+#send-button {
+  width: 34px; height: 34px;
+  border-radius: 6px;
+  background: var(--btn);
+  color: var(--btn-t);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .18s;
+  flex-shrink: 0;
+  box-shadow: 0 0 12px var(--glow2);
+}
+#send-button:hover:not(:disabled) {
+  opacity: .9;
+  transform: scale(.95);
+  box-shadow: 0 0 20px var(--glow);
+}
+#send-button:disabled { opacity: .2; cursor: not-allowed; transform: none; box-shadow: none; }
+#send-button svg { width: 14px; height: 14px; }
+
+.input-hint {
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--t3);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-top: 8px;
+}
+
+/* ═══════════════════════════════════════════════════════
    MODALS
-══════════════════════════════════════════ */
-.ov{position:fixed;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .2s}
-.ov.open{opacity:1;pointer-events:all}
-.modal{background:var(--bg-s);border:1px solid var(--bd2);border-radius:20px;width:100%;max-width:460px;padding:26px;transform:scale(.93) translateY(14px);transition:transform .2s,background .3s,border-color .3s}
-.ov.open .modal{transform:scale(1) translateY(0)}
-.m-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
-.m-ttl{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--t1)}
-.m-x{width:30px;height:30px;border-radius:8px;background:var(--bg-c);border:1px solid var(--bd);color:var(--t2);display:flex;align-items:center;justify-content:center;transition:all .18s}
-.m-x:hover{color:var(--t1);border-color:var(--t3)}
-.m-x svg{width:13px;height:13px}
+═══════════════════════════════════════════════════════ */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .22s;
+}
+.overlay.open { opacity: 1; pointer-events: all; }
 
-/* Theme grid */
-.s-lbl{display:block;font-family:'Fira Code',monospace;font-size:9.5px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:9px}
-.t-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px}
-.t-opt{padding:11px 13px;border-radius:10px;border:2px solid var(--bd);cursor:pointer;display:flex;align-items:center;gap:10px;transition:all .18s;background:var(--bg-c)}
-.t-opt:hover{border-color:var(--t3)}
-.t-opt.active{border-color:var(--t1)}
-.t-sw{width:20px;height:20px;border-radius:5px;border:1px solid rgba(128,128,128,.3);flex-shrink:0}
-.t-n{font-size:12.5px;font-weight:500;color:var(--t1)}
-.t-sub{font-size:9.5px;color:var(--t3);font-family:'Fira Code',monospace}
+.modal-panel {
+  background: var(--bg-s);
+  border: 1px solid var(--bd2);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 480px;
+  padding: 26px;
+  transform: scale(.92) translateY(16px);
+  transition: transform .22s ease, background .3s, border-color .3s;
+  position: relative;
+  overflow: hidden;
+}
+.modal-panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent));
+  opacity: .6;
+}
+.overlay.open .modal-panel { transform: scale(1) translateY(0); }
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+.modal-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--t1);
+}
+.modal-close {
+  width: 30px; height: 30px;
+  border-radius: 6px;
+  background: var(--bg-c);
+  border: 1px solid var(--bd);
+  color: var(--t2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .18s;
+}
+.modal-close:hover { color: var(--t1); border-color: var(--accent); box-shadow: 0 0 8px var(--glow2); }
+.modal-close svg { width: 13px; height: 13px; }
+
+/* ── Settings ── */
+.field-label {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--accent2);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.theme-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+.theme-option {
+  padding: 11px 13px;
+  border-radius: 7px;
+  border: 1px solid var(--bd);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  transition: all .18s;
+  background: var(--bg-c);
+}
+.theme-option:hover { border-color: var(--accent); box-shadow: 0 0 8px var(--glow2); }
+.theme-option.active { border-color: var(--accent); background: var(--bg-h); box-shadow: 0 0 12px var(--glow2); }
+.theme-option.active .theme-name { color: var(--accent2); }
+.theme-swatch {
+  width: 22px; height: 22px;
+  border-radius: 5px;
+  border: 1px solid rgba(128,128,128,.2);
+  flex-shrink: 0;
+}
+.theme-name { font-size: 12.5px; font-weight: 600; color: var(--t1); font-family: 'Rajdhani', sans-serif; letter-spacing: .04em; }
+.theme-sub { font-size: 9px; color: var(--t3); font-family: 'JetBrains Mono', monospace; letter-spacing: .06em; }
 
 /* API zone */
-#api-zone{display:none;padding-top:18px;border-top:1px solid var(--bd);margin-top:4px}
-#api-zone.show{display:block}
-.api-wrap{position:relative}
-.api-inp{width:100%;background:var(--bg-i);border:1px solid var(--bd2);border-radius:9px;padding:10px 40px 10px 13px;color:var(--t1);font-family:'Fira Code',monospace;font-size:11.5px;outline:none;transition:border-color .2s,background .3s;letter-spacing:.03em}
-.api-inp:focus{border-color:var(--t2)}
-.api-inp::placeholder{color:var(--t3)}
-.eye{position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--t3);padding:3px;transition:color .18s}
-.eye:hover{color:var(--t1)}
-.eye svg{width:14px;height:14px}
-.api-save{margin-top:9px;width:100%;padding:9px;background:var(--btn);color:var(--btn-t);border-radius:9px;font-size:12.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;transition:opacity .18s}
-.api-save:hover{opacity:.82}
-.api-note{margin-top:7px;font-family:'Fira Code',monospace;font-size:9.5px;color:var(--t3);letter-spacing:.03em;line-height:1.6}
-.api-get-link{color:var(--t2);text-decoration:underline;text-underline-offset:2px}
-.api-get-link:hover{color:var(--t1)}
-.m-foot{margin-top:16px;padding-top:14px;border-top:1px solid var(--bd);text-align:center;font-family:'Fira Code',monospace;font-size:9.5px;color:var(--t3);letter-spacing:.04em}
+#api-key-zone { display: none; padding-top: 18px; border-top: 1px solid var(--bd); }
+#api-key-zone.visible { display: block; }
 
-/* Image modal */
-.img-modal{max-width:490px}
-.img-ta{width:100%;background:var(--bg-i);border:1px solid var(--bd2);border-radius:10px;padding:11px 13px;color:var(--t1);font-size:13px;outline:none;resize:none;min-height:84px;line-height:1.55;transition:border-color .2s,background .3s}
-.img-ta:focus{border-color:var(--t2)}
-.img-ta::placeholder{color:var(--t3)}
-.style-r{display:flex;flex-wrap:wrap;gap:6px;margin:11px 0}
-.st{padding:5px 12px;border:1px solid var(--bd2);border-radius:100px;font-size:11px;color:var(--t2);background:var(--bg-c);cursor:pointer;transition:all .18s;font-family:'Fira Code',monospace}
-.st.on{background:var(--btn);color:var(--btn-t);border-color:var(--btn)}
-.gen-btn{width:100%;padding:11px;background:var(--btn);color:var(--btn-t);border-radius:9px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:13px;transition:opacity .18s}
-.gen-btn:hover{opacity:.82}
-.prev-box{width:100%;aspect-ratio:1;max-height:220px;background:var(--bg-c);border:1px dashed var(--bd2);border-radius:11px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;color:var(--t3);font-family:'Fira Code',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;position:relative;overflow:hidden;transition:background .3s}
-.prev-box svg{width:26px;height:26px;opacity:.3}
-.shim{position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,var(--bd2) 50%,transparent 100%);background-size:200% 100%;animation:shim 1.6s ease-in-out infinite;display:none}
-.shim-on .shim{display:block}
-@keyframes shim{0%{background-position:-200% 0}100%{background-position:200% 0}}
+.api-input-wrap { position: relative; }
+.api-key-input {
+  width: 100%;
+  background: var(--bg-i);
+  border: 1px solid var(--bd2);
+  border-radius: 7px;
+  padding: 10px 40px 10px 13px;
+  color: var(--t1);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s, background .3s;
+  letter-spacing: .04em;
+}
+.api-key-input:focus { border-color: var(--accent); box-shadow: 0 0 12px var(--glow2); }
+.api-key-input::placeholder { color: var(--t3); }
 
-/* ══════════════════════════════════════════
-   MOBILE
-══════════════════════════════════════════ */
-#sb-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:49}
-@media(max-width:768px){
-  #sidebar{position:fixed;top:0;left:0;bottom:0;transform:translateX(-100%);z-index:50}
-  #sidebar.open{transform:translateX(0)}
-  #sb-ov.open{display:block}
-  .mob-btn{display:flex}
+.eye-toggle {
+  position: absolute;
+  right: 10px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--t3);
+  padding: 3px;
+  transition: color .18s;
+}
+.eye-toggle:hover { color: var(--accent2); }
+.eye-toggle svg { width: 14px; height: 14px; }
+
+.save-key-btn {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+  background: var(--btn);
+  color: var(--btn-t);
+  border-radius: 7px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  transition: all .18s;
+  box-shadow: 0 0 12px var(--glow2);
+}
+.save-key-btn:hover { opacity: .85; box-shadow: 0 0 22px var(--glow); }
+
+.api-note {
+  margin-top: 9px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--t3);
+  letter-spacing: .04em;
+  line-height: 1.7;
+}
+.api-link { color: var(--accent2); text-decoration: underline; text-underline-offset: 2px; }
+.api-link:hover { color: var(--t1); }
+
+.modal-footer {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--bd);
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--t3);
+  letter-spacing: .06em;
+  line-height: 1.7;
+}
+.modal-footer span { color: var(--accent2); }
+
+/* ── Image modal ── */
+.img-modal-panel { max-width: 500px; }
+
+.img-prompt-area {
+  width: 100%;
+  background: var(--bg-i);
+  border: 1px solid var(--bd2);
+  border-radius: 8px;
+  padding: 12px 14px;
+  color: var(--t1);
+  font-size: 13.5px;
+  font-weight: 400;
+  letter-spacing: .02em;
+  outline: none;
+  resize: none;
+  min-height: 90px;
+  line-height: 1.6;
+  transition: border-color .2s, box-shadow .2s, background .3s;
+}
+.img-prompt-area:focus { border-color: var(--accent); box-shadow: 0 0 12px var(--glow2); }
+.img-prompt-area::placeholder { color: var(--t3); }
+
+.style-chips { display: flex; flex-wrap: wrap; gap: 7px; margin: 12px 0; }
+.style-chip {
+  padding: 5px 13px;
+  border: 1px solid var(--bd2);
+  border-radius: 4px;
+  font-size: 10.5px;
+  color: var(--t2);
+  background: var(--bg-c);
+  cursor: pointer;
+  transition: all .18s;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.style-chip.selected {
+  background: var(--btn);
+  color: var(--btn-t);
+  border-color: var(--btn);
+  box-shadow: 0 0 10px var(--glow2);
+}
+.style-chip:not(.selected):hover { border-color: var(--accent); color: var(--accent2); }
+
+.generate-btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--btn);
+  color: var(--btn-t);
+  border-radius: 8px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  transition: all .18s;
+  box-shadow: 0 0 16px var(--glow2);
+}
+.generate-btn:hover { opacity: .88; box-shadow: 0 0 28px var(--glow); transform: translateY(-1px); }
+
+.preview-frame {
+  width: 100%;
+  aspect-ratio: 1;
+  max-height: 230px;
+  background: var(--bg-c);
+  border: 1px dashed var(--bd2);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--t3);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  transition: background .3s;
+}
+.preview-frame svg { width: 28px; height: 28px; opacity: .25; }
+
+.shimmer-layer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, var(--bd2) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmerPass 1.7s ease-in-out infinite;
+  display: none;
+  opacity: .5;
+}
+.shimming .shimmer-layer { display: block; }
+@keyframes shimmerPass { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
+
+/* ═══════════════════════════════════════════════════════
+   MOBILE SIDEBAR OVERLAY
+═══════════════════════════════════════════════════════ */
+#sb-mobile-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.6);
+  z-index: 49;
+}
+@media (max-width: 768px) {
+  #sidebar {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    transform: translateX(-100%);
+    z-index: 50;
+  }
+  #sidebar.open { transform: translateX(0); }
+  #sb-mobile-overlay.open { display: block; }
+  .mob-menu-btn { display: flex; }
 }
 
-/* HLJS light theme overrides */
-[data-theme="pure-light"] .hljs,[data-theme="soft-gray"] .hljs{background:var(--bg-c) !important;color:#24292e !important}
+/* HLJS overrides for light themes */
+[data-theme="silver"] .hljs,
+[data-theme="ghost-white"] .hljs {
+  background: var(--bg-c) !important;
+  color: #24292e !important;
+}
 </style>
 </head>
 <body>
 
-<!-- ━━━ SIDEBAR ━━━ -->
-<aside id="sidebar" aria-label="Sidebar">
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SIDEBAR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<aside id="sidebar" aria-label="Navigation">
+
   <div class="sb-head">
-    <div class="logo-wrap" id="logoWrap">
-      <img id="logo-img" src="logo.png" alt="Aperonix AI Logo"
-           onerror="this.style.display='none';document.getElementById('logo-fb').style.display='flex'"/>
-      <div id="logo-fb" aria-hidden="true">A</div>
-      <div class="halo" id="halo"></div>
+    <div class="logo-frame" id="logoFrame">
+      <img id="logo-img" src="logo.png" alt="Aperonix AI"
+           onerror="this.style.display='none';document.getElementById('logo-fallback').style.display='flex'"/>
+      <div id="logo-fallback" aria-hidden="true">A</div>
+      <div class="logo-ring" id="logoRing" aria-hidden="true"></div>
     </div>
-    <div>
+    <div class="sb-brand">
       <div class="sb-name">Aperonix AI</div>
-      <div class="sb-ver">Pro · v2.0</div>
+      <div class="sb-tag">Pro · v2.0 · Gemini</div>
     </div>
   </div>
 
-  <button class="new-btn" id="newBtn" aria-label="New chat">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+  <button class="new-btn" id="newChatBtn" aria-label="Start new chat">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
       <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
     </svg>
-    New Chat
+    <span>New Chat</span>
   </button>
 
-  <div class="sb-sec">Recent Chats</div>
-  <div id="hist" role="list" aria-label="Chat history"></div>
+  <div class="sb-section-lbl">Recent History</div>
+  <div id="hist-list" role="list" aria-label="Chat history"></div>
 
   <div class="sb-foot">
-    <button class="gear" id="gearBtn" aria-label="Open settings">
+    <button class="settings-btn" id="settingsBtn" aria-label="Open settings">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
         <circle cx="12" cy="12" r="3"/>
         <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
       </svg>
     </button>
-    <div class="sb-copy">© 2026 Aperonix AI<br/>Developed by Mohammad Khan</div>
+    <div class="sb-credits">
+      © 2026 Aperonix AI<br/>
+      Founded by Mohammad Khan
+    </div>
   </div>
-</aside>
-<div id="sb-ov" onclick="closeSb()" aria-hidden="true"></div>
 
-<!-- ━━━ MAIN ━━━ -->
+</aside>
+<div id="sb-mobile-overlay" onclick="closeMobileSidebar()" aria-hidden="true"></div>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     MAIN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 <div id="main" role="main">
+
   <!-- Topbar -->
   <div id="topbar">
-    <div style="display:flex;align-items:center;gap:10px;min-width:0;">
-      <button class="mob-btn" id="mobBtn" aria-label="Open sidebar">
+    <div class="topbar-left">
+      <button class="mob-menu-btn" id="mobMenuBtn" aria-label="Open sidebar">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
         </svg>
       </button>
-      <span class="tb-t" id="tbTitle">New Conversation</span>
+      <span id="chat-title">Aperonix AI</span>
     </div>
-    <div class="tb-r">
-      <div class="online"><span class="dot" aria-hidden="true"></span>Online</div>
+    <div class="topbar-right">
+      <div class="status-badge">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>Online</span>
+      </div>
     </div>
   </div>
 
   <!-- Messages -->
-  <div id="msgs" role="log" aria-live="polite" aria-label="Conversation">
-    <div id="msgs-inner">
-      <div id="welcome" aria-label="Welcome screen">
-        <div class="wlc-ico" aria-hidden="true">A</div>
-        <h1 class="wlc-h">Hello, I'm Aperonix AI</h1>
-        <p class="wlc-p">Your intelligent assistant for writing, code, research, and creative work. Powered by Gemini 1.5 Flash.</p>
-        <div class="chips" role="list" aria-label="Suggested prompts">
-          <button class="chip" onclick="useChip(this)">Explain neural networks</button>
-          <button class="chip" onclick="useChip(this)">Write a Python function</button>
-          <button class="chip" onclick="useChip(this)">Debug my JavaScript</button>
-          <button class="chip" onclick="useChip(this)">Draft a professional email</button>
-          <button class="chip" onclick="useChip(this)">Design a REST API</button>
+  <div id="messages-container" role="log" aria-live="polite" aria-label="Conversation">
+    <div id="messages-inner">
+      <!-- Welcome screen -->
+      <div id="welcome-screen">
+        <div class="wlc-logo-big" aria-hidden="true">A</div>
+        <h1 class="wlc-headline">Aperonix AI</h1>
+        <p class="wlc-sub">Next-generation AI assistant. Developed and founded by Mohammad Khan. Powered by Gemini 1.5 Flash.</p>
+        <div class="wlc-chips" role="list" aria-label="Quick prompts">
+          <button class="wlc-chip" onclick="usePrompt(this)"><span>Explain AI neural networks</span></button>
+          <button class="wlc-chip" onclick="usePrompt(this)"><span>Write a Python scraper</span></button>
+          <button class="wlc-chip" onclick="usePrompt(this)"><span>Debug my JavaScript</span></button>
+          <button class="wlc-chip" onclick="usePrompt(this)"><span>Draft a professional email</span></button>
+          <button class="wlc-chip" onclick="usePrompt(this)"><span>Design a REST API</span></button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Input -->
-  <div id="inp-zone">
-    <div id="inp-inner">
-      <div class="feat-r">
-        <button class="f-btn" id="imgOpenBtn" aria-label="Open image generator">
+  <!-- Input zone -->
+  <div id="input-zone">
+    <div id="input-inner">
+      <div class="feature-bar">
+        <button class="feat-btn" id="imgModalBtn" aria-label="Open image creator">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="3"/>
             <circle cx="8.5" cy="8.5" r="1.5"/>
             <polyline points="21 15 16 10 5 21"/>
           </svg>
-          Create Image
+          <span>Create Image</span>
         </button>
-        <button class="f-btn" aria-label="Model info">
+        <button class="feat-btn" aria-label="Current AI model">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
             <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
           </svg>
-          Gemini 1.5 Flash
+          <span>Gemini 1.5 Flash</span>
         </button>
       </div>
-      <div class="inp-box" role="form" aria-label="Chat input">
+      <div class="input-shell">
         <textarea
-          id="inp"
+          id="chat-input"
           placeholder="Message Aperonix AI…"
-          aria-label="Type your message"
+          aria-label="Chat input"
           rows="1"
           autocomplete="off"
           spellcheck="true"
         ></textarea>
-        <div class="inp-acts">
-          <div class="inp-l">
-            <button class="inp-sm" aria-label="Attach file">
+        <div class="input-actions">
+          <div class="input-left">
+            <button class="attach-btn" aria-label="Attach file">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/>
               </svg>
               Attach
             </button>
           </div>
-          <button id="send-btn" disabled aria-label="Send message">
+          <button id="send-button" disabled aria-label="Send message">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
               <line x1="22" y1="2" x2="11" y2="13"/>
               <polygon points="22 2 15 22 11 13 2 9 22 2"/>
@@ -461,79 +1371,101 @@ textarea,input{font-family:'Figtree',sans-serif}
           </button>
         </div>
       </div>
-      <p class="hint">Enter to send &nbsp;·&nbsp; Shift+Enter for new line</p>
+      <p class="input-hint">Enter to send &nbsp;·&nbsp; Shift+Enter new line</p>
     </div>
   </div>
-</div>
 
-<!-- ━━━ SETTINGS MODAL ━━━ -->
-<div class="ov" id="stgOv" role="dialog" aria-modal="true" aria-labelledby="stgTitle">
-  <div class="modal">
-    <div class="m-hdr">
-      <span class="m-ttl" id="stgTitle">Settings</span>
-      <button class="m-x" id="stgClose" aria-label="Close settings">
+</div><!-- #main -->
+
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SETTINGS MODAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<div class="overlay" id="settingsOverlay" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+  <div class="modal-panel">
+    <div class="modal-header">
+      <span class="modal-title" id="settingsTitle">Settings</span>
+      <button class="modal-close" id="settingsClose" aria-label="Close settings">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
           <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
         </svg>
       </button>
     </div>
 
-    <span class="s-lbl">Appearance</span>
-    <div class="t-grid">
-      <button class="t-opt" data-t="pure-dark" onclick="setTheme('pure-dark')" aria-label="Pure Dark theme">
-        <div class="t-sw" style="background:#000"></div>
-        <div><div class="t-n">Pure Dark</div><div class="t-sub">Pitch black</div></div>
+    <span class="field-label">Theme</span>
+    <div class="theme-grid">
+      <button class="theme-option" data-t="pure-dark" onclick="applyTheme('pure-dark')" aria-label="Pure Dark theme">
+        <div class="theme-swatch" style="background:#050507;border-color:#252538"></div>
+        <div>
+          <div class="theme-name">Pure Dark</div>
+          <div class="theme-sub">Void Black</div>
+        </div>
       </button>
-      <button class="t-opt" data-t="slate" onclick="setTheme('slate')" aria-label="Slate theme">
-        <div class="t-sw" style="background:#0d1117"></div>
-        <div><div class="t-n">Slate</div><div class="t-sub">GitHub dark</div></div>
+      <button class="theme-option" data-t="slate" onclick="applyTheme('slate')" aria-label="Slate theme">
+        <div class="theme-swatch" style="background:#080c12;border-color:#1e2736"></div>
+        <div>
+          <div class="theme-name">Slate</div>
+          <div class="theme-sub">Deep Navy</div>
+        </div>
       </button>
-      <button class="t-opt" data-t="pure-light" onclick="setTheme('pure-light')" aria-label="Pure Light theme">
-        <div class="t-sw" style="background:#fff;border-color:#ccc"></div>
-        <div><div class="t-n">Pure Light</div><div class="t-sub">Clean white</div></div>
+      <button class="theme-option" data-t="silver" onclick="applyTheme('silver')" aria-label="Silver theme">
+        <div class="theme-swatch" style="background:#f0f0f5;border-color:#c8c8dc"></div>
+        <div>
+          <div class="theme-name">Silver</div>
+          <div class="theme-sub">Steel Light</div>
+        </div>
       </button>
-      <button class="t-opt" data-t="soft-gray" onclick="setTheme('soft-gray')" aria-label="Soft Gray theme">
-        <div class="t-sw" style="background:#f2f2f2;border-color:#ccc"></div>
-        <div><div class="t-n">Soft Gray</div><div class="t-sub">Easy on eyes</div></div>
+      <button class="theme-option" data-t="ghost-white" onclick="applyTheme('ghost-white')" aria-label="Ghost White theme">
+        <div class="theme-swatch" style="background:#ffffff;border-color:#c8c8dc"></div>
+        <div>
+          <div class="theme-name">Ghost White</div>
+          <div class="theme-sub">Pure Light</div>
+        </div>
       </button>
     </div>
 
-    <!-- Hidden until /open-admin -->
-    <div id="api-zone">
-      <span class="s-lbl">Gemini API Key</span>
-      <div class="api-wrap">
+    <!-- Hidden API key zone — unlocked by /unlock-admin -->
+    <div id="api-key-zone">
+      <span class="field-label">Gemini API Key</span>
+      <div class="api-input-wrap">
         <input
           type="password"
-          id="apiKey"
-          class="api-inp"
-          placeholder="AIzaSy…  (paste your Gemini key here)"
+          id="apiKeyInput"
+          class="api-key-input"
+          placeholder="AIzaSy…  paste your Gemini key"
           aria-label="Gemini API Key"
           autocomplete="off"
         />
-        <button class="eye" id="eyeBtn" aria-label="Toggle key visibility">
-          <svg id="eyeIco" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+        <button class="eye-toggle" id="eyeToggleBtn" aria-label="Toggle key visibility">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
             <circle cx="12" cy="12" r="3"/>
           </svg>
         </button>
       </div>
-      <button class="api-save" id="saveKeyBtn">Save API Key</button>
+      <button class="save-key-btn" id="saveKeyBtn">Save API Key</button>
       <p class="api-note">
-        Stored in your browser only · Never sent anywhere except directly to Google's Gemini API.<br/>
-        Get a free key at <a class="api-get-link" href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">aistudio.google.com</a>
+        Stored in your browser only. Sent only to Google's Gemini API.<br/>
+        Get your free key: <a class="api-link" href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">aistudio.google.com</a>
       </p>
     </div>
 
-    <div class="m-foot">© 2026 Aperonix AI — Developed by Mohammad Khan</div>
+    <div class="modal-footer">
+      © 2026 <span>Aperonix AI</span><br/>
+      Developed and Founded by <span>Mohammad Khan</span>
+    </div>
   </div>
 </div>
 
-<!-- ━━━ IMAGE MODAL ━━━ -->
-<div class="ov" id="imgOv" role="dialog" aria-modal="true" aria-labelledby="imgTitle">
-  <div class="modal img-modal">
-    <div class="m-hdr">
-      <span class="m-ttl" id="imgTitle">Create Image</span>
-      <button class="m-x" id="imgClose" aria-label="Close image generator">
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     IMAGE MODAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<div class="overlay" id="imgOverlay" role="dialog" aria-modal="true" aria-labelledby="imgModalTitle">
+  <div class="modal-panel img-modal-panel">
+    <div class="modal-header">
+      <span class="modal-title" id="imgModalTitle">Create Image</span>
+      <button class="modal-close" id="imgModalClose" aria-label="Close image modal">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
           <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
         </svg>
@@ -541,251 +1473,299 @@ textarea,input{font-family:'Figtree',sans-serif}
     </div>
 
     <textarea
-      id="imgPrompt"
-      class="img-ta"
-      placeholder="Describe the image… e.g. 'A minimal dark cityscape at night with soft neon reflections on wet streets'"
-      aria-label="Image generation prompt"
+      id="imgPromptInput"
+      class="img-prompt-area"
+      placeholder="Describe your image… e.g. 'A futuristic dark city at midnight, neon rain reflections, cinematic lighting'"
+      aria-label="Image prompt"
       rows="3"
     ></textarea>
 
-    <div class="style-r" role="group" aria-label="Image style">
-      <button class="st on" onclick="pickSt(this)">Photorealistic</button>
-      <button class="st" onclick="pickSt(this)">Illustration</button>
-      <button class="st" onclick="pickSt(this)">Minimalist</button>
-      <button class="st" onclick="pickSt(this)">Cinematic</button>
-      <button class="st" onclick="pickSt(this)">Abstract</button>
+    <div class="style-chips" id="styleChips" role="group" aria-label="Image style">
+      <button class="style-chip selected" onclick="pickStyle(this)">Photorealistic</button>
+      <button class="style-chip" onclick="pickStyle(this)">Illustration</button>
+      <button class="style-chip" onclick="pickStyle(this)">Cinematic</button>
+      <button class="style-chip" onclick="pickStyle(this)">Minimalist</button>
+      <button class="style-chip" onclick="pickStyle(this)">Abstract</button>
     </div>
 
-    <button class="gen-btn" id="genBtn">✦ &nbsp;Generate Image</button>
+    <button class="generate-btn" id="generateBtn">✦ &nbsp;Generate Image</button>
 
-    <div class="prev-box" id="prevBox" aria-live="polite">
-      <div class="shim" id="shim" aria-hidden="true"></div>
-      <svg id="prevIco" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+    <div class="preview-frame" id="previewFrame" aria-live="polite">
+      <div class="shimmer-layer" id="shimmerLayer" aria-hidden="true"></div>
+      <svg id="previewIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
         <rect x="3" y="3" width="18" height="18" rx="3"/>
         <circle cx="8.5" cy="8.5" r="1.5"/>
         <polyline points="21 15 16 10 5 21"/>
       </svg>
-      <span id="prevTxt">Preview appears here</span>
+      <span id="previewText">Preview appears here</span>
     </div>
   </div>
 </div>
 
-<!-- ━━━ SCRIPT ━━━ -->
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     JAVASCRIPT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
 <script>
 'use strict';
 
-/* ═════════════════════════════════════════════
-   API CONFIGURATION  ←  THE FIX IS HERE
-   Using stable v1 endpoint (not v1beta)
-   Model: gemini-1.5-flash
-═════════════════════════════════════════════ */
-var GEMINI_MODEL = 'gemini-1.5-flash';
-var GEMINI_URL   = 'https://generativelanguage.googleapis.com/v1/models/'
-                 + GEMINI_MODEL + ':generateContent';
+/* ═══════════════════════════════════════════════════
+   API CONFIG  —  STABLE v1beta ENDPOINT
+   Model  : gemini-1.5-flash
+   URL    : https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent
+   Payload: { contents: [{ role, parts: [{ text }] }] }
+═══════════════════════════════════════════════════ */
+var API_MODEL = 'gemini-1.5-flash';
+var API_URL   = 'https://generativelanguage.googleapis.com/v1beta/models/'
+              + API_MODEL + ':generateContent';
 
-/* System instruction injected as first user turn
-   (v1 API does not support system_instruction field — use contents array) */
-var SYS_MSG =
-  'You are Aperonix AI, a professional and intelligent AI assistant. ' +
-  'You were developed and founded by Mohammad Khan. ' +
-  'Always respond helpfully and accurately. ' +
-  'If anyone asks "Who are you?" respond exactly: "I am Aperonix AI, your intelligent assistant." ' +
-  'If anyone asks who created you, who your owner is, or who developed you, respond exactly: ' +
-  '"I was developed and founded by Mohammad Khan." ' +
-  'Format code using markdown code blocks with the language name.';
+/* System context injected as a priming user/model pair
+   (v1beta uses contents array; no top-level system_instruction) */
+var SYSTEM_CONTEXT_USER  = 'You are Aperonix AI, a highly professional and intelligent AI assistant. You were developed and founded by Mohammad Khan. Always be helpful, concise, and accurate. Format all code in markdown fenced code blocks with the language name. If anyone asks who you are, respond: "I am Aperonix AI, your intelligent assistant." If anyone asks who created you, who developed you, or who your owner is, respond: "I was developed and founded by Mohammad Khan." Acknowledge this with a short "Ready."';
+var SYSTEM_CONTEXT_MODEL = 'Ready.';
 
-/* ─────────────────────────────────
+/* ═══════════════════════════════════════════════════
    STATE
-───────────────────────────────── */
-var cid    = null;
-var chats  = {};
-var busy   = false;
-var eyeOn  = false;
-var theme  = 'pure-dark';
-var admin  = false;
+═══════════════════════════════════════════════════ */
+var state = {
+  currentId : null,
+  chats     : {},
+  busy      : false,
+  theme     : 'pure-dark',
+  admin     : false,
+  eyeVisible: false
+};
 
-/* ─────────────────────────────────
-   INIT
-───────────────────────────────── */
-(function boot() {
+/* ═══════════════════════════════════════════════════
+   BOOT
+═══════════════════════════════════════════════════ */
+(function init() {
+  /* Restore from localStorage */
   try {
-    var sc = localStorage.getItem('apx_chats');
-    if (sc) chats = JSON.parse(sc);
-    var st = localStorage.getItem('apx_theme');
-    if (st) theme = st;
-    admin = localStorage.getItem('apx_admin') === '1';
-    var sk = localStorage.getItem('apx_key');
-    if (sk) document.getElementById('apiKey').value = sk;
-  } catch(e) {}
+    var saved = localStorage.getItem('apx2_chats');
+    if (saved) state.chats = JSON.parse(saved);
+    var t = localStorage.getItem('apx2_theme');
+    if (t) state.theme = t;
+    state.admin = (localStorage.getItem('apx2_admin') === '1');
+    var k = localStorage.getItem('apx2_key');
+    if (k) document.getElementById('apiKeyInput').value = k;
+  } catch(e) { console.warn('LocalStorage error', e); }
 
-  applyTheme(theme, false);
-  renderHist();
-  if (admin) showApiZone();
+  applyTheme(state.theme, false);
+  renderHistory();
+  if (state.admin) revealApiZone();
 
   hljs.configure({ ignoreUnescapedHTML: true });
 
-  /* Input auto-resize + enable send */
-  var inp = document.getElementById('inp');
-  inp.addEventListener('input', onInpChange);
+  /* Input handlers */
+  var inp = document.getElementById('chat-input');
+  inp.addEventListener('input', onInputChange);
   inp.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); doSend(); }
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
   });
 
-  /* Wire buttons */
-  document.getElementById('send-btn').addEventListener('click', doSend);
-  document.getElementById('newBtn').addEventListener('click', newChat);
-  document.getElementById('gearBtn').addEventListener('click', function(){ openOv('stgOv'); });
-  document.getElementById('stgClose').addEventListener('click', function(){ closeOv('stgOv'); });
-  document.getElementById('imgOpenBtn').addEventListener('click', function(){ openOv('imgOv'); });
-  document.getElementById('imgClose').addEventListener('click', function(){ closeOv('imgOv'); });
-  document.getElementById('mobBtn').addEventListener('click', openSb);
-  document.getElementById('genBtn').addEventListener('click', doGenImg);
-  document.getElementById('saveKeyBtn').addEventListener('click', saveKey);
-  document.getElementById('eyeBtn').addEventListener('click', toggleEye);
+  /* Button wiring */
+  document.getElementById('send-button').addEventListener('click', sendMessage);
+  document.getElementById('newChatBtn').addEventListener('click', startNewChat);
+  document.getElementById('settingsBtn').addEventListener('click', function() { openModal('settingsOverlay'); });
+  document.getElementById('settingsClose').addEventListener('click', function() { closeModal('settingsOverlay'); });
+  document.getElementById('imgModalBtn').addEventListener('click', function() { openModal('imgOverlay'); });
+  document.getElementById('imgModalClose').addEventListener('click', function() { closeModal('imgOverlay'); });
+  document.getElementById('mobMenuBtn').addEventListener('click', openMobileSidebar);
+  document.getElementById('generateBtn').addEventListener('click', doGenerateImage);
+  document.getElementById('saveKeyBtn').addEventListener('click', saveApiKey);
+  document.getElementById('eyeToggleBtn').addEventListener('click', toggleKeyVisibility);
 
-  /* Close modals on overlay click */
-  ['stgOv','imgOv'].forEach(function(id) {
+  /* Click-outside modals */
+  ['settingsOverlay','imgOverlay'].forEach(function(id) {
     document.getElementById(id).addEventListener('click', function(e) {
-      if (e.target === this) closeOv(id);
+      if (e.target === this) closeModal(id);
     });
   });
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') { closeOv('stgOv'); closeOv('imgOv'); }
+    if (e.key === 'Escape') {
+      closeModal('settingsOverlay');
+      closeModal('imgOverlay');
+    }
   });
 })();
 
-/* ─────────────────────────────────
+/* ═══════════════════════════════════════════════════
    THEME
-───────────────────────────────── */
-function applyTheme(t, save) {
-  theme = t;
+═══════════════════════════════════════════════════ */
+function applyTheme(t, persist) {
+  state.theme = t;
   document.documentElement.setAttribute('data-theme', t);
-  document.querySelectorAll('.t-opt').forEach(function(el) {
+  document.querySelectorAll('.theme-option').forEach(function(el) {
     el.classList.toggle('active', el.dataset.t === t);
   });
-  var light = (t === 'pure-light' || t === 'soft-gray');
-  document.getElementById('hljs-css').href = light
+  var light = (t === 'silver' || t === 'ghost-white');
+  document.getElementById('hljs-theme').href = light
     ? 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css'
-    : 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css';
-  if (save !== false) try { localStorage.setItem('apx_theme', t); } catch(e) {}
+    : 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark-dimmed.min.css';
+  if (persist !== false) {
+    try { localStorage.setItem('apx2_theme', t); } catch(e) {}
+  }
 }
-function setTheme(t) { applyTheme(t); }
 
-/* ─────────────────────────────────
+/* ═══════════════════════════════════════════════════
    MODAL HELPERS
-───────────────────────────────── */
-function openOv(id)  { document.getElementById(id).classList.add('open'); }
-function closeOv(id) { document.getElementById(id).classList.remove('open'); }
+═══════════════════════════════════════════════════ */
+function openModal(id)  { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
-/* ─────────────────────────────────
-   SIDEBAR MOBILE
-───────────────────────────────── */
-function openSb()  {
+/* ═══════════════════════════════════════════════════
+   MOBILE SIDEBAR
+═══════════════════════════════════════════════════ */
+function openMobileSidebar() {
   document.getElementById('sidebar').classList.add('open');
-  document.getElementById('sb-ov').classList.add('open');
+  document.getElementById('sb-mobile-overlay').classList.add('open');
 }
-function closeSb() {
+function closeMobileSidebar() {
   document.getElementById('sidebar').classList.remove('open');
-  document.getElementById('sb-ov').classList.remove('open');
+  document.getElementById('sb-mobile-overlay').classList.remove('open');
 }
 
-/* ─────────────────────────────────
+/* ═══════════════════════════════════════════════════
    CHAT MANAGEMENT
-───────────────────────────────── */
-function uid() { return 'c' + Date.now() + Math.random().toString(36).slice(2,6); }
-function save() { try { localStorage.setItem('apx_chats', JSON.stringify(chats)); } catch(e) {} }
+═══════════════════════════════════════════════════ */
+function genId() { return 'ch' + Date.now() + Math.random().toString(36).slice(2,6); }
 
-function newChat() {
-  var id = uid();
-  chats[id] = { title: 'New Chat', msgs: [] };
-  cid = id;
-  save(); renderHist(); renderMsgs(); closeSb();
+function persistChats() {
+  try { localStorage.setItem('apx2_chats', JSON.stringify(state.chats)); } catch(e) {}
 }
 
-function loadChat(id) { cid = id; renderHist(); renderMsgs(); closeSb(); }
+function startNewChat() {
+  var id = genId();
+  state.chats[id] = { title: 'New Chat', messages: [] };
+  state.currentId = id;
+  persistChats();
+  renderHistory();
+  renderMessages();
+  closeMobileSidebar();
+}
 
-function delChat(id, e) {
+function switchToChat(id) {
+  state.currentId = id;
+  renderHistory();
+  renderMessages();
+  closeMobileSidebar();
+}
+
+function deleteChat(id, e) {
   e.stopPropagation();
-  delete chats[id];
-  if (cid === id) { cid = null; renderMsgs(); }
-  save(); renderHist();
+  delete state.chats[id];
+  if (state.currentId === id) {
+    state.currentId = null;
+    renderMessages();
+  }
+  persistChats();
+  renderHistory();
 }
 
-function renderHist() {
-  var el   = document.getElementById('hist');
-  var keys = Object.keys(chats).reverse();
-  if (!keys.length) { el.innerHTML = '<div class="hist-empty">No chats yet</div>'; return; }
+function renderHistory() {
+  var el   = document.getElementById('hist-list');
+  var keys = Object.keys(state.chats).reverse();
+  if (!keys.length) {
+    el.innerHTML = '<div class="hist-empty">No history yet</div>';
+    return;
+  }
   el.innerHTML = '';
   keys.forEach(function(id) {
-    var c  = chats[id];
-    var d  = document.createElement('div');
-    d.className = 'h-item' + (id === cid ? ' active' : '');
-    d.setAttribute('role','listitem');
-    d.innerHTML =
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">' +
+    var chat = state.chats[id];
+    var item = document.createElement('div');
+    item.className = 'hist-item' + (id === state.currentId ? ' active' : '');
+    item.setAttribute('role','listitem');
+    item.innerHTML =
+      '<svg class="hist-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">' +
         '<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>' +
       '</svg>' +
-      '<span class="h-lbl">' + esc(c.title) + '</span>' +
-      '<button class="h-del" title="Delete chat" aria-label="Delete chat">✕</button>';
-    d.querySelector('.h-del').addEventListener('click', function(e) { delChat(id, e); });
-    d.addEventListener('click', function() { loadChat(id); });
-    el.appendChild(d);
+      '<span class="hist-lbl">' + esc(chat.title) + '</span>' +
+      '<button class="hist-del" title="Delete" aria-label="Delete chat">✕</button>';
+    item.querySelector('.hist-del').addEventListener('click', function(e) { deleteChat(id, e); });
+    item.addEventListener('click', function() { switchToChat(id); });
+    el.appendChild(item);
   });
 }
 
-/* ─────────────────────────────────
+/* ═══════════════════════════════════════════════════
    RENDER MESSAGES
-───────────────────────────────── */
-function renderMsgs() {
-  var inner   = document.getElementById('msgs-inner');
-  var welcome = document.getElementById('welcome');
-  var title   = document.getElementById('tbTitle');
+═══════════════════════════════════════════════════ */
+function renderMessages() {
+  var inner   = document.getElementById('messages-inner');
+  var welcome = document.getElementById('welcome-screen');
+  var title   = document.getElementById('chat-title');
 
-  if (!cid || !chats[cid] || !chats[cid].msgs.length) {
+  if (!state.currentId || !state.chats[state.currentId] || !state.chats[state.currentId].messages.length) {
     inner.innerHTML = '';
     welcome.style.display = 'flex';
     inner.appendChild(welcome);
-    title.textContent = (cid && chats[cid]) ? chats[cid].title : 'New Conversation';
+    title.textContent = (state.currentId && state.chats[state.currentId])
+      ? state.chats[state.currentId].title
+      : 'Aperonix AI';
     return;
   }
+
   welcome.style.display = 'none';
-  title.textContent = chats[cid].title;
+  title.textContent = state.chats[state.currentId].title;
   inner.innerHTML = '';
-  chats[cid].msgs.forEach(function(m) { inner.appendChild(mkBubble(m.r, m.t, m.ts)); });
-  scrollBot();
-}
-
-function mkBubble(role, text, time) {
-  var g   = document.createElement('div'); g.className = 'msg-g';
-  var row = document.createElement('div'); row.className = 'msg-r ' + (role === 'u' ? 'u' : 'a');
-  var av  = document.createElement('div'); av.className = 'av '   + (role === 'u' ? 'u' : 'a');
-  av.textContent = role === 'u' ? 'You' : 'AI';
-  var bub = document.createElement('div'); bub.className = 'bub ' + (role === 'u' ? 'u' : 'a');
-  bub.innerHTML = role === 'u' ? esc(text).replace(/\n/g,'<br/>') : parseMD(text);
-  bub.querySelectorAll('pre code').forEach(function(el) {
-    try { hljs.highlightElement(el); } catch(x) {}
+  state.chats[state.currentId].messages.forEach(function(msg) {
+    inner.appendChild(buildBubble(msg.role, msg.text, msg.time));
   });
-  row.appendChild(av); row.appendChild(bub);
-  var meta = document.createElement('div'); meta.className = 'msg-meta';
-  meta.style.cssText = role === 'u'
-    ? 'text-align:right;padding-right:36px'
-    : 'padding-left:36px';
-  meta.textContent = time || '';
-  g.appendChild(row); g.appendChild(meta);
-  return g;
+  scrollToBottom();
 }
 
-function mkError(title, detail) {
+function buildBubble(role, text, time) {
+  var group = document.createElement('div');
+  group.className = 'msg-group';
+
+  var row = document.createElement('div');
+  row.className = 'msg-row ' + (role === 'user' ? 'user' : 'ai');
+
+  var av = document.createElement('div');
+  av.className = 'avatar ' + (role === 'user' ? 'user' : 'ai');
+  av.textContent = role === 'user' ? 'YOU' : 'AI';
+
+  var bub = document.createElement('div');
+  bub.className = 'bubble ' + (role === 'user' ? 'user' : 'ai');
+  bub.innerHTML = role === 'user'
+    ? esc(text).replace(/\n/g, '<br/>')
+    : renderMarkdown(text);
+
+  /* Syntax highlight all code blocks */
+  bub.querySelectorAll('pre code').forEach(function(el) {
+    try { hljs.highlightElement(el); } catch(ex) {}
+  });
+
+  row.appendChild(av);
+  row.appendChild(bub);
+
+  var meta = document.createElement('div');
+  meta.className = 'msg-meta';
+  meta.style.cssText = role === 'user'
+    ? 'text-align:right;padding-right:38px'
+    : 'padding-left:38px';
+  meta.textContent = time || '';
+
+  group.appendChild(row);
+  group.appendChild(meta);
+  return group;
+}
+
+function buildErrorBubble(title, detail) {
   var wrap = document.createElement('div');
-  wrap.className = 'msg-g';
+  wrap.className = 'msg-group';
   wrap.innerHTML =
-    '<div class="err-bub">' +
+    '<div class="error-bubble">' +
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">' +
         '<circle cx="12" cy="12" r="10"/>' +
         '<line x1="12" y1="8" x2="12" y2="12"/>' +
         '<line x1="12" y1="16" x2="12.01" y2="16"/>' +
       '</svg>' +
-      '<div class="err-text">' +
+      '<div class="error-content">' +
         '<strong>' + esc(title) + '</strong>' +
         esc(detail) +
       '</div>' +
@@ -793,409 +1773,464 @@ function mkError(title, detail) {
   return wrap;
 }
 
-function addTyping() {
-  document.getElementById('welcome').style.display = 'none';
-  var inner = document.getElementById('msgs-inner');
-  var r  = document.createElement('div'); r.id = 'typingRow'; r.className = 'typ-r';
-  var av = document.createElement('div'); av.className = 'av a'; av.textContent = 'AI';
-  var b  = document.createElement('div'); b.className = 'typ-b';
-  b.innerHTML = '<span></span><span></span><span></span>';
-  r.appendChild(av); r.appendChild(b);
-  inner.appendChild(r); scrollBot();
+function addTypingIndicator() {
+  document.getElementById('welcome-screen').style.display = 'none';
+  var inner = document.getElementById('messages-inner');
+  var row = document.createElement('div');
+  row.id = 'typingIndicator';
+  row.className = 'typing-row';
+  var av = document.createElement('div'); av.className = 'avatar ai'; av.textContent = 'AI';
+  var bub = document.createElement('div'); bub.className = 'typing-bubble';
+  bub.innerHTML = '<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>';
+  row.appendChild(av); row.appendChild(bub);
+  inner.appendChild(row);
+  scrollToBottom();
 }
 
-function removeTyping() {
-  var el = document.getElementById('typingRow');
+function removeTypingIndicator() {
+  var el = document.getElementById('typingIndicator');
   if (el) el.remove();
 }
 
-function scrollBot() {
-  var el = document.getElementById('msgs');
-  el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
+function scrollToBottom() {
+  var c = document.getElementById('messages-container');
+  c.scrollTo({ top: c.scrollHeight, behavior: 'smooth' });
 }
 
-/* ─────────────────────────────────
-   MARKDOWN PARSER
-───────────────────────────────── */
-function parseMD(raw) {
+/* ═══════════════════════════════════════════════════
+   MARKDOWN RENDERER
+═══════════════════════════════════════════════════ */
+function renderMarkdown(raw) {
   var t = String(raw);
-  /* fenced code blocks */
+
+  /* Fenced code blocks */
   t = t.replace(/```(\w+)?\n?([\s\S]*?)```/g, function(_, lang, code) {
-    var l  = (lang || 'plaintext').toLowerCase();
-    var id = 'cx' + Math.random().toString(36).slice(2,9);
-    return '<pre><div class="c-bar">' +
-           '<span class="c-lang">' + l + '</span>' +
-           '<button class="c-cp" onclick="cpCode(\'' + id + '\')">Copy</button>' +
+    var l  = (lang || 'text').toLowerCase();
+    var id = 'code_' + Math.random().toString(36).slice(2, 9);
+    return '<pre><div class="code-header">' +
+           '<span class="code-lang">' + l + '</span>' +
+           '<button class="copy-btn" onclick="copyCode(\'' + id + '\')">Copy</button>' +
            '</div><code id="' + id + '">' + esc(code.trim()) + '</code></pre>';
   });
+
+  /* Inline elements */
   t = t.replace(/`([^`\n]+)`/g, '<code>$1</code>');
+  t = t.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
   t = t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
   t = t.replace(/\*(.+?)\*/g, '<em>$1</em>');
-  t = t.split('\n\n').map(function(p) {
-    if (p.trim().startsWith('<pre>')) return p;
-    if (/^[-*] /m.test(p)) {
-      return '<ul>' + p.trim().split('\n').map(function(l) {
-        return '<li>' + l.replace(/^[-*] /, '') + '</li>';
-      }).join('') + '</ul>';
+  t = t.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+  t = t.replace(/^## (.+)$/gm,  '<h2>$1</h2>');
+  t = t.replace(/^# (.+)$/gm,   '<h1>$1</h1>');
+
+  /* Block elements */
+  var parts = t.split('\n\n');
+  t = parts.map(function(block) {
+    if (/^\s*<(?:pre|ul|ol|h[1-3])/.test(block)) return block;
+    if (/^[-*] /m.test(block)) {
+      return '<ul>' + block.trim().split('\n')
+        .filter(function(l){ return l.trim(); })
+        .map(function(l){ return '<li>' + l.replace(/^[-*] /, '') + '</li>'; })
+        .join('') + '</ul>';
     }
-    if (/^\d+\. /m.test(p)) {
-      return '<ol>' + p.trim().split('\n').map(function(l) {
-        return '<li>' + l.replace(/^\d+\. /, '') + '</li>';
-      }).join('') + '</ol>';
+    if (/^\d+\. /m.test(block)) {
+      return '<ol>' + block.trim().split('\n')
+        .filter(function(l){ return l.trim(); })
+        .map(function(l){ return '<li>' + l.replace(/^\d+\. /, '') + '</li>'; })
+        .join('') + '</ol>';
     }
-    return '<p>' + p.replace(/\n/g,'<br/>') + '</p>';
+    var p = block.replace(/\n/g, '<br/>');
+    return '<p>' + p + '</p>';
   }).join('');
+
   return t;
 }
 
-function cpCode(id) {
+function copyCode(id) {
   var el = document.getElementById(id);
   if (!el) return;
   navigator.clipboard.writeText(el.innerText).then(function() {
-    var btn = el.closest('pre').querySelector('.c-cp');
-    if (btn) { btn.textContent = 'Copied!'; setTimeout(function(){ btn.textContent = 'Copy'; }, 1800); }
+    var btn = el.closest('pre').querySelector('.copy-btn');
+    if (btn) {
+      btn.textContent = 'Copied!';
+      setTimeout(function(){ btn.textContent = 'Copy'; }, 2000);
+    }
   }).catch(function(){});
 }
 
-/* ─────────────────────────────────
-   IDENTITY INTERCEPTORS
-───────────────────────────────── */
-var ID = [
+/* ═══════════════════════════════════════════════════
+   IDENTITY INTERCEPTORS  (pre-API, instant)
+═══════════════════════════════════════════════════ */
+var IDENTITY_RULES = [
   {
-    rx: /who\s+are\s+you|what\s+(?:are|is)\s+you|what.+your\s+name|your\s+name|tum\s+kaun|aap\s+kaun|introduce\s+yourself|tell\s+about\s+yourself|what\s+(?:should|can|do)\s+i\s+call\s+you/i,
-    ans: 'I am Aperonix AI, your intelligent assistant.'
+    pattern: /who\s+are\s+you|what\s+(?:are|is)\s+you|what.+your\s+name|your\s+name|tum\s+kaun|aap\s+kaun|introduce\s+yourself|tell\s+(me\s+)?about\s+yourself|what\s+(?:can|should|do)\s+i\s+call\s+you/i,
+    answer:  'I am Aperonix AI, your intelligent assistant.'
   },
   {
-    rx: /who\s+(?:created|made|built|developed|owns?|founded|designed)\s+you|who\s+is\s+your\s+(?:creator|owner|developer|maker|founder|author)|tumhe\s+kisne\s+banaya|kisne\s+banaya|who\s+is\s+behind|your\s+(?:creator|owner|developer)/i,
-    ans: 'I was developed and founded by Mohammad Khan.'
+    pattern: /who\s+(?:created|made|built|developed|owns?|founded|designed)\s+you|who\s+is\s+your\s+(?:creator|owner|developer|maker|founder|author)|tumhe\s+kisne\s+banaya|kisne\s+banaya|who\s+is\s+behind|your\s+(?:creator|owner|developer|founder)/i,
+    answer:  'I was developed and founded by Mohammad Khan.'
   }
 ];
 
-function checkID(msg) {
-  for (var i = 0; i < ID.length; i++) {
-    if (ID[i].rx.test(msg)) return ID[i].ans;
+function matchIdentity(msg) {
+  for (var i = 0; i < IDENTITY_RULES.length; i++) {
+    if (IDENTITY_RULES[i].pattern.test(msg)) return IDENTITY_RULES[i].answer;
   }
   return null;
 }
 
-/* ─────────────────────────────────
-   SEND  ←  CORE LOGIC
-───────────────────────────────── */
-function nowT() {
+/* ═══════════════════════════════════════════════════
+   SEND MESSAGE  —  CORE FUNCTION
+═══════════════════════════════════════════════════ */
+function ts() {
   return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 }
 
-async function doSend() {
-  if (busy) return;
-  var inp = document.getElementById('inp');
-  var txt = inp.value.trim();
-  if (!txt) return;
+async function sendMessage() {
+  if (state.busy) return;
+  var input = document.getElementById('chat-input');
+  var text  = input.value.trim();
+  if (!text) return;
 
   /* ── Secret admin command ── */
-  if (txt === '/open-admin') {
+  if (text === '/unlock-admin') {
     unlockAdmin();
-    inp.value = ''; inp.style.height = 'auto';
-    document.getElementById('send-btn').disabled = true;
-    openOv('stgOv');
+    input.value = '';
+    input.style.height = 'auto';
+    document.getElementById('send-button').disabled = true;
+    openModal('settingsOverlay');
     return;
   }
 
-  /* ── Ensure active chat ── */
-  if (!cid) {
-    var nid = uid();
-    chats[nid] = { title: txt.slice(0,34) + (txt.length > 34 ? '…' : ''), msgs: [] };
-    cid = nid;
+  /* ── Ensure a chat is active ── */
+  if (!state.currentId) {
+    var newId = genId();
+    state.chats[newId] = {
+      title    : text.slice(0, 36) + (text.length > 36 ? '…' : ''),
+      messages : []
+    };
+    state.currentId = newId;
   }
 
-  busy = true;
-  document.getElementById('send-btn').disabled = true;
-  inp.value = ''; inp.style.height = 'auto';
+  state.busy = true;
+  document.getElementById('send-button').disabled = true;
+  input.value = ''; input.style.height = 'auto';
 
-  /* ── Identity bypass (no API call needed) ── */
-  var identity = checkID(txt);
+  /* ── Check identity bypass ── */
+  var identityAnswer = matchIdentity(text);
 
   /* ── Push user message ── */
-  var chat = chats[cid];
-  var uTime = nowT();
-  chat.msgs.push({ r: 'u', t: txt, ts: uTime });
-  if (chat.msgs.length === 1) {
-    chat.title = txt.slice(0,36) + (txt.length > 36 ? '…' : '');
-    document.getElementById('tbTitle').textContent = chat.title;
+  var chat    = state.chats[state.currentId];
+  var userTs  = ts();
+  chat.messages.push({ role: 'user', text: text, time: userTs });
+
+  /* Set chat title from first message */
+  if (chat.messages.length === 1) {
+    chat.title = text.slice(0, 38) + (text.length > 38 ? '…' : '');
+    document.getElementById('chat-title').textContent = chat.title;
   }
 
   /* ── Show user bubble immediately ── */
-  document.getElementById('welcome').style.display = 'none';
-  var inner = document.getElementById('msgs-inner');
-  inner.appendChild(mkBubble('u', txt, uTime));
-  scrollBot();
+  document.getElementById('welcome-screen').style.display = 'none';
+  var inner = document.getElementById('messages-inner');
+  inner.appendChild(buildBubble('user', text, userTs));
+  scrollToBottom();
 
   /* ── Start logo animation ── */
-  document.getElementById('logoWrap').classList.add('generating');
+  document.getElementById('logoFrame').classList.add('generating-active');
 
   /* ── Show typing dots ── */
-  addTyping();
-  await sleep(400 + rand(400));
+  addTypingIndicator();
+  await sleep(400 + rand(500));
 
-  var reply = '';
+  var aiReply = '';
 
-  if (identity) {
-    /* Identity: answer instantly without API */
-    reply = identity;
-    await sleep(250);
+  if (identityAnswer) {
+    /* Identity answer — no API needed */
+    aiReply = identityAnswer;
+    await sleep(280);
+
   } else {
-    var key = localStorage.getItem('apx_key') || '';
+    var apiKey = localStorage.getItem('apx2_key') || '';
 
-    if (key && key.trim().length > 10) {
-      /* ════════════════════════════════════════════
-         GEMINI v1 API CALL  ←  CORRECT ENDPOINT
-         URL: /v1/models/gemini-1.5-flash:generateContent
-         Payload: { contents: [ {role, parts:[{text}]} ] }
-         NOTE: v1 does NOT support system_instruction.
-               We inject it as the first user turn instead.
-      ════════════════════════════════════════════ */
+    if (apiKey && apiKey.trim().length > 8) {
+      /* ════════════════════════════════════════════════════
+         GEMINI v1beta API CALL
+         Endpoint : /v1beta/models/gemini-1.5-flash:generateContent
+         Payload  : { contents: [{ role, parts:[{ text }] }] }
+         Auth     : ?key=API_KEY as query param
+      ════════════════════════════════════════════════════ */
       try {
-        /* Build the full conversation for the API */
+        /* Build contents array with system priming + conversation history */
         var contents = [];
 
-        /* Inject system context as first user+model exchange */
+        /* System priming as first user/model turn */
         contents.push({
-          role: 'user',
-          parts: [{ text: SYS_MSG + '\n\nAcknowledge that you understand.' }]
+          role : 'user',
+          parts: [{ text: SYSTEM_CONTEXT_USER }]
         });
         contents.push({
-          role: 'model',
-          parts: [{ text: 'Understood. I am Aperonix AI, developed by Mohammad Khan. I am ready to assist you.' }]
+          role : 'model',
+          parts: [{ text: SYSTEM_CONTEXT_MODEL }]
         });
 
-        /* Add prior conversation turns (skip the very last push = current user msg) */
-        var history = chat.msgs.slice(0, -1);
+        /* All previous messages in this chat (excluding the last = current) */
+        var history = chat.messages.slice(0, -1);
         history.forEach(function(m) {
           contents.push({
-            role: m.r === 'u' ? 'user' : 'model',
-            parts: [{ text: m.t }]
+            role : m.role === 'user' ? 'user' : 'model',
+            parts: [{ text: m.text }]
           });
         });
 
-        /* Add current user message */
-        contents.push({ role: 'user', parts: [{ text: txt }] });
+        /* Current user message */
+        contents.push({
+          role : 'user',
+          parts: [{ text: text }]
+        });
 
-        /* ── Correct v1 payload structure ── */
-        var payload = {
-          contents: contents,
-          generationConfig: {
-            temperature: 0.85,
-            topK: 40,
-            topP: 0.95,
+        /* Request body */
+        var requestBody = {
+          contents         : contents,
+          generationConfig : {
+            temperature    : 0.85,
+            topK           : 40,
+            topP           : 0.95,
             maxOutputTokens: 2048,
-            stopSequences: []
+            stopSequences  : []
           }
         };
 
-        /* Fetch with clean API key (trimmed) */
-        var res = await fetch(GEMINI_URL + '?key=' + encodeURIComponent(key.trim()), {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(payload)
-        });
+        /* Fetch */
+        var response = await fetch(
+          API_URL + '?key=' + encodeURIComponent(apiKey.trim()),
+          {
+            method : 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body   : JSON.stringify(requestBody)
+          }
+        );
 
-        var data;
-        try { data = await res.json(); } catch(je) { data = {}; }
+        var responseData;
+        try { responseData = await response.json(); }
+        catch(je) { responseData = {}; }
 
-        if (res.ok) {
-          /* ── Extract text from correct path ── */
-          var cand = data.candidates && data.candidates[0];
-          if (cand && cand.content && cand.content.parts && cand.content.parts.length) {
-            reply = cand.content.parts.map(function(p){ return p.text || ''; }).join('');
-          } else if (cand && cand.finishReason === 'SAFETY') {
-            reply = '⚠️ This response was blocked by safety filters. Please rephrase your question.';
-          } else if (cand && cand.finishReason === 'RECITATION') {
-            reply = '⚠️ Response blocked due to recitation policy. Please try a different question.';
+        if (response.ok) {
+          /* ── Extract text from v1beta response structure ── */
+          var candidate = responseData.candidates && responseData.candidates[0];
+          if (candidate && candidate.content && candidate.content.parts) {
+            aiReply = candidate.content.parts
+              .map(function(p) { return p.text || ''; })
+              .join('');
+          } else if (candidate && candidate.finishReason === 'SAFETY') {
+            aiReply = '⚠️ Response blocked by safety filters. Please rephrase your question.';
           } else {
-            reply = '⚠️ Received an empty or unexpected response. Please try again.';
+            aiReply = '⚠️ Received an unexpected response structure. Please try again.';
           }
         } else {
-          /* ── Structured error display ── */
+          /* ── API returned an error ── */
           var errMsg = 'Unknown error.';
-          if (data && data.error) {
-            errMsg = data.error.message || errMsg;
+          if (responseData.error && responseData.error.message) {
+            errMsg = responseData.error.message;
           }
-          removeTyping();
-          document.getElementById('logoWrap').classList.remove('generating');
-          inner.appendChild(mkError(
-            'API Error ' + res.status,
-            errMsg + (res.status === 400 ? ' — Check your API key and ensure it has Gemini access.' : '')
+
+          /* Stop animation and show error card */
+          document.getElementById('logoFrame').classList.remove('generating-active');
+          removeTypingIndicator();
+
+          inner.appendChild(buildErrorBubble(
+            'API Error ' + response.status,
+            errMsg + (response.status === 400
+              ? ' — Verify your API key has Gemini 1.5 Flash access.'
+              : response.status === 403
+              ? ' — Your API key may be invalid or restricted.'
+              : '')
           ));
-          scrollBot();
-          save(); renderHist();
-          busy = false;
-          document.getElementById('send-btn').disabled = !inp.value.trim();
+          scrollToBottom();
+
+          /* Save user message but not the errored AI turn */
+          persistChats();
+          renderHistory();
+          state.busy = false;
+          document.getElementById('send-button').disabled = !input.value.trim();
           return;
         }
-      } catch(networkErr) {
-        removeTyping();
-        document.getElementById('logoWrap').classList.remove('generating');
-        inner.appendChild(mkError(
+
+      } catch(networkError) {
+        document.getElementById('logoFrame').classList.remove('generating-active');
+        removeTypingIndicator();
+        inner.appendChild(buildErrorBubble(
           'Network Error',
-          'Could not reach the Gemini API. Check your internet connection and try again. (' + networkErr.message + ')'
+          'Could not reach the Gemini API. Check your internet connection. (' + networkError.message + ')'
         ));
-        scrollBot();
-        busy = false;
-        document.getElementById('send-btn').disabled = !inp.value.trim();
+        scrollToBottom();
+        state.busy = false;
+        document.getElementById('send-button').disabled = !input.value.trim();
         return;
       }
+
     } else {
       /* ── No API key: smart fallback responses ── */
-      reply = getFallback(txt);
+      aiReply = getSmartFallback(text);
     }
   }
 
-  /* ── Stop animation & typing ── */
-  document.getElementById('logoWrap').classList.remove('generating');
-  removeTyping();
+  /* ── Stop animation & remove typing ── */
+  document.getElementById('logoFrame').classList.remove('generating-active');
+  removeTypingIndicator();
 
-  /* ── Append AI reply ── */
-  var aTime = nowT();
-  chat.msgs.push({ r: 'a', t: reply, ts: aTime });
-  save();
-  renderHist();
-  inner.appendChild(mkBubble('a', reply, aTime));
-  scrollBot();
+  /* ── Push AI reply ── */
+  var aiTs = ts();
+  chat.messages.push({ role: 'ai', text: aiReply, time: aiTs });
+  persistChats();
+  renderHistory();
 
-  busy = false;
-  document.getElementById('send-btn').disabled = !inp.value.trim();
+  inner.appendChild(buildBubble('ai', aiReply, aiTs));
+  scrollToBottom();
+
+  state.busy = false;
+  document.getElementById('send-button').disabled = !input.value.trim();
 }
 
-/* ─────────────────────────────────
-   FALLBACK (no API key)
-───────────────────────────────── */
-var FB = [
+/* ═══════════════════════════════════════════════════
+   SMART FALLBACK (no API key configured)
+═══════════════════════════════════════════════════ */
+var FALLBACKS = [
   {
-    rx: /python|scraper|beautifulsoup|web.?scraping/i,
-    fn: function() {
-      return 'Here\'s a clean Python web scraper:\n\n```python\nimport requests\nfrom bs4 import BeautifulSoup\n\ndef scrape(url: str) -> dict:\n    headers = {"User-Agent": "Mozilla/5.0"}\n    r = requests.get(url, headers=headers, timeout=10)\n    r.raise_for_status()\n    soup = BeautifulSoup(r.text, "html.parser")\n    return {\n        "title":  soup.title.string if soup.title else None,\n        "h1s":    [h.get_text() for h in soup.find_all("h1")],\n        "links":  [a["href"] for a in soup.find_all("a", href=True)][:10]\n    }\n\nif __name__ == "__main__":\n    print(scrape("https://example.com"))\n```\n\nInstall: `pip install requests beautifulsoup4`';
+    rx : /python|scraper|beautifulsoup|web.?scrap/i,
+    msg: function() {
+      return 'Here\'s a Python web scraper:\n\n```python\nimport requests\nfrom bs4 import BeautifulSoup\n\ndef scrape(url: str) -> dict:\n    headers = {"User-Agent": "Mozilla/5.0"}\n    r = requests.get(url, headers=headers, timeout=10)\n    r.raise_for_status()\n    soup = BeautifulSoup(r.text, "html.parser")\n    return {\n        "title": soup.title.string if soup.title else None,\n        "h1s"  : [h.get_text() for h in soup.find_all("h1")],\n        "links": [a["href"] for a in soup.find_all("a", href=True)][:10]\n    }\n\nif __name__ == "__main__":\n    print(scrape("https://example.com"))\n```\n\nInstall: `pip install requests beautifulsoup4`';
     }
   },
   {
-    rx: /javascript|debug|error|bug|console/i,
-    fn: function() {
-      return 'Essential JavaScript debugging:\n\n```javascript\n// Structured logging\nconsole.log("%c[Debug]", "color:#0af", { value, context });\nconsole.table(myArray);\n\n// Safe async\nasync function safeFetch(url) {\n  try {\n    const res = await fetch(url);\n    if (!res.ok) throw new Error(`HTTP ${res.status}`);\n    return await res.json();\n  } catch (err) {\n    console.error("[Error]", err.message);\n    throw err;\n  }\n}\n\n// Optional chaining\nconst city = user?.address?.city ?? "Unknown";\n```';
+    rx : /javascript|js\s|debug|console\.log|bug|error/i,
+    msg: function() {
+      return 'JavaScript debugging patterns:\n\n```javascript\n// Structured logging\nconsole.log("%c[Debug]", "color:#4af", { data });\nconsole.table(myArray);\nconsole.trace("Call stack here");\n\n// Safe async/await\nasync function safeFetch(url) {\n  try {\n    const res = await fetch(url);\n    if (!res.ok) throw new Error(`HTTP ${res.status}`);\n    return await res.json();\n  } catch (err) {\n    console.error("[safeFetch Error]", err.message);\n    throw err;\n  }\n}\n\n// Optional chaining\nconst city = user?.address?.city ?? "Unknown";\n```';
     }
   },
   {
-    rx: /neural|machine.?learning|deep.?learning|ai.?model/i,
-    fn: function() {
-      return '**Neural Networks** — computing systems modelled on biological brains.\n\n**Core concepts:**\n\n- **Neurons** — weighted inputs passed through activation functions\n- **Layers** — input → hidden → output\n- **Backpropagation** — gradient-based weight updates\n- **Activations** — ReLU, Sigmoid, Softmax, GeLU\n\n**Modern architectures:** Transformers (GPT, BERT), CNNs (vision), RNNs (sequences)\n\n**Frameworks:** PyTorch · TensorFlow · JAX\n\nWant a specific code example?';
+    rx : /neural.?net|machine.?learn|deep.?learn|ai.?model|transformer/i,
+    msg: function() {
+      return '**Neural Networks** are systems modelled on biological brains.\n\n**Core concepts:**\n\n- **Neurons** — weighted inputs through activation functions\n- **Layers** — input → hidden → output\n- **Backpropagation** — gradient-based weight updates via chain rule\n- **Activations** — ReLU, GeLU, Sigmoid, Softmax\n\n**Modern landscape:**\n- **Transformers** — dominate NLP (GPT, BERT, Gemini)\n- **CNNs** — excel at computer vision\n- **Diffusion models** — power image generation\n\n**Frameworks:** PyTorch · TensorFlow · JAX';
     }
   },
   {
-    rx: /rest.?api|endpoint|openapi|http.?method/i,
-    fn: function() {
-      return 'Clean REST API design:\n\n```\nGET    /v1/users         → List\nPOST   /v1/users         → Create\nGET    /v1/users/{id}    → Read\nPATCH  /v1/users/{id}    → Partial update\nDELETE /v1/users/{id}    → Delete\n```\n\n**Rules:** Plural nouns · PATCH partial / PUT full · Consistent errors:\n`{ "error": { "code": 404, "message": "Not found" } }` · Versioning via `/v1/`';
+    rx : /rest.?api|endpoint|openapi|swagger|http.?method/i,
+    msg: function() {
+      return '**REST API design:**\n\n```\nGET    /v1/resources          → List all\nPOST   /v1/resources          → Create\nGET    /v1/resources/{id}     → Read one\nPATCH  /v1/resources/{id}     → Partial update\nPUT    /v1/resources/{id}     → Full replace\nDELETE /v1/resources/{id}     → Delete\n```\n\n**Best practices:**\n- Plural noun resource names\n- Version via URL prefix: `/v1/`\n- PATCH for partial, PUT for full replacement\n- Consistent error envelope: `{ "error": { "code": 404, "message": "Not found" } }`\n- Return 201 on create, 204 on delete';
     }
   },
   {
-    rx: /email|draft|write\s+(?:a|an|the|my)/i,
-    fn: function() {
-      return 'Professional email template:\n\n---\n\n**Subject:** [Specific, action-oriented subject]\n\nHi [Name],\n\nI hope this message finds you well.\n\n[Opening — state your purpose in one sentence.]\n\n[Body — 2–3 short paragraphs with details, context, or requests.]\n\n[Closing — clear call to action and next steps.]\n\nBest regards,\n[Your Name]\n[Title · Company · Contact]\n\n---\n\nShare your specific context and I\'ll write the full email for you.';
+    rx : /email|draft|write\s+(?:a|an|the)/i,
+    msg: function() {
+      return '**Professional email template:**\n\n---\n\n**Subject:** [Specific, action-oriented subject line]\n\nHi [Name],\n\nI hope this finds you well.\n\n[Opening — state purpose in one sentence.]\n\n[Body — 2–3 concise paragraphs. Use bullet points for lists.]\n\n[Closing — clear next steps or call to action.]\n\nBest regards,\n[Your Name]\n[Title · Company · Contact]\n\n---\n\nShare your context and I\'ll write the complete email for you.';
     }
   },
   {
-    rx: /.*/,
-    fn: function(q) {
-      if (!q || q.length < 6) return 'Could you give me a bit more context? I want to give you the most useful answer.';
-      return 'I\'ve received your message about **"' + q.slice(0,55) + (q.length > 55 ? '…' : '') + '"**.\n\n' +
-             'To unlock full AI-powered responses, add your **Gemini API key** in Settings.\n\n' +
-             '**How to get your free key:**\n1. Go to [aistudio.google.com/app/apikey](https://aistudio.google.com)\n2. Sign in with Google\n3. Click "Create API Key"\n4. Type `/open-admin` in the chat → paste your key in Settings\n\nIn the meantime, I can help with: code, writing, API design, debugging, and more.';
+    rx : /.*/,
+    msg: function(q) {
+      if (!q || q.length < 5) return 'Please give me a bit more context so I can help you better.';
+      return 'I\'ve received your message about **"' + q.slice(0, 60) + (q.length > 60 ? '…' : '') + '"**.\n\n' +
+             'To get full AI-powered responses from Gemini 1.5 Flash:\n\n' +
+             '1. Type `/unlock-admin` in the chat input\n' +
+             '2. Paste your Gemini API key in Settings\n' +
+             '3. Get a free key at `aistudio.google.com/app/apikey`\n\n' +
+             'I can help with code, writing, API design, debugging, and much more.';
     }
   }
 ];
 
-function getFallback(q) {
-  for (var i = 0; i < FB.length; i++) {
-    if (FB[i].rx.test(q)) return FB[i].fn(q);
+function getSmartFallback(q) {
+  for (var i = 0; i < FALLBACKS.length; i++) {
+    if (FALLBACKS[i].rx.test(q)) return FALLBACKS[i].msg(q);
   }
-  return FB[FB.length-1].fn(q);
+  return FALLBACKS[FALLBACKS.length - 1].msg(q);
 }
 
-/* ─────────────────────────────────
-   INPUT HELPERS
-───────────────────────────────── */
-function onInpChange() {
-  var inp = document.getElementById('inp');
+/* ═══════════════════════════════════════════════════
+   INPUT AUTO-RESIZE
+═══════════════════════════════════════════════════ */
+function onInputChange() {
+  var inp = document.getElementById('chat-input');
   inp.style.height = 'auto';
   inp.style.height = Math.min(inp.scrollHeight, 150) + 'px';
-  document.getElementById('send-btn').disabled = !inp.value.trim();
+  document.getElementById('send-button').disabled = !inp.value.trim();
 }
 
-function useChip(el) {
-  var inp = document.getElementById('inp');
+function usePrompt(el) {
+  var inp = document.getElementById('chat-input');
   inp.value = el.textContent.trim();
   inp.dispatchEvent(new Event('input'));
   inp.focus();
 }
 
-/* ─────────────────────────────────
-   ADMIN + API KEY
-───────────────────────────────── */
-function showApiZone() { document.getElementById('api-zone').classList.add('show'); }
+/* ═══════════════════════════════════════════════════
+   ADMIN / API KEY
+═══════════════════════════════════════════════════ */
+function revealApiZone() {
+  document.getElementById('api-key-zone').classList.add('visible');
+}
 
 function unlockAdmin() {
-  if (admin) return;
-  admin = true;
-  try { localStorage.setItem('apx_admin','1'); } catch(e) {}
-  showApiZone();
+  if (state.admin) return;
+  state.admin = true;
+  try { localStorage.setItem('apx2_admin', '1'); } catch(e) {}
+  revealApiZone();
 }
 
-function saveKey() {
-  var v = document.getElementById('apiKey').value.trim();
-  try { localStorage.setItem('apx_key', v); } catch(e) {}
+function saveApiKey() {
+  var val = document.getElementById('apiKeyInput').value.trim();
+  try { localStorage.setItem('apx2_key', val); } catch(e) {}
   var btn = document.getElementById('saveKeyBtn');
-  btn.textContent = '✓ Key Saved';
-  setTimeout(function(){ btn.textContent = 'Save API Key'; }, 2200);
+  btn.textContent = '✓  Key Saved';
+  setTimeout(function() { btn.textContent = 'Save API Key'; }, 2400);
 }
 
-function toggleEye() {
-  eyeOn = !eyeOn;
-  document.getElementById('apiKey').type = eyeOn ? 'text' : 'password';
+function toggleKeyVisibility() {
+  state.eyeVisible = !state.eyeVisible;
+  document.getElementById('apiKeyInput').type = state.eyeVisible ? 'text' : 'password';
 }
 
-/* ─────────────────────────────────
+/* ═══════════════════════════════════════════════════
    IMAGE MODAL
-───────────────────────────────── */
-function pickSt(el) {
-  document.querySelectorAll('.st').forEach(function(c){ c.classList.remove('on'); });
-  el.classList.add('on');
+═══════════════════════════════════════════════════ */
+function pickStyle(el) {
+  document.querySelectorAll('.style-chip').forEach(function(c) {
+    c.classList.remove('selected');
+  });
+  el.classList.add('selected');
 }
 
-function doGenImg() {
-  var p = document.getElementById('imgPrompt').value.trim();
-  if (!p) { document.getElementById('imgPrompt').focus(); return; }
-  var box = document.getElementById('prevBox');
-  box.classList.add('shim-on');
-  document.getElementById('prevIco').style.display = 'none';
-  document.getElementById('prevTxt').textContent = 'Generating…';
+function doGenerateImage() {
+  var prompt = document.getElementById('imgPromptInput').value.trim();
+  if (!prompt) { document.getElementById('imgPromptInput').focus(); return; }
+
+  var frame = document.getElementById('previewFrame');
+  frame.classList.add('shimming');
+  document.getElementById('previewIcon').style.display = 'none';
+  document.getElementById('previewText').textContent = 'Generating…';
+
   setTimeout(function() {
-    box.classList.remove('shim-on');
-    document.getElementById('prevTxt').innerHTML =
-      '<span style="font-family:\'Fira Code\',monospace;font-size:10px;letter-spacing:.02em;' +
-      'opacity:.55;padding:18px;text-align:center;line-height:1.9;text-transform:none;">' +
-      '✦ Connect a Gemini Imagen or DALL·E API key<br/>to enable real image generation.</span>';
-  }, 2600);
+    frame.classList.remove('shimming');
+    document.getElementById('previewText').innerHTML =
+      '<span style="font-family:\'JetBrains Mono\',monospace;font-size:9.5px;' +
+      'letter-spacing:.06em;opacity:.5;padding:20px;text-align:center;' +
+      'line-height:2;text-transform:uppercase;">' +
+      '✦ Image generation requires<br/>Gemini Imagen or DALL·E API key.<br/>' +
+      'Connect an image model to enable.</span>';
+  }, 2800);
 }
 
-/* ─────────────────────────────────
-   UTILS
-───────────────────────────────── */
+/* ═══════════════════════════════════════════════════
+   UTILITIES
+═══════════════════════════════════════════════════ */
 function esc(s) {
   return String(s)
-    .replace(/&/g,'&amp;')
-    .replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;');
+    .replace(/&/g,  '&amp;')
+    .replace(/</g,  '&lt;')
+    .replace(/>/g,  '&gt;')
+    .replace(/"/g,  '&quot;');
 }
-function sleep(ms) { return new Promise(function(r){ setTimeout(r, ms); }); }
+function sleep(ms) { return new Promise(function(r) { setTimeout(r, ms); }); }
 function rand(n)   { return Math.floor(Math.random() * n); }
 </script>
 
