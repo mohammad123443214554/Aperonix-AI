@@ -1,73 +1,66 @@
-// api/chat.js — Vercel Serverless Function for Aperonix AI
+// api/chat.js — Vercel Serverless Function (Placeholder)
+// 📌 Connect your AI model here (e.g., OpenAI, Anthropic, Gemini, etc.)
 
-const systemPrompt = require("../systemPrompt");
+const { SYSTEM_PROMPT } = require("../systemPrompt.js");
 
-export default async function handler(req, res) {
-  // Allow CORS
+module.exports = async (req, res) => {
+  // Allow CORS for local development and Vercel deployments
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  // Handle preflight
+  // Handle preflight OPTIONS request
   if (req.method === "OPTIONS") {
     return res.status(200).end();
   }
 
-  // Only allow POST
+  // Only allow POST requests
   if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
+    return res.status(405).json({ error: "Method not allowed. Use POST." });
   }
 
   try {
-    const { message, history } = req.body;
+    const { message, history = [] } = req.body;
 
-    if (!message || typeof message !== "string") {
-      return res.status(400).json({ error: "Invalid message" });
+    // Validate input
+    if (!message || typeof message !== "string" || message.trim() === "") {
+      return res.status(400).json({ error: "Message is required." });
     }
 
-    // Build messages array for Anthropic API
-    const messages = [];
+    // ---------------------------------------------------------------
+    // 🔌 PLACEHOLDER — Replace this block with your real AI model call
+    // ---------------------------------------------------------------
+    // Example with OpenAI (commented out):
+    //
+    // const { OpenAI } = require("openai");
+    // const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+    //
+    // const completion = await openai.chat.completions.create({
+    //   model: "gpt-4o",
+    //   messages: [
+    //     { role: "system", content: SYSTEM_PROMPT },
+    //     ...history,
+    //     { role: "user", content: message }
+    //   ],
+    // });
+    //
+    // const reply = completion.choices[0].message.content;
+    // ---------------------------------------------------------------
 
-    // Include conversation history if provided
-    if (Array.isArray(history)) {
-      history.forEach((msg) => {
-        if (msg.role && msg.content) {
-          messages.push({ role: msg.role, content: msg.content });
-        }
-      });
-    }
+    // Placeholder response — remove this once AI is connected
+    const reply =
+      `⚠️ Placeholder Response: This is Aperonix AI, created by Kadir Khan.\n\n` +
+      `You said: "${message}"\n\n` +
+      `The AI brain is not yet connected. To enable real intelligence, open ` +
+      `/api/chat.js and connect your preferred AI model (OpenAI, Anthropic, Gemini, etc.).`;
 
-    // Add the latest user message
-    messages.push({ role: "user", content: message });
-
-    // Call Anthropic Claude API
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": process.env.ANTHROPIC_API_KEY,
-        "anthropic-version": "2023-06-01",
-      },
-      body: JSON.stringify({
-        model: "claude-opus-4-5",
-        max_tokens: 1024,
-        system: systemPrompt,
-        messages: messages,
-      }),
-    });
-
-    if (!response.ok) {
-      const errData = await response.json();
-      console.error("Anthropic API error:", errData);
-      return res.status(500).json({ error: "AI service error. Please try again." });
-    }
-
-    const data = await response.json();
-    const reply = data.content?.[0]?.text || "I'm sorry, I couldn't generate a response.";
-
+    // Return the AI reply
     return res.status(200).json({ reply });
+
   } catch (error) {
-    console.error("Server error:", error);
-    return res.status(500).json({ error: "Internal server error. Please try again." });
+    console.error("Aperonix API Error:", error);
+    return res.status(500).json({
+      error: "Internal server error. Please try again later.",
+    });
   }
-}
+};
