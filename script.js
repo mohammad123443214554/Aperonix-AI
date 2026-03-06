@@ -1,210 +1,193 @@
 // script.js — Aperonix AI Frontend Logic
 
-const chatMessages = document.getElementById("chatMessages");
-const userInput = document.getElementById("userInput");
-const sendBtn = document.getElementById("sendBtn");
-const newChatBtn = document.getElementById("newChatBtn");
+document.addEventListener("DOMContentLoaded", () => {
+  const chatMessages = document.getElementById("chat-messages");
+  const userInput = document.getElementById("user-input");
+  const sendBtn = document.getElementById("send-btn");
+  const clearBtn = document.getElementById("clear-btn");
+  const charCount = document.getElementById("char-count");
 
-// Conversation history for context
-let conversationHistory = [];
+  const MAX_CHARS = 2000;
 
-// Auto-resize textarea
-userInput.addEventListener("input", () => {
-  userInput.style.height = "auto";
-  userInput.style.height = Math.min(userInput.scrollHeight, 160) + "px";
-});
-
-// Send on Enter (Shift+Enter for newline)
-userInput.addEventListener("keydown", (e) => {
-  if (e.key === "Enter" && !e.shiftKey) {
-    e.preventDefault();
-    sendMessage();
-  }
-});
-
-sendBtn.addEventListener("click", sendMessage);
-newChatBtn.addEventListener("click", startNewChat);
-
-function sendMessage() {
-  const text = userInput.value.trim();
-  if (!text) return;
-
-  // Hide welcome screen
-  document.getElementById("welcomeScreen").style.display = "none";
-  chatMessages.style.display = "flex";
-
-  appendMessage("user", text);
-  conversationHistory.push({ role: "user", content: text });
-
-  userInput.value = "";
-  userInput.style.height = "auto";
-  setInputEnabled(false);
-
-  const typingId = showTypingIndicator();
-
-  fetchAIResponse(text)
-    .then((reply) => {
-      removeTypingIndicator(typingId);
-      appendMessage("assistant", reply);
-      conversationHistory.push({ role: "assistant", content: reply });
-    })
-    .catch((err) => {
-      removeTypingIndicator(typingId);
-      appendMessage("assistant", "⚠️ Something went wrong. Please try again.");
-      console.error(err);
-    })
-    .finally(() => {
-      setInputEnabled(true);
-      userInput.focus();
+  // ── On load: restore chat history ──────────────────────────────────────────
+  const savedHistory = Memory.load();
+  if (savedHistory.length > 0) {
+    savedHistory.forEach(({ role, content }) => {
+      appendMessage(role === "user" ? "user" : "ai", content, false);
     });
-}
-
-async function fetchAIResponse(message) {
-  const response = await fetch("/api/chat", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      message,
-      history: conversationHistory.slice(-10), // send last 10 turns for context
-    }),
-  });
-
-  if (!response.ok) {
-    const data = await response.json();
-    throw new Error(data.error || "API error");
-  }
-
-  const data = await response.json();
-  return data.reply;
-}
-
-function appendMessage(role, text) {
-  const wrapper = document.createElement("div");
-  wrapper.classList.add("message-wrapper", role === "user" ? "user-wrapper" : "ai-wrapper");
-
-  const bubble = document.createElement("div");
-  bubble.classList.add("message-bubble", role === "user" ? "user-bubble" : "ai-bubble");
-
-  if (role === "assistant") {
-    bubble.innerHTML = formatMarkdown(text);
+    scrollToBottom();
   } else {
-    bubble.textContent = text;
+    showWelcome();
   }
 
-  // Add avatar for AI
-  if (role === "assistant") {
-    const avatar = document.createElement("div");
-    avatar.classList.add("ai-avatar");
-    avatar.innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="12" cy="12" r="10" fill="url(#grad)"/>
-      <defs><linearGradient id="grad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#6366f1"/><stop offset="1" stop-color="#06b6d4"/>
-      </linearGradient></defs>
-      <path d="M8 12h8M12 8v8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-    </svg>`;
-    wrapper.appendChild(avatar);
-  }
-
-  wrapper.appendChild(bubble);
-  chatMessages.appendChild(wrapper);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-
-  // Animate in
-  requestAnimationFrame(() => {
-    bubble.classList.add("visible");
+  // ── Input character counter ─────────────────────────────────────────────────
+  userInput.addEventListener("input", () => {
+    const len = userInput.value.length;
+    charCount.textContent = `${len} / ${MAX_CHARS}`;
+    charCount.style.color = len > MAX_CHARS * 0.9 ? "var(--accent-warn)" : "var(--text-muted)";
+    sendBtn.disabled = len === 0 || len > MAX_CHARS;
   });
-}
 
-function showTypingIndicator() {
-  const id = "typing-" + Date.now();
-  const wrapper = document.createElement("div");
-  wrapper.classList.add("message-wrapper", "ai-wrapper");
-  wrapper.id = id;
+  // ── Send on Enter (Shift+Enter = newline) ───────────────────────────────────
+  userInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
+  });
 
-  const avatar = document.createElement("div");
-  avatar.classList.add("ai-avatar");
-  avatar.innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="12" cy="12" r="10" fill="url(#grad2)"/>
-    <defs><linearGradient id="grad2" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#6366f1"/><stop offset="1" stop-color="#06b6d4"/>
-    </linearGradient></defs>
-    <path d="M8 12h8M12 8v8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-  </svg>`;
+  sendBtn.addEventListener("click", handleSend);
+  clearBtn.addEventListener("click", handleClear);
 
-  const bubble = document.createElement("div");
-  bubble.classList.add("message-bubble", "ai-bubble", "typing-bubble", "visible");
-  bubble.innerHTML = `<span class="dot"></span><span class="dot"></span><span class="dot"></span>`;
+  // ── Core send handler ───────────────────────────────────────────────────────
+  async function handleSend() {
+    const text = userInput.value.trim();
+    if (!text || text.length > MAX_CHARS) return;
 
-  wrapper.appendChild(avatar);
-  wrapper.appendChild(bubble);
-  chatMessages.appendChild(wrapper);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
+    // Remove welcome screen if present
+    const welcome = document.getElementById("welcome-screen");
+    if (welcome) welcome.remove();
 
-  return id;
-}
+    // Display user message
+    appendMessage("user", text);
+    Memory.save("user", text);
 
-function removeTypingIndicator(id) {
-  const el = document.getElementById(id);
-  if (el) el.remove();
-}
+    // Clear input
+    userInput.value = "";
+    charCount.textContent = `0 / ${MAX_CHARS}`;
+    sendBtn.disabled = true;
+    userInput.style.height = "auto";
 
-function setInputEnabled(enabled) {
-  userInput.disabled = !enabled;
-  sendBtn.disabled = !enabled;
-  sendBtn.style.opacity = enabled ? "1" : "0.5";
-}
+    // Show loading indicator
+    const loaderId = showLoader();
 
-function startNewChat() {
-  conversationHistory = [];
-  chatMessages.innerHTML = "";
-  chatMessages.style.display = "none";
-  document.getElementById("welcomeScreen").style.display = "flex";
-  userInput.value = "";
-  userInput.style.height = "auto";
-  userInput.focus();
-}
+    try {
+      const history = Memory.getForAPI();
 
-// Basic markdown formatter
-function formatMarkdown(text) {
-  return text
-    // Code blocks
-    .replace(/```(\w+)?\n?([\s\S]*?)```/g, (_, lang, code) => {
-      return `<pre><code class="lang-${lang || 'text'}">${escapeHtml(code.trim())}</code></pre>`;
-    })
-    // Inline code
-    .replace(/`([^`]+)`/g, "<code>$1</code>")
-    // Bold
-    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-    // Italic
-    .replace(/\*(.*?)\*/g, "<em>$1</em>")
-    // Headings
-    .replace(/^### (.+)$/gm, "<h3>$1</h3>")
-    .replace(/^## (.+)$/gm, "<h2>$1</h2>")
-    .replace(/^# (.+)$/gm, "<h1>$1</h1>")
-    // Unordered lists
-    .replace(/^\s*[-*] (.+)$/gm, "<li>$1</li>")
-    .replace(/(<li>.*<\/li>\n?)+/g, "<ul>$&</ul>")
-    // Numbered lists
-    .replace(/^\d+\. (.+)$/gm, "<li>$1</li>")
-    // Line breaks
-    .replace(/\n\n/g, "</p><p>")
-    .replace(/\n/g, "<br>")
-    // Wrap in paragraph
-    .replace(/^(?!<[hupol]|<pre)(.+)$/gm, (m) => m.startsWith("<") ? m : m);
-}
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text, history }),
+      });
 
-function escapeHtml(text) {
-  return text
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-}
+      const data = await response.json();
 
-// Suggestion chips
-document.querySelectorAll(".suggestion-chip").forEach((chip) => {
-  chip.addEventListener("click", () => {
-    userInput.value = chip.dataset.prompt;
-    userInput.focus();
-    sendMessage();
+      removeLoader(loaderId);
+
+      if (!response.ok) {
+        appendMessage("ai", `❌ Error: ${data.error || "Something went wrong. Please try again."}`, true);
+        return;
+      }
+
+      appendMessage("ai", data.reply);
+      Memory.save("assistant", data.reply);
+
+    } catch (err) {
+      removeLoader(loaderId);
+      appendMessage("ai", "❌ Network error. Please check your connection and try again.", true);
+      console.error("Aperonix fetch error:", err);
+    }
+
+    scrollToBottom();
+  }
+
+  // ── Clear chat ──────────────────────────────────────────────────────────────
+  function handleClear() {
+    if (!confirm("Clear all chat history?")) return;
+    Memory.clear();
+    chatMessages.innerHTML = "";
+    showWelcome();
+  }
+
+  // ── Append a message bubble ─────────────────────────────────────────────────
+  function appendMessage(role, text, isError = false) {
+    const wrapper = document.createElement("div");
+    wrapper.classList.add("message-wrapper", role === "user" ? "user-wrapper" : "ai-wrapper");
+
+    const bubble = document.createElement("div");
+    bubble.classList.add("message-bubble", role === "user" ? "user-bubble" : "ai-bubble");
+    if (isError) bubble.classList.add("error-bubble");
+
+    // Render line breaks and basic markdown-ish formatting
+    bubble.innerHTML = formatText(text);
+
+    // Timestamp
+    const time = document.createElement("span");
+    time.classList.add("message-time");
+    time.textContent = getTime();
+
+    wrapper.appendChild(bubble);
+    wrapper.appendChild(time);
+    chatMessages.appendChild(wrapper);
+
+    // Animate in
+    requestAnimationFrame(() => bubble.classList.add("visible"));
+
+    scrollToBottom();
+  }
+
+  // ── Loading dots ────────────────────────────────────────────────────────────
+  function showLoader() {
+    const id = "loader-" + Date.now();
+    const wrapper = document.createElement("div");
+    wrapper.classList.add("message-wrapper", "ai-wrapper");
+    wrapper.id = id;
+
+    const bubble = document.createElement("div");
+    bubble.classList.add("message-bubble", "ai-bubble", "loader-bubble", "visible");
+    bubble.innerHTML = `<span class="dot"></span><span class="dot"></span><span class="dot"></span>`;
+
+    wrapper.appendChild(bubble);
+    chatMessages.appendChild(wrapper);
+    scrollToBottom();
+    return id;
+  }
+
+  function removeLoader(id) {
+    const el = document.getElementById(id);
+    if (el) el.remove();
+  }
+
+  // ── Welcome screen ──────────────────────────────────────────────────────────
+  function showWelcome() {
+    const div = document.createElement("div");
+    div.id = "welcome-screen";
+    div.innerHTML = `
+      <div class="welcome-icon">✦</div>
+      <h2>Welcome to Aperonix AI</h2>
+      <p>Your intelligent assistant, crafted by <strong>Kadir Khan</strong>.</p>
+      <p class="welcome-sub">Ask me anything — coding, learning, knowledge, and more.</p>
+    `;
+    chatMessages.appendChild(div);
+  }
+
+  // ── Utilities ───────────────────────────────────────────────────────────────
+  function scrollToBottom() {
+    chatMessages.scrollTo({ top: chatMessages.scrollHeight, behavior: "smooth" });
+  }
+
+  function getTime() {
+    return new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  }
+
+  function formatText(text) {
+    return text
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      // Code blocks
+      .replace(/```([\s\S]*?)```/g, "<pre><code>$1</code></pre>")
+      // Inline code
+      .replace(/`([^`]+)`/g, "<code class='inline-code'>$1</code>")
+      // Bold
+      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+      // Newlines
+      .replace(/\n/g, "<br>");
+  }
+
+  // Auto-resize textarea
+  userInput.addEventListener("input", () => {
+    userInput.style.height = "auto";
+    userInput.style.height = Math.min(userInput.scrollHeight, 160) + "px";
   });
 });
