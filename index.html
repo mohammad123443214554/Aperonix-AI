@@ -3,86 +3,74 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Aperonix AI — Your intelligent assistant created by Kadir Khan." />
+  <meta name="theme-color" content="#0d0d0f" />
+
   <title>Aperonix AI</title>
-  <meta name="description" content="Aperonix AI — Your intelligent assistant created by Kadir Khan" />
+
+  <!-- Favicon (inline SVG as data URI) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%236fb3f7'/><text x='16' y='22' font-size='18' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>A</text></svg>" />
+
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%236366f1'/><path d='M30 50h40M50 30v40' stroke='white' stroke-width='8' stroke-linecap='round'/></svg>" />
 </head>
 <body>
 
-<div class="app-shell">
+  <div id="app">
 
-  <!-- Header -->
-  <header class="header">
-    <div class="logo">
-      <div class="logo-icon">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 3L20 7.5V16.5L12 21L4 16.5V7.5L12 3Z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
-          <path d="M12 8v8M8 12h8" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
-        </svg>
+    <!-- ── Header ──────────────────────────────────────────────────────────── -->
+    <header>
+      <div class="header-brand">
+        <div class="header-logo">A</div>
+        <div>
+          <div class="header-title">Aperonix AI</div>
+          <div class="header-subtitle">by Kadir Khan</div>
+        </div>
       </div>
-      <span class="logo-text">Aperonix AI</span>
+
+      <div class="header-actions">
+        <div class="status-badge">
+          <span class="status-dot"></span>
+          <span>Online</span>
+        </div>
+        <button id="clear-btn" title="Clear chat history">Clear chat</button>
+      </div>
+    </header>
+
+    <!-- ── Chat Messages ────────────────────────────────────────────────────── -->
+    <div id="chat-messages" role="log" aria-live="polite" aria-label="Chat messages">
+      <!-- Messages are injected by script.js -->
     </div>
 
-    <div class="header-badge">Beta</div>
-
-    <button class="new-chat-btn" id="newChatBtn" title="Start a new conversation">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 5v14M5 12h14"/>
-      </svg>
-      New Chat
-    </button>
-  </header>
-
-  <!-- Chat Area -->
-  <main class="chat-area" id="chatArea">
-
-    <!-- Welcome Screen -->
-    <div id="welcomeScreen">
-      <div class="welcome-logo">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 3L20 7.5V16.5L12 21L4 16.5V7.5L12 3Z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
-          <path d="M12 8v8M8 12h8" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
-        </svg>
+    <!-- ── Input Area ───────────────────────────────────────────────────────── -->
+    <div class="input-area">
+      <div class="input-wrapper">
+        <textarea
+          id="user-input"
+          placeholder="Message Aperonix…"
+          rows="1"
+          maxlength="2000"
+          aria-label="Type your message"
+          autocomplete="off"
+          spellcheck="true"
+        ></textarea>
+        <button id="send-btn" disabled title="Send message" aria-label="Send">
+          <span class="send-icon">↑</span>
+        </button>
       </div>
-      <h1 class="welcome-title">Hello, I'm Aperonix</h1>
-      <p class="welcome-sub">Your intelligent AI assistant — ready to help with knowledge, coding, learning, and more.</p>
-
-      <div class="suggestions">
-        <button class="suggestion-chip" data-prompt="Who created you?">Who created you?</button>
-        <button class="suggestion-chip" data-prompt="Write a Python function to reverse a string">Python function example</button>
-        <button class="suggestion-chip" data-prompt="Explain machine learning in simple terms">Explain machine learning</button>
-        <button class="suggestion-chip" data-prompt="What can you help me with?">What can you do?</button>
-        <button class="suggestion-chip" data-prompt="Write a short creative story about a robot">Creative writing</button>
-        <button class="suggestion-chip" data-prompt="How do I center a div in CSS?">Center a div in CSS</button>
+      <div class="input-meta">
+        <span class="input-hint">Press Enter to send · Shift+Enter for new line</span>
+        <span id="char-count">0 / 2000</span>
       </div>
+      <p class="footer-note">
+        Aperonix AI · Created by Kadir Khan · Placeholder mode active
+      </p>
     </div>
 
-    <!-- Chat Messages -->
-    <div id="chatMessages"></div>
+  </div><!-- /#app -->
 
-  </main>
+  <!-- Scripts (order matters) -->
+  <script src="memory.js"></script>
+  <script src="script.js"></script>
 
-  <!-- Input Area -->
-  <div class="input-area">
-    <div class="input-box">
-      <textarea
-        id="userInput"
-        placeholder="Message Aperonix..."
-        rows="1"
-        autofocus
-      ></textarea>
-      <button id="sendBtn" title="Send message">
-        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/>
-        </svg>
-      </button>
-    </div>
-    <p class="input-hint">Press <span>Enter</span> to send · <span>Shift+Enter</span> for new line</p>
-  </div>
-
-</div>
-
-<script src="script.js"></script>
 </body>
 </html>
