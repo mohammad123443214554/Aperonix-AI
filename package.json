@@ -1,0 +1,11 @@
+{
+  "name": "aperonix-ai",
+  "version": "2.0.0",
+  "description": "Aperonix AI — Local Ollama-powered chatbot by Mohammad Khan",
+  "scripts": {
+    "dev": "vercel dev",
+    "start": "node server.js"
+  },
+  "author": "Mohammad Khan",
+  "license": "MIT"
+}
