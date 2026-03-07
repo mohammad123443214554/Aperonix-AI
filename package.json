@@ -1,11 +1,16 @@
 {
-  "name": "aperonix-ai",
-  "version": "2.0.0",
-  "description": "Aperonix AI — Local Ollama-powered chatbot by Mohammad Khan",
+  "name": "aperonix",
+  "version": "1.0.0",
+  "description": "Aperonix Self-Learning AI by Mohammad Khan",
+  "main": "index.js",
   "scripts": {
     "dev": "vercel dev",
-    "start": "node server.js"
+    "deploy": "vercel --prod"
   },
-  "author": "Mohammad Khan",
-  "license": "MIT"
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  },
+  "engines": {
+    "node": ">=18.x"
+  }
 }
