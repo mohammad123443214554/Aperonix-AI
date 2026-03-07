@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aperonix Admin — Control Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Base ─────────────────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-deep:    #050810;
+      --bg-card:    rgba(255,255,255,0.04);
+      --bg-hover:   rgba(255,255,255,0.07);
+      --border:     rgba(255,255,255,0.08);
+      --border-glow:rgba(99,179,237,0.35);
+      --accent:     #63b3ed;
+      --accent-2:   #9f7aea;
+      --accent-3:   #68d391;
+      --danger:     #fc8181;
+      --text-1:     #f0f4ff;
+      --text-2:     #8899bb;
+      --text-3:     #4a5568;
+      --glow:       0 0 30px rgba(99,179,237,0.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-1);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Ambient Background ───────────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 10% 10%, rgba(99,179,237,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 90% 80%, rgba(159,122,234,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 50% 50%, rgba(104,211,145,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* ── Layout ───────────────────────────────────────────────────── */
+    .layout { display: flex; min-height: 100vh; position: relative; z-index: 1; }
+
+    /* ── Sidebar ──────────────────────────────────────────────────── */
+    .sidebar {
+      width: 260px; min-height: 100vh; flex-shrink: 0;
+      background: rgba(255,255,255,0.025);
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      padding: 2rem 1.2rem;
+      backdrop-filter: blur(20px);
+      position: sticky; top: 0; height: 100vh;
+    }
+
+    .logo {
+      display: flex; align-items: center; gap: 0.8rem;
+      margin-bottom: 2.5rem; padding: 0 0.4rem;
+    }
+
+    .logo-icon {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 15px rgba(99,179,237,0.3);
+    }
+
+    .logo-text { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.01em; }
+    .logo-text span { color: var(--accent); }
+    .logo-sub { font-size: 0.65rem; color: var(--text-2); font-weight: 400; display: block; margin-top: -2px; }
+
+    .nav-section { margin-bottom: 0.4rem; }
+    .nav-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-3); padding: 0 0.8rem; margin-bottom: 0.5rem; margin-top: 1.2rem; }
+
+    .nav-item {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.65rem 0.8rem; border-radius: 9px;
+      cursor: pointer; transition: all 0.2s;
+      color: var(--text-2); font-size: 0.88rem; font-weight: 500;
+      border: 1px solid transparent;
+    }
+    .nav-item:hover { background: var(--bg-hover); color: var(--text-1); }
+    .nav-item.active {
+      background: rgba(99,179,237,0.1);
+      color: var(--accent); border-color: rgba(99,179,237,0.2);
+    }
+    .nav-item .icon { font-size: 1rem; width: 20px; text-align: center; }
+
+    .sidebar-footer {
+      margin-top: auto; padding: 1rem 0.4rem 0;
+      border-top: 1px solid var(--border);
+    }
+    .status-badge {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-size: 0.78rem; color: var(--text-2);
+    }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent-3); box-shadow: 0 0 6px var(--accent-3); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+
+    /* ── Main Content ─────────────────────────────────────────────── */
+    .main { flex: 1; padding: 2rem 2.5rem; overflow-y: auto; }
+
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ── Page Header ──────────────────────────────────────────────── */
+    .page-header { margin-bottom: 2rem; }
+    .page-title { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.3rem; }
+    .page-sub { font-size: 0.88rem; color: var(--text-2); }
+
+    /* ── Glass Card ───────────────────────────────────────────────── */
+    .glass-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      backdrop-filter: blur(20px);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .glass-card:hover { border-color: var(--border-glow); box-shadow: var(--glow); }
+
+    /* ── Grid Layouts ─────────────────────────────────────────────── */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.2rem; }
+    .col-span-2 { grid-column: span 2; }
+
+    /* ── Stats Row ────────────────────────────────────────────────── */
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.2rem 1.4rem;
+      backdrop-filter: blur(20px);
+    }
+    .stat-label { font-size: 0.75rem; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
+    .stat-value { font-size: 1.8rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: var(--text-1); }
+    .stat-value.accent { color: var(--accent); }
+    .stat-value.purple { color: var(--accent-2); }
+    .stat-value.green { color: var(--accent-3); }
+
+    /* ── Form Elements ────────────────────────────────────────────── */
+    .form-group { margin-bottom: 1.1rem; }
+    .form-label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-2); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.06em; }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.7rem 1rem;
+      color: var(--text-1);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.88rem;
+      transition: all 0.2s; outline: none;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(99,179,237,0.12);
+      background: rgba(99,179,237,0.05);
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--text-3); }
+    .form-select option { background: #0d1117; }
+    .form-textarea { resize: vertical; min-height: 80px; }
+
+    .input-icon-wrap { position: relative; }
+    .input-icon-wrap .form-input { padding-left: 2.4rem; }
+    .input-icon-wrap .i-icon { position: absolute; left: 0.85rem; top: 50%; transform: translateY(-50%); font-size: 0.9rem; color: var(--text-3); }
+
+    /* ── Buttons ──────────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.65rem 1.3rem; border-radius: 10px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.88rem; font-weight: 600; cursor: pointer;
+      border: 1px solid transparent; transition: all 0.2s;
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), rgba(99,179,237,0.8));
+      color: #050810; border-color: transparent;
+      box-shadow: 0 4px 15px rgba(99,179,237,0.25);
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(99,179,237,0.35); }
+    .btn-ghost { background: transparent; color: var(--text-2); border-color: var(--border); }
+    .btn-ghost:hover { background: var(--bg-hover); color: var(--text-1); border-color: rgba(255,255,255,0.15); }
+    .btn-danger { background: rgba(252,129,129,0.1); color: var(--danger); border-color: rgba(252,129,129,0.2); }
+    .btn-danger:hover { background: rgba(252,129,129,0.2); }
+    .btn-purple { background: linear-gradient(135deg, var(--accent-2), rgba(159,122,234,0.8)); color: white; }
+    .btn-purple:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(159,122,234,0.3); }
+    .btn-green { background: linear-gradient(135deg, var(--accent-3), rgba(104,211,145,0.8)); color: #050810; }
+    .btn-green:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(104,211,145,0.3); }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none !important; }
+    .btn-full { width: 100%; justify-content: center; }
+
+    /* ── Teacher Cards ────────────────────────────────────────────── */
+    .teacher-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+    .teacher-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      border-radius: 14px; padding: 1.2rem;
+      cursor: pointer; transition: all 0.2s; text-align: center;
+    }
+    .teacher-card:hover { border-color: var(--border-glow); transform: translateY(-2px); }
+    .teacher-card.selected { border-color: var(--accent); background: rgba(99,179,237,0.07); box-shadow: 0 0 20px rgba(99,179,237,0.1); }
+    .teacher-card.selected-gemini { border-color: #68d391; background: rgba(104,211,145,0.07); }
+    .teacher-card.selected-gpt { border-color: #9f7aea; background: rgba(159,122,234,0.07); }
+    .teacher-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .teacher-name { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.2rem; }
+    .teacher-desc { font-size: 0.72rem; color: var(--text-2); }
+
+    /* ── Brain Table ──────────────────────────────────────────────── */
+    .brain-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .brain-table th {
+      text-align: left; padding: 0.7rem 1rem; font-size: 0.7rem;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--text-3); border-bottom: 1px solid var(--border);
+    }
+    .brain-table td { padding: 0.85rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: middle; }
+    .brain-table tr:hover td { background: var(--bg-hover); }
+    .tag-pill {
+      display: inline-block; padding: 0.2rem 0.55rem;
+      background: rgba(99,179,237,0.1); color: var(--accent);
+      border-radius: 20px; font-size: 0.7rem; font-weight: 600;
+      margin: 0.1rem; font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ── Toast Notification ───────────────────────────────────────── */
+    #toast-container {
+      position: fixed; top: 1.5rem; right: 1.5rem;
+      z-index: 9999; display: flex; flex-direction: column; gap: 0.7rem;
+    }
+    .toast {
+      background: rgba(13,17,23,0.95);
+      border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.4rem;
+      backdrop-filter: blur(20px);
+      display: flex; align-items: center; gap: 0.8rem;
+      font-size: 0.85rem; min-width: 280px; max-width: 380px;
+      animation: slideIn 0.3s ease;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    }
+    .toast.success { border-color: rgba(104,211,145,0.3); }
+    .toast.error { border-color: rgba(252,129,129,0.3); }
+    .toast-icon { font-size: 1.2rem; }
+    @keyframes slideIn { from { opacity:0; transform: translateX(20px); } to { opacity:1; transform: translateX(0); } }
+
+    /* ── Loading Spinner ──────────────────────────────────────────── */
+    .spinner {
+      width: 18px; height: 18px; border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.15);
+      border-top-color: currentColor;
+      animation: spin 0.7s linear infinite;
+      display: inline-block;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Progress Bar ─────────────────────────────────────────────── */
+    .progress-wrap { background: rgba(255,255,255,0.06); border-radius: 20px; height: 6px; overflow: hidden; margin-top: 0.8rem; }
+    .progress-bar { height: 100%; border-radius: 20px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); transition: width 0.4s ease; }
+
+    /* ── Divider ──────────────────────────────────────────────────── */
+    .divider { height: 1px; background: var(--border); margin: 1.5rem 0; }
+
+    /* ── Section Title ────────────────────────────────────────────── */
+    .section-title { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-2); margin-bottom: 1rem; }
+
+    /* ── Empty State ──────────────────────────────────────────────── */
+    .empty-state { text-align: center; padding: 3rem; color: var(--text-3); }
+    .empty-state .e-icon { font-size: 2.5rem; margin-bottom: 0.8rem; opacity: 0.5; }
+
+    /* ── Log Terminal ─────────────────────────────────────────────── */
+    .log-terminal {
+      background: rgba(0,0,0,0.4); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem; font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem; min-height: 120px; max-height: 200px;
+      overflow-y: auto; color: var(--accent-3);
+    }
+    .log-line { margin-bottom: 0.3rem; }
+    .log-line.error { color: var(--danger); }
+    .log-line.info { color: var(--accent); }
+    .log-line.muted { color: var(--text-3); }
+
+    /* ── Scrollbar ────────────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+  </style>
+</head>
+<body>
+
+<div id="toast-container"></div>
+
+<div class="layout">
+  <!-- ── Sidebar ──────────────────────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-icon">⚡</div>
+      <div>
+        <div class="logo-text"><span>Aperonix</span> Admin</div>
+        <span class="logo-sub">by Mohammad Khan</span>
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Overview</div>
+      <div class="nav-item active" data-page="dashboard" onclick="navigate('dashboard', this)">
+        <span class="icon">🏠</span> Dashboard
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Brain Management</div>
+      <div class="nav-item" data-page="teach" onclick="navigate('teach', this)">
+        <span class="icon">🧠</span> Teach AI
+      </div>
+      <div class="nav-item" data-page="knowledge" onclick="navigate('knowledge', this)">
+        <span class="icon">📚</span> Knowledge Base
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Settings</div>
+      <div class="nav-item" data-page="settings" onclick="navigate('settings', this)">
+        <span class="icon">⚙️</span> API Keys & Config
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="status-badge">
+        <div class="status-dot"></div>
+        <span id="sidebar-status">Not connected</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── Main ─────────────────────────────────────────────────────── -->
+  <main class="main">
+
+    <!-- Dashboard Page -->
+    <div class="page active" id="page-dashboard">
+      <div class="page-header">
+        <div class="page-title">Control Panel</div>
+        <div class="page-sub">Aperonix self-learning system overview</div>
+      </div>
+
+      <div class="grid-3" style="margin-bottom:1.5rem">
+        <div class="stat-card">
+          <div class="stat-label">Total Knowledge Entries</div>
+          <div class="stat-value accent" id="stat-entries">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Last Updated</div>
+          <div class="stat-value" style="font-size:1rem;padding-top:0.4rem" id="stat-updated">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Brain Version</div>
+          <div class="stat-value purple" id="stat-version">—</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="glass-card">
+          <div class="section-title">🔗 GitHub Connection</div>
+          <div id="conn-status-msg" style="font-size:0.88rem;color:var(--text-2);margin-bottom:1rem">Configure your settings to connect.</div>
+          <button class="btn btn-primary" onclick="loadBrain()">
+            <span>⚡</span> Sync Brain from GitHub
+          </button>
+        </div>
+        <div class="glass-card">
+          <div class="section-title">📊 Quick Stats</div>
+          <div id="quick-stats" style="font-size:0.85rem;color:var(--text-2);line-height:2">
+            Load brain data to see statistics.
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="glass-card">
+        <div class="section-title">🕒 Activity Log</div>
+        <div class="log-terminal" id="activity-log">
+          <div class="log-line muted">[ Aperonix Admin initialized ]</div>
+          <div class="log-line muted">[ Waiting for actions... ]</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Teach Page -->
+    <div class="page" id="page-teach">
+      <div class="page-header">
+        <div class="page-title">🧠 Teach Aperonix</div>
+        <div class="page-sub">Use powerful AI models as teachers to expand Aperonix's knowledge</div>
+      </div>
+
+      <div class="glass-card" style="margin-bottom:1.5rem">
+        <div class="section-title">Select Teacher AI</div>
+        <div class="teacher-grid">
+          <div class="teacher-card selected" id="tc-claude" onclick="selectTeacher('claude')">
+            <div class="teacher-icon">🤖</div>
+            <div class="teacher-name">Claude</div>
+            <div class="teacher-desc">Anthropic — Best for clean code</div>
+          </div>
+          <div class="teacher-card" id="tc-gemini" onclick="selectTeacher('gemini')">
+            <div class="teacher-icon">💎</div>
+            <div class="teacher-name">Gemini</div>
+            <div class="teacher-desc">Google — Great for structured data</div>
+          </div>
+          <div class="teacher-card" id="tc-gpt" onclick="selectTeacher('gpt')">
+            <div class="teacher-icon">✨</div>
+            <div class="teacher-name">GPT-4o</div>
+            <div class="teacher-desc">OpenAI — Versatile & detailed</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Teacher API Key</label>
+          <div class="input-icon-wrap">
+            <span class="i-icon">🔑</span>
+            <input class="form-input" id="teacher-key" type="password" placeholder="Paste API key for selected teacher..." />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Topic to Teach</label>
+          <input class="form-input" id="teach-topic" placeholder="e.g. responsive navbar, image gallery, login form..." />
+        </div>
+
+        <div id="teach-progress-wrap" style="display:none;margin-bottom:1rem">
+          <div style="font-size:0.82rem;color:var(--text-2);margin-bottom:0.4rem" id="teach-progress-label">Sending to teacher...</div>
+          <div class="progress-wrap"><div class="progress-bar" id="teach-progress-bar" style="width:0%"></div></div>
+        </div>
+
+        <div class="log-terminal" id="teach-log" style="margin-bottom:1rem;display:none">
+          <div class="log-line muted">[ Waiting for teaching session to begin... ]</div>
+        </div>
+
+        <button class="btn btn-primary" id="teach-btn" onclick="startTeaching()">
+          <span>🚀</span> Start Teaching Session
+        </button>
+      </div>
+
+      <div class="glass-card">
+        <div class="section-title">💡 Topic Suggestions</div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.5rem">
+          <span class="tag-pill" style="cursor:pointer" onclick="setTopic('responsive navigation menu')">responsive navigation menu</span>
+          <span class="tag-pill" style="cursor:pointer" onclick="setTopic('login and signup form')">login and signup form</span>
+          <span class="tag-pill" style="cursor:pointer" onclick="setTopic('image gallery with lightbox')">image gallery with lightbox</span>
+          <span class="tag-pill" style="cursor:pointer" onclick="setTopic('weather app with API')">weather app with API</span>
+          <span class="tag-pill" style="cursor:pointer" onclick="setTopic('quiz game app')">quiz game app</span>
+          <span class="tag-pill" style="cursor:pointer" onclick="setTopic('music player UI')">music player UI</span>
+          <span class="tag-pill" style="cursor:pointer" onclick="setTopic('animated loading spinner')">animated loading spinner</span>
+          <span class="tag-pill" style="cursor:pointer" onclick="setTopic('dark mode toggle')">dark mode toggle</span>
+          <span class="tag-pill" style="cursor:pointer" onclick="setTopic('form validation')">form validation</span>
+          <span class="tag-pill" style="cursor:pointer" onclick="setTopic('drag and drop interface')">drag and drop interface</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Knowledge Base Page -->
+    <div class="page" id="page-knowledge">
+      <div class="page-header">
+        <div class="page-title">📚 Knowledge Base</div>
+        <div class="page-sub">All entries currently stored in Aperonix's brain.json</div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem">
+        <input class="form-input" style="max-width:300px" id="kb-search" placeholder="🔍 Search entries..." oninput="filterKB()" />
+        <button class="btn btn-ghost" onclick="loadBrain()">🔄 Refresh</button>
+      </div>
+
+      <div class="glass-card">
+        <div id="kb-content">
+          <div class="empty-state">
+            <div class="e-icon">🧠</div>
+            <div>Load brain data first using the Dashboard or Settings page.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings Page -->
+    <div class="page" id="page-settings">
+      <div class="page-header">
+        <div class="page-title">⚙️ Configuration</div>
+        <div class="page-sub">Manage API keys and GitHub repository settings</div>
+      </div>
+
+      <div class="grid-2">
+        <div class="glass-card">
+          <div class="section-title">🐙 GitHub Configuration</div>
+          <div class="form-group">
+            <label class="form-label">Personal Access Token</label>
+            <div class="input-icon-wrap">
+              <span class="i-icon">🔑</span>
+              <input class="form-input" id="cfg-gh-token" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" />
+            </div>
+            <div style="font-size:0.73rem;color:var(--text-3);margin-top:0.4rem">
+              Needs <code style="color:var(--accent)">repo</code> scope. <a href="https://github.com/settings/tokens" target="_blank" style="color:var(--accent)">Generate here →</a>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Repository Owner (Username)</label>
+            <input class="form-input" id="cfg-owner" placeholder="e.g. mohammadkhan" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Repository Name</label>
+            <input class="form-input" id="cfg-repo" placeholder="e.g. aperonix-brain" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">brain.json File Path</label>
+            <input class="form-input" id="cfg-path" placeholder="brain.json" value="brain.json" />
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <div class="section-title">🔑 Teacher AI Keys (Optional Pre-fill)</div>
+          <div class="form-group">
+            <label class="form-label">Claude API Key</label>
+            <div class="input-icon-wrap">
+              <span class="i-icon">🤖</span>
+              <input class="form-input" id="cfg-claude-key" type="password" placeholder="sk-ant-xxxx" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Gemini API Key</label>
+            <div class="input-icon-wrap">
+              <span class="i-icon">💎</span>
+              <input class="form-input" id="cfg-gemini-key" type="password" placeholder="AIzaxxxxxxxx" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">OpenAI API Key</label>
+            <div class="input-icon-wrap">
+              <span class="i-icon">✨</span>
+              <input class="form-input" id="cfg-gpt-key" type="password" placeholder="sk-xxxx" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:1rem;display:flex;gap:0.8rem">
+        <button class="btn btn-primary" onclick="saveConfig()">💾 Save Configuration</button>
+        <button class="btn btn-green" onclick="testConnection()">🔌 Test GitHub Connection</button>
+        <button class="btn btn-ghost" onclick="clearConfig()">🗑️ Clear All</button>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="glass-card" style="background:rgba(99,179,237,0.04);border-color:rgba(99,179,237,0.15)">
+        <div class="section-title">📋 Setup Guide</div>
+        <ol style="font-size:0.85rem;color:var(--text-2);line-height:2.2;padding-left:1.2rem">
+          <li>Create a GitHub repo and upload your <code style="color:var(--accent)">brain.json</code> file to it.</li>
+          <li>Generate a GitHub Personal Access Token with <code style="color:var(--accent)">repo</code> scope.</li>
+          <li>Fill in the GitHub Configuration above and click <strong style="color:var(--text-1)">Save</strong>.</li>
+          <li>Go to <strong style="color:var(--text-1)">Teach AI</strong>, select a Teacher, paste its API key, and enter a topic.</li>
+          <li>The Teacher AI will generate code and Aperonix will learn it automatically!</li>
+          <li>Deploy this project to Vercel — the <code style="color:var(--accent)">/api/brain.js</code> function handles everything.</li>
+        </ol>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+/* ── State ─────────────────────────────────────────────────────────────────── */
+const API_BASE = window.location.origin + '/api/brain';
+let selectedTeacher = 'claude';
+let brainData = null;
+
+/* ── Config (persisted to localStorage) ─────────────────────────────────────── */
+function getConfig() {
+  return {
+    ghToken: localStorage.getItem('ap_gh_token') || '',
+    owner:   localStorage.getItem('ap_owner') || '',
+    repo:    localStorage.getItem('ap_repo') || '',
+    path:    localStorage.getItem('ap_path') || 'brain.json',
+    claudeKey: localStorage.getItem('ap_claude_key') || '',
+    geminiKey: localStorage.getItem('ap_gemini_key') || '',
+    gptKey:  localStorage.getItem('ap_gpt_key') || '',
+  };
+}
+
+function saveConfig() {
+  const cfg = {
+    ghToken: document.getElementById('cfg-gh-token').value.trim(),
+    owner:   document.getElementById('cfg-owner').value.trim(),
+    repo:    document.getElementById('cfg-repo').value.trim(),
+    path:    document.getElementById('cfg-path').value.trim() || 'brain.json',
+    claudeKey: document.getElementById('cfg-claude-key').value.trim(),
+    geminiKey: document.getElementById('cfg-gemini-key').value.trim(),
+    gptKey:  document.getElementById('cfg-gpt-key').value.trim(),
+  };
+
+  if (!cfg.ghToken || !cfg.owner || !cfg.repo) {
+    return showToast('⚠️ GitHub Token, Owner, and Repo are required', 'error');
+  }
+
+  localStorage.setItem('ap_gh_token', cfg.ghToken);
+  localStorage.setItem('ap_owner', cfg.owner);
+  localStorage.setItem('ap_repo', cfg.repo);
+  localStorage.setItem('ap_path', cfg.path);
+  localStorage.setItem('ap_claude_key', cfg.claudeKey);
+  localStorage.setItem('ap_gemini_key', cfg.geminiKey);
+  localStorage.setItem('ap_gpt_key', cfg.gptKey);
+
+  showToast('✅ Configuration saved successfully!', 'success');
+  log('Configuration saved to localStorage.', 'info');
+}
+
+function clearConfig() {
+  if (!confirm('Clear all saved configuration?')) return;
+  ['ap_gh_token','ap_owner','ap_repo','ap_path','ap_claude_key','ap_gemini_key','ap_gpt_key'].forEach(k => localStorage.removeItem(k));
+  loadConfigIntoForm();
+  showToast('🗑️ Configuration cleared', 'success');
+}
+
+function loadConfigIntoForm() {
+  const cfg = getConfig();
+  document.getElementById('cfg-gh-token').value = cfg.ghToken;
+  document.getElementById('cfg-owner').value = cfg.owner;
+  document.getElementById('cfg-repo').value = cfg.repo;
+  document.getElementById('cfg-path').value = cfg.path;
+  document.getElementById('cfg-claude-key').value = cfg.claudeKey;
+  document.getElementById('cfg-gemini-key').value = cfg.geminiKey;
+  document.getElementById('cfg-gpt-key').value = cfg.gptKey;
+}
+
+/* ── Navigation ─────────────────────────────────────────────────────────────── */
+function navigate(page, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  el.classList.add('active');
+}
+
+/* ── Brain Loading ──────────────────────────────────────────────────────────── */
+async function loadBrain() {
+  const cfg = getConfig();
+  if (!cfg.ghToken || !cfg.owner || !cfg.repo) {
+    showToast('⚠️ Configure GitHub settings first (Settings page)', 'error');
+    return;
+  }
+
+  log('Fetching brain.json from GitHub...', 'info');
+  try {
+    const res = await fetch(`${API_BASE}?action=read&token=${encodeURIComponent(cfg.ghToken)}&owner=${encodeURIComponent(cfg.owner)}&repo=${encodeURIComponent(cfg.repo)}`);
+    const data = await res.json();
+
+    if (!data.success) throw new Error(data.error);
+    brainData = data.brain;
+
+    updateDashboardStats();
+    renderKnowledgeBase();
+    log(`✅ Brain loaded — ${brainData.knowledge.length} entries found.`, 'info');
+    showToast(`🧠 Brain synced! ${brainData.knowledge.length} entries loaded.`, 'success');
+
+    document.getElementById('sidebar-status').textContent = `${cfg.owner}/${cfg.repo}`;
+    document.getElementById('conn-status-msg').textContent = `✅ Connected to ${cfg.owner}/${cfg.repo}`;
+    document.getElementById('conn-status-msg').style.color = 'var(--accent-3)';
+  } catch (err) {
+    log(`❌ Error: ${err.message}`, 'error');
+    showToast(`❌ ${err.message}`, 'error');
+  }
+}
+
+function updateDashboardStats() {
+  if (!brainData) return;
+  document.getElementById('stat-entries').textContent = brainData.knowledge.length;
+  document.getElementById('stat-version').textContent = brainData.meta.version || '1.0.0';
+
+  const upd = new Date(brainData.meta.last_updated);
+  document.getElementById('stat-updated').textContent = isNaN(upd) ? '—' : upd.toLocaleDateString();
+
+  const cats = {};
+  brainData.knowledge.forEach(e => {
+    cats[e.language] = (cats[e.language] || 0) + 1;
+  });
+  document.getElementById('quick-stats').innerHTML = Object.entries(cats)
+    .map(([k,v]) => `<div>Language <strong style="color:var(--accent)">${k}</strong>: ${v} entries</div>`)
+    .join('');
+}
+
+/* ── Test Connection ─────────────────────────────────────────────────────────── */
+async function testConnection() {
+  await loadBrain();
+}
+
+/* ── Knowledge Base Rendering ───────────────────────────────────────────────── */
+function renderKnowledgeBase(filter = '') {
+  if (!brainData) {
+    document.getElementById('kb-content').innerHTML = `
+      <div class="empty-state"><div class="e-icon">🧠</div>
+      <div>Load brain data first using the Dashboard.</div></div>`;
+    return;
+  }
+
+  const entries = brainData.knowledge.filter(e =>
+    !filter ||
+    e.title.toLowerCase().includes(filter) ||
+    e.tags.some(t => t.includes(filter)) ||
+    e.description.toLowerCase().includes(filter)
+  );
+
+  if (!entries.length) {
+    document.getElementById('kb-content').innerHTML = `
+      <div class="empty-state"><div class="e-icon">🔍</div><div>No entries match your search.</div></div>`;
+    return;
+  }
+
+  document.getElementById('kb-content').innerHTML = `
+    <table class="brain-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Tags</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${entries.map(e => `
+          <tr>
+            <td><code style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text-3)">${e.id}</code></td>
+            <td style="font-weight:600;min-width:160px">${e.title}</td>
+            <td style="max-width:220px">${e.tags.slice(0,5).map(t => `<span class="tag-pill">${t}</span>`).join('')}${e.tags.length > 5 ? `<span style="font-size:0.72rem;color:var(--text-3)"> +${e.tags.length-5}</span>` : ''}</td>
+            <td style="color:var(--text-2);font-size:0.82rem;max-width:200px">${e.description || '—'}</td>
+            <td>
+              <button class="btn btn-danger" style="padding:0.4rem 0.8rem;font-size:0.78rem" onclick="deleteEntry('${e.id}')">🗑️ Delete</button>
+            </td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>`;
+}
+
+function filterKB() {
+  renderKnowledgeBase(document.getElementById('kb-search').value.trim().toLowerCase());
+}
+
+/* ── Delete Entry ───────────────────────────────────────────────────────────── */
+async function deleteEntry(id) {
+  if (!confirm(`Delete entry "${id}"? This cannot be undone.`)) return;
+
+  const cfg = getConfig();
+  if (!cfg.ghToken || !cfg.owner || !cfg.repo) {
+    return showToast('Configure GitHub settings first', 'error');
+  }
+
+  try {
+    const res = await fetch(`${API_BASE}?action=delete`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, githubToken: cfg.ghToken, owner: cfg.owner, repo: cfg.repo })
+    });
+    const data = await res.json();
+    if (!data.success) throw new Error(data.error);
+
+    showToast(`🗑️ Deleted: ${id}`, 'success');
+    log(`Deleted entry: ${id}`, 'info');
+    await loadBrain();
+  } catch (err) {
+    showToast(`❌ ${err.message}`, 'error');
+  }
+}
+
+/* ── Teach Aperonix ─────────────────────────────────────────────────────────── */
+function selectTeacher(name) {
+  selectedTeacher = name;
+  document.querySelectorAll('.teacher-card').forEach(c => c.classList.remove('selected', 'selected-gemini', 'selected-gpt'));
+  document.getElementById('tc-' + name).classList.add('selected' + (name !== 'claude' ? '-' + name : ''));
+
+  // Pre-fill key if saved
+  const cfg = getConfig();
+  const keyMap = { claude: cfg.claudeKey, gemini: cfg.geminiKey, gpt: cfg.gptKey };
+  if (keyMap[name]) document.getElementById('teacher-key').value = keyMap[name];
+}
+
+function setTopic(topic) {
+  document.getElementById('teach-topic').value = topic;
+  showToast(`📝 Topic set: "${topic}"`, 'success');
+}
+
+async function startTeaching() {
+  const topic = document.getElementById('teach-topic').value.trim();
+  const teacherKey = document.getElementById('teacher-key').value.trim();
+
+  if (!topic) return showToast('⚠️ Please enter a topic to teach', 'error');
+  if (!teacherKey) return showToast(`⚠️ Please enter the ${selectedTeacher.toUpperCase()} API key`, 'error');
+
+  const cfg = getConfig();
+  if (!cfg.ghToken || !cfg.owner || !cfg.repo) {
+    return showToast('⚠️ Configure GitHub settings first (Settings page)', 'error');
+  }
+
+  const btn = document.getElementById('teach-btn');
+  const logEl = document.getElementById('teach-log');
+  const progressWrap = document.getElementById('teach-progress-wrap');
+  const progressBar = document.getElementById('teach-progress-bar');
+  const progressLabel = document.getElementById('teach-progress-label');
+
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spinner"></div> Teaching...';
+  logEl.style.display = 'block';
+  progressWrap.style.display = 'block';
+
+  const teachLog = (msg, type = '') => {
+    logEl.innerHTML += `<div class="log-line ${type}">[${new Date().toLocaleTimeString()}] ${msg}</div>`;
+    logEl.scrollTop = logEl.scrollHeight;
+    log(msg, type);
+  };
+
+  try {
+    teachLog(`🚀 Starting teaching session with ${selectedTeacher.toUpperCase()}...`, 'info');
+    progressBar.style.width = '20%';
+    progressLabel.textContent = `Asking ${selectedTeacher.toUpperCase()} about "${topic}"...`;
+
+    await sleep(500);
+    progressBar.style.width = '45%';
+    progressLabel.textContent = 'Teacher AI generating code knowledge...';
+
+    const res = await fetch(`${API_BASE}?action=teach`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        topic,
+        teacher: selectedTeacher,
+        teacherKey,
+        githubToken: cfg.ghToken,
+        owner: cfg.owner,
+        repo: cfg.repo,
+      })
+    });
+
+    progressBar.style.width = '75%';
+    progressLabel.textContent = 'Writing to brain.json on GitHub...';
+
+    const data = await res.json();
+    if (!data.success) throw new Error(data.error);
+
+    progressBar.style.width = '100%';
+    progressBar.style.background = 'var(--accent-3)';
+    progressLabel.textContent = '✅ Teaching complete!';
+
+    teachLog(`✅ ${data.message}`, 'info');
+    teachLog(`📝 Entry title: "${data.entry.title}"`, '');
+    teachLog(`🏷️  Tags: ${data.entry.tags?.join(', ')}`, '');
+
+    showToast(data.message, 'success');
+
+    await loadBrain();
+    document.getElementById('teach-topic').value = '';
+
+  } catch (err) {
+    teachLog(`❌ Error: ${err.message}`, 'error');
+    progressBar.style.background = 'var(--danger)';
+    progressLabel.textContent = '❌ Teaching failed';
+    showToast(`❌ ${err.message}`, 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<span>🚀</span> Start Teaching Session';
+    setTimeout(() => {
+      progressWrap.style.display = 'none';
+      progressBar.style.width = '0%';
+      progressBar.style.background = '';
+    }, 3000);
+  }
+}
+
+/* ── Utilities ──────────────────────────────────────────────────────────────── */
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+function log(msg, type = '') {
+  const el = document.getElementById('activity-log');
+  el.innerHTML += `<div class="log-line ${type}">[${new Date().toLocaleTimeString()}] ${msg}</div>`;
+  el.scrollTop = el.scrollHeight;
+}
+
+function showToast(msg, type = 'success') {
+  const container = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.innerHTML = `<span class="toast-icon">${type === 'success' ? '✅' : '⚠️'}</span><span>${msg}</span>`;
+  container.appendChild(toast);
+  setTimeout(() => toast.remove(), 4000);
+}
+
+/* ── Init ───────────────────────────────────────────────────────────────────── */
+window.addEventListener('DOMContentLoaded', () => {
+  loadConfigIntoForm();
+  log('Admin panel ready.', 'info');
+
+  const cfg = getConfig();
+  if (cfg.ghToken && cfg.owner && cfg.repo) {
+    document.getElementById('sidebar-status').textContent = `${cfg.owner}/${cfg.repo}`;
+    document.getElementById('conn-status-msg').textContent = `Config found: ${cfg.owner}/${cfg.repo} — Click Sync.`;
+    document.getElementById('conn-status-msg').style.color = 'var(--text-2)';
+  }
+});
+</script>
+</body>
+</html>
