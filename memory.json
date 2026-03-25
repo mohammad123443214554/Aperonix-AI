@@ -1,0 +1,396 @@
+{
+  "knowledge": [
+    {
+      "keyword": "hunspellcolorize",
+      "answer": "HunspellColorize is a C project by torvalds. Wrapper around 'less' to colorize spelling mistakes using Hunspell. Stars: 321",
+      "language": "C"
+    },
+    {
+      "keyword": "audionoise",
+      "answer": "AudioNoise is a C project by torvalds. Random digital audio effects. Stars: 4300",
+      "language": "C"
+    },
+    {
+      "keyword": "guitarpedal",
+      "answer": "GuitarPedal is a C project by torvalds. Linus learns analog circuits. Stars: 1842",
+      "language": "C"
+    },
+    {
+      "keyword": "1590a",
+      "answer": "1590A is a OpenSCAD project by torvalds. Random odd guitar pedal design in kicad. Stars: 551",
+      "language": "OpenSCAD"
+    },
+    {
+      "keyword": "libgit2",
+      "answer": "libgit2 is a C project by torvalds. A cross-platform, linkable library implementation of Git that you can use in your application.. Stars: 349",
+      "language": "C"
+    },
+    {
+      "keyword": "uemacs",
+      "answer": "uemacs is a C project by torvalds. Random version of microemacs with my private modificatons. Stars: 1949",
+      "language": "C"
+    },
+    {
+      "keyword": "pesconvert",
+      "answer": "pesconvert is a C project by torvalds. Brother PES file converter. Stars: 554",
+      "language": "C"
+    },
+    {
+      "keyword": "test-tlb",
+      "answer": "test-tlb is a C project by torvalds. Stupid memory latency and TLB tester. Stars: 958",
+      "language": "C"
+    },
+    {
+      "keyword": "libdc-for-dirk",
+      "answer": "libdc-for-dirk is a C project by torvalds. Only use for syncing with Dirk, don't use for anything else. Stars: 378",
+      "language": "C"
+    },
+    {
+      "keyword": "subsurface-for-dirk",
+      "answer": "subsurface-for-dirk is a C++ project by torvalds. Do not use - the real upstream is  Subsurface-divelog/subsurface. Stars: 445",
+      "language": "C++"
+    },
+    {
+      "keyword": "abc-unix",
+      "answer": "abc-unix is a C project by gvanrossum. The original ABC language (Python's predecessor), from 1991. Stars: 167",
+      "language": "C"
+    },
+    {
+      "keyword": "typechat",
+      "answer": "TypeChat is a TypeScript project by gvanrossum. TypeChat is a library that makes it easy to build natural language interfaces using types.. Stars: 13",
+      "language": "TypeScript"
+    },
+    {
+      "keyword": "c-parser",
+      "answer": "c-parser is a Python project by gvanrossum. A partial parser for C statements and expression. Stars: 59",
+      "language": "Python"
+    },
+    {
+      "keyword": "old-demos",
+      "answer": "old-demos is a Python project by gvanrossum. Very old demos and examples removed from the cpython repo. Stars: 100",
+      "language": "Python"
+    },
+    {
+      "keyword": "http-get-perf",
+      "answer": "http-get-perf is a JavaScript project by gvanrossum. . Stars: 8",
+      "language": "JavaScript"
+    },
+    {
+      "keyword": "pythonlabs-com-azure",
+      "answer": "pythonlabs-com-azure is a Python project by gvanrossum. . Stars: 22",
+      "language": "Python"
+    },
+    {
+      "keyword": "peps",
+      "answer": "peps is a Python project by gvanrossum. Python Enhancement Proposals. Stars: 8",
+      "language": "Python"
+    },
+    {
+      "keyword": "ecma262",
+      "answer": "ecma262 is a HTML project by brendaneich. Status, process, and documents for ECMA262. Stars: 2",
+      "language": "HTML"
+    },
+    {
+      "keyword": "ecmascript_simd",
+      "answer": "ecmascript_simd is a JavaScript project by brendaneich. SIMD numeric type for EcmaScript. Stars: 0",
+      "language": "JavaScript"
+    },
+    {
+      "keyword": "nil",
+      "answer": "nil is a JavaScript project by brendaneich. A falsey object for JavaScript/Node.js that returns itself for all properties and when invoked. Stars: 22",
+      "language": "JavaScript"
+    },
+    {
+      "keyword": "brooklynjs.github.io",
+      "answer": "brooklynjs.github.io is a HTML project by brendaneich. The world's most popular programming language, in New York's most popular borough. Stars: 1",
+      "language": "HTML"
+    },
+    {
+      "keyword": "sieve",
+      "answer": "sieve is a HTML project by brendaneich. Fun with primes. Stars: 10",
+      "language": "HTML"
+    },
+    {
+      "keyword": "website",
+      "answer": "website is a CSS project by brendaneich. brave.com website source. Stars: 14",
+      "language": "CSS"
+    },
+    {
+      "keyword": "braziljs-2015",
+      "answer": "BrazilJS-2015 is a HTML project by brendaneich. BrazilJS 2015 talk. Stars: 15",
+      "language": "HTML"
+    },
+    {
+      "keyword": "value-spec",
+      "answer": "value-spec is a HTML project by brendaneich. Thoughts on value types and SIMD. Stars: 1",
+      "language": "HTML"
+    },
+    {
+      "keyword": "modernweb.tw-2015",
+      "answer": "ModernWeb.tw-2015 is a HTML project by brendaneich. ModernWeb.tw 2015 talk. Stars: 51",
+      "language": "HTML"
+    },
+    {
+      "keyword": "asset-hosting-with-minimum-ssl",
+      "answer": "asset-hosting-with-minimum-ssl is a Ruby project by DHH. Rails plugin for picking a non-ssl asset host as often as possible. Stars: 88",
+      "language": "Ruby"
+    },
+    {
+      "keyword": "conductor",
+      "answer": "conductor is a Ruby project by DHH. . Stars: 73",
+      "language": "Ruby"
+    },
+    {
+      "keyword": "bun-vs-node-sea-startup",
+      "answer": "bun-vs-node-sea-startup is a JavaScript project by yyx990803. . Stars: 40",
+      "language": "JavaScript"
+    },
+    {
+      "keyword": "bundle-vs-unbundle",
+      "answer": "bundle-vs-unbundle is a JavaScript project by yyx990803. . Stars: 20",
+      "language": "JavaScript"
+    },
+    {
+      "keyword": "bundle-size-benchmark",
+      "answer": "bundle-size-benchmark is a JavaScript project by yyx990803. . Stars: 8",
+      "language": "JavaScript"
+    },
+    {
+      "keyword": "oxc-node-loader",
+      "answer": "oxc-node-loader is a JavaScript project by yyx990803. . Stars: 27",
+      "language": "JavaScript"
+    },
+    {
+      "keyword": "performance-compare",
+      "answer": "performance-compare is a JavaScript project by yyx990803. Performance compare for Farm, Webpack, Rspack, Turbopack and Vite. Stars: 36",
+      "language": "JavaScript"
+    },
+    {
+      "keyword": "proposal-signals",
+      "answer": "proposal-signals is a TypeScript project by yyx990803. A proposal to add signals to JavaScript.. Stars: 45",
+      "language": "TypeScript"
+    },
+    {
+      "keyword": "go-fixture",
+      "answer": "go-fixture is a Go project by tj. Go assertions against test fixtures with nice line diffs, and an -update flag for updating fixture or \"golden\" files.. Stars: 26",
+      "language": "Go"
+    },
+    {
+      "keyword": "deno_website2",
+      "answer": "deno_website2 is a TypeScript project by tj. deno.land website . Stars: 1",
+      "language": "TypeScript"
+    },
+    {
+      "keyword": "go-buffer",
+      "answer": "go-buffer is a Go project by tj. Generic buffer for batching entries, such as log events.. Stars: 68",
+      "language": "Go"
+    },
+    {
+      "keyword": "spa",
+      "answer": "spa is a Go project by tj. Tiny Single Page Application server for Go with `spa` command-line tool.. Stars: 91",
+      "language": "Go"
+    },
+    {
+      "keyword": "sponsors-api",
+      "answer": "sponsors-api is a Go project by tj. GitHub Sponsor avatar listings in your Readme.md. Stars: 242",
+      "language": "Go"
+    },
+    {
+      "keyword": "go-semver",
+      "answer": "go-semver is a Go project by tj. Semver stuff. Stars: 27",
+      "language": "Go"
+    },
+    {
+      "keyword": "elm-live",
+      "answer": "elm-live is a JavaScript project by tj. ⚡ A flexible dev server for Elm. Live reload included.. Stars: 2",
+      "language": "JavaScript"
+    },
+    {
+      "keyword": "gobinaries",
+      "answer": "gobinaries is a Go project by tj. Golang binaries compiled on-demand for your system. Stars: 832",
+      "language": "Go"
+    },
+    {
+      "keyword": "go-naturaldate",
+      "answer": "go-naturaldate is a Go project by tj. Natural date/time parsing for Go.. Stars: 313",
+      "language": "Go"
+    },
+    {
+      "keyword": "dsstore",
+      "answer": "DSStore is a Swift project by sindresorhus. Parse and write macOS .DS_Store files from Swift. Stars: 36",
+      "language": "Swift"
+    },
+    {
+      "keyword": "is-safe-filename",
+      "answer": "is-safe-filename is a JavaScript project by sindresorhus. Check if a filename is safe to use in a path join operation. Stars: 13",
+      "language": "JavaScript"
+    },
+    {
+      "keyword": "terminal-query",
+      "answer": "terminal-query is a JavaScript project by sindresorhus. Send escape sequences to the terminal and read back responses. Stars: 14",
+      "language": "JavaScript"
+    },
+    {
+      "keyword": "supports-terminal-graphics",
+      "answer": "supports-terminal-graphics is a JavaScript project by sindresorhus. Detect which terminal graphics protocols are supported (Kitty, iTerm2, Sixel). Stars: 12",
+      "language": "JavaScript"
+    },
+    {
+      "keyword": "powershell-utils",
+      "answer": "powershell-utils is a JavaScript project by sindresorhus. Utilities for executing PowerShell commands. Stars: 32",
+      "language": "JavaScript"
+    },
+    {
+      "keyword": "is-in-ssh",
+      "answer": "is-in-ssh is a JavaScript project by sindresorhus. Check if the process is running in an SSH session. Stars: 23",
+      "language": "JavaScript"
+    },
+    {
+      "keyword": "reveal-file",
+      "answer": "reveal-file is a JavaScript project by sindresorhus. Reveal a file in the system file manager (Finder, Explorer, etc.). Stars: 61",
+      "language": "JavaScript"
+    },
+    {
+      "keyword": "url-extras",
+      "answer": "url-extras is a JavaScript project by sindresorhus. Browser-compatible implementations of some of Node.js' URL utilities. Stars: 24",
+      "language": "JavaScript"
+    },
+    {
+      "keyword": "parse-duration-ms",
+      "answer": "parse-duration-ms is a JavaScript project by sindresorhus. Parse duration strings to milliseconds. Stars: 30",
+      "language": "JavaScript"
+    },
+    {
+      "keyword": "unlimited-timeout",
+      "answer": "unlimited-timeout is a JavaScript project by sindresorhus. setTimeout and setInterval that work with delays longer than 24.8 days. Stars: 26",
+      "language": "JavaScript"
+    },
+    {
+      "keyword": "agent-skills",
+      "answer": "agent-skills is a Shell project by addyosmani. Production-grade engineering skills for AI coding agents.. Stars: 113",
+      "language": "Shell"
+    },
+    {
+      "keyword": "vlc.js",
+      "answer": "vlc.js is a JavaScript project by addyosmani. Experimental VLC for the browser built using a VLC WASM port. Stars: 11",
+      "language": "JavaScript"
+    },
+    {
+      "keyword": "webvlc",
+      "answer": "webvlc is a JavaScript project by addyosmani. A minimal VLC port that works in the browser. Stars: 11",
+      "language": "JavaScript"
+    },
+    {
+      "keyword": "pexels-ai-video-downloader",
+      "answer": "pexels-ai-video-downloader is a Python project by addyosmani. Use Gemini to decide which Pexels videos to download for your project. Stars: 12",
+      "language": "Python"
+    },
+    {
+      "keyword": "web-quality-skills",
+      "answer": "web-quality-skills is a Shell project by addyosmani. Agent Skills for optimizing web quality based on Lighthouse and Core Web Vitals.. Stars: 1486",
+      "language": "Shell"
+    },
+    {
+      "keyword": "adk-product-engineers",
+      "answer": "adk-product-engineers is a Python project by addyosmani. ADK apps for Product Engineers. Stars: 29",
+      "language": "Python"
+    },
+    {
+      "keyword": "jarvis",
+      "answer": "jarvis is a TypeScript project by addyosmani. JARVIS built using the Gemini Live API. Stars: 27",
+      "language": "TypeScript"
+    },
+    {
+      "keyword": "audiomassai",
+      "answer": "AudioMassAI is a JavaScript project by addyosmani. Free full-featured web-based audio & waveform editing tool (with AI features). Stars: 9",
+      "language": "JavaScript"
+    },
+    {
+      "keyword": "bplog",
+      "answer": "bplog is a Kotlin project by antirez. Hilo (TM) / Aktiia (TM) open source client implementation for the bluetooth cuff. Stars: 11",
+      "language": "Kotlin"
+    },
+    {
+      "keyword": "zot",
+      "answer": "ZOT is a C project by antirez. ZOT is a Z80, ZX Spectrum 48k and CP/M emulator. Stars: 52",
+      "language": "C"
+    },
+    {
+      "keyword": "qwen-asr",
+      "answer": "qwen-asr is a C project by antirez. C inference for Qwen3-ASR 0.6b and 1.7b transcriptions models. Stars: 490",
+      "language": "C"
+    },
+    {
+      "keyword": "voxtral.c",
+      "answer": "voxtral.c is a C project by antirez. Pure C inference of Mistral Voxtral Realtime 4B speech to text model. Stars: 1545",
+      "language": "C"
+    },
+    {
+      "keyword": "tgterm",
+      "answer": "tgterm is a C project by antirez. Control your MacOS terminals via Telegram, for fun coding agents interaction and profit. Stars: 209",
+      "language": "C"
+    },
+    {
+      "keyword": "whisperbot",
+      "answer": "whisperbot is a C project by antirez. Telegram bot that transcribes audio messages via whisper.cpp. Stars: 139",
+      "language": "C"
+    },
+    {
+      "keyword": "iris.c",
+      "answer": "iris.c is a C project by antirez. Flux 2 image generation model pure C inference. Stars: 1901",
+      "language": "C"
+    },
+    {
+      "keyword": "gte-pure-c",
+      "answer": "gte-pure-C is a C project by antirez. Pure C inference for the GTE Small embedding model. Stars: 105",
+      "language": "C"
+    },
+    {
+      "keyword": "zxfy",
+      "answer": "zxfy is a C project by antirez. Evolve ZX Spectrum video memory bits to target a specific PNG image. Stars: 22",
+      "language": "C"
+    },
+    {
+      "keyword": "superagent",
+      "answer": "superagent is a JavaScript project by jashkenas. Ajax with less suck - (and node.js HTTP client to match). Stars: 3",
+      "language": "JavaScript"
+    },
+    {
+      "keyword": "puppeteer-heroku-buildpack",
+      "answer": "puppeteer-heroku-buildpack is a Shell project by jashkenas.  Installs dependencies needed in order to run puppeteer on heroku.. Stars: 6",
+      "language": "Shell"
+    },
+    {
+      "keyword": "policies",
+      "answer": "policies is a Shell project by jashkenas. Privacy policy, code of conduct, license, and other npm legal stuff. Stars: 6",
+      "language": "Shell"
+    },
+    {
+      "keyword": "tape-await",
+      "answer": "tape-await is a JavaScript project by jashkenas. Yet another async-await helper for tape.. Stars: 4",
+      "language": "JavaScript"
+    },
+    {
+      "keyword": "git-go",
+      "answer": "git-go is a JavaScript project by jashkenas. ...for people who don't like wasting time typing git commands. Stars: 4",
+      "language": "JavaScript"
+    },
+    {
+      "keyword": "lil-license",
+      "answer": "lil-license is a HTML project by jashkenas. A Lil Improvable License for Open Source Software. Stars: 67",
+      "language": "HTML"
+    },
+    {
+      "keyword": "jashkenas.github.io",
+      "answer": "jashkenas.github.io is a HTML project by jashkenas. . Stars: 14",
+      "language": "HTML"
+    },
+    {
+      "keyword": "dbmonster",
+      "answer": "dbmonster is a JavaScript project by jashkenas. A Simple Version of the Dbmonster Demo, Using and Underscore Template. Stars: 8",
+      "language": "JavaScript"
+    }
+  ],
+  "lastUpdated": "2026-03-25T11:06:52.598Z",
+  "totalKnowledge": 78
+}
