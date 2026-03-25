@@ -619,8 +619,18 @@
       "keyword": "content-review-filters",
       "answer": "content-review-filters is a TypeScript project by facebook. Set of filters and preferences that can be applied to content viewed in a content review tool.  Stars: 4",
       "language": "TypeScript"
+    },
+    {
+      "keyword": "aspire-brand",
+      "answer": "aspire-brand is a coding project by microsoft. Brand assets for Aspire: Including slides, logos, icons, colors, guides, etc. Stars: 5",
+      "language": "Unknown"
+    },
+    {
+      "keyword": "amplifier-bundle-digital-twin-universe",
+      "answer": "amplifier-bundle-digital-twin-universe is a coding project by microsoft. Digital Twin Universe bundle for the Amplifier project Stars: 0",
+      "language": "Unknown"
     }
   ],
-  "lastUpdated": "2026-03-25T13:26:09.277Z",
-  "totalKnowledge": 124
+  "lastUpdated": "2026-03-25T19:05:16.948Z",
+  "totalKnowledge": 126
 }
