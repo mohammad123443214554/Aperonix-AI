@@ -1,0 +1,34 @@
+# Aperonix - Free 24/7 Computer
+# GitHub Actions se free mein chalega!
+
+name: Aperonix AI Brain
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Har 6 ghante mein seekhega
+  workflow_dispatch:         # Manual bhi chala sakte hain
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Aperonix
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Run Aperonix Brain
+        run: node brain.js
+
+      - name: Save What Aperonix Learned
+        run: |
+          echo "Aperonix ran at $(date)" >> learning_log.txt
+          git config user.email "aperonix@ai.com"
+          git config user.name "Aperonix AI"
+          git add .
+          git diff --staged --quiet || git commit -m "Aperonix learned something new!"
+          git push
