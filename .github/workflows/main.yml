@@ -32,6 +32,3 @@ jobs:
           git add .
           git diff --staged --quiet || git commit -m "Aperonix learned something new!"
           git push
-v3 → v4 ✅
-Node 18 → Node 20 ✅
-permissions: write ✅ (push ke liye)
