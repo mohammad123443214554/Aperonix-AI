@@ -412,15 +412,3 @@ async function main() {
 }
 
 main();
-```
-
----
-
-**Commit karo → Actions → Run workflow → Phir local pe test karo!**
-
-Test karo yeh sawaal:
-```
-You: kisne banaya aapko
-You: creat java code
-You: kaise ho
-You: make a game
