@@ -71,7 +71,7 @@ const aperonix = {
       "artifical": "artificial", "inteligence": "intelligence",
       "codeing": "coding", "lerning": "learning",
       "jave": "java", "jaava": "java",
-      "pyton": "python", "c++": "cpp",
+      "pyton": "python", "cpp": "cpp",
       "mujhe": "me", "aapko": "you",
       "karo": "do", "karna": "do",
     };
