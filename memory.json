@@ -389,8 +389,88 @@
       "keyword": "dbmonster",
       "answer": "dbmonster is a JavaScript project by jashkenas. A Simple Version of the Dbmonster Demo, Using and Underscore Template. Stars: 8",
       "language": "JavaScript"
+    },
+    {
+      "keyword": "devguide",
+      "answer": "devguide is a coding project by gvanrossum. GvR's fork of python/devguide It has 2 stars on GitHub!",
+      "language": "Unknown"
+    },
+    {
+      "keyword": "minithesis",
+      "answer": "minithesis is a coding project by gvanrossum. A very minimal implementation of the core idea of Hypothesis It has 6 stars on GitHub!",
+      "language": "Unknown"
+    },
+    {
+      "keyword": "exceptiongroup",
+      "answer": "exceptiongroup is a coding project by gvanrossum.  It has 5 stars on GitHub!",
+      "language": "Unknown"
+    },
+    {
+      "keyword": "detritus",
+      "answer": "detritus is a coding project by brendaneich. gh-pages home It has 3 stars on GitHub!",
+      "language": "Unknown"
+    },
+    {
+      "keyword": "hyprland-wiki",
+      "answer": "hyprland-wiki is a coding project by DHH. The Hyprland Wiki Pages, automatically synced with the website. It has 18 stars on GitHub!",
+      "language": "Unknown"
+    },
+    {
+      "keyword": "textmate-rails-bundle",
+      "answer": "textmate-rails-bundle is a coding project by DHH. My stripped down Rails bundle for TextMate 2 It has 51 stars on GitHub!",
+      "language": "Unknown"
+    },
+    {
+      "keyword": "react-router-tree-shaking-compare",
+      "answer": "react-router-tree-shaking-compare is a coding project by yyx990803.  It has 7 stars on GitHub!",
+      "language": "Unknown"
+    },
+    {
+      "keyword": "opensourcepledge.com",
+      "answer": "opensourcepledge.com is a coding project by yyx990803. We all depend on Open Source. Pay the maintainers by joining the Open Source Pledge. It has 15 stars on GitHub!",
+      "language": "Unknown"
+    },
+    {
+      "keyword": "core",
+      "answer": "core is a coding project by yyx990803. 🖖 Vue.js is a progressive, incrementally-adoptable JavaScript framework for building UI on the web. It has 17 stars on GitHub!",
+      "language": "Unknown"
+    },
+    {
+      "keyword": "ssr-benchmark",
+      "answer": "ssr-benchmark is a coding project by yyx990803. Benchmarking JS web framework SSR performance It has 25 stars on GitHub!",
+      "language": "Unknown"
+    },
+    {
+      "keyword": "tj",
+      "answer": "tj is a coding project by tj.  It has 51 stars on GitHub!",
+      "language": "Unknown"
+    },
+    {
+      "keyword": "agent-engineer",
+      "answer": "agent-engineer is a coding project by addyosmani. Agent Engineer - a practical course for software engineers It has 70 stars on GitHub!",
+      "language": "Unknown"
+    },
+    {
+      "keyword": "gemini-cli-tips",
+      "answer": "gemini-cli-tips is a coding project by addyosmani. Gemini CLI Tips and Tricks It has 2282 stars on GitHub!",
+      "language": "Unknown"
+    },
+    {
+      "keyword": "pixelwall",
+      "answer": "PixelWall is a coding project by antirez. Collection of programs that generate animations to project onto a pixel wall. It has 3 stars on GitHub!",
+      "language": "Unknown"
+    },
+    {
+      "keyword": "preact-router",
+      "answer": "preact-router is a coding project by jashkenas. :earth_americas: URL router for Preact. It has 3 stars on GitHub!",
+      "language": "Unknown"
+    },
+    {
+      "keyword": "site-policy",
+      "answer": "site-policy is a coding project by jashkenas. Collaborative development on GitHub's site policies, procedures, and guidelines It has 5 stars on GitHub!",
+      "language": "Unknown"
     }
   ],
-  "lastUpdated": "2026-03-25T11:06:52.598Z",
-  "totalKnowledge": 78
+  "lastUpdated": "2026-03-25T11:57:43.428Z",
+  "totalKnowledge": 94
 }
