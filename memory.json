@@ -469,8 +469,158 @@
       "keyword": "site-policy",
       "answer": "site-policy is a coding project by jashkenas. Collaborative development on GitHub's site policies, procedures, and guidelines It has 5 stars on GitHub!",
       "language": "Unknown"
+    },
+    {
+      "keyword": "easycopilotlab",
+      "answer": "easycopilotlab is a SCSS project by microsoft. Copilot Studio for non-developers — Learn to build your first AI agent without coding. Stars: 0",
+      "language": "SCSS"
+    },
+    {
+      "keyword": "amplifier-bundle-gitea",
+      "answer": "amplifier-bundle-gitea is a Python project by microsoft. Gitea bundle for the Amplifier project Stars: 1",
+      "language": "Python"
+    },
+    {
+      "keyword": "d365cc-fde",
+      "answer": "d365cc-fde is a JavaScript project by microsoft. Sharing experience from the real projects Stars: 3",
+      "language": "JavaScript"
+    },
+    {
+      "keyword": "snapfeed",
+      "answer": "Snapfeed is a TypeScript project by microsoft. Web UX snapshot and feedback loop for agentic development Stars: 1",
+      "language": "TypeScript"
+    },
+    {
+      "keyword": "promptkit",
+      "answer": "PromptKit is a JavaScript project by microsoft. Agentic prompts are the most important code you're not engineering. PromptKit fixes that — composable, version-controlled prompt components (personas, protocols, formats, templates) that snap together into reliable, repeatable prompts for bug investigation, design docs, code review, security audits, and more. Works with any LLM. Stars: 7",
+      "language": "JavaScript"
+    },
+    {
+      "keyword": "open-kosmos",
+      "answer": "open-kosmos is a TypeScript project by microsoft.  Stars: 18",
+      "language": "TypeScript"
+    },
+    {
+      "keyword": "fabcon-atlanta-capacities-workshop",
+      "answer": "fabcon-atlanta-capacities-workshop is a coding project by microsoft. This repo contains instructions for capacities workshop at FabCon Atlanta 2026. Stars: 2",
+      "language": "Unknown"
+    },
+    {
+      "keyword": "m365-copilot-resources",
+      "answer": "m365-copilot-resources is a HTML project by microsoft. Resources for M365 Copilot Stars: 1",
+      "language": "HTML"
+    },
+    {
+      "keyword": "agent365-resources",
+      "answer": "agent365-resources is a HTML project by microsoft. Resources for Microsoft Agent 365 Stars: 1",
+      "language": "HTML"
+    },
+    {
+      "keyword": "communitymanagement-sample-spec-kit",
+      "answer": "CommunityManagement-Sample-Spec-Kit is a TypeScript project by microsoft. A sample app for community management to test full agentic development via Spec-Kit Stars: 2",
+      "language": "TypeScript"
+    },
+    {
+      "keyword": "androidxr-unreal-vendor-plugin",
+      "answer": "androidxr-unreal-vendor-plugin is a coding project by google.  Stars: 0",
+      "language": "Unknown"
+    },
+    {
+      "keyword": "restory",
+      "answer": "restory is a C# project by google.  Stars: 0",
+      "language": "C#"
+    },
+    {
+      "keyword": "prism",
+      "answer": "prism is a JavaScript project by google.  Stars: 1",
+      "language": "JavaScript"
+    },
+    {
+      "keyword": "platform-attestation",
+      "answer": "platform-attestation is a coding project by google.  Stars: 1",
+      "language": "Unknown"
+    },
+    {
+      "keyword": "fingerprinting-risk-measures",
+      "answer": "fingerprinting-risk-measures is a Jupyter Notebook project by google. This repository contains the analysis code for the paper “An Improved Entropy Measure for Web Browser Fingerprinting Risk” by Alex Berke, Enrico Bacis, and Umar Syed, published in the Proceedings of The Privacy Enhancing Technologies Symposium, 2026. Stars: 2",
+      "language": "Jupyter Notebook"
+    },
+    {
+      "keyword": "safe-bindings",
+      "answer": "safe-bindings is a C++ project by google.  Stars: 1",
+      "language": "C++"
+    },
+    {
+      "keyword": "hcls_agents_catalog",
+      "answer": "hcls_agents_catalog is a Python project by google.  Stars: 2",
+      "language": "Python"
+    },
+    {
+      "keyword": "ublk-seekable-zstd",
+      "answer": "ublk-seekable-zstd is a Rust project by google. Mount your seekable zstd disk archives with ease Stars: 2",
+      "language": "Rust"
+    },
+    {
+      "keyword": "stellar-engine",
+      "answer": "stellar-engine is a HCL project by google. Stellar Engine provides compliant Google Cloud  infrastructure and opinionated architecture patterns for supported Assured Workloads (Data Boundary) compliance regimes, including Google best practices and cybersecurity documentation to aid in the Federal Authorization to Operate (ATO) process Stars: 11",
+      "language": "HCL"
+    },
+    {
+      "keyword": "migration-planner",
+      "answer": "migration-planner is a Python project by google. The Migration Planner is a desktop application designed to help deployment partners and IT administrators assess a Microsoft Exchange Online tenant before migration.  Stars: 0",
+      "language": "Python"
+    },
+    {
+      "keyword": "lifeguard",
+      "answer": "Lifeguard is a Python project by facebook. Lifeguard is a static analyzer to detect Lazy Imports incompatibilities and ease the adoption overhead for Lazy Imports in Python Stars: 37",
+      "language": "Python"
+    },
+    {
+      "keyword": "fbnic_qemu",
+      "answer": "fbnic_qemu is a C project by facebook. This repo contains the QEMU that simulates hardware for the fbnic driver Stars: 1",
+      "language": "C"
+    },
+    {
+      "keyword": "shortcake",
+      "answer": "shortcake is a Rust project by facebook. An implementation of a SAS-based authenticated key exchange Stars: 0",
+      "language": "Rust"
+    },
+    {
+      "keyword": "fbaudiencenetwork",
+      "answer": "FBAudienceNetwork is a Swift project by facebook. Meta Audience Network allows you to monetize your iOS and Android apps with Facebook ads Stars: 0",
+      "language": "Swift"
+    },
+    {
+      "keyword": "gfxbench",
+      "answer": "gfxbench is a C project by facebook.  Stars: 1",
+      "language": "C"
+    },
+    {
+      "keyword": "fbnic-mock-fw",
+      "answer": "fbnic-mock-fw is a Python project by facebook. Follow the README to run this mock firmware with the upstream fbnic driver, so it can respond to any messages the driver sends during development or testing. Stars: 0",
+      "language": "Python"
+    },
+    {
+      "keyword": "meta-haptics-sdk",
+      "answer": "meta-haptics-sdk is a C++ project by facebook. A low-level haptic rendering and data processing library based on a universal format. Stars: 12",
+      "language": "C++"
+    },
+    {
+      "keyword": "meta-wearables-dat-ios",
+      "answer": "meta-wearables-dat-ios is a Shell project by facebook. Meta Wearables Device Access Toolkit for iOS Stars: 303",
+      "language": "Shell"
+    },
+    {
+      "keyword": "meta-wearables-dat-android",
+      "answer": "meta-wearables-dat-android is a Shell project by facebook. Meta Wearables Device Access Toolkit for Android Stars: 216",
+      "language": "Shell"
+    },
+    {
+      "keyword": "content-review-filters",
+      "answer": "content-review-filters is a TypeScript project by facebook. Set of filters and preferences that can be applied to content viewed in a content review tool.  Stars: 4",
+      "language": "TypeScript"
     }
   ],
-  "lastUpdated": "2026-03-25T11:57:43.428Z",
-  "totalKnowledge": 94
+  "lastUpdated": "2026-03-25T12:29:00.718Z",
+  "totalKnowledge": 124
 }
