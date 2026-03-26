@@ -507,7 +507,7 @@ async function startChat() {
   console.log("   Real neural network — Pure math!");
   console.log("=".repeat(55));
 
-  aperonix.train(500);
+  aperonix.train(5000);
 
   console.log("Aperonix: Hey! I'm Aperonix — 1000 real neurons! 🧠✨");
   console.log("          Ask in English, Hindi, or Hinglish!");
