@@ -1,0 +1,15 @@
+{
+  "name": "aperonix-ai",
+  "version": "0.8.0",
+  "description": "World's first GitHub-powered AI — by Mohammad Khan, Age 14",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "train": "node brain.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "Mohammad Khan",
+  "license": "MIT"
+}
