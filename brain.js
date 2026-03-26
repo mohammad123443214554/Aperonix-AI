@@ -545,7 +545,7 @@ async function main() {
 
   if (process.env.GITHUB_ACTIONS === 'true') {
     console.log("📚 GitHub Actions — Training + Learning!\n");
-    aperonix.train(1000);
+    aperonix.train(5000);
     for (let dev of developers) {
       await fetchRepos(dev);
       await new Promise(r => setTimeout(r, 1000));
