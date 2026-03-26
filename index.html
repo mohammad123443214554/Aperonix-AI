@@ -7,9 +7,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    /* ============================
-       CSS VARIABLES — THEMES
-    ============================ */
     :root {
       --bg: #ffffff;
       --bg2: #f7f7f8;
@@ -21,12 +18,10 @@
       --border: #e5e5e5;
       --accent: #10a37f;
       --accent-hover: #0d8c6d;
-      --user-bubble: #10a37f;
       --ai-bubble: #f7f7f8;
       --shadow: rgba(0,0,0,0.08);
       --input-bg: #ffffff;
     }
-
     [data-theme="dark"] {
       --bg: #212121;
       --bg2: #2f2f2f;
@@ -36,16 +31,11 @@
       --text2: #8e8ea0;
       --text3: #565869;
       --border: #3a3a3a;
-      --accent: #10a37f;
-      --accent-hover: #0d8c6d;
-      --user-bubble: #10a37f;
       --ai-bubble: #2f2f2f;
       --shadow: rgba(0,0,0,0.3);
       --input-bg: #2f2f2f;
     }
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--bg);
@@ -56,9 +46,7 @@
       transition: background 0.3s, color 0.3s;
     }
 
-    /* ============================
-       SIDEBAR
-    ============================ */
+    /* SIDEBAR */
     .sidebar {
       width: 260px;
       background: var(--sidebar);
@@ -67,10 +55,9 @@
       flex-direction: column;
       padding: 12px;
       gap: 4px;
-      transition: background 0.3s, border-color 0.3s;
       flex-shrink: 0;
+      transition: background 0.3s;
     }
-
     .sidebar-logo {
       display: flex;
       align-items: center;
@@ -78,29 +65,16 @@
       padding: 10px 12px;
       margin-bottom: 4px;
     }
-
     .logo-icon {
-      width: 32px;
-      height: 32px;
+      width: 32px; height: 32px;
       background: var(--accent);
       border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       font-size: 16px;
     }
-
-    .logo-text {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--text);
-      letter-spacing: -0.3px;
-    }
-
+    .logo-text { font-size: 16px; font-weight: 600; color: var(--text); }
     .new-chat-btn {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      display: flex; align-items: center; gap: 10px;
       padding: 10px 12px;
       background: transparent;
       border: 1px solid var(--border);
@@ -115,18 +89,14 @@
       text-align: left;
       margin-bottom: 8px;
     }
-
     .new-chat-btn:hover { background: var(--bg3); }
-
     .sidebar-section {
-      font-size: 11px;
-      font-weight: 600;
+      font-size: 11px; font-weight: 600;
       color: var(--text3);
       padding: 8px 12px 4px;
       letter-spacing: 0.5px;
       text-transform: uppercase;
     }
-
     .chat-history-item {
       padding: 8px 12px;
       border-radius: 8px;
@@ -138,30 +108,17 @@
       text-overflow: ellipsis;
       transition: background 0.2s, color 0.2s;
     }
-
-    .chat-history-item:hover {
-      background: var(--bg3);
-      color: var(--text);
+    .chat-history-item:hover, .chat-history-item.active {
+      background: var(--bg3); color: var(--text);
     }
-
-    .chat-history-item.active {
-      background: var(--bg3);
-      color: var(--text);
-    }
-
     .sidebar-bottom {
       margin-top: auto;
       border-top: 1px solid var(--border);
       padding-top: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
+      display: flex; flex-direction: column; gap: 4px;
     }
-
     .sidebar-btn {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      display: flex; align-items: center; gap: 10px;
       padding: 10px 12px;
       border-radius: 8px;
       cursor: pointer;
@@ -169,137 +126,89 @@
       color: var(--text2);
       transition: background 0.2s, color 0.2s;
     }
+    .sidebar-btn:hover { background: var(--bg3); color: var(--text); }
 
-    .sidebar-btn:hover {
-      background: var(--bg3);
-      color: var(--text);
+    /* STATUS DOT */
+    .status-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #ccc;
+      display: inline-block;
+      margin-right: 6px;
+      transition: background 0.3s;
     }
+    .status-dot.online { background: #10a37f; }
+    .status-dot.offline { background: #ff4444; }
 
-    /* ============================
-       MAIN CHAT AREA
-    ============================ */
+    /* MAIN */
     .main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      position: relative;
+      flex: 1; display: flex; flex-direction: column;
+      overflow: hidden; position: relative;
     }
-
-    /* Top bar */
     .topbar {
-      display: flex;
-      align-items: center;
+      display: flex; align-items: center;
       justify-content: space-between;
       padding: 12px 20px;
       border-bottom: 1px solid var(--border);
       background: var(--bg);
-      transition: background 0.3s, border-color 0.3s;
+      transition: background 0.3s;
     }
-
     .model-selector {
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      display: flex; align-items: center; gap: 6px;
       padding: 6px 12px;
       border-radius: 8px;
       border: 1px solid var(--border);
       cursor: pointer;
-      font-size: 14px;
-      font-weight: 500;
+      font-size: 14px; font-weight: 500;
       color: var(--text);
       background: var(--bg);
       font-family: 'DM Sans', sans-serif;
-      transition: background 0.2s;
     }
-
-    .model-selector:hover { background: var(--bg2); }
-
-    .topbar-right {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .theme-toggle {
-      width: 36px;
-      height: 36px;
+    .topbar-right { display: flex; align-items: center; gap: 8px; }
+    .icon-btn {
+      width: 36px; height: 36px;
       border-radius: 8px;
       border: 1px solid var(--border);
       background: var(--bg);
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       font-size: 16px;
       transition: background 0.2s;
       color: var(--text);
     }
+    .icon-btn:hover { background: var(--bg2); }
 
-    .theme-toggle:hover { background: var(--bg2); }
-
-    /* ============================
-       MESSAGES
-    ============================ */
+    /* MESSAGES */
     .messages-area {
-      flex: 1;
-      overflow-y: auto;
+      flex: 1; overflow-y: auto;
       padding: 20px 0;
       scroll-behavior: smooth;
     }
-
     .messages-area::-webkit-scrollbar { width: 4px; }
     .messages-area::-webkit-scrollbar-thumb {
-      background: var(--border);
-      border-radius: 4px;
+      background: var(--border); border-radius: 4px;
     }
 
-    /* Welcome screen */
+    /* WELCOME */
     .welcome {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      gap: 24px;
-      padding: 20px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      height: 100%; gap: 24px; padding: 20px;
       animation: fadeIn 0.5s ease;
     }
-
     .welcome-logo {
-      width: 56px;
-      height: 56px;
+      width: 56px; height: 56px;
       background: var(--accent);
       border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       font-size: 28px;
     }
-
-    .welcome h1 {
-      font-size: 28px;
-      font-weight: 600;
-      color: var(--text);
-      letter-spacing: -0.5px;
-    }
-
-    .welcome p {
-      font-size: 15px;
-      color: var(--text2);
-      text-align: center;
-      max-width: 400px;
-      line-height: 1.6;
-    }
-
+    .welcome h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.5px; }
+    .welcome p { font-size: 15px; color: var(--text2); text-align: center; max-width: 400px; line-height: 1.6; }
     .suggestions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      width: 100%;
-      max-width: 580px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 10px; width: 100%; max-width: 580px;
     }
-
     .suggestion-card {
       padding: 14px 16px;
       border: 1px solid var(--border);
@@ -308,332 +217,201 @@
       transition: background 0.2s, border-color 0.2s;
       background: var(--bg);
     }
+    .suggestion-card:hover { background: var(--bg2); border-color: var(--accent); }
+    .s-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
+    .s-sub { font-size: 12px; color: var(--text2); }
 
-    .suggestion-card:hover {
-      background: var(--bg2);
-      border-color: var(--accent);
-    }
-
-    .suggestion-card .s-title {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text);
-      margin-bottom: 2px;
-    }
-
-    .suggestion-card .s-sub {
-      font-size: 12px;
-      color: var(--text2);
-    }
-
-    /* Message bubbles */
+    /* MESSAGES */
     .message {
-      padding: 0 20px;
-      margin-bottom: 4px;
+      padding: 0 20px; margin-bottom: 4px;
       max-width: 780px;
-      margin-left: auto;
-      margin-right: auto;
+      margin-left: auto; margin-right: auto;
       width: 100%;
       animation: slideUp 0.3s ease;
     }
-
     @keyframes slideUp {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     .message-inner {
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
-      padding: 14px 0;
+      display: flex; gap: 14px;
+      align-items: flex-start; padding: 14px 0;
     }
-
-    .message.user .message-inner {
-      flex-direction: row-reverse;
-    }
-
+    .message.user .message-inner { flex-direction: row-reverse; }
     .avatar {
-      width: 32px;
-      height: 32px;
+      width: 32px; height: 32px;
       border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      flex-shrink: 0;
-      font-weight: 600;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; flex-shrink: 0; font-weight: 600;
     }
-
-    .avatar.ai {
-      background: var(--accent);
-      color: white;
-    }
-
-    .avatar.user {
-      background: var(--bg3);
-      color: var(--text);
-    }
-
+    .avatar.ai { background: var(--accent); color: white; }
+    .avatar.user { background: var(--bg3); color: var(--text); }
     .bubble {
       max-width: calc(100% - 50px);
       padding: 12px 16px;
       border-radius: 12px;
-      font-size: 14px;
-      line-height: 1.65;
+      font-size: 14px; line-height: 1.65;
       color: var(--text);
       white-space: pre-wrap;
       word-break: break-word;
     }
-
     .message.user .bubble {
-      background: var(--user-bubble);
-      color: white;
+      background: var(--accent); color: white;
       border-radius: 12px 4px 12px 12px;
     }
-
     .message.ai .bubble {
       background: var(--ai-bubble);
       border: 1px solid var(--border);
       border-radius: 4px 12px 12px 12px;
     }
-
-    /* Code blocks */
-    .bubble code {
-      font-family: 'DM Mono', monospace;
-      font-size: 13px;
-      background: var(--bg3);
-      padding: 2px 6px;
-      border-radius: 4px;
-    }
-
     .bubble pre {
       background: var(--bg3);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 14px;
-      overflow-x: auto;
-      margin: 8px 0;
+      border-radius: 8px; padding: 14px;
+      overflow-x: auto; margin: 8px 0;
       font-family: 'DM Mono', monospace;
-      font-size: 13px;
-      line-height: 1.5;
+      font-size: 13px; line-height: 1.5;
+    }
+    .bubble code {
+      font-family: 'DM Mono', monospace; font-size: 13px;
+      background: var(--bg3); padding: 2px 6px; border-radius: 4px;
+    }
+    .confidence-badge {
+      display: inline-block;
+      font-size: 11px; color: var(--text3);
+      margin-top: 6px; font-style: italic;
     }
 
-    /* Typing indicator */
+    /* TYPING */
     .typing {
-      display: flex;
-      gap: 4px;
+      display: flex; gap: 4px;
       padding: 12px 16px;
       background: var(--ai-bubble);
       border: 1px solid var(--border);
       border-radius: 4px 12px 12px 12px;
       width: fit-content;
     }
-
     .typing span {
-      width: 6px;
-      height: 6px;
-      background: var(--text3);
-      border-radius: 50%;
+      width: 6px; height: 6px;
+      background: var(--text3); border-radius: 50%;
       animation: bounce 1.2s infinite;
     }
-
     .typing span:nth-child(2) { animation-delay: 0.2s; }
     .typing span:nth-child(3) { animation-delay: 0.4s; }
-
     @keyframes bounce {
-      0%, 60%, 100% { transform: translateY(0); }
+      0%,60%,100% { transform: translateY(0); }
       30% { transform: translateY(-6px); }
     }
 
-    /* ============================
-       INPUT AREA
-    ============================ */
+    /* INPUT */
     .input-area {
       padding: 16px 20px 20px;
       background: var(--bg);
       border-top: 1px solid var(--border);
-      transition: background 0.3s, border-color 0.3s;
     }
-
     .input-wrapper {
-      max-width: 780px;
-      margin: 0 auto;
+      max-width: 780px; margin: 0 auto;
       position: relative;
       background: var(--input-bg);
       border: 1px solid var(--border);
       border-radius: 14px;
-      display: flex;
-      align-items: flex-end;
-      gap: 8px;
+      display: flex; align-items: flex-end; gap: 8px;
       padding: 10px 10px 10px 16px;
       box-shadow: 0 2px 12px var(--shadow);
-      transition: border-color 0.2s, box-shadow 0.2s;
+      transition: border-color 0.2s;
     }
-
     .input-wrapper:focus-within {
       border-color: var(--accent);
-      box-shadow: 0 2px 16px rgba(16, 163, 127, 0.15);
+      box-shadow: 0 2px 16px rgba(16,163,127,0.15);
     }
-
     #userInput {
-      flex: 1;
-      border: none;
-      outline: none;
+      flex: 1; border: none; outline: none;
       background: transparent;
-      font-size: 15px;
-      font-family: 'DM Sans', sans-serif;
-      color: var(--text);
-      resize: none;
-      max-height: 180px;
-      min-height: 24px;
-      line-height: 1.5;
+      font-size: 15px; font-family: 'DM Sans', sans-serif;
+      color: var(--text); resize: none;
+      max-height: 180px; min-height: 24px; line-height: 1.5;
     }
-
     #userInput::placeholder { color: var(--text3); }
-
     .send-btn {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      background: var(--accent);
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s, transform 0.1s;
-      flex-shrink: 0;
+      width: 36px; height: 36px;
+      border-radius: 8px; background: var(--accent);
+      border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, transform 0.1s; flex-shrink: 0;
     }
-
     .send-btn:hover { background: var(--accent-hover); }
     .send-btn:active { transform: scale(0.95); }
     .send-btn:disabled { background: var(--bg3); cursor: not-allowed; }
-
-    .send-btn svg {
-      width: 16px;
-      height: 16px;
-      fill: white;
-    }
-
+    .send-btn svg { width: 16px; height: 16px; fill: white; }
     .input-footer {
-      text-align: center;
-      font-size: 11px;
-      color: var(--text3);
-      margin-top: 8px;
+      text-align: center; font-size: 11px;
+      color: var(--text3); margin-top: 8px;
     }
 
-    /* ============================
-       SETTINGS PANEL
-    ============================ */
+    /* SETTINGS */
     .settings-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.4);
-      z-index: 100;
-      align-items: center;
-      justify-content: center;
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.4); z-index: 100;
+      align-items: center; justify-content: center;
     }
-
     .settings-overlay.open { display: flex; }
-
     .settings-panel {
       background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      width: 480px;
-      max-width: 90vw;
-      padding: 24px;
+      border-radius: 16px; width: 480px;
+      max-width: 90vw; padding: 24px;
       animation: fadeIn 0.2s ease;
     }
-
     .settings-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
+      display: flex; align-items: center;
+      justify-content: space-between; margin-bottom: 20px;
     }
-
-    .settings-header h2 {
-      font-size: 18px;
-      font-weight: 600;
-    }
-
+    .settings-header h2 { font-size: 18px; font-weight: 600; }
     .close-btn {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: transparent;
-      cursor: pointer;
-      font-size: 18px;
-      color: var(--text2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 32px; height: 32px;
+      border-radius: 8px; border: 1px solid var(--border);
+      background: transparent; cursor: pointer;
+      font-size: 18px; color: var(--text2);
+      display: flex; align-items: center; justify-content: center;
     }
-
     .close-btn:hover { background: var(--bg2); }
-
     .settings-row {
-      display: flex;
-      align-items: center;
+      display: flex; align-items: center;
       justify-content: space-between;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--border);
+      padding: 14px 0; border-bottom: 1px solid var(--border);
     }
-
     .settings-row:last-child { border-bottom: none; }
-
-    .settings-label {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text);
-    }
-
-    .settings-sub {
-      font-size: 12px;
-      color: var(--text2);
-      margin-top: 2px;
-    }
-
+    .settings-label { font-size: 14px; font-weight: 500; }
+    .settings-sub { font-size: 12px; color: var(--text2); margin-top: 2px; }
     .toggle-switch {
-      width: 44px;
-      height: 24px;
-      background: var(--bg3);
-      border-radius: 12px;
-      cursor: pointer;
-      position: relative;
-      transition: background 0.2s;
-      border: none;
-      flex-shrink: 0;
+      width: 44px; height: 24px;
+      background: var(--bg3); border-radius: 12px;
+      cursor: pointer; position: relative;
+      transition: background 0.2s; border: none; flex-shrink: 0;
     }
-
     .toggle-switch.on { background: var(--accent); }
-
     .toggle-switch::after {
-      content: '';
-      position: absolute;
-      width: 18px;
-      height: 18px;
-      background: white;
-      border-radius: 50%;
-      top: 3px;
-      left: 3px;
+      content: ''; position: absolute;
+      width: 18px; height: 18px; background: white;
+      border-radius: 50%; top: 3px; left: 3px;
       transition: transform 0.2s;
     }
-
     .toggle-switch.on::after { transform: translateX(20px); }
 
-    /* ============================
-       RESPONSIVE
-    ============================ */
+    /* ERROR BANNER */
+    .error-banner {
+      background: #fff3f3; border: 1px solid #ffcdd2;
+      color: #c62828; padding: 10px 16px;
+      font-size: 13px; text-align: center;
+      display: none;
+    }
+    [data-theme="dark"] .error-banner {
+      background: #2a1a1a; border-color: #5c2020;
+      color: #ff8a80;
+    }
+    .error-banner.show { display: block; }
+
     @media (max-width: 768px) {
       .sidebar { display: none; }
       .suggestions { grid-template-columns: 1fr; }
@@ -642,409 +420,351 @@
 </head>
 <body>
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="sidebar-logo">
-      <div class="logo-icon">🤖</div>
-      <span class="logo-text">Aperonix</span>
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon">🤖</div>
+    <span class="logo-text">Aperonix</span>
+  </div>
+  <button class="new-chat-btn" onclick="newChat()">✏️ &nbsp; New chat</button>
+  <div class="sidebar-section">Recent</div>
+  <div class="chat-history-item active">Hello from Aperonix!</div>
+  <div class="chat-history-item">Create Python code</div>
+  <div class="chat-history-item">Who made you?</div>
+  <div class="chat-history-item">Make a JavaScript game</div>
+  <div class="chat-history-item">What is HTML?</div>
+  <div class="sidebar-bottom">
+    <div class="sidebar-btn" onclick="openSettings()">⚙️ &nbsp; Settings</div>
+    <div class="sidebar-btn">
+      <span class="status-dot" id="statusDot"></span>
+      Mohammad Khan
     </div>
+  </div>
+</aside>
 
-    <button class="new-chat-btn" onclick="newChat()">
-      ✏️ &nbsp; New chat
-    </button>
-
-    <div class="sidebar-section">Recent</div>
-    <div class="chat-history-item active" onclick="loadChat(0)">Hello from Aperonix!</div>
-    <div class="chat-history-item" onclick="loadChat(1)">Create Python code</div>
-    <div class="chat-history-item" onclick="loadChat(2)">Who made you?</div>
-    <div class="chat-history-item" onclick="loadChat(3)">Make a JavaScript game</div>
-    <div class="chat-history-item" onclick="loadChat(4)">What is HTML?</div>
-
-    <div class="sidebar-bottom">
-      <div class="sidebar-btn" onclick="openSettings()">
-        ⚙️ &nbsp; Settings
-      </div>
-      <div class="sidebar-btn">
-        👤 &nbsp; Mohammad Khan
-      </div>
-    </div>
-  </aside>
-
-  <!-- MAIN AREA -->
-  <main class="main">
-
-    <!-- TOP BAR -->
-    <div class="topbar">
-      <button class="model-selector">
-        🧠 Aperonix v0.8 ▾
+<main class="main">
+  <div class="topbar">
+    <button class="model-selector">🧠 Aperonix v0.8 ▾</button>
+    <div class="topbar-right">
+      <button class="icon-btn" onclick="toggleTheme()" title="Toggle theme">
+        <span id="themeIcon">🌙</span>
       </button>
-      <div class="topbar-right">
-        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
-          <span id="themeIcon">🌙</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- MESSAGES -->
-    <div class="messages-area" id="messagesArea">
-
-      <!-- Welcome screen -->
-      <div class="welcome" id="welcomeScreen">
-        <div class="welcome-logo">🤖</div>
-        <h1>How can I help you?</h1>
-        <p>I'm Aperonix — an AI built from scratch using GitHub data by Mohammad Khan, age 14 🇮🇳</p>
-
-        <div class="suggestions">
-          <div class="suggestion-card" onclick="suggest('Create a Python hello world program')">
-            <div class="s-title">🐍 Python code</div>
-            <div class="s-sub">Create a simple Python program</div>
-          </div>
-          <div class="suggestion-card" onclick="suggest('Create a JavaScript game')">
-            <div class="s-title">🎮 Make a game</div>
-            <div class="s-sub">Build a fun JavaScript game</div>
-          </div>
-          <div class="suggestion-card" onclick="suggest('Create a simple HTML website')">
-            <div class="s-title">🌐 HTML website</div>
-            <div class="s-sub">Build a webpage from scratch</div>
-          </div>
-          <div class="suggestion-card" onclick="suggest('Who made you and how do you work?')">
-            <div class="s-title">🧠 About Aperonix</div>
-            <div class="s-sub">Learn how I was built</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- INPUT AREA -->
-    <div class="input-area">
-      <div class="input-wrapper">
-        <textarea
-          id="userInput"
-          placeholder="Message Aperonix..."
-          rows="1"
-          onkeydown="handleKey(event)"
-          oninput="autoResize(this)"
-        ></textarea>
-        <button class="send-btn" id="sendBtn" onclick="sendMessage()">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-          </svg>
-        </button>
-      </div>
-      <div class="input-footer">
-        Aperonix AI — Built by Mohammad Khan, Age 14 🇮🇳 — Powered by GitHub data
-      </div>
-    </div>
-
-  </main>
-
-  <!-- SETTINGS -->
-  <div class="settings-overlay" id="settingsOverlay" onclick="closeSettings(event)">
-    <div class="settings-panel">
-      <div class="settings-header">
-        <h2>Settings</h2>
-        <button class="close-btn" onclick="closeSettingsPanel()">×</button>
-      </div>
-
-      <div class="settings-row">
-        <div>
-          <div class="settings-label">Dark Mode</div>
-          <div class="settings-sub">Switch between light and dark theme</div>
-        </div>
-        <button class="toggle-switch" id="darkToggle" onclick="toggleTheme()"></button>
-      </div>
-
-      <div class="settings-row">
-        <div>
-          <div class="settings-label">Show Neural Confidence</div>
-          <div class="settings-sub">Show AI confidence % in responses</div>
-        </div>
-        <button class="toggle-switch on" id="confidenceToggle" onclick="toggleConfidence()"></button>
-      </div>
-
-      <div class="settings-row">
-        <div>
-          <div class="settings-label">Version</div>
-          <div class="settings-sub">Current Aperonix version</div>
-        </div>
-        <span style="font-size:13px;color:var(--text2)">v0.8</span>
-      </div>
-
-      <div class="settings-row">
-        <div>
-          <div class="settings-label">Creator</div>
-          <div class="settings-sub">Built by</div>
-        </div>
-        <span style="font-size:13px;color:var(--text2)">Mohammad Khan, 14 🇮🇳</span>
-      </div>
-
     </div>
   </div>
 
-  <script>
-    // ============================
-    // APERONIX BRAIN (Frontend)
-    // ============================
-    let showConfidence = true;
-    let isDark = false;
-    let isTyping = false;
+  <div class="error-banner" id="errorBanner">
+    ⚠️ Server offline — using local AI mode
+  </div>
 
-    // Simple AI responses
-    const aperonixBrain = {
-      ethicsCheck(text) {
-        const bad = ["hack","virus","cheat","harm","crack","steal","exploit","malware","illegal","ddos"];
-        return !bad.some(w => text.toLowerCase().includes(w));
-      },
-
-      think(input) {
-        const t = input.toLowerCase();
-
-        if (!this.ethicsCheck(t)) {
-          return { text: "I'm sorry, I can't help with that. Let's keep it positive! 😊", confidence: 99 };
-        }
-
-        // Greetings
-        if (/hello|hi|hey|salam|namaste/.test(t)) {
-          return { text: "Hey there! 😊 I'm Aperonix — an AI built from scratch using GitHub data!\nHow can I help you today?", confidence: 97 };
-        }
-
-        // Who made
-        if (/who made|who built|kisne|banaya|creator|mohammad/.test(t)) {
-          return { text: "I was built by Mohammad Khan — a 14-year-old developer from India! 🇮🇳✨\n\n• Zero paid tools\n• Zero GPU\n• Pure GitHub data\n• 1000 real neurons — from scratch!\n\nHe also built a Game Engine at 14. Pretty legendary, right? 😊", confidence: 98 };
-        }
-
-        // Who are you
-        if (/who are you|what are you|your name|naam/.test(t)) {
-          return { text: "I'm Aperonix! 🤖✨\n\nA female AI assistant built completely from scratch.\nI learn from GitHub data every 6 hours — automatically!\n\n• 1000 real neurons\n• No API keys\n• No paid tools\n• Built by Mohammad Khan, Age 14 🇮🇳", confidence: 98 };
-        }
-
-        // How are you
-        if (/how are you|kaise ho|kaisi ho/.test(t)) {
-          return { text: "I'm doing amazing, thank you! 😊\nMy 1000 neurons just finished training!\nHow are you doing today? 🌟", confidence: 95 };
-        }
-
-        // Python
-        if (/python/.test(t)) {
-          return { text: `Here's Python for you! 🐍\n\n\`\`\`python\nprint("Hello from Aperonix!")\n\nname = input("Your name: ")\nprint(f"Hello {name}! Nice to meet you!")\n\n# Simple calculator\na = int(input("Number 1: "))\nb = int(input("Number 2: "))\nprint(f"Sum = {a+b}")\n\`\`\`\n\nSave as hello.py → Run: python hello.py`, confidence: 96 };
-        }
-
-        // Java
-        if (/\bjava\b/.test(t) && !/javascript/.test(t)) {
-          return { text: `Here's Java! ☕\n\n\`\`\`java\npublic class Hello {\n    public static void main(String[] args) {\n        System.out.println("Hello from Aperonix!");\n        System.out.println("Built by Mohammad Khan, Age 14!");\n    }\n}\n\`\`\`\n\nSave as Hello.java\nRun: javac Hello.java && java Hello`, confidence: 95 };
-        }
-
-        // JavaScript
-        if (/javascript|js\b/.test(t)) {
-          return { text: `Here's JavaScript! ✨\n\n\`\`\`javascript\nconsole.log("Hello from Aperonix!");\n\nfunction greet(name) {\n    return \`Hello \${name}! Welcome!\`;\n}\nconsole.log(greet("Mohammad"));\n\n// Array example\nlet skills = ["AI", "Games", "Web"];\nskills.forEach(s => console.log(s));\n\`\`\`\n\nSave as hello.js → Run: node hello.js`, confidence: 95 };
-        }
-
-        // HTML
-        if (/html|webpage|website/.test(t)) {
-          return { text: `Here's HTML! 🌐\n\n\`\`\`html\n<!DOCTYPE html>\n<html>\n<head>\n    <title>My Page</title>\n    <style>\n        body { font-family: Arial; background: #1a1a2e; color: white; text-align: center; padding: 50px; }\n        button { background: #10a37f; color: white; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; }\n    </style>\n</head>\n<body>\n    <h1>Hello from Aperonix!</h1>\n    <p>Built by Mohammad Khan, Age 14 🇮🇳</p>\n    <button onclick="alert('Aperonix says hi! 👋')">Click Me!</button>\n</body>\n</html>\n\`\`\`\n\nSave as index.html → Open in browser!`, confidence: 96 };
-        }
-
-        // Game
-        if (/game/.test(t)) {
-          return { text: `A game — like your creator builds! 🎮\n\n\`\`\`javascript\n// Number Guessing Game\nconst secret = Math.floor(Math.random() * 10) + 1;\nconst readline = require('readline');\nconst rl = readline.createInterface({input: process.stdin, output: process.stdout});\n\nconsole.log("Guess a number 1-10!");\nlet attempts = 0;\n\nfunction guess() {\n    rl.question("Your guess: ", (ans) => {\n        attempts++;\n        let n = parseInt(ans);\n        if (n === secret) {\n            console.log(\`🎉 Correct in \${attempts} attempts!\`);\n            rl.close();\n        } else {\n            console.log(n < secret ? "Too low! 📈" : "Too high! 📉");\n            guess();\n        }\n    });\n}\nguess();\n\`\`\`\n\nSave as game.js → Run: node game.js`, confidence: 95 };
-        }
-
-        // CSS
-        if (/css|style/.test(t)) {
-          return { text: `Here's CSS! 🎨\n\n\`\`\`css\nbody {\n    background: #1a1a2e;\n    color: white;\n    font-family: 'Arial', sans-serif;\n    text-align: center;\n    padding: 20px;\n}\n\nh1 { color: #10a37f; font-size: 2.5em; }\n\n.button {\n    background: #10a37f;\n    color: white;\n    padding: 12px 24px;\n    border: none;\n    border-radius: 8px;\n    cursor: pointer;\n    font-size: 16px;\n    transition: background 0.2s;\n}\n\n.button:hover { background: #0d8c6d; }\n\`\`\`\n\nSave as style.css → Link in your HTML!`, confidence: 94 };
-        }
-
-        // Thank you
-        if (/thank|shukriya/.test(t)) {
-          return { text: "You're so welcome! 😊 It's my pleasure to help!\nAsk me anything anytime! ✨", confidence: 96 };
-        }
-
-        // Default
-        return {
-          text: "I'm still learning! 🌱 Try asking me:\n• 'Create Python code'\n• 'Make a JavaScript game'\n• 'Build an HTML website'\n• 'Who made you?'\n\nI grow smarter every 6 hours from GitHub! 💪",
-          confidence: 45
-        };
-      }
-    };
-
-    // ============================
-    // CHAT FUNCTIONS
-    // ============================
-    function sendMessage() {
-      const input = document.getElementById('userInput');
-      const text = input.value.trim();
-      if (!text || isTyping) return;
-
-      // Hide welcome
-      document.getElementById('welcomeScreen').style.display = 'none';
-
-      // Add user message
-      addMessage('user', text);
-      input.value = '';
-      input.style.height = 'auto';
-
-      // Show typing
-      isTyping = true;
-      document.getElementById('sendBtn').disabled = true;
-      const typingEl = addTyping();
-
-      // Get AI response
-      setTimeout(() => {
-        typingEl.remove();
-        const response = aperonixBrain.think(text);
-        let responseText = response.text;
-        if (showConfidence) {
-          responseText += `\n\n_Neural confidence: ${response.confidence}%_`;
-        }
-        addMessage('ai', responseText);
-        isTyping = false;
-        document.getElementById('sendBtn').disabled = false;
-      }, 800 + Math.random() * 600);
-    }
-
-    function addMessage(role, text) {
-      const area = document.getElementById('messagesArea');
-      const div = document.createElement('div');
-      div.className = `message ${role}`;
-
-      const avatar = role === 'ai' ? '🤖' : 'M';
-      const formattedText = formatText(text);
-
-      div.innerHTML = `
-        <div class="message-inner">
-          <div class="avatar ${role}">${avatar}</div>
-          <div class="bubble">${formattedText}</div>
+  <div class="messages-area" id="messagesArea">
+    <div class="welcome" id="welcomeScreen">
+      <div class="welcome-logo">🤖</div>
+      <h1>How can I help you?</h1>
+      <p>I'm Aperonix — an AI built from scratch using GitHub data by Mohammad Khan, age 14 🇮🇳</p>
+      <div class="suggestions">
+        <div class="suggestion-card" onclick="suggest('Create a Python hello world program')">
+          <div class="s-title">🐍 Python code</div>
+          <div class="s-sub">Create a simple Python program</div>
         </div>
-      `;
-
-      area.appendChild(div);
-      area.scrollTop = area.scrollHeight;
-      return div;
-    }
-
-    function addTyping() {
-      const area = document.getElementById('messagesArea');
-      const div = document.createElement('div');
-      div.className = 'message ai';
-      div.innerHTML = `
-        <div class="message-inner">
-          <div class="avatar ai">🤖</div>
-          <div class="typing">
-            <span></span><span></span><span></span>
-          </div>
+        <div class="suggestion-card" onclick="suggest('Create a JavaScript game')">
+          <div class="s-title">🎮 Make a game</div>
+          <div class="s-sub">Build a fun JavaScript game</div>
         </div>
-      `;
-      area.appendChild(div);
-      area.scrollTop = area.scrollHeight;
-      return div;
-    }
+        <div class="suggestion-card" onclick="suggest('Create a simple HTML website')">
+          <div class="s-title">🌐 HTML website</div>
+          <div class="s-sub">Build a webpage from scratch</div>
+        </div>
+        <div class="suggestion-card" onclick="suggest('Who made you and how do you work?')">
+          <div class="s-title">🧠 About Aperonix</div>
+          <div class="s-sub">Learn how I was built</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    function formatText(text) {
-      // Code blocks
-      text = text.replace(/```(\w+)?\n([\s\S]*?)```/g, (_, lang, code) => {
-        return `<pre><code>${escapeHtml(code.trim())}</code></pre>`;
+  <div class="input-area">
+    <div class="input-wrapper">
+      <textarea id="userInput" placeholder="Message Aperonix..." rows="1"
+        onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+      <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
+    </div>
+    <div class="input-footer">
+      Aperonix AI — Built by Mohammad Khan, Age 14 🇮🇳 — Powered by GitHub data
+    </div>
+  </div>
+</main>
+
+<div class="settings-overlay" id="settingsOverlay" onclick="closeSettings(event)">
+  <div class="settings-panel">
+    <div class="settings-header">
+      <h2>Settings</h2>
+      <button class="close-btn" onclick="closeSettingsPanel()">×</button>
+    </div>
+    <div class="settings-row">
+      <div>
+        <div class="settings-label">Dark Mode</div>
+        <div class="settings-sub">Switch between light and dark theme</div>
+      </div>
+      <button class="toggle-switch" id="darkToggle" onclick="toggleTheme()"></button>
+    </div>
+    <div class="settings-row">
+      <div>
+        <div class="settings-label">Show Neural Confidence</div>
+        <div class="settings-sub">Show AI confidence % in responses</div>
+      </div>
+      <button class="toggle-switch on" id="confidenceToggle" onclick="toggleConfidence()"></button>
+    </div>
+    <div class="settings-row">
+      <div>
+        <div class="settings-label">Server Status</div>
+        <div class="settings-sub" id="serverStatusText">Checking...</div>
+      </div>
+      <span id="serverStatusBadge" style="font-size:13px;color:var(--text2)">...</span>
+    </div>
+    <div class="settings-row">
+      <div>
+        <div class="settings-label">Version</div>
+        <div class="settings-sub">Current Aperonix version</div>
+      </div>
+      <span style="font-size:13px;color:var(--text2)">v0.8</span>
+    </div>
+    <div class="settings-row">
+      <div>
+        <div class="settings-label">Creator</div>
+        <div class="settings-sub">Built by</div>
+      </div>
+      <span style="font-size:13px;color:var(--text2)">Mohammad Khan, 14 🇮🇳</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================
+// CONFIG — APNA SERVER URL DAALO!
+// ============================
+const SERVER_URL = 'YOUR_RENDER_URL_HERE';
+// Example: 'https://aperonix-backend.onrender.com'
+
+let showConfidence = true;
+let isDark = false;
+let isTyping = false;
+let serverOnline = false;
+
+// ============================
+// SERVER CHECK
+// ============================
+async function checkServer() {
+  try {
+    const res = await fetch(SERVER_URL + '/', {
+      method: 'GET',
+      signal: AbortSignal.timeout(5000)
+    });
+    const data = await res.json();
+    serverOnline = true;
+    document.getElementById('statusDot').className = 'status-dot online';
+    document.getElementById('serverStatusText').textContent = 'Connected to Aperonix server!';
+    document.getElementById('serverStatusBadge').textContent = '🟢 Online';
+    document.getElementById('errorBanner').classList.remove('show');
+    console.log('✅ Server online:', data);
+  } catch(e) {
+    serverOnline = false;
+    document.getElementById('statusDot').className = 'status-dot offline';
+    document.getElementById('serverStatusText').textContent = 'Server offline — using local mode';
+    document.getElementById('serverStatusBadge').textContent = '🔴 Offline';
+    document.getElementById('errorBanner').classList.add('show');
+    console.log('⚠️ Server offline, using local mode');
+  }
+}
+
+// ============================
+// LOCAL FALLBACK BRAIN
+// ============================
+const localBrain = {
+  think(input) {
+    const t = input.toLowerCase();
+    const bad = ["hack","virus","cheat","harm","crack","steal","exploit","malware","illegal"];
+    if(bad.some(w => t.includes(w))) return { text: "I can't help with that! Let's keep it positive! 😊", confidence: 99 };
+    if(/hello|hi\b|hey|salam|namaste/.test(t)) return { text: "Hey there! I'm Aperonix! 😊 How can I help you today?", confidence: 97 };
+    if(/who made|kisne|banaya|creator|mohammad/.test(t)) return { text: "I was built by Mohammad Khan — a 14-year-old genius from India! 🇮🇳✨\n\n• Zero paid tools\n• Zero GPU\n• 1000 real neurons\n• Pure GitHub data!", confidence: 98 };
+    if(/who are|naam|kaun/.test(t)) return { text: "I'm Aperonix! 🤖✨\nA female AI built from scratch — 1000 real neurons!\nBuilt by Mohammad Khan, Age 14 🇮🇳", confidence: 97 };
+    if(/how are|kaise ho/.test(t)) return { text: "I'm doing amazing! 😊 My neurons just finished training!\nHow are you? 🌟", confidence: 95 };
+    if(/python/.test(t)) return { text: "Here's Python! 🐍\n\n```python\nprint('Hello from Aperonix!')\nname = input('Your name: ')\nprint(f'Hello {name}!')\n```\n\nSave as hello.py → Run: python hello.py", confidence: 96 };
+    if(/\bjava\b/.test(t)&&!/javascript/.test(t)) return { text: "Here's Java! ☕\n\n```java\npublic class Hello {\n    public static void main(String[] args) {\n        System.out.println('Hello from Aperonix!');\n    }\n}\n```\n\nSave as Hello.java → Run: javac Hello.java && java Hello", confidence: 95 };
+    if(/javascript|js\b/.test(t)) return { text: "Here's JavaScript! ✨\n\n```javascript\nconsole.log('Hello from Aperonix!');\nfunction greet(name) {\n    return `Hello ${name}!`;\n}\nconsole.log(greet('Mohammad'));\n```\n\nSave as hello.js → Run: node hello.js", confidence: 95 };
+    if(/html|website|webpage/.test(t)) return { text: "Here's HTML! 🌐\n\n```html\n<!DOCTYPE html>\n<html>\n<body>\n    <h1>Hello from Aperonix!</h1>\n    <button onclick=\"alert('Hi!')\">Click!</button>\n</body>\n</html>\n```\n\nSave as index.html → Open in browser!", confidence: 95 };
+    if(/game/.test(t)) return { text: "Here's a game! 🎮\n\n```javascript\nconst secret = Math.floor(Math.random()*10)+1;\nconsole.log('Guess 1-10!');\n// Run in Node.js!\n```\n\nSave as game.js → Run: node game.js", confidence: 94 };
+    if(/thank|shukriya/.test(t)) return { text: "You're welcome! 😊 Ask me anything! ✨", confidence: 96 };
+    return { text: "I'm still learning! 🌱 Try asking:\n• 'Create Python code'\n• 'Make a JavaScript game'\n• 'Build HTML website'\n• 'Who made you?'\n\nI grow smarter every 6 hours from GitHub! 💪", confidence: 35 };
+  }
+};
+
+// ============================
+// SEND MESSAGE
+// ============================
+async function sendMessage() {
+  const input = document.getElementById('userInput');
+  const text = input.value.trim();
+  if(!text || isTyping) return;
+
+  document.getElementById('welcomeScreen') && (document.getElementById('welcomeScreen').style.display = 'none');
+  addMessage('user', text);
+  input.value = '';
+  input.style.height = 'auto';
+  isTyping = true;
+  document.getElementById('sendBtn').disabled = true;
+
+  const typingEl = addTyping();
+
+  try {
+    let responseData;
+
+    if(serverOnline) {
+      // Server se jawab lo!
+      const res = await fetch(SERVER_URL + '/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text }),
+        signal: AbortSignal.timeout(10000)
       });
-      // Inline code
-      text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
-      // Bold
-      text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-      // Italic
-      text = text.replace(/_([^_]+)_/g, '<em>$1</em>');
-      // Bullet points
-      text = text.replace(/^• (.+)$/gm, '<span style="display:block;padding-left:12px">• $1</span>');
-      // Line breaks
-      text = text.replace(/\n/g, '<br>');
-      return text;
+      responseData = await res.json();
+    } else {
+      // Local fallback
+      await new Promise(r => setTimeout(r, 800));
+      const local = localBrain.think(text);
+      responseData = { response: local.text, confidence: local.confidence };
     }
 
-    function escapeHtml(text) {
-      return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    typingEl.remove();
+    let finalText = responseData.response || responseData.error || "Something went wrong!";
+    if(showConfidence && responseData.confidence) {
+      finalText += `\n\n_Neural confidence: ${responseData.confidence}%_`;
     }
+    addMessage('ai', finalText);
 
-    function suggest(text) {
-      document.getElementById('userInput').value = text;
-      sendMessage();
-    }
+  } catch(e) {
+    typingEl.remove();
+    serverOnline = false;
+    document.getElementById('statusDot').className = 'status-dot offline';
+    document.getElementById('errorBanner').classList.add('show');
+    const local = localBrain.think(text);
+    let finalText = local.text;
+    if(showConfidence) finalText += `\n\n_Neural confidence: ${local.confidence}% (local mode)_`;
+    addMessage('ai', finalText);
+  }
 
-    function handleKey(e) {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        sendMessage();
-      }
-    }
+  isTyping = false;
+  document.getElementById('sendBtn').disabled = false;
+}
 
-    function autoResize(el) {
-      el.style.height = 'auto';
-      el.style.height = Math.min(el.scrollHeight, 180) + 'px';
-    }
+// ============================
+// MESSAGE FUNCTIONS
+// ============================
+function addMessage(role, text) {
+  const area = document.getElementById('messagesArea');
+  const div = document.createElement('div');
+  div.className = `message ${role}`;
+  div.innerHTML = `
+    <div class="message-inner">
+      <div class="avatar ${role}">${role==='ai'?'🤖':'M'}</div>
+      <div class="bubble">${formatText(text)}</div>
+    </div>
+  `;
+  area.appendChild(div);
+  area.scrollTop = area.scrollHeight;
+  return div;
+}
 
-    function newChat() {
-      const area = document.getElementById('messagesArea');
-      area.innerHTML = `
-        <div class="welcome" id="welcomeScreen">
-          <div class="welcome-logo">🤖</div>
-          <h1>How can I help you?</h1>
-          <p>I'm Aperonix — an AI built from scratch using GitHub data by Mohammad Khan, age 14 🇮🇳</p>
-          <div class="suggestions">
-            <div class="suggestion-card" onclick="suggest('Create a Python hello world program')">
-              <div class="s-title">🐍 Python code</div>
-              <div class="s-sub">Create a simple Python program</div>
-            </div>
-            <div class="suggestion-card" onclick="suggest('Create a JavaScript game')">
-              <div class="s-title">🎮 Make a game</div>
-              <div class="s-sub">Build a fun JavaScript game</div>
-            </div>
-            <div class="suggestion-card" onclick="suggest('Create a simple HTML website')">
-              <div class="s-title">🌐 HTML website</div>
-              <div class="s-sub">Build a webpage from scratch</div>
-            </div>
-            <div class="suggestion-card" onclick="suggest('Who made you and how do you work?')">
-              <div class="s-title">🧠 About Aperonix</div>
-              <div class="s-sub">Learn how I was built</div>
-            </div>
-          </div>
+function addTyping() {
+  const area = document.getElementById('messagesArea');
+  const div = document.createElement('div');
+  div.className = 'message ai';
+  div.innerHTML = `
+    <div class="message-inner">
+      <div class="avatar ai">🤖</div>
+      <div class="typing"><span></span><span></span><span></span></div>
+    </div>
+  `;
+  area.appendChild(div);
+  area.scrollTop = area.scrollHeight;
+  return div;
+}
+
+function formatText(text) {
+  text = text.replace(/```(\w+)?\n([\s\S]*?)```/g, (_, lang, code) =>
+    `<pre><code>${escapeHtml(code.trim())}</code></pre>`);
+  text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
+  text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  text = text.replace(/_([^_]+)_/g, '<em style="color:var(--text3);font-size:12px">$1</em>');
+  text = text.replace(/^• (.+)$/gm, '<span style="display:block;padding-left:12px">• $1</span>');
+  text = text.replace(/\n/g, '<br>');
+  return text;
+}
+
+function escapeHtml(text) {
+  return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function suggest(text) {
+  document.getElementById('userInput').value = text;
+  sendMessage();
+}
+
+function handleKey(e) {
+  if(e.key==='Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+}
+
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 180) + 'px';
+}
+
+function newChat() {
+  document.getElementById('messagesArea').innerHTML = `
+    <div class="welcome" id="welcomeScreen">
+      <div class="welcome-logo">🤖</div>
+      <h1>How can I help you?</h1>
+      <p>I'm Aperonix — built from scratch by Mohammad Khan, age 14 🇮🇳</p>
+      <div class="suggestions">
+        <div class="suggestion-card" onclick="suggest('Create a Python hello world program')">
+          <div class="s-title">🐍 Python code</div><div class="s-sub">Create a simple Python program</div>
         </div>
-      `;
-    }
+        <div class="suggestion-card" onclick="suggest('Create a JavaScript game')">
+          <div class="s-title">🎮 Make a game</div><div class="s-sub">Build a fun JavaScript game</div>
+        </div>
+        <div class="suggestion-card" onclick="suggest('Create a simple HTML website')">
+          <div class="s-title">🌐 HTML website</div><div class="s-sub">Build a webpage from scratch</div>
+        </div>
+        <div class="suggestion-card" onclick="suggest('Who made you and how do you work?')">
+          <div class="s-title">🧠 About Aperonix</div><div class="s-sub">Learn how I was built</div>
+        </div>
+      </div>
+    </div>`;
+}
 
-    function loadChat(id) {
-      document.querySelectorAll('.chat-history-item').forEach((el, i) => {
-        el.classList.toggle('active', i === id);
-      });
-    }
+// ============================
+// THEME + SETTINGS
+// ============================
+function toggleTheme() {
+  isDark = !isDark;
+  document.documentElement.setAttribute('data-theme', isDark?'dark':'light');
+  document.getElementById('themeIcon').textContent = isDark?'☀️':'🌙';
+  document.getElementById('darkToggle').classList.toggle('on', isDark);
+}
 
-    // ============================
-    // THEME
-    // ============================
-    function toggleTheme() {
-      isDark = !isDark;
-      document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-      document.getElementById('themeIcon').textContent = isDark ? '☀️' : '🌙';
-      const toggle = document.getElementById('darkToggle');
-      toggle.classList.toggle('on', isDark);
-    }
+function openSettings() { document.getElementById('settingsOverlay').classList.add('open'); }
+function closeSettings(e) { if(e.target===document.getElementById('settingsOverlay')) closeSettingsPanel(); }
+function closeSettingsPanel() { document.getElementById('settingsOverlay').classList.remove('open'); }
+function toggleConfidence() {
+  showConfidence = !showConfidence;
+  document.getElementById('confidenceToggle').classList.toggle('on', showConfidence);
+}
 
-    // ============================
-    // SETTINGS
-    // ============================
-    function openSettings() {
-      document.getElementById('settingsOverlay').classList.add('open');
-    }
-
-    function closeSettings(e) {
-      if (e.target === document.getElementById('settingsOverlay')) {
-        closeSettingsPanel();
-      }
-    }
-
-    function closeSettingsPanel() {
-      document.getElementById('settingsOverlay').classList.remove('open');
-    }
-
-    function toggleConfidence() {
-      showConfidence = !showConfidence;
-      document.getElementById('confidenceToggle').classList.toggle('on', showConfidence);
-    }
-  </script>
+// ============================
+// START
+// ============================
+checkServer();
+setInterval(checkServer, 30000); // Har 30 sec check karo
+</script>
 </body>
 </html>
