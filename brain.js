@@ -500,17 +500,3 @@ async function main() {
 }
 
 main();
-```
-
----
-
-**Commit karo → ZIP download karo → replace karo → `node brain.js`!**
-
-Ab dekh kya naya hai:
-```
-✅ Real Neuron class — pure math!
-✅ Neural Layer — neurons ka group!
-✅ Training — galti se seekhna!
-✅ Error rate dikhega — kam = smart!
-✅ Neural network khud decide karega
-   kya bolna hai!
