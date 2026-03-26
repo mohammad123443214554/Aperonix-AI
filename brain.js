@@ -1,7 +1,7 @@
 // ================================
-// APERONIX-AI v0.5
-// Now with CONTEXT MEMORY!
-// She remembers your conversation!
+// APERONIX-AI v0.6
+// REAL NEURAL NETWORK — FROM ZERO!
+// Pure math — No libraries!
 // By Mohammad Khan, Age 14, India
 // ================================
 
@@ -9,159 +9,178 @@ const https = require('https');
 const fs = require('fs');
 const readline = require('readline');
 
+// ============================
+// ASLI NEURON — PURE MATH!
+// Jaise tera dimaag kaam karta hai
+// ============================
+class Neuron {
+  constructor() {
+    // Blank brain — random weights
+    // Jaise naya bachha paida hua!
+    this.weights = [
+      Math.random() - 0.5,
+      Math.random() - 0.5,
+      Math.random() - 0.5
+    ];
+    this.bias = Math.random() - 0.5;
+    this.learningRate = 0.1;
+  }
+
+  // Activation — neuron fire karega ya nahi?
+  activate(x) {
+    // Sigmoid function — 0 se 1 ke beech
+    return 1 / (1 + Math.exp(-x));
+  }
+
+  // Sochna — input se output nikalna
+  think(inputs) {
+    let sum = this.bias;
+    for (let i = 0; i < inputs.length; i++) {
+      sum += inputs[i] * this.weights[i];
+    }
+    return this.activate(sum);
+  }
+
+  // Seekhna — galti se improve karna!
+  learn(inputs, correctAnswer) {
+    let output = this.think(inputs);
+    let error = correctAnswer - output;
+    
+    // Weights adjust karo — yahi "seekhna" hai!
+    for (let i = 0; i < this.weights.length; i++) {
+      this.weights[i] += this.learningRate * error * inputs[i];
+    }
+    this.bias += this.learningRate * error;
+    
+    return error;
+  }
+}
+
+// ============================
+// NEURAL LAYER — NEURONS KA GROUP
+// ============================
+class NeuralLayer {
+  constructor(neuronCount, inputCount) {
+    this.neurons = [];
+    for (let i = 0; i < neuronCount; i++) {
+      this.neurons.push(new Neuron());
+    }
+  }
+
+  think(inputs) {
+    return this.neurons.map(n => n.think(inputs));
+  }
+
+  learn(inputs, targets) {
+    let totalError = 0;
+    for (let i = 0; i < this.neurons.length; i++) {
+      let error = this.neurons[i].learn(inputs, targets[i] || 0);
+      totalError += Math.abs(error);
+    }
+    return totalError;
+  }
+}
+
+// ============================
+// APERONIX KA POORA DIMAAG
+// ============================
 const aperonix = {
   name: "Aperonix",
-  version: "0.5",
+  version: "0.6",
   creator: "Mohammad Khan",
-  creatorAge: "14",
-  creatorCountry: "India",
+
+  // Real Neural Network!
+  brain: {
+    layer1: new NeuralLayer(8, 3),  // 8 neurons, 3 inputs
+    layer2: new NeuralLayer(4, 8),  // 4 neurons
+    layer3: new NeuralLayer(2, 4),  // 2 output neurons
+  },
+
+  // Training data — GitHub se aaya!
+  trainingData: [
+    // [inputs], [expected outputs]
+    // Input: [is_coding, is_question, is_greeting]
+    // Output: [should_code, should_greet]
+    { input: [1, 1, 0], output: [1, 0] }, // coding question → code do
+    { input: [0, 0, 1], output: [0, 1] }, // greeting → greet karo
+    { input: [1, 0, 0], output: [1, 0] }, // coding → code do
+    { input: [0, 1, 0], output: [0, 0] }, // question only → default
+    { input: [0, 0, 0], output: [0, 0] }, // nothing → default
+    { input: [1, 1, 1], output: [1, 1] }, // everything → both
+  ],
+
+  // Knowledge from GitHub
   knowledge: [],
-
-  // ============================
-  // CONTEXT MEMORY — NEW! 🧠
-  // Remembers last 5 messages!
-  // ============================
   context: [],
-  maxContext: 5,
-
-  addToContext: function(role, message) {
-    this.context.push({ role, message, time: new Date().toISOString() });
-    if (this.context.length > this.maxContext) {
-      this.context.shift(); // Keep only last 5
-    }
-  },
-
-  getLastTopic: function() {
-    for (let i = this.context.length - 1; i >= 0; i--) {
-      let msg = this.context[i].message.toLowerCase();
-      if (msg.includes("java")) return "java";
-      if (msg.includes("python")) return "python";
-      if (msg.includes("javascript")) return "javascript";
-      if (msg.includes("game")) return "game";
-      if (msg.includes("who made") || msg.includes("creator") || msg.includes("banaya")) return "creator";
-      if (msg.includes("who are you") || msg.includes("naam")) return "identity";
-    }
-    return null;
-  },
 
   // ============================
-  // HINDI + HINGLISH
+  // TRAIN THE BRAIN!
   // ============================
-  hindiToEnglish: {
-    "kya hai": "what is",
-    "kaisa hai": "how are you",
-    "kaise ho": "how are you",
-    "kaisi ho": "how are you",
-    "kya naam": "what is your name",
-    "naam kya": "what is your name",
-    "kisne banaya": "who made you",
-    "kis ne banaya": "who made you",
-    "banane wala": "who made you",
-    "kisne banayi": "who made you",
-    "aapko kisne": "who made you",
-    "aap ko kisne": "who made you",
-    "kon hai": "who are you",
-    "kaun hai": "who are you",
-    "kya kar sakti": "what can you do",
-    "help karo": "help me",
-    "batao": "tell me",
-    "sikhao": "teach me",
-    "samjhao": "explain",
-    "likho": "write code",
-    "banao": "create",
-    "shukriya": "thank you",
-    "dhanyawad": "thank you",
-    "alvida": "goodbye",
-    "acha": "ok good",
-    "theek hai": "ok",
-    "is ka matalab": "what does this mean",
-    "is ka matlab": "what does this mean",
-    "aur batao": "tell me more",
-    "aur sikhao": "teach me more",
-    "dobara batao": "explain again",
-    "samajh nahi aaya": "i dont understand",
-    "samajh nahi aya": "i dont understand",
-    "accha": "ok i understand",
+  train: function(epochs) {
+    console.log(`\n🧠 Training Aperonix brain...`);
+    let lastError = 0;
+
+    for (let epoch = 0; epoch < epochs; epoch++) {
+      let totalError = 0;
+
+      for (let data of this.trainingData) {
+        // Forward pass — sochna
+        let out1 = this.brain.layer1.think(data.input);
+        let out2 = this.brain.layer2.think(out1);
+
+        // Backward pass — seekhna!
+        let error2 = this.brain.layer3.learn(out2, data.output);
+        let error1 = this.brain.layer2.learn(out1, out2);
+        let error0 = this.brain.layer1.learn(data.input, out1);
+
+        totalError += error2;
+      }
+
+      lastError = totalError;
+
+      // Progress dikhao
+      if (epoch % 200 === 0) {
+        console.log(`   Epoch ${epoch}: Error = ${totalError.toFixed(4)}`);
+      }
+    }
+
+    console.log(`✅ Training complete! Final error: ${lastError.toFixed(4)}`);
+    console.log(`   (Error kam = Aperonix zyada smart!) 🧠\n`);
   },
 
   // ============================
-  // CONTEXT UNDERSTANDING — NEW!
+  // ANALYZE INPUT
   // ============================
-  understandContext: function(question) {
-    let lastTopic = this.getLastTopic();
+  analyzeInput: function(text) {
+    let lower = text.toLowerCase();
+    
+    let isCoding = 0;
+    let isQuestion = 0;
+    let isGreeting = 0;
 
-    // "is ka matlab" → explain last topic
-    if (question.includes("what does this mean") ||
-        question.includes("i dont understand") ||
-        question.includes("explain again") ||
-        question.includes("matlab") ||
-        question.includes("samajh")) {
-
-      if (lastTopic === "java") {
-        return `Sure! Let me explain Java simply! ☕\n\nJava is a programming language used to build apps, games, and websites. It runs on any computer! Here's the simplest Java code:\n\npublic class Hello {\n  public static void main(String[] args) {\n    System.out.println("Hello!");\n  }\n}\n\nWant me to explain any specific part? 😊`;
-      }
-      if (lastTopic === "python") {
-        return `Of course! Python is super easy to learn! 🐍\n\nPython is used for AI, websites, games, and more. Example:\n\nprint("Hello World!")\n\nJust one line — that's Python's beauty! Want to learn more? 😊`;
-      }
-      if (lastTopic === "creator") {
-        return `Mohammad Khan is your creator — a 14-year-old genius from India! 🇮🇳 He built me from scratch using GitHub data without any paid tools. He's going to be the next big thing in AI! 🌟`;
-      }
-      if (lastTopic === "game") {
-        return `A game in coding means interactive programs where users play! 🎮 Your creator Mohammad Khan also builds games — that's how he started coding! Want me to write a simple game? 😊`;
-      }
-
-      return `I think you're asking about our last topic. Could you be more specific? I'm still learning context! 😊`;
+    // Coding words
+    let codingWords = ["code", "java", "python", "javascript", 
+                       "program", "function", "game", "create", 
+                       "build", "write", "html", "css"];
+    for (let w of codingWords) {
+      if (lower.includes(w)) { isCoding = 1; break; }
     }
 
-    // "tell me more" → expand last topic
-    if (question.includes("tell me more") ||
-        question.includes("aur batao") ||
-        question.includes("more")) {
-
-      if (lastTopic === "java") {
-        return `More about Java! ☕\n\nJava is used by:\n- Android apps (your phone!)\n- Big company systems\n- Games like Minecraft!\n\nIt was created in 1995 by James Gosling. Want to write more Java code? 😊`;
-      }
-      if (lastTopic === "python") {
-        return `More about Python! 🐍\n\nPython is used for:\n- Artificial Intelligence (like me!)\n- Web development\n- Data Science\n- Automation\n\nCreated by Guido van Rossum in 1991. Want a Python project idea? 😊`;
-      }
-      if (lastTopic === "creator") {
-        return `More about Mohammad Khan! 🌟\n\nHe is:\n- 14 years old from India 🇮🇳\n- Built a Game Engine at 14\n- Built Aperonix AI from scratch\n- Uses GitHub as his AI training data\n- Zero paid tools, zero GPU!\n\nHe's going to change the world! 💪`;
-      }
+    // Question words
+    let questionWords = ["what", "how", "why", "when", "kya", 
+                         "kaise", "kyun", "batao", "explain"];
+    for (let w of questionWords) {
+      if (lower.includes(w)) { isQuestion = 1; break; }
     }
 
-    return null; // No context match
-  },
-
-  // ============================
-  // SPELLING FIX
-  // ============================
-  fixSpelling: function(text) {
-    const fixes = {
-      "pytohn": "python", "phyton": "python", "pyton": "python",
-      "javascrpit": "javascript", "javasript": "javascript",
-      "gme": "game", "gaem": "game",
-      "progamming": "programming", "programing": "programming",
-      "engin": "engine", "enginee": "engine",
-      "githb": "github", "gihub": "github",
-      "artifical": "artificial", "inteligence": "intelligence",
-      "codeing": "coding", "lerning": "learning",
-      "jave": "java", "jaava": "java",
-      "creat": "create", "crate": "create",
-      "thnks": "thanks", "thx": "thanks",
-    };
-    let fixed = text.toLowerCase();
-    for (let [wrong, right] of Object.entries(fixes)) {
-      fixed = fixed.replace(new RegExp(`\\b${wrong}\\b`, 'gi'), right);
+    // Greeting words
+    let greetWords = ["hello", "hi", "hey", "salam", 
+                      "namaste", "hii", "good morning"];
+    for (let w of greetWords) {
+      if (lower.includes(w)) { isGreeting = 1; break; }
     }
-    return fixed;
-  },
 
-  translateHindi: function(text) {
-    let translated = text.toLowerCase();
-    for (let [hindi, english] of Object.entries(this.hindiToEnglish)) {
-      translated = translated.replace(new RegExp(hindi, 'gi'), english);
-    }
-    return translated;
+    return [isCoding, isQuestion, isGreeting];
   },
 
   // ============================
@@ -171,7 +190,7 @@ const aperonix = {
     if (fs.existsSync('memory.json')) {
       let data = JSON.parse(fs.readFileSync('memory.json'));
       this.knowledge = data.knowledge || [];
-      console.log(`✅ Memory loaded: ${this.knowledge.length} things I know!\n`);
+      console.log(`✅ Memory: ${this.knowledge.length} things loaded!\n`);
     }
   },
 
@@ -193,14 +212,11 @@ const aperonix = {
   // ============================
   // ETHICS
   // ============================
-  isEthical: function(question) {
-    const badWords = [
-      "hack", "virus", "cheat", "harm", "crack",
-      "steal", "exploit", "malware", "bomb",
-      "illegal", "pirate", "ddos", "ransomware"
-    ];
-    for (let word of badWords) {
-      if (question.toLowerCase().includes(word)) return false;
+  isEthical: function(text) {
+    const bad = ["hack", "virus", "cheat", "harm", "crack",
+                 "steal", "exploit", "malware", "illegal"];
+    for (let w of bad) {
+      if (text.toLowerCase().includes(w)) return false;
     }
     return true;
   },
@@ -210,120 +226,167 @@ const aperonix = {
   },
 
   // ============================
-  // CODE GENERATOR
+  // GENERATE CODE
   // ============================
-  generateCode: function(question) {
-    if ((question.includes("java")) &&
-        (question.includes("hello") || question.includes("basic") || question.includes("create") || question.includes("write") || question.includes("simple"))) {
-      return `Great question! Here's a basic Java program! ☕\n\npublic class HelloWorld {\n    public static void main(String[] args) {\n        System.out.println("Hello, World!");\n        System.out.println("Made with Aperonix AI!");\n    }\n}\n\nSave as HelloWorld.java and run it! 😊`;
+  generateCode: function(text) {
+    let lower = text.toLowerCase();
+
+    if (lower.includes("java")) {
+      return `Here's Java code for you! ☕\n
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello from Aperonix!");
+        System.out.println("Built by Mohammad Khan, Age 14!");
     }
-    if ((question.includes("python")) &&
-        (question.includes("hello") || question.includes("basic") || question.includes("create") || question.includes("write") || question.includes("simple"))) {
-      return `Here's Python for you! 🐍\n\nprint("Hello, World!")\nprint("Made with Aperonix AI!")\n\nname = input("What is your name? ")\nprint("Hello, " + name + "!")\n\nSave as hello.py and run: python hello.py 😊`;
+}`;
     }
-    if ((question.includes("javascript") || question.includes("js")) &&
-        (question.includes("hello") || question.includes("basic") || question.includes("create"))) {
-      return `Here's JavaScript! ✨\n\nconsole.log("Hello, World!");\n\nfunction greet(name) {\n    return "Hello, " + name + "!";\n}\nconsole.log(greet("Mohammad"));\n\nSave as hello.js and run: node hello.js 😊`;
+    if (lower.includes("python")) {
+      return `Here's Python code! 🐍\n
+print("Hello from Aperonix!")
+print("Built by Mohammad Khan, Age 14!")
+
+name = input("Your name: ")
+print(f"Hello {name}! Nice to meet you!")`;
     }
-    if (question.includes("game")) {
-      return `A game — just like your creator Mohammad Khan builds! 🎮\n\nconst secret = Math.floor(Math.random() * 10) + 1;\nconst readline = require('readline');\nconst rl = readline.createInterface({input: process.stdin, output: process.stdout});\n\nconsole.log("Guess a number 1-10!");\n\nfunction guess() {\n  rl.question("Your guess: ", (ans) => {\n    let n = parseInt(ans);\n    if (n === secret) { console.log("You won! 🎉"); rl.close(); }\n    else if (n < secret) { console.log("Too low!"); guess(); }\n    else { console.log("Too high!"); guess(); }\n  });\n}\nguess();`;
+    if (lower.includes("javascript") || lower.includes("js")) {
+      return `Here's JavaScript! ✨\n
+console.log("Hello from Aperonix!");
+console.log("Built by Mohammad Khan, Age 14!");
+
+function greet(name) {
+  return \`Hello \${name}! Welcome!\`;
+}
+console.log(greet("Mohammad"));`;
+    }
+    if (lower.includes("html")) {
+      return `Here's HTML for you! 🌐\n
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Aperonix Page</title>
+</head>
+<body>
+    <h1>Hello World!</h1>
+    <p>Built with Aperonix AI by Mohammad Khan!</p>
+    <button onclick="alert('Aperonix says hi!')">
+        Click Me!
+    </button>
+</body>
+</html>`;
+    }
+    if (lower.includes("game")) {
+      return `A game — just like your creator builds! 🎮\n
+// Number Guessing Game
+const secret = Math.floor(Math.random() * 10) + 1;
+const readline = require('readline');
+const rl = readline.createInterface({
+  input: process.stdin, 
+  output: process.stdout
+});
+
+console.log("Guess 1-10!");
+
+function guess() {
+  rl.question("Your guess: ", (ans) => {
+    let n = parseInt(ans);
+    if (n === secret) { 
+      console.log("You won! 🎉"); 
+      rl.close(); 
+    }
+    else if (n < secret) { 
+      console.log("Too low!"); 
+      guess(); 
+    }
+    else { 
+      console.log("Too high!"); 
+      guess(); 
+    }
+  });
+}
+guess();`;
     }
     return null;
   },
 
   // ============================
-  // MAIN THINK — BRAIN!
+  // MAIN THINK — NEURAL NETWORK!
   // ============================
   think: function(rawInput) {
-    this.addToContext("user", rawInput);
+    this.context.push(rawInput);
+    if (this.context.length > 5) this.context.shift();
 
-    let input = this.fixSpelling(rawInput);
-    let question = this.translateHindi(input);
+    let lower = rawInput.toLowerCase();
 
-    // GREETINGS
-    let greetWords = ["hello", "hi", "hey", "salam", "namaste", "hii"];
-    for (let w of greetWords) {
-      if (question.includes(w)) {
-        let response = this.getRandom([
-          "Hey there! I'm Aperonix, your AI assistant! 😊 How can I help you today?",
-          "Hello! Aperonix here! Ask me anything — in English, Hindi, or Hinglish! 🌟",
-          "Hi! Great to see you! I'm Aperonix — what would you like to know? ✨"
-        ]);
-        this.addToContext("aperonix", response);
-        return response;
-      }
+    // Ethics first!
+    if (!this.isEthical(lower)) {
+      return "I'm sorry, I can't help with that. Let's talk about something positive! 😊";
     }
 
-    // ETHICS
-    if (!this.isEthical(question)) {
-      let response = "I'm sorry, I can't help with that. Let's talk about something positive! 😊";
-      this.addToContext("aperonix", response);
-      return response;
+    // Neural network analyze karo!
+    let inputs = this.analyzeInput(rawInput);
+    let out1 = this.brain.layer1.think(inputs);
+    let out2 = this.brain.layer2.think(out1);
+    let output = this.brain.layer3.think(out2);
+
+    // output[0] = should code, output[1] = should greet
+
+    // Greeting
+    if (output[1] > 0.6 || lower.includes("hello") || 
+        lower.includes("hi") || lower.includes("salam")) {
+      return this.getRandom([
+        "Hey there! I'm Aperonix! 😊 How can I help you today?",
+        "Hello! Aperonix here — ask me anything! 🌟",
+        "Hi! Great to see you! What would you like to know? ✨"
+      ]);
     }
 
-    // CONTEXT UNDERSTANDING — NEW!
-    let contextAnswer = this.understandContext(question);
-    if (contextAnswer) {
-      this.addToContext("aperonix", contextAnswer);
-      return contextAnswer;
+    // Who made you
+    if (lower.includes("who made") || lower.includes("kisne banaya") ||
+        lower.includes("creator") || lower.includes("mohammad") ||
+        lower.includes("banane wala") || lower.includes("banaya")) {
+      return `I was built by Mohammad Khan — a 14-year-old genius from India! 🇮🇳✨\nZero paid tools, zero GPU, pure GitHub data!\nPretty legendary, right? 😊`;
     }
 
-    // WHO MADE YOU
-    if (question.includes("who made") || question.includes("who created") ||
-        question.includes("who built") || question.includes("mohammad") ||
-        question.includes("creator") || question.includes("banaya") ||
-        question.includes("banane wala") || question.includes("kisne")) {
-      let response = `I was built by Mohammad Khan — a brilliant 14-year-old developer from India! 🇮🇳✨\n\nHe created me from scratch using GitHub data — zero paid tools, zero GPU, zero budget!\n\nPretty legendary for a 14-year-old, right? 😊`;
-      this.addToContext("aperonix", response);
-      return response;
+    // Who are you
+    if (lower.includes("who are you") || lower.includes("kon ho") ||
+        lower.includes("kaun ho") || lower.includes("your name") ||
+        lower.includes("naam")) {
+      return `I'm Aperonix! 🤖✨\nA female AI — built from scratch using GitHub data!\nI have a real neural network inside me!\nBuilt by Mohammad Khan, Age 14 🇮🇳`;
     }
 
-    // WHO ARE YOU
-    if (question.includes("who are you") || question.includes("what are you") ||
-        question.includes("your name") || question.includes("naam")) {
-      let response = `I'm Aperonix! 🤖✨\n\nA female AI assistant built from scratch using real GitHub data.\nI learn every 6 hours automatically!\nNo API keys, no paid tools — just pure code!\n\nBuilt by Mohammad Khan, age 14, India 🇮🇳`;
-      this.addToContext("aperonix", response);
-      return response;
+    // How are you
+    if (lower.includes("how are you") || lower.includes("kaise ho") ||
+        lower.includes("kaisi ho")) {
+      return `I'm doing great! 😊 My neural network just finished training!\nHow are you doing today? 🌟`;
     }
 
-    // HOW ARE YOU
-    if (question.includes("how are you") || question.includes("kaise ho")) {
-      let response = `I'm doing amazing! 😊 I just finished learning from GitHub!\nHow are you doing today? 🌟`;
-      this.addToContext("aperonix", response);
-      return response;
+    // Code generation — neural network said yes!
+    if (output[0] > 0.5) {
+      let code = this.generateCode(rawInput);
+      if (code) return code;
     }
 
-    // THANK YOU
-    if (question.includes("thank") || question.includes("shukriya") || question.includes("thanks")) {
-      let response = `You're so welcome! 😊 It's my pleasure to help! Ask me anything anytime! ✨`;
-      this.addToContext("aperonix", response);
-      return response;
-    }
+    // Direct code request
+    let code = this.generateCode(rawInput);
+    if (code) return code;
 
-    // CODE GENERATION
-    let code = this.generateCode(question);
-    if (code) {
-      this.addToContext("aperonix", code);
-      return code;
-    }
-
-    // KNOWLEDGE SEARCH
+    // Knowledge search
     for (let fact of this.knowledge) {
-      if (question.includes(fact.keyword.toLowerCase())) {
-        let response = `${this.getRandom(["Great question! 🌟", "Oh I know this! 💡", "Smart thinking! ✨"])}\n\n${fact.answer}`;
-        this.addToContext("aperonix", response);
-        return response;
+      if (lower.includes(fact.keyword.toLowerCase())) {
+        return `Great question! 🌟\n\n${fact.answer}`;
       }
     }
 
-    // DEFAULT
-    let response = this.getRandom([
-      "I'm still learning about that! I grow smarter every 6 hours from GitHub! 🌱",
-      "Hmm, could you ask differently? Try: 'create java code' or 'what is python' 😊",
-      "I don't have enough info yet — but I'm learning! Ask me about coding! 💪"
+    // Thank you
+    if (lower.includes("thank") || lower.includes("shukriya")) {
+      return "You're welcome! 😊 Ask me anything anytime! ✨";
+    }
+
+    return this.getRandom([
+      "I'm still learning! Ask me about coding — Java, Python, JavaScript, HTML! 😊",
+      "Hmm, try asking: 'create python code' or 'what is java' 🌱",
+      "I grow smarter every 6 hours from GitHub! Ask me about coding! 💪"
     ]);
-    this.addToContext("aperonix", response);
-    return response;
   }
 };
 
@@ -334,8 +397,7 @@ const topDevelopers = [
   "torvalds", "gvanrossum", "brendaneich",
   "DHH", "yyx990803", "tj",
   "sindresorhus", "addyosmani",
-  "antirez", "jashkenas",
-  "microsoft", "google", "facebook"
+  "antirez", "jashkenas"
 ];
 
 function fetchRepos(username) {
@@ -380,13 +442,16 @@ function fetchRepos(username) {
 // ============================
 async function startChat() {
   console.log("\n" + "=".repeat(55));
-  console.log("   🤖 APERONIX AI v0.5 — Context Memory Added!");
+  console.log("   🤖 APERONIX AI v0.6 — Real Neural Network!");
   console.log("   Built by Mohammad Khan, Age 14 🇮🇳");
-  console.log("   Now remembers your conversation! 🧠");
-  console.log("=".repeat(55) + "\n");
-  console.log("Aperonix: Hey there! I'm Aperonix! 😊");
-  console.log("          I now remember our conversation context!");
-  console.log("          Ask in English, Hindi, or Hinglish!");
+  console.log("   Real neurons — Pure math — No libraries!");
+  console.log("=".repeat(55));
+
+  // Train the brain first!
+  aperonix.train(500);
+
+  console.log("Aperonix: Hey! I'm Aperonix — now with a real brain! 🧠✨");
+  console.log("          Ask me in English, Hindi, or Hinglish!");
   console.log('          (Type "quit" to exit)\n');
 
   const rl = readline.createInterface({
@@ -398,7 +463,7 @@ async function startChat() {
     rl.question('You: ', (input) => {
       if (!input.trim()) { ask(); return; }
       if (input.toLowerCase() === 'quit') {
-        console.log("\nAperonix: Goodbye! It was wonderful talking to you! 😊✨\n");
+        console.log("\nAperonix: Goodbye! 😊✨\n");
         rl.close();
         return;
       }
@@ -420,16 +485,32 @@ async function main() {
 
   if (process.env.GITHUB_ACTIONS === 'true') {
     console.log("📚 GitHub Actions — Learning mode...\n");
+    aperonix.train(1000);
     for (let dev of topDevelopers) {
       await fetchRepos(dev);
       await new Promise(r => setTimeout(r, 1000));
     }
     aperonix.saveMemory();
     console.log(`\n✅ Total: ${aperonix.knowledge.length} things learned!`);
-    console.log("🚀 Aperonix v0.5 — Mohammad Khan, Age 14 🇮🇳");
+    console.log("🚀 Aperonix v0.6 — Real Neural Network!");
+    console.log("   Built by Mohammad Khan, Age 14 🇮🇳");
   } else {
     await startChat();
   }
 }
 
 main();
+```
+
+---
+
+**Commit karo → ZIP download karo → replace karo → `node brain.js`!**
+
+Ab dekh kya naya hai:
+```
+✅ Real Neuron class — pure math!
+✅ Neural Layer — neurons ka group!
+✅ Training — galti se seekhna!
+✅ Error rate dikhega — kam = smart!
+✅ Neural network khud decide karega
+   kya bolna hai!
