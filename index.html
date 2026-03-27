@@ -8,335 +8,228 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #ffffff;
-      --bg2: #f7f7f8;
-      --bg3: #ececec;
-      --sidebar: #f7f7f8;
-      --text: #0d0d0d;
-      --text2: #6e6e80;
-      --text3: #acacbe;
-      --border: #e5e5e5;
-      --accent: #10a37f;
-      --accent-hover: #0d8c6d;
-      --ai-bubble: #f7f7f8;
-      --shadow: rgba(0,0,0,0.08);
-      --input-bg: #ffffff;
+      --bg: #ffffff; --bg2: #f7f7f8; --bg3: #ececec;
+      --sidebar: #f7f7f8; --text: #0d0d0d; --text2: #6e6e80;
+      --text3: #acacbe; --border: #e5e5e5; --accent: #10a37f;
+      --accent-hover: #0d8c6d; --ai-bubble: #f7f7f8;
+      --shadow: rgba(0,0,0,0.08); --input-bg: #ffffff;
     }
     [data-theme="dark"] {
-      --bg: #212121;
-      --bg2: #2f2f2f;
-      --bg3: #3a3a3a;
-      --sidebar: #171717;
-      --text: #ececec;
-      --text2: #8e8ea0;
-      --text3: #565869;
-      --border: #3a3a3a;
-      --ai-bubble: #2f2f2f;
-      --shadow: rgba(0,0,0,0.3);
-      --input-bg: #2f2f2f;
+      --bg: #212121; --bg2: #2f2f2f; --bg3: #3a3a3a;
+      --sidebar: #171717; --text: #ececec; --text2: #8e8ea0;
+      --text3: #565869; --border: #3a3a3a; --ai-bubble: #2f2f2f;
+      --shadow: rgba(0,0,0,0.3); --input-bg: #2f2f2f;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'DM Sans', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      height: 100vh;
-      display: flex;
-      overflow: hidden;
+      background: var(--bg); color: var(--text);
+      height: 100vh; display: flex; overflow: hidden;
       transition: background 0.3s, color 0.3s;
     }
-
-    /* SIDEBAR */
     .sidebar {
-      width: 260px;
-      background: var(--sidebar);
+      width: 260px; background: var(--sidebar);
       border-right: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      padding: 12px;
-      gap: 4px;
-      flex-shrink: 0;
+      display: flex; flex-direction: column;
+      padding: 12px; gap: 4px; flex-shrink: 0;
       transition: background 0.3s;
     }
     .sidebar-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 12px;
-      margin-bottom: 4px;
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px; margin-bottom: 4px;
     }
     .logo-icon {
-      width: 32px; height: 32px;
-      background: var(--accent);
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 16px;
+      width: 32px; height: 32px; background: var(--accent);
+      border-radius: 8px; display: flex; align-items: center;
+      justify-content: center; font-size: 16px;
     }
     .logo-text { font-size: 16px; font-weight: 600; color: var(--text); }
     .new-chat-btn {
       display: flex; align-items: center; gap: 10px;
-      padding: 10px 12px;
-      background: transparent;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
-      cursor: pointer;
-      font-size: 14px;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 500;
-      transition: background 0.2s;
-      width: 100%;
-      text-align: left;
-      margin-bottom: 8px;
+      padding: 10px 12px; background: transparent;
+      border: 1px solid var(--border); border-radius: 8px;
+      color: var(--text); cursor: pointer; font-size: 14px;
+      font-family: 'DM Sans', sans-serif; font-weight: 500;
+      transition: background 0.2s; width: 100%;
+      text-align: left; margin-bottom: 8px;
     }
     .new-chat-btn:hover { background: var(--bg3); }
     .sidebar-section {
-      font-size: 11px; font-weight: 600;
-      color: var(--text3);
-      padding: 8px 12px 4px;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
+      font-size: 11px; font-weight: 600; color: var(--text3);
+      padding: 8px 12px 4px; letter-spacing: 0.5px; text-transform: uppercase;
     }
     .chat-history-item {
-      padding: 8px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 13px;
-      color: var(--text2);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      padding: 8px 12px; border-radius: 8px; cursor: pointer;
+      font-size: 13px; color: var(--text2);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
       transition: background 0.2s, color 0.2s;
     }
     .chat-history-item:hover, .chat-history-item.active {
       background: var(--bg3); color: var(--text);
     }
     .sidebar-bottom {
-      margin-top: auto;
-      border-top: 1px solid var(--border);
-      padding-top: 12px;
-      display: flex; flex-direction: column; gap: 4px;
+      margin-top: auto; border-top: 1px solid var(--border);
+      padding-top: 12px; display: flex; flex-direction: column; gap: 4px;
     }
     .sidebar-btn {
       display: flex; align-items: center; gap: 10px;
-      padding: 10px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 13px;
-      color: var(--text2);
+      padding: 10px 12px; border-radius: 8px; cursor: pointer;
+      font-size: 13px; color: var(--text2);
       transition: background 0.2s, color 0.2s;
     }
     .sidebar-btn:hover { background: var(--bg3); color: var(--text); }
-
-    /* STATUS DOT */
     .status-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: #ccc;
-      display: inline-block;
-      margin-right: 6px;
-      transition: background 0.3s;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #ccc; display: inline-block;
+      margin-right: 6px; transition: background 0.3s;
     }
     .status-dot.online { background: #10a37f; }
     .status-dot.offline { background: #ff4444; }
-
-    /* MAIN */
-    .main {
-      flex: 1; display: flex; flex-direction: column;
-      overflow: hidden; position: relative;
-    }
+    .status-dot.connecting { background: #ffa500; animation: pulse 1s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
     .topbar {
-      display: flex; align-items: center;
-      justify-content: space-between;
-      padding: 12px 20px;
-      border-bottom: 1px solid var(--border);
-      background: var(--bg);
-      transition: background 0.3s;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 20px; border-bottom: 1px solid var(--border);
+      background: var(--bg); transition: background 0.3s;
     }
     .model-selector {
       display: flex; align-items: center; gap: 6px;
-      padding: 6px 12px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      cursor: pointer;
-      font-size: 14px; font-weight: 500;
-      color: var(--text);
-      background: var(--bg);
-      font-family: 'DM Sans', sans-serif;
+      padding: 6px 12px; border-radius: 8px;
+      border: 1px solid var(--border); cursor: pointer;
+      font-size: 14px; font-weight: 500; color: var(--text);
+      background: var(--bg); font-family: 'DM Sans', sans-serif;
     }
     .topbar-right { display: flex; align-items: center; gap: 8px; }
     .icon-btn {
-      width: 36px; height: 36px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 16px;
-      transition: background 0.2s;
-      color: var(--text);
+      width: 36px; height: 36px; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--bg);
+      cursor: pointer; display: flex; align-items: center;
+      justify-content: center; font-size: 16px;
+      transition: background 0.2s; color: var(--text);
     }
     .icon-btn:hover { background: var(--bg2); }
-
-    /* MESSAGES */
+    .server-banner {
+      padding: 8px 20px; font-size: 13px; text-align: center;
+      display: none; transition: all 0.3s;
+    }
+    .server-banner.connecting {
+      display: block; background: #fff8e1;
+      color: #f57c00; border-bottom: 1px solid #ffe082;
+    }
+    .server-banner.offline {
+      display: block; background: #fff3f3;
+      color: #c62828; border-bottom: 1px solid #ffcdd2;
+    }
+    .server-banner.online {
+      display: block; background: #f0faf5;
+      color: #10a37f; border-bottom: 1px solid #b2dfdb;
+    }
+    [data-theme="dark"] .server-banner.connecting { background: #2a2000; color: #ffd54f; border-color: #5c4000; }
+    [data-theme="dark"] .server-banner.offline { background: #2a1a1a; color: #ff8a80; border-color: #5c2020; }
+    [data-theme="dark"] .server-banner.online { background: #0a2a1a; color: #69f0ae; border-color: #1a5c3a; }
     .messages-area {
-      flex: 1; overflow-y: auto;
-      padding: 20px 0;
-      scroll-behavior: smooth;
+      flex: 1; overflow-y: auto; padding: 20px 0; scroll-behavior: smooth;
     }
     .messages-area::-webkit-scrollbar { width: 4px; }
-    .messages-area::-webkit-scrollbar-thumb {
-      background: var(--border); border-radius: 4px;
-    }
-
-    /* WELCOME */
+    .messages-area::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
     .welcome {
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      height: 100%; gap: 24px; padding: 20px;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; height: 100%; gap: 24px; padding: 20px;
       animation: fadeIn 0.5s ease;
     }
     .welcome-logo {
-      width: 56px; height: 56px;
-      background: var(--accent);
-      border-radius: 16px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 28px;
+      width: 56px; height: 56px; background: var(--accent);
+      border-radius: 16px; display: flex; align-items: center;
+      justify-content: center; font-size: 28px;
     }
     .welcome h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.5px; }
     .welcome p { font-size: 15px; color: var(--text2); text-align: center; max-width: 400px; line-height: 1.6; }
-    .suggestions {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 10px; width: 100%; max-width: 580px;
-    }
+    .suggestions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; max-width: 580px; }
     .suggestion-card {
-      padding: 14px 16px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      cursor: pointer;
-      transition: background 0.2s, border-color 0.2s;
-      background: var(--bg);
+      padding: 14px 16px; border: 1px solid var(--border);
+      border-radius: 12px; cursor: pointer;
+      transition: background 0.2s, border-color 0.2s; background: var(--bg);
     }
     .suggestion-card:hover { background: var(--bg2); border-color: var(--accent); }
     .s-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
     .s-sub { font-size: 12px; color: var(--text2); }
-
-    /* MESSAGES */
     .message {
       padding: 0 20px; margin-bottom: 4px;
-      max-width: 780px;
-      margin-left: auto; margin-right: auto;
-      width: 100%;
-      animation: slideUp 0.3s ease;
+      max-width: 780px; margin-left: auto; margin-right: auto;
+      width: 100%; animation: slideUp 0.3s ease;
     }
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    .message-inner {
-      display: flex; gap: 14px;
-      align-items: flex-start; padding: 14px 0;
-    }
+    @keyframes slideUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+    .message-inner { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; }
     .message.user .message-inner { flex-direction: row-reverse; }
     .avatar {
-      width: 32px; height: 32px;
-      border-radius: 8px;
+      width: 32px; height: 32px; border-radius: 8px;
       display: flex; align-items: center; justify-content: center;
       font-size: 14px; flex-shrink: 0; font-weight: 600;
     }
     .avatar.ai { background: var(--accent); color: white; }
     .avatar.user { background: var(--bg3); color: var(--text); }
     .bubble {
-      max-width: calc(100% - 50px);
-      padding: 12px 16px;
-      border-radius: 12px;
-      font-size: 14px; line-height: 1.65;
-      color: var(--text);
-      white-space: pre-wrap;
-      word-break: break-word;
+      max-width: calc(100% - 50px); padding: 12px 16px;
+      border-radius: 12px; font-size: 14px; line-height: 1.65;
+      color: var(--text); white-space: pre-wrap; word-break: break-word;
     }
     .message.user .bubble {
       background: var(--accent); color: white;
       border-radius: 12px 4px 12px 12px;
     }
     .message.ai .bubble {
-      background: var(--ai-bubble);
-      border: 1px solid var(--border);
+      background: var(--ai-bubble); border: 1px solid var(--border);
       border-radius: 4px 12px 12px 12px;
     }
     .bubble pre {
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      border-radius: 8px; padding: 14px;
-      overflow-x: auto; margin: 8px 0;
-      font-family: 'DM Mono', monospace;
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 8px; padding: 14px; overflow-x: auto;
+      margin: 8px 0; font-family: 'DM Mono', monospace;
       font-size: 13px; line-height: 1.5;
     }
     .bubble code {
       font-family: 'DM Mono', monospace; font-size: 13px;
       background: var(--bg3); padding: 2px 6px; border-radius: 4px;
     }
-    .confidence-badge {
-      display: inline-block;
-      font-size: 11px; color: var(--text3);
-      margin-top: 6px; font-style: italic;
-    }
-
-    /* TYPING */
     .typing {
-      display: flex; gap: 4px;
-      padding: 12px 16px;
-      background: var(--ai-bubble);
-      border: 1px solid var(--border);
-      border-radius: 4px 12px 12px 12px;
-      width: fit-content;
+      display: flex; gap: 4px; padding: 12px 16px;
+      background: var(--ai-bubble); border: 1px solid var(--border);
+      border-radius: 4px 12px 12px 12px; width: fit-content;
     }
     .typing span {
-      width: 6px; height: 6px;
-      background: var(--text3); border-radius: 50%;
-      animation: bounce 1.2s infinite;
+      width: 6px; height: 6px; background: var(--text3);
+      border-radius: 50%; animation: bounce 1.2s infinite;
     }
     .typing span:nth-child(2) { animation-delay: 0.2s; }
     .typing span:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes bounce {
-      0%,60%,100% { transform: translateY(0); }
-      30% { transform: translateY(-6px); }
-    }
-
-    /* INPUT */
+    @keyframes bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-6px)} }
     .input-area {
-      padding: 16px 20px 20px;
-      background: var(--bg);
+      padding: 16px 20px 20px; background: var(--bg);
       border-top: 1px solid var(--border);
     }
     .input-wrapper {
-      max-width: 780px; margin: 0 auto;
-      position: relative;
-      background: var(--input-bg);
-      border: 1px solid var(--border);
-      border-radius: 14px;
+      max-width: 780px; margin: 0 auto; background: var(--input-bg);
+      border: 1px solid var(--border); border-radius: 14px;
       display: flex; align-items: flex-end; gap: 8px;
       padding: 10px 10px 10px 16px;
-      box-shadow: 0 2px 12px var(--shadow);
-      transition: border-color 0.2s;
+      box-shadow: 0 2px 12px var(--shadow); transition: border-color 0.2s;
     }
     .input-wrapper:focus-within {
       border-color: var(--accent);
       box-shadow: 0 2px 16px rgba(16,163,127,0.15);
     }
     #userInput {
-      flex: 1; border: none; outline: none;
-      background: transparent;
+      flex: 1; border: none; outline: none; background: transparent;
       font-size: 15px; font-family: 'DM Sans', sans-serif;
       color: var(--text); resize: none;
       max-height: 180px; min-height: 24px; line-height: 1.5;
     }
     #userInput::placeholder { color: var(--text3); }
     .send-btn {
-      width: 36px; height: 36px;
-      border-radius: 8px; background: var(--accent);
-      border: none; cursor: pointer;
+      width: 36px; height: 36px; border-radius: 8px;
+      background: var(--accent); border: none; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
       transition: background 0.2s, transform 0.1s; flex-shrink: 0;
     }
@@ -344,12 +237,7 @@
     .send-btn:active { transform: scale(0.95); }
     .send-btn:disabled { background: var(--bg3); cursor: not-allowed; }
     .send-btn svg { width: 16px; height: 16px; fill: white; }
-    .input-footer {
-      text-align: center; font-size: 11px;
-      color: var(--text3); margin-top: 8px;
-    }
-
-    /* SETTINGS */
+    .input-footer { text-align: center; font-size: 11px; color: var(--text3); margin-top: 8px; }
     .settings-overlay {
       display: none; position: fixed; inset: 0;
       background: rgba(0,0,0,0.4); z-index: 100;
@@ -357,61 +245,38 @@
     }
     .settings-overlay.open { display: flex; }
     .settings-panel {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 16px; width: 480px;
-      max-width: 90vw; padding: 24px;
-      animation: fadeIn 0.2s ease;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 16px; width: 480px; max-width: 90vw;
+      padding: 24px; animation: fadeIn 0.2s ease;
     }
-    .settings-header {
-      display: flex; align-items: center;
-      justify-content: space-between; margin-bottom: 20px;
-    }
+    .settings-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
     .settings-header h2 { font-size: 18px; font-weight: 600; }
     .close-btn {
-      width: 32px; height: 32px;
-      border-radius: 8px; border: 1px solid var(--border);
-      background: transparent; cursor: pointer;
-      font-size: 18px; color: var(--text2);
+      width: 32px; height: 32px; border-radius: 8px;
+      border: 1px solid var(--border); background: transparent;
+      cursor: pointer; font-size: 18px; color: var(--text2);
       display: flex; align-items: center; justify-content: center;
     }
     .close-btn:hover { background: var(--bg2); }
     .settings-row {
-      display: flex; align-items: center;
-      justify-content: space-between;
+      display: flex; align-items: center; justify-content: space-between;
       padding: 14px 0; border-bottom: 1px solid var(--border);
     }
     .settings-row:last-child { border-bottom: none; }
     .settings-label { font-size: 14px; font-weight: 500; }
     .settings-sub { font-size: 12px; color: var(--text2); margin-top: 2px; }
     .toggle-switch {
-      width: 44px; height: 24px;
-      background: var(--bg3); border-radius: 12px;
-      cursor: pointer; position: relative;
+      width: 44px; height: 24px; background: var(--bg3);
+      border-radius: 12px; cursor: pointer; position: relative;
       transition: background 0.2s; border: none; flex-shrink: 0;
     }
     .toggle-switch.on { background: var(--accent); }
     .toggle-switch::after {
-      content: ''; position: absolute;
-      width: 18px; height: 18px; background: white;
-      border-radius: 50%; top: 3px; left: 3px;
+      content: ''; position: absolute; width: 18px; height: 18px;
+      background: white; border-radius: 50%; top: 3px; left: 3px;
       transition: transform 0.2s;
     }
     .toggle-switch.on::after { transform: translateX(20px); }
-
-    /* ERROR BANNER */
-    .error-banner {
-      background: #fff3f3; border: 1px solid #ffcdd2;
-      color: #c62828; padding: 10px 16px;
-      font-size: 13px; text-align: center;
-      display: none;
-    }
-    [data-theme="dark"] .error-banner {
-      background: #2a1a1a; border-color: #5c2020;
-      color: #ff8a80;
-    }
-    .error-banner.show { display: block; }
-
     @media (max-width: 768px) {
       .sidebar { display: none; }
       .suggestions { grid-template-columns: 1fr; }
@@ -435,8 +300,8 @@
   <div class="sidebar-bottom">
     <div class="sidebar-btn" onclick="openSettings()">⚙️ &nbsp; Settings</div>
     <div class="sidebar-btn">
-      <span class="status-dot" id="statusDot"></span>
-      Mohammad Khan
+      <span class="status-dot connecting" id="statusDot"></span>
+      <span id="statusText">Connecting...</span>
     </div>
   </div>
 </aside>
@@ -445,14 +310,14 @@
   <div class="topbar">
     <button class="model-selector">🧠 Aperonix v0.8 ▾</button>
     <div class="topbar-right">
-      <button class="icon-btn" onclick="toggleTheme()" title="Toggle theme">
+      <button class="icon-btn" onclick="toggleTheme()">
         <span id="themeIcon">🌙</span>
       </button>
     </div>
   </div>
 
-  <div class="error-banner" id="errorBanner">
-    ⚠️ Server offline — using local AI mode
+  <div class="server-banner connecting" id="serverBanner">
+    ⏳ Connecting to Aperonix server... (first load may take 60 seconds)
   </div>
 
   <div class="messages-area" id="messagesArea">
@@ -520,7 +385,7 @@
         <div class="settings-label">Server Status</div>
         <div class="settings-sub" id="serverStatusText">Checking...</div>
       </div>
-      <span id="serverStatusBadge" style="font-size:13px;color:var(--text2)">...</span>
+      <span id="serverStatusBadge">...</span>
     </div>
     <div class="settings-row">
       <div>
@@ -541,41 +406,14 @@
 
 <script>
 // ============================
-// CONFIG — APNA SERVER URL DAALO!
+// SERVER URL
 // ============================
 const SERVER_URL = 'https://aperonix-backend.onrender.com';
-// Example: 'https://aperonix-backend.onrender.com'
 
 let showConfidence = true;
 let isDark = false;
 let isTyping = false;
 let serverOnline = false;
-
-// ============================
-// SERVER CHECK
-// ============================
-async function checkServer() {
-  try {
-    const res = await fetch(SERVER_URL + '/', {
-      method: 'GET',
-      signal: AbortSignal.timeout(5000)
-    });
-    const data = await res.json();
-    serverOnline = true;
-    document.getElementById('statusDot').className = 'status-dot online';
-    document.getElementById('serverStatusText').textContent = 'Connected to Aperonix server!';
-    document.getElementById('serverStatusBadge').textContent = '🟢 Online';
-    document.getElementById('errorBanner').classList.remove('show');
-    console.log('✅ Server online:', data);
-  } catch(e) {
-    serverOnline = false;
-    document.getElementById('statusDot').className = 'status-dot offline';
-    document.getElementById('serverStatusText').textContent = 'Server offline — using local mode';
-    document.getElementById('serverStatusBadge').textContent = '🔴 Offline';
-    document.getElementById('errorBanner').classList.add('show');
-    console.log('⚠️ Server offline, using local mode');
-  }
-}
 
 // ============================
 // LOCAL FALLBACK BRAIN
@@ -585,19 +423,59 @@ const localBrain = {
     const t = input.toLowerCase();
     const bad = ["hack","virus","cheat","harm","crack","steal","exploit","malware","illegal"];
     if(bad.some(w => t.includes(w))) return { text: "I can't help with that! Let's keep it positive! 😊", confidence: 99 };
-    if(/hello|hi\b|hey|salam|namaste/.test(t)) return { text: "Hey there! I'm Aperonix! 😊 How can I help you today?", confidence: 97 };
+    if(/hello|hi\b|hey|salam|namaste|hii+/.test(t)) return { text: "Hey there! I'm Aperonix! 😊 How can I help you today?", confidence: 97 };
     if(/who made|kisne|banaya|creator|mohammad/.test(t)) return { text: "I was built by Mohammad Khan — a 14-year-old genius from India! 🇮🇳✨\n\n• Zero paid tools\n• Zero GPU\n• 1000 real neurons\n• Pure GitHub data!", confidence: 98 };
-    if(/who are|naam|kaun/.test(t)) return { text: "I'm Aperonix! 🤖✨\nA female AI built from scratch — 1000 real neurons!\nBuilt by Mohammad Khan, Age 14 🇮🇳", confidence: 97 };
-    if(/how are|kaise ho/.test(t)) return { text: "I'm doing amazing! 😊 My neurons just finished training!\nHow are you? 🌟", confidence: 95 };
+    if(/who are|naam|kaun/.test(t)) return { text: "I'm Aperonix! 🤖✨\nA female AI — 1000 real neurons!\nBuilt by Mohammad Khan, Age 14 🇮🇳", confidence: 97 };
+    if(/how are|kaise ho|kaisi/.test(t)) return { text: "I'm doing amazing! 😊\nMy neurons just finished training!\nHow are you? 🌟", confidence: 95 };
     if(/python/.test(t)) return { text: "Here's Python! 🐍\n\n```python\nprint('Hello from Aperonix!')\nname = input('Your name: ')\nprint(f'Hello {name}!')\n```\n\nSave as hello.py → Run: python hello.py", confidence: 96 };
-    if(/\bjava\b/.test(t)&&!/javascript/.test(t)) return { text: "Here's Java! ☕\n\n```java\npublic class Hello {\n    public static void main(String[] args) {\n        System.out.println('Hello from Aperonix!');\n    }\n}\n```\n\nSave as Hello.java → Run: javac Hello.java && java Hello", confidence: 95 };
+    if(/\bjava\b/.test(t)&&!/javascript/.test(t)) return { text: "Here's Java! ☕\n\n```java\npublic class Hello {\n    public static void main(String[] args) {\n        System.out.println(\"Hello from Aperonix!\");\n    }\n}\n```\n\nSave as Hello.java → Run: javac Hello.java && java Hello", confidence: 95 };
     if(/javascript|js\b/.test(t)) return { text: "Here's JavaScript! ✨\n\n```javascript\nconsole.log('Hello from Aperonix!');\nfunction greet(name) {\n    return `Hello ${name}!`;\n}\nconsole.log(greet('Mohammad'));\n```\n\nSave as hello.js → Run: node hello.js", confidence: 95 };
     if(/html|website|webpage/.test(t)) return { text: "Here's HTML! 🌐\n\n```html\n<!DOCTYPE html>\n<html>\n<body>\n    <h1>Hello from Aperonix!</h1>\n    <button onclick=\"alert('Hi!')\">Click!</button>\n</body>\n</html>\n```\n\nSave as index.html → Open in browser!", confidence: 95 };
-    if(/game/.test(t)) return { text: "Here's a game! 🎮\n\n```javascript\nconst secret = Math.floor(Math.random()*10)+1;\nconsole.log('Guess 1-10!');\n// Run in Node.js!\n```\n\nSave as game.js → Run: node game.js", confidence: 94 };
+    if(/game/.test(t)) return { text: "Here's a game! 🎮\n\n```javascript\nconst secret = Math.floor(Math.random()*10)+1;\nconst rl = require('readline').createInterface({input:process.stdin,output:process.stdout});\nconsole.log('Guess 1-10!');\nlet attempts=0;\nfunction guess(){\n    rl.question('Guess: ',(a)=>{\n        attempts++;\n        let n=parseInt(a);\n        if(n===secret){console.log(`Won in ${attempts} tries! 🎉`);rl.close();}\n        else{console.log(n<secret?'Too low!':'Too high!');guess();}\n    });\n}\nguess();\n```\n\nSave as game.js → Run: node game.js", confidence: 94 };
+    if(/css|style/.test(t)) return { text: "Here's CSS! 🎨\n\n```css\nbody {\n    background: #1a1a2e;\n    color: white;\n    font-family: Arial;\n    text-align: center;\n}\nh1 { color: #10a37f; }\n```\n\nSave as style.css → Link in HTML!", confidence: 93 };
     if(/thank|shukriya/.test(t)) return { text: "You're welcome! 😊 Ask me anything! ✨", confidence: 96 };
-    return { text: "I'm still learning! 🌱 Try asking:\n• 'Create Python code'\n• 'Make a JavaScript game'\n• 'Build HTML website'\n• 'Who made you?'\n\nI grow smarter every 6 hours from GitHub! 💪", confidence: 35 };
+    return {
+      text: "I'm still learning! 🌱 Try asking:\n• 'Create Python code'\n• 'Make a JavaScript game'\n• 'Build HTML website'\n• 'Who made you?'\n\nI grow smarter every 6 hours from GitHub! 💪",
+      confidence: 35
+    };
   }
 };
+
+// ============================
+// SERVER CHECK — 60 SEC TIMEOUT!
+// ============================
+async function checkServer() {
+  try {
+    setBanner('connecting', '⏳ Waking up Aperonix server... (may take 60 seconds on first load)');
+    const res = await fetch(SERVER_URL + '/', {
+      method: 'GET',
+      signal: AbortSignal.timeout(90000) // 90 seconds!
+    });
+    const data = await res.json();
+    serverOnline = true;
+    document.getElementById('statusDot').className = 'status-dot online';
+    document.getElementById('statusText').textContent = 'Mohammad Khan';
+    document.getElementById('serverStatusText').textContent = `Connected! ${data.knowledge || 0} facts learned`;
+    document.getElementById('serverStatusBadge').textContent = '🟢 Online';
+    setBanner('online', '✅ Aperonix server connected! Running with 1000 real neurons!');
+    setTimeout(() => {
+      document.getElementById('serverBanner').style.display = 'none';
+    }, 3000);
+  } catch(e) {
+    serverOnline = false;
+    document.getElementById('statusDot').className = 'status-dot offline';
+    document.getElementById('statusText').textContent = 'Local mode';
+    document.getElementById('serverStatusText').textContent = 'Server offline — using local AI';
+    document.getElementById('serverStatusBadge').textContent = '🔴 Offline';
+    setBanner('offline', '⚠️ Server offline — using local AI mode (still works!)');
+  }
+}
+
+function setBanner(type, msg) {
+  const b = document.getElementById('serverBanner');
+  b.className = `server-banner ${type}`;
+  b.textContent = msg;
+}
 
 // ============================
 // SEND MESSAGE
@@ -607,7 +485,9 @@ async function sendMessage() {
   const text = input.value.trim();
   if(!text || isTyping) return;
 
-  document.getElementById('welcomeScreen') && (document.getElementById('welcomeScreen').style.display = 'none');
+  const welcome = document.getElementById('welcomeScreen');
+  if(welcome) welcome.style.display = 'none';
+
   addMessage('user', text);
   input.value = '';
   input.style.height = 'auto';
@@ -620,23 +500,21 @@ async function sendMessage() {
     let responseData;
 
     if(serverOnline) {
-      // Server se jawab lo!
       const res = await fetch(SERVER_URL + '/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: text }),
-        signal: AbortSignal.timeout(10000)
+        signal: AbortSignal.timeout(60000) // 60 seconds!
       });
       responseData = await res.json();
     } else {
-      // Local fallback
-      await new Promise(r => setTimeout(r, 800));
+      await new Promise(r => setTimeout(r, 700));
       const local = localBrain.think(text);
       responseData = { response: local.text, confidence: local.confidence };
     }
 
     typingEl.remove();
-    let finalText = responseData.response || responseData.error || "Something went wrong!";
+    let finalText = responseData.response || "Something went wrong!";
     if(showConfidence && responseData.confidence) {
       finalText += `\n\n_Neural confidence: ${responseData.confidence}%_`;
     }
@@ -646,7 +524,7 @@ async function sendMessage() {
     typingEl.remove();
     serverOnline = false;
     document.getElementById('statusDot').className = 'status-dot offline';
-    document.getElementById('errorBanner').classList.add('show');
+    setBanner('offline', '⚠️ Server timeout — switched to local AI mode');
     const local = localBrain.think(text);
     let finalText = local.text;
     if(showConfidence) finalText += `\n\n_Neural confidence: ${local.confidence}% (local mode)_`;
@@ -658,7 +536,7 @@ async function sendMessage() {
 }
 
 // ============================
-// MESSAGE FUNCTIONS
+// MESSAGE HELPERS
 // ============================
 function addMessage(role, text) {
   const area = document.getElementById('messagesArea');
@@ -668,8 +546,7 @@ function addMessage(role, text) {
     <div class="message-inner">
       <div class="avatar ${role}">${role==='ai'?'🤖':'M'}</div>
       <div class="bubble">${formatText(text)}</div>
-    </div>
-  `;
+    </div>`;
   area.appendChild(div);
   area.scrollTop = area.scrollHeight;
   return div;
@@ -683,26 +560,25 @@ function addTyping() {
     <div class="message-inner">
       <div class="avatar ai">🤖</div>
       <div class="typing"><span></span><span></span><span></span></div>
-    </div>
-  `;
+    </div>`;
   area.appendChild(div);
   area.scrollTop = area.scrollHeight;
   return div;
 }
 
 function formatText(text) {
-  text = text.replace(/```(\w+)?\n([\s\S]*?)```/g, (_, lang, code) =>
-    `<pre><code>${escapeHtml(code.trim())}</code></pre>`);
+  text = text.replace(/```(\w+)?\n([\s\S]*?)```/g, (_,l,c) =>
+    `<pre><code>${escapeHtml(c.trim())}</code></pre>`);
   text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
   text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-  text = text.replace(/_([^_]+)_/g, '<em style="color:var(--text3);font-size:12px">$1</em>');
+  text = text.replace(/_([^_\n]+)_/g, '<em style="color:var(--text3);font-size:12px">$1</em>');
   text = text.replace(/^• (.+)$/gm, '<span style="display:block;padding-left:12px">• $1</span>');
   text = text.replace(/\n/g, '<br>');
   return text;
 }
 
-function escapeHtml(text) {
-  return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function escapeHtml(t) {
+  return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
 function suggest(text) {
@@ -711,12 +587,12 @@ function suggest(text) {
 }
 
 function handleKey(e) {
-  if(e.key==='Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+  if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); sendMessage(); }
 }
 
 function autoResize(el) {
   el.style.height = 'auto';
-  el.style.height = Math.min(el.scrollHeight, 180) + 'px';
+  el.style.height = Math.min(el.scrollHeight, 180)+'px';
 }
 
 function newChat() {
@@ -742,9 +618,6 @@ function newChat() {
     </div>`;
 }
 
-// ============================
-// THEME + SETTINGS
-// ============================
 function toggleTheme() {
   isDark = !isDark;
   document.documentElement.setAttribute('data-theme', isDark?'dark':'light');
@@ -764,7 +637,8 @@ function toggleConfidence() {
 // START
 // ============================
 checkServer();
-setInterval(checkServer, 30000); // Har 30 sec check karo
+setInterval(checkServer, 60000);
 </script>
 </body>
 </html>
+✅ Local mode bhi kaam karega!
