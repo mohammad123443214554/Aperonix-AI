@@ -1,6 +1,6 @@
 // ================================
 // APERONIX-AI — BACKEND SERVER
-// Connects website to brain.js!
+// Fixed: Server starts first!
 // By Mohammad Khan, Age 14, India
 // ================================
 
@@ -161,64 +161,48 @@ const brain = {
     const push = (inp, out, times=10) => {
       for(let x=0; x<times; x++) data.push({i:[...inp], o:[...out]});
     };
-    // greet
     push([1,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[1,0,0,0,0,0,0,0,0,0]);
     push([1,0,0,0,0,0,0,0,0,1,0,0,0,0,0],[1,0,0,0,0,0,0,0,0,0]);
     push([1,0,0,0,0,0,0,0,1,0,0,0,0,0,0],[1,0,0,0,0,0,0,0,0,0]);
     push([1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0]);
-    push([1,0,0,0,0,0,0,0,0,0,0,0,0,1,0],[1,0,0,0,0,0,0,0,0,0]);
-    // python
     push([0,1,1,0,0,0,0,0,0,0,0,0,0,0,0],[0,1,0,0,0,0,0,0,0,0]);
     push([1,1,1,0,0,0,0,0,0,0,0,0,0,0,0],[0,1,0,0,0,0,0,0,0,0]);
     push([0,0,1,0,0,0,0,0,0,0,1,0,0,0,0],[0,1,0,0,0,0,0,0,0,0]);
-    push([0,1,1,0,0,0,0,0,0,0,0,0,0,1,0],[0,1,0,0,0,0,0,0,0,0]);
-    // java
     push([0,1,0,1,0,0,0,0,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,0,0,0]);
     push([1,1,0,1,0,0,0,0,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,0,0,0]);
     push([0,0,0,1,0,0,0,0,0,0,1,0,0,0,0],[0,0,1,0,0,0,0,0,0,0]);
-    push([0,1,0,1,0,0,0,0,0,0,0,0,0,1,0],[0,0,1,0,0,0,0,0,0,0]);
-    // js
     push([0,1,0,0,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,1,0,0,0,0,0,0]);
     push([1,1,0,0,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,1,0,0,0,0,0,0]);
     push([0,0,0,0,1,0,0,0,0,0,1,0,0,0,0],[0,0,0,1,0,0,0,0,0,0]);
-    // html
     push([0,1,0,0,0,1,0,0,0,0,0,0,0,0,0],[0,0,0,0,1,0,0,0,0,0]);
     push([0,0,0,0,0,1,0,0,0,0,1,0,0,0,0],[0,0,0,0,1,0,0,0,0,0]);
-    push([0,1,0,0,0,1,0,0,0,0,0,0,0,1,0],[0,0,0,0,1,0,0,0,0,0]);
-    // game
     push([0,1,0,0,0,0,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,0,0,0,0]);
     push([1,1,0,0,0,0,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,0,0,0,0]);
-    push([0,1,0,0,1,0,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,0,0,0,0]);
-    // creator
     push([0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,1,0,0,0]);
     push([1,0,0,0,0,0,0,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,1,0,0,0]);
     push([0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],[0,0,0,0,0,0,1,0,0,0]);
-    // how are
     push([0,0,0,0,0,0,0,0,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,1,0,0]);
     push([1,0,0,0,0,0,0,0,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,1,0,0]);
-    // css
     push([0,1,0,0,0,0,0,0,0,0,0,1,0,0,0],[0,0,0,0,0,0,0,0,0,1]);
     push([0,0,0,0,0,0,0,0,0,0,1,1,0,0,0],[0,0,0,0,0,0,0,0,0,1]);
-    // explain
     push([0,0,0,0,0,0,0,0,0,0,1,0,0,0,0],[0,0,0,0,0,0,0,0,1,0]);
     push([0,0,0,0,0,0,0,0,0,0,1,0,0,1,0],[0,0,0,0,0,0,0,0,1,0]);
-    // shuffle
-    for(let i=data.length-1;i>0;i--){
+    for(let i=data.length-1;i>0;i--) {
       let j=Math.floor(Math.random()*(i+1));
       [data[i],data[j]]=[data[j],data[i]];
     }
     return data;
   },
 
-  train(epochs=5000) {
+  // FAST TRAINING — Server ke liye!
+  train(epochs=200) {
     console.log(`🔥 Training ${epochs} epochs...`);
     let td = this.generateTraining();
     for(let e=0; e<epochs; e++) {
       for(let d of td) this.nn.train(d.i, d.o);
-      if(e%1000===0) process.stdout.write(`\r   Epoch ${e}/${epochs}`);
     }
     this.trained = true;
-    console.log(`\n✅ Training done!`);
+    console.log(`✅ Training done!`);
   },
 
   loadMemory() {
@@ -271,7 +255,7 @@ const brain = {
       ()=>`Here's Python! 🐍\n\`\`\`python\nprint("Hello from Aperonix!")\nname = input("Your name: ")\nprint(f"Hello {name}!")\n\na = int(input("Number 1: "))\nb = int(input("Number 2: "))\nprint(f"Sum = {a+b}")\n\`\`\`\nSave as hello.py → Run: python hello.py`,
       ()=>`Here's Java! ☕\n\`\`\`java\npublic class Hello {\n    public static void main(String[] args) {\n        System.out.println("Hello from Aperonix!");\n        System.out.println("Built by Mohammad Khan, Age 14!");\n    }\n}\n\`\`\`\nSave as Hello.java → Run: javac Hello.java && java Hello`,
       ()=>`Here's JavaScript! ✨\n\`\`\`javascript\nconsole.log("Hello from Aperonix!");\n\nfunction greet(name) {\n    return \`Hello \${name}!\`;\n}\nconsole.log(greet("Mohammad"));\n\nlet skills = ["AI", "Games", "Web"];\nskills.forEach(s => console.log(s));\n\`\`\`\nSave as hello.js → Run: node hello.js`,
-      ()=>`Here's HTML! 🌐\n\`\`\`html\n<!DOCTYPE html>\n<html>\n<head>\n    <title>Aperonix Page</title>\n    <style>\n        body{background:#1a1a2e;color:white;text-align:center;padding:50px;font-family:Arial}\n        button{background:#10a37f;color:white;padding:12px 24px;border:none;border-radius:8px;cursor:pointer;font-size:16px}\n    </style>\n</head>\n<body>\n    <h1>Hello from Aperonix! 🤖</h1>\n    <p>Built by Mohammad Khan, Age 14 🇮🇳</p>\n    <button onclick="alert('Aperonix says hi!')">Click Me!</button>\n</body>\n</html>\n\`\`\`\nSave as index.html → Open in browser!`,
+      ()=>`Here's HTML! 🌐\n\`\`\`html\n<!DOCTYPE html>\n<html>\n<head>\n    <title>Aperonix Page</title>\n    <style>\n        body{background:#1a1a2e;color:white;text-align:center;padding:50px;font-family:Arial}\n        button{background:#10a37f;color:white;padding:12px 24px;border:none;border-radius:8px;cursor:pointer}\n    </style>\n</head>\n<body>\n    <h1>Hello from Aperonix! 🤖</h1>\n    <p>Built by Mohammad Khan, Age 14 🇮🇳</p>\n    <button onclick="alert('Aperonix says hi!')">Click Me!</button>\n</body>\n</html>\n\`\`\`\nSave as index.html → Open in browser!`,
       ()=>`A game — like your creator builds! 🎮\n\`\`\`javascript\nconst secret = Math.floor(Math.random()*10)+1;\nconst rl = require('readline').createInterface({input:process.stdin,output:process.stdout});\nconsole.log("Guess 1-10!");\nlet attempts=0;\nfunction guess(){\n    rl.question("Guess: ",(a)=>{\n        attempts++;\n        let n=parseInt(a);\n        if(n===secret){console.log(\`🎉 Won in \${attempts} tries!\`);rl.close();}\n        else{console.log(n<secret?"Too low!":"Too high!");guess();}\n    });\n}\nguess();\n\`\`\`\nSave as game.js → Run: node game.js`,
       ()=>`I was built by Mohammad Khan! 🇮🇳✨\n\n👤 Name: Mohammad Khan\n🎂 Age: 14 years old\n🌍 Country: India\n💡 Built from scratch — zero paid tools!\n🖥️ GPU: Zero — pure GitHub data!\n🧠 Brain: 1000 real neurons!\n🎮 Also built a Game Engine at 14!\n\nPretty legendary, right? 😊`,
       ()=>this.getRandom([
@@ -279,7 +263,7 @@ const brain = {
         "Feeling great! Just learned new things from GitHub! ✨\nHow about you? 😊"
       ]),
       ()=>`I'd love to explain! 😊\n\nI can explain:\n• Python — easy AI language 🐍\n• Java — Android & enterprise ☕\n• JavaScript — web & games ✨\n• HTML/CSS — websites 🌐\n• How I work — neural networks 🧠\n\nWhat would you like to learn?`,
-      ()=>`Here's CSS! 🎨\n\`\`\`css\nbody {\n    background: #1a1a2e;\n    color: white;\n    font-family: Arial, sans-serif;\n    text-align: center;\n}\n\nh1 { color: #10a37f; }\n\n.button {\n    background: #10a37f;\n    color: white;\n    padding: 12px 24px;\n    border: none;\n    border-radius: 8px;\n    cursor: pointer;\n}\n\n.button:hover { background: #0d8c6d; }\n\`\`\`\nSave as style.css → Link in HTML!`,
+      ()=>`Here's CSS! 🎨\n\`\`\`css\nbody {\n    background: #1a1a2e;\n    color: white;\n    font-family: Arial;\n    text-align: center;\n}\nh1 { color: #10a37f; }\n.button {\n    background: #10a37f;\n    color: white;\n    padding: 12px 24px;\n    border: none;\n    border-radius: 8px;\n    cursor: pointer;\n}\n.button:hover { background: #0d8c6d; }\n\`\`\`\nSave as style.css → Link in HTML!`,
     ];
     if(idx>=0 && idx<R.length) return R[idx]();
     return null;
@@ -289,7 +273,6 @@ const brain = {
     if(!this.isEthical(input)) {
       return { text: "I can't help with that. Let's keep it positive! 😊", confidence: 99 };
     }
-
     let features = this.analyze(input);
     let output = this.nn.think(features);
     let maxIdx = output.indexOf(Math.max(...output));
@@ -300,7 +283,6 @@ const brain = {
       if(response) return { text: response, confidence: Math.round(confidence*100) };
     }
 
-    // Knowledge search
     let t = input.toLowerCase();
     for(let fact of this.knowledge) {
       if(t.includes(fact.keyword.toLowerCase())) {
@@ -308,9 +290,8 @@ const brain = {
       }
     }
 
-    // Fallbacks
     if(/thank|shukriya/.test(t)) return { text: "You're welcome! 😊 Ask me anything! ✨", confidence: 95 };
-    if(/who are|naam|kaun/.test(t)) return { text: "I'm Aperonix! 🤖 A female AI with 1000 neurons, built by Mohammad Khan, Age 14 🇮🇳", confidence: 95 };
+    if(/who are|naam|kaun/.test(t)) return { text: "I'm Aperonix! 🤖 A female AI — 1000 neurons, built by Mohammad Khan, Age 14 🇮🇳", confidence: 95 };
     if(/bye|alvida/.test(t)) return { text: "Goodbye! Come back anytime! 😊✨", confidence: 95 };
 
     return {
@@ -323,12 +304,7 @@ const brain = {
 // ============================
 // HTTP SERVER
 // ============================
-console.log('\n🤖 Aperonix Backend Server Starting...');
-brain.loadMemory();
-brain.train(5000);
-
 const server = http.createServer((req, res) => {
-  // CORS headers — website ko allow karo!
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -354,7 +330,7 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // MAIN API — /chat
+  // CHAT API
   if(parsedUrl.pathname === '/chat' && req.method === 'POST') {
     let body = '';
     req.on('data', chunk => body += chunk);
@@ -366,11 +342,9 @@ const server = http.createServer((req, res) => {
           res.end(JSON.stringify({ error: 'Message required!' }));
           return;
         }
-
-        console.log(`\nUser: ${message}`);
+        console.log(`User: ${message}`);
         const response = brain.think(message);
-        console.log(`Aperonix: ${response.text.substring(0,50)}... [${response.confidence}%]`);
-
+        console.log(`Aperonix: [${response.confidence}%]`);
         res.writeHead(200, {'Content-Type': 'application/json'});
         res.end(JSON.stringify({
           response: response.text,
@@ -390,10 +364,24 @@ const server = http.createServer((req, res) => {
   res.end('Not found');
 });
 
+// ============================
+// START — SERVER PEHLE, PHIR TRAIN!
+// ============================
+console.log('\n🤖 Aperonix Backend Starting...');
+brain.loadMemory();
+
 const PORT = process.env.PORT || 3000;
+
+// SERVER PEHLE START KARO!
 server.listen(PORT, () => {
-  console.log(`\n✅ Aperonix Server running on port ${PORT}!`);
-  console.log(`   Test: http://localhost:${PORT}/`);
-  console.log(`   Chat: POST http://localhost:${PORT}/chat`);
-  console.log(`\n🚀 Ready to serve the world! 🌍\n`);
+  console.log(`✅ Server running on port ${PORT}!`);
+  console.log(`   Health: http://localhost:${PORT}/`);
+  console.log(`   Chat:   POST http://localhost:${PORT}/chat`);
+
+  // PHIR BACKGROUND MEIN TRAIN KARO!
+  console.log('\n🔥 Training in background...');
+  setTimeout(() => {
+    brain.train(200);
+    console.log('🧠 Ready to chat! 🌍\n');
+  }, 500);
 });
