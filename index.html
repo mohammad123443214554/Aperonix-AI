@@ -6,17 +6,8 @@
   <title>Aperonix AI</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg:#ffffff;--bg2:#f7f7f8;--bg3:#ececec;--sidebar:#f7f7f8;
-      --text:#0d0d0d;--text2:#6e6e80;--text3:#acacbe;--border:#e5e5e5;
-      --accent:#10a37f;--accent-hover:#0d8c6d;--ai-bubble:#f7f7f8;
-      --shadow:rgba(0,0,0,0.08);--input-bg:#ffffff;
-    }
-    [data-theme="dark"] {
-      --bg:#212121;--bg2:#2f2f2f;--bg3:#3a3a3a;--sidebar:#171717;
-      --text:#ececec;--text2:#8e8ea0;--text3:#565869;--border:#3a3a3a;
-      --ai-bubble:#2f2f2f;--shadow:rgba(0,0,0,0.3);--input-bg:#2f2f2f;
-    }
+    :root{--bg:#ffffff;--bg2:#f7f7f8;--bg3:#ececec;--sidebar:#f7f7f8;--text:#0d0d0d;--text2:#6e6e80;--text3:#acacbe;--border:#e5e5e5;--accent:#10a37f;--accent-hover:#0d8c6d;--ai-bubble:#f7f7f8;--shadow:rgba(0,0,0,0.08);--input-bg:#ffffff;}
+    [data-theme="dark"]{--bg:#212121;--bg2:#2f2f2f;--bg3:#3a3a3a;--sidebar:#171717;--text:#ececec;--text2:#8e8ea0;--text3:#565869;--border:#3a3a3a;--ai-bubble:#2f2f2f;--shadow:rgba(0,0,0,0.3);--input-bg:#2f2f2f;}
     *{margin:0;padding:0;box-sizing:border-box;}
     body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);height:100vh;display:flex;overflow:hidden;transition:background .3s,color .3s;}
     .sidebar{width:260px;background:var(--sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:12px;gap:4px;flex-shrink:0;}
@@ -34,7 +25,7 @@
     .online-dot{width:8px;height:8px;border-radius:50%;background:#10a37f;display:inline-block;margin-right:6px;}
     .main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
     .topbar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid var(--border);background:var(--bg);}
-    .model-tag{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:8px;border:1px solid var(--border);font-size:14px;font-weight:500;color:var(--text);background:var(--bg);font-family:'DM Sans',sans-serif;cursor:default;}
+    .model-tag{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:8px;border:1px solid var(--border);font-size:14px;font-weight:500;color:var(--text);background:var(--bg);font-family:'DM Sans',sans-serif;}
     .icon-btn{width:36px;height:36px;border-radius:8px;border:1px solid var(--border);background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:background .2s;}
     .icon-btn:hover{background:var(--bg2);}
     .messages-area{flex:1;overflow-y:auto;padding:20px 0;scroll-behavior:smooth;}
@@ -45,7 +36,7 @@
     .welcome h1{font-size:28px;font-weight:600;letter-spacing:-.5px;}
     .welcome p{font-size:15px;color:var(--text2);text-align:center;max-width:400px;line-height:1.6;}
     .suggestions{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:580px;}
-    .scard{padding:14px 16px;border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:background .2s,border-color .2s;background:var(--bg);}
+    .scard{padding:14px 16px;border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:background .2s,border-color .2s;background:var(--bg);text-align:left;}
     .scard:hover{background:var(--bg2);border-color:var(--accent);}
     .s-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px;}
     .s-sub{font-size:12px;color:var(--text2);}
@@ -105,26 +96,21 @@
   </div>
   <button class="new-chat-btn" onclick="newChat()">✏️ &nbsp; New chat</button>
   <div class="sidebar-section">Recent</div>
-  <div class="chat-item active">Hello from Aperonix!</div>
-  <div class="chat-item">Create Python code</div>
-  <div class="chat-item">Who made you?</div>
-  <div class="chat-item">Make a JavaScript game</div>
-  <div class="chat-item">What is HTML?</div>
+  <div class="chat-item active" onclick="newChat()">Hello from Aperonix!</div>
+  <div class="chat-item" onclick="suggest('Create a Python hello world program')">Create Python code</div>
+  <div class="chat-item" onclick="suggest('Who made you and how do you work?')">Who made you?</div>
+  <div class="chat-item" onclick="suggest('Create a JavaScript game')">Make a JavaScript game</div>
+  <div class="chat-item" onclick="suggest('Create a simple HTML website')">What is HTML?</div>
   <div class="sidebar-bottom">
     <div class="sidebar-btn" onclick="openSettings()">⚙️ &nbsp; Settings</div>
-    <div class="sidebar-btn">
-      <span class="online-dot"></span>
-      Mohammad Khan
-    </div>
+    <div class="sidebar-btn"><span class="online-dot"></span>Mohammad Khan</div>
   </div>
 </aside>
 
 <main class="main">
   <div class="topbar">
     <div class="model-tag">🧠 Aperonix v0.9 — Direct Mode</div>
-    <div style="display:flex;gap:8px;">
-      <button class="icon-btn" onclick="toggleTheme()"><span id="themeIcon">🌙</span></button>
-    </div>
+    <button class="icon-btn" onclick="toggleTheme()"><span id="themeIcon">🌙</span></button>
   </div>
 
   <div class="messages-area" id="messagesArea">
@@ -133,22 +119,22 @@
       <h1>How can I help you?</h1>
       <p>I'm Aperonix — an AI built from scratch using GitHub data by Mohammad Khan, age 14 🇮🇳</p>
       <div class="suggestions">
-        <div class="scard" onclick="suggest('Create a Python hello world program')">
+        <button class="scard" onclick="suggest('Create a Python hello world program')">
           <div class="s-title">🐍 Python code</div>
           <div class="s-sub">Create a simple Python program</div>
-        </div>
-        <div class="scard" onclick="suggest('Create a JavaScript game')">
+        </button>
+        <button class="scard" onclick="suggest('Create a JavaScript game')">
           <div class="s-title">🎮 Make a game</div>
           <div class="s-sub">Build a fun JavaScript game</div>
-        </div>
-        <div class="scard" onclick="suggest('Create a simple HTML website')">
+        </button>
+        <button class="scard" onclick="suggest('Create a simple HTML website')">
           <div class="s-title">🌐 HTML website</div>
           <div class="s-sub">Build a webpage from scratch</div>
-        </div>
-        <div class="scard" onclick="suggest('Who made you and how do you work?')">
+        </button>
+        <button class="scard" onclick="suggest('Who made you and how do you work?')">
           <div class="s-title">🧠 About Aperonix</div>
           <div class="s-sub">Learn how I was built</div>
-        </div>
+        </button>
       </div>
     </div>
   </div>
@@ -161,13 +147,11 @@
         <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
       </button>
     </div>
-    <div class="input-footer">
-      Aperonix AI v0.9 — Built by Mohammad Khan, Age 14 🇮🇳 — Powered by GitHub data
-    </div>
+    <div class="input-footer">Aperonix AI v0.9 — Built by Mohammad Khan, Age 14 🇮🇳 — Powered by GitHub data</div>
   </div>
 </main>
 
-<div class="settings-overlay" id="settingsOverlay" onclick="closeSettings(event)">
+<div class="settings-overlay" id="settingsOverlay" onclick="closeSettingsOutside(event)">
   <div class="settings-panel">
     <div class="settings-header">
       <h2>Settings</h2>
@@ -202,15 +186,10 @@
 
 <script>
 // ============================
-// APERONIX v0.9 — DIRECT MODE!
-// No server needed — runs in browser!
-// 1000 neurons — pure JavaScript!
-// By Mohammad Khan, Age 14, India
+// APERONIX v0.9 — DIRECT MODE
 // ============================
 
-// ============================
-// MATRIX MATH
-// ============================
+// Matrix class
 class Matrix {
   constructor(r,c){
     this.rows=r;this.cols=c;
@@ -231,10 +210,8 @@ class Matrix {
   static em(a,b){let r=new Matrix(a.rows,a.cols);for(let i=0;i<r.rows;i++)for(let j=0;j<r.cols;j++)r.data[i][j]=a.data[i][j]*b.data[i][j];return r;}
 }
 
-// ============================
-// NEURAL NETWORK — 1000 NEURONS!
-// ============================
-class NeuralNetwork {
+// Neural Network
+class NN {
   constructor(i,h,o){
     this.wIH=new Matrix(h,i);this.wHO=new Matrix(o,h);
     this.bH=new Matrix(h,1);this.bO=new Matrix(o,1);this.lr=0.01;
@@ -264,201 +241,196 @@ class NeuralNetwork {
 // ============================
 // APERONIX BRAIN
 // ============================
-const aperonix = {
-  nn: new NeuralNetwork(15,1000,10),
-  trained: false,
+const nn = new NN(15, 1000, 10);
+let showConf = true;
+let isDark = false;
+let isTyping = false;
 
-  trainingData(){
-    let d=[];
-    const p=(i,o,n=15)=>{for(let x=0;x<n;x++)d.push({i:[...i],o:[...o]});};
-    p([1,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[1,0,0,0,0,0,0,0,0,0]);
-    p([1,0,0,0,0,0,0,0,0,1,0,0,0,0,0],[1,0,0,0,0,0,0,0,0,0]);
-    p([1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0]);
-    p([1,0,0,0,0,0,0,0,1,0,0,0,0,0,0],[1,0,0,0,0,0,0,0,0,0]);
-    p([0,1,1,0,0,0,0,0,0,0,0,0,0,0,0],[0,1,0,0,0,0,0,0,0,0]);
-    p([1,1,1,0,0,0,0,0,0,0,0,0,0,0,0],[0,1,0,0,0,0,0,0,0,0]);
-    p([0,0,1,0,0,0,0,0,0,0,1,0,0,0,0],[0,1,0,0,0,0,0,0,0,0]);
-    p([0,1,1,0,0,0,0,0,0,0,0,0,0,1,0],[0,1,0,0,0,0,0,0,0,0]);
-    p([0,1,0,1,0,0,0,0,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,0,0,0]);
-    p([1,1,0,1,0,0,0,0,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,0,0,0]);
-    p([0,0,0,1,0,0,0,0,0,0,1,0,0,0,0],[0,0,1,0,0,0,0,0,0,0]);
-    p([0,1,0,0,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,1,0,0,0,0,0,0]);
-    p([1,1,0,0,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,1,0,0,0,0,0,0]);
-    p([0,0,0,0,1,0,0,0,0,0,1,0,0,0,0],[0,0,0,1,0,0,0,0,0,0]);
-    p([0,1,0,0,0,1,0,0,0,0,0,0,0,0,0],[0,0,0,0,1,0,0,0,0,0]);
-    p([0,0,0,0,0,1,0,0,0,0,1,0,0,0,0],[0,0,0,0,1,0,0,0,0,0]);
-    p([0,1,0,0,0,0,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,0,0,0,0]);
-    p([1,1,0,0,0,0,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,0,0,0,0]);
-    p([0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,1,0,0,0]);
-    p([1,0,0,0,0,0,0,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,1,0,0,0]);
-    p([0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],[0,0,0,0,0,0,1,0,0,0]);
-    p([0,0,0,0,0,0,0,0,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,1,0,0]);
-    p([1,0,0,0,0,0,0,0,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,1,0,0]);
-    p([0,1,0,0,0,0,0,0,0,0,0,1,0,0,0],[0,0,0,0,0,0,0,0,0,1]);
-    p([0,0,0,0,0,0,0,0,0,0,1,0,0,0,0],[0,0,0,0,0,0,0,0,1,0]);
-    // Shuffle
-    for(let i=d.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[d[i],d[j]]=[d[j],d[i]];}
-    return d;
-  },
+function rand(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
 
-  train(){
-    console.log('🔥 Training 1000 neurons...');
-    let td=this.trainingData();
-    for(let e=0;e<3000;e++)for(let d of td)this.nn.train(d.i,d.o);
-    this.trained=true;
-    console.log('✅ Aperonix ready!');
-  },
+// Training data
+function getTrainingData(){
+  let d=[];
+  const p=(i,o,n=15)=>{for(let x=0;x<n;x++)d.push({i:[...i],o:[...o]});};
+  p([1,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[1,0,0,0,0,0,0,0,0,0]);
+  p([1,0,0,0,0,0,0,0,0,1,0,0,0,0,0],[1,0,0,0,0,0,0,0,0,0]);
+  p([1,0,0,0,0,0,0,0,1,0,0,0,0,0,0],[1,0,0,0,0,0,0,0,0,0]);
+  p([1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0]);
+  p([0,1,1,0,0,0,0,0,0,0,0,0,0,0,0],[0,1,0,0,0,0,0,0,0,0]);
+  p([1,1,1,0,0,0,0,0,0,0,0,0,0,0,0],[0,1,0,0,0,0,0,0,0,0]);
+  p([0,0,1,0,0,0,0,0,0,0,1,0,0,0,0],[0,1,0,0,0,0,0,0,0,0]);
+  p([0,1,1,0,0,0,0,0,0,0,0,0,0,1,0],[0,1,0,0,0,0,0,0,0,0]);
+  p([0,1,0,1,0,0,0,0,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,0,0,0]);
+  p([1,1,0,1,0,0,0,0,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,0,0,0]);
+  p([0,0,0,1,0,0,0,0,0,0,1,0,0,0,0],[0,0,1,0,0,0,0,0,0,0]);
+  p([0,1,0,0,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,1,0,0,0,0,0,0]);
+  p([1,1,0,0,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,1,0,0,0,0,0,0]);
+  p([0,0,0,0,1,0,0,0,0,0,1,0,0,0,0],[0,0,0,1,0,0,0,0,0,0]);
+  p([0,1,0,0,0,1,0,0,0,0,0,0,0,0,0],[0,0,0,0,1,0,0,0,0,0]);
+  p([0,0,0,0,0,1,0,0,0,0,1,0,0,0,0],[0,0,0,0,1,0,0,0,0,0]);
+  p([0,1,0,0,0,0,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,0,0,0,0]);
+  p([1,1,0,0,0,0,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,0,0,0,0]);
+  p([0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,1,0,0,0]);
+  p([1,0,0,0,0,0,0,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,1,0,0,0]);
+  p([0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],[0,0,0,0,0,0,1,0,0,0]);
+  p([0,0,0,0,0,0,0,0,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,1,0,0]);
+  p([1,0,0,0,0,0,0,0,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,1,0,0]);
+  p([0,1,0,0,0,0,0,0,0,0,0,1,0,0,0],[0,0,0,0,0,0,0,0,0,1]);
+  p([0,0,0,0,0,0,0,0,0,0,1,0,0,0,0],[0,0,0,0,0,0,0,0,1,0]);
+  for(let i=d.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[d[i],d[j]]=[d[j],d[i]];}
+  return d;
+}
 
-  analyze(text){
-    let t=text.toLowerCase();
-    return [
-      /hello|hi\b|hey|salam|namaste|hii+/.test(t)?1:0,
-      /code|program|create|write|build|banao/.test(t)?1:0,
-      /python|py\b/.test(t)?1:0,
-      /\bjava\b/.test(t)&&!/javascript/.test(t)?1:0,
-      /javascript|js\b/.test(t)?1:0,
-      /html|webpage|website/.test(t)?1:0,
-      /game|gaming/.test(t)?1:0,
-      /who made|who built|kisne|banaya|creator|mohammad/.test(t)?1:0,
-      /how are|kaise ho|kaisi/.test(t)?1:0,
-      /thank|shukriya/.test(t)?1:0,
-      /what is|kya hai|explain|batao/.test(t)?1:0,
-      /css|style|design/.test(t)?1:0,
-      /error|bug|fix/.test(t)?1:0,
-      /help|madad/.test(t)?1:0,
-      /name|naam|who are|kaun/.test(t)?1:0,
-    ];
-  },
+function trainBrain(){
+  console.log('🔥 Training 1000 neurons...');
+  let td=getTrainingData();
+  for(let e=0;e<3000;e++) for(let d of td) nn.train(d.i,d.o);
+  console.log('✅ Aperonix ready!');
+}
 
-  isEthical(t){
-    return !["hack","virus","cheat","harm","crack","steal","exploit","malware","illegal","ddos"].some(w=>t.toLowerCase().includes(w));
-  },
+function analyze(text){
+  let t=text.toLowerCase();
+  return [
+    /hello|hi\b|hey|salam|namaste|hii+/.test(t)?1:0,
+    /code|program|create|write|build|banao/.test(t)?1:0,
+    /python|py\b/.test(t)?1:0,
+    /\bjava\b/.test(t)&&!/javascript/.test(t)?1:0,
+    /javascript|js\b/.test(t)?1:0,
+    /html|webpage|website/.test(t)?1:0,
+    /game|gaming/.test(t)?1:0,
+    /who made|who built|kisne|banaya|creator|mohammad/.test(t)?1:0,
+    /how are|kaise ho|kaisi/.test(t)?1:0,
+    /thank|shukriya/.test(t)?1:0,
+    /what is|kya hai|explain|batao/.test(t)?1:0,
+    /css|style|design/.test(t)?1:0,
+    /error|bug|fix/.test(t)?1:0,
+    /help|madad/.test(t)?1:0,
+    /name|naam|who are|kaun/.test(t)?1:0,
+  ];
+}
 
-  rand(a){return a[Math.floor(Math.random()*a.length)];},
-
-  responses: [
-    ()=>this.rand(["Hey there! I'm Aperonix! 😊 How can I help you today?","Hello! Aperonix here — ask me anything! 🌟","Hi! Great to see you! What would you like to know? ✨"]),
+function getResponse(idx){
+  const responses = [
+    ()=>rand(["Hey there! I'm Aperonix! 😊 How can I help you today?","Hello! Aperonix here — ask me anything! 🌟","Hi! Great to see you! What would you like to know? ✨"]),
     ()=>`Here's Python! 🐍\n\`\`\`python\nprint("Hello from Aperonix!")\nname = input("Your name: ")\nprint(f"Hello {name}! Nice to meet you!")\n\na = int(input("Number 1: "))\nb = int(input("Number 2: "))\nprint(f"Sum = {a+b}")\n\`\`\`\nSave as hello.py → Run: python hello.py`,
     ()=>`Here's Java! ☕\n\`\`\`java\npublic class Hello {\n    public static void main(String[] args) {\n        System.out.println("Hello from Aperonix!");\n        System.out.println("Built by Mohammad Khan, Age 14!");\n    }\n}\n\`\`\`\nSave as Hello.java → Run: javac Hello.java && java Hello`,
     ()=>`Here's JavaScript! ✨\n\`\`\`javascript\nconsole.log("Hello from Aperonix!");\n\nfunction greet(name) {\n    return \`Hello \${name}! Welcome!\`;\n}\nconsole.log(greet("Mohammad"));\n\nlet skills = ["AI", "Games", "Web"];\nskills.forEach(s => console.log(s));\n\`\`\`\nSave as hello.js → Run: node hello.js`,
     ()=>`Here's HTML! 🌐\n\`\`\`html\n<!DOCTYPE html>\n<html>\n<head>\n    <title>Aperonix Page</title>\n    <style>\n        body{background:#1a1a2e;color:white;text-align:center;padding:50px;font-family:Arial}\n        button{background:#10a37f;color:white;padding:12px 24px;border:none;border-radius:8px;cursor:pointer;font-size:16px}\n    </style>\n</head>\n<body>\n    <h1>Hello from Aperonix! 🤖</h1>\n    <p>Built by Mohammad Khan, Age 14 🇮🇳</p>\n    <button onclick="alert('Aperonix says hi!')">Click Me!</button>\n</body>\n</html>\n\`\`\`\nSave as index.html → Open in browser!`,
     ()=>`A game — like your creator builds! 🎮\n\`\`\`javascript\nconst secret = Math.floor(Math.random()*10)+1;\nconst rl = require('readline').createInterface({input:process.stdin,output:process.stdout});\nconsole.log("Guess 1-10!");\nlet attempts=0;\nfunction guess(){\n    rl.question("Guess: ",(a)=>{\n        attempts++;\n        let n=parseInt(a);\n        if(n===secret){console.log(\`🎉 Won in \${attempts} tries!\`);rl.close();}\n        else{console.log(n<secret?"Too low!":"Too high!");guess();}\n    });\n}\nguess();\n\`\`\`\nSave as game.js → Run: node game.js`,
     ()=>`I was built by Mohammad Khan! 🇮🇳✨\n\n👤 Name: Mohammad Khan\n🎂 Age: 14 years old\n🌍 Country: India\n💡 Zero paid tools!\n🖥️ Zero GPU — pure GitHub data!\n🧠 1000 real neurons — from scratch!\n🎮 Also built a Game Engine at 14!\n\nPretty legendary, right? 😊`,
-    ()=>this.rand(["I'm doing amazing! 😊 My 1000 neurons are active!\nHow are you? 🌟","Feeling great! Just learned from GitHub! ✨\nHow about you? 😊"]),
-    ()=>`I'd love to explain! 😊\n\nI can help with:\n• Python 🐍\n• Java ☕\n• JavaScript ✨\n• HTML & CSS 🌐\n• Games 🎮\n• How I work 🧠\n\nWhat would you like to learn?`,
-    ()=>`Here's CSS! 🎨\n\`\`\`css\nbody {\n    background: #1a1a2e;\n    color: white;\n    font-family: Arial;\n    text-align: center;\n    padding: 20px;\n}\n\nh1 { color: #10a37f; font-size: 2em; }\n\n.btn {\n    background: #10a37f;\n    color: white;\n    padding: 12px 24px;\n    border: none;\n    border-radius: 8px;\n    cursor: pointer;\n    font-size: 16px;\n}\n\n.btn:hover { background: #0d8c6d; }\n\`\`\`\nSave as style.css → Link in HTML!`,
-  ],
+    ()=>rand(["I'm doing amazing! 😊 My 1000 neurons are active!\nHow are you? 🌟","Feeling great! Just learned from GitHub! ✨\nHow about you? 😊"]),
+    ()=>`I'd love to explain! 😊\n\nI can help with:\n• Python 🐍\n• Java ☕\n• JavaScript ✨\n• HTML & CSS 🌐\n• Games 🎮\n\nWhat would you like to learn?`,
+    ()=>`Here's CSS! 🎨\n\`\`\`css\nbody {\n    background: #1a1a2e;\n    color: white;\n    font-family: Arial;\n    text-align: center;\n}\nh1 { color: #10a37f; }\n.btn {\n    background: #10a37f;\n    color: white;\n    padding: 12px 24px;\n    border: none;\n    border-radius: 8px;\n    cursor: pointer;\n}\n\`\`\`\nSave as style.css → Link in HTML!`,
+  ];
+  if(idx >= 0 && idx < responses.length) return responses[idx]();
+  return null;
+}
 
-  think(input){
-    if(!this.isEthical(input)) return {text:"I can't help with that. Let's keep it positive! 😊",confidence:99};
+function isEthical(text){
+  return !["hack","virus","cheat","harm","crack","steal","exploit","malware","illegal","ddos"].some(w=>text.toLowerCase().includes(w));
+}
 
-    let features=this.analyze(input);
-    let output=this.nn.think(features);
-    let maxIdx=output.indexOf(Math.max(...output));
-    let confidence=Math.max(...output);
+function aperonixThink(input){
+  if(!isEthical(input)) return {text:"I can't help with that. Let's keep it positive! 😊",confidence:99};
 
-    let t=input.toLowerCase();
+  let features = analyze(input);
+  let output = nn.think(features);
+  let maxIdx = output.indexOf(Math.max(...output));
+  let confidence = Math.max(...output);
 
-    // High confidence — neural network decide karta hai!
-    if(confidence>0.5 && maxIdx<this.responses.length){
-      return {text:this.responses[maxIdx](),confidence:Math.round(confidence*100)};
-    }
+  let t = input.toLowerCase();
 
-    // Manual checks
-    if(/thank|shukriya/.test(t)) return {text:"You're welcome! 😊 Ask me anything! ✨",confidence:96};
-    if(/who are|naam|kaun/.test(t)) return {text:"I'm Aperonix! 🤖✨\nA female AI with 1000 real neurons!\nBuilt by Mohammad Khan, Age 14 🇮🇳\nNo server, no API — runs directly in your browser!",confidence:96};
-    if(/bye|alvida/.test(t)) return {text:"Goodbye! Come back anytime! 😊✨",confidence:95};
-    if(/css|style/.test(t)) return {text:this.responses[9](),confidence:90};
-
-    return {
-      text:"I'm still learning! 🌱 Try asking:\n• 'Create Python code'\n• 'Make a JavaScript game'\n• 'Build HTML website'\n• 'Who made you?'\n• 'What is CSS?'\n\nI grow smarter every 6 hours from GitHub! 💪",
-      confidence:35
-    };
+  if(confidence > 0.5){
+    let resp = getResponse(maxIdx);
+    if(resp) return {text:resp, confidence:Math.round(confidence*100)};
   }
-};
 
-// ============================
-// UI STATE
-// ============================
-let showConf=true,isDark=false,isTyping=false;
+  if(/thank|shukriya/.test(t)) return {text:"You're welcome! 😊 Ask me anything! ✨",confidence:96};
+  if(/who are|naam|kaun/.test(t)) return {text:"I'm Aperonix! 🤖✨\nA female AI with 1000 real neurons!\nBuilt by Mohammad Khan, Age 14 🇮🇳\nRuns directly in your browser — no server needed!",confidence:96};
+  if(/bye|alvida/.test(t)) return {text:"Goodbye! Come back anytime! 😊✨",confidence:95};
+  if(/css|style/.test(t)) return {text:getResponse(9),confidence:90};
 
-// ============================
-// TRAIN ON LOAD
-// ============================
-window.addEventListener('load',()=>{
-  setTimeout(()=>{
-    aperonix.train();
-    console.log('🤖 Aperonix v0.9 ready — Direct Mode!');
-  },100);
-});
+  return {
+    text:"I'm still learning! 🌱 Try asking:\n• 'Create Python code'\n• 'Make a JavaScript game'\n• 'Build HTML website'\n• 'Who made you?'\n• 'What is CSS?'\n\nI grow smarter every 6 hours from GitHub! 💪",
+    confidence:35
+  };
+}
 
 // ============================
 // SEND MESSAGE
 // ============================
-async function sendMessage(){
-  const inp=document.getElementById('userInput');
-  const text=inp.value.trim();
-  if(!text||isTyping)return;
+function sendMessage(){
+  const inp = document.getElementById('userInput');
+  const text = inp.value.trim();
+  if(!text || isTyping) return;
 
-  const w=document.getElementById('welcomeScreen');
-  if(w)w.style.display='none';
+  const w = document.getElementById('welcomeScreen');
+  if(w) w.style.display='none';
 
-  addMessage('user',text);
-  inp.value='';inp.style.height='auto';
+  addMessage('user', text);
+  inp.value='';
+  inp.style.height='auto';
   isTyping=true;
   document.getElementById('sendBtn').disabled=true;
 
-  const typing=addTyping();
+  const typing = addTyping();
 
   setTimeout(()=>{
     typing.remove();
-    const resp=aperonix.think(text);
-    let finalText=resp.text;
-    if(showConf)finalText+=`\n\n_Neural confidence: ${resp.confidence}%_`;
-    addMessage('ai',finalText);
+    const resp = aperonixThink(text);
+    let finalText = resp.text;
+    if(showConf) finalText += `\n\n_Neural confidence: ${resp.confidence}%_`;
+    addMessage('ai', finalText);
     isTyping=false;
     document.getElementById('sendBtn').disabled=false;
-  },600+Math.random()*400);
+  }, 600 + Math.random()*400);
 }
 
-// ============================
-// MESSAGE HELPERS
-// ============================
-function addMessage(role,text){
-  const area=document.getElementById('messagesArea');
-  const div=document.createElement('div');
-  div.className=`message ${role}`;
-  div.innerHTML=`<div class="message-inner"><div class="avatar ${role}">${role==='ai'?'🤖':'M'}</div><div class="bubble">${formatText(text)}</div></div>`;
+function addMessage(role, text){
+  const area = document.getElementById('messagesArea');
+  const div = document.createElement('div');
+  div.className = `message ${role}`;
+  div.innerHTML = `<div class="message-inner"><div class="avatar ${role}">${role==='ai'?'🤖':'M'}</div><div class="bubble">${formatText(text)}</div></div>`;
   area.appendChild(div);
-  area.scrollTop=area.scrollHeight;
+  area.scrollTop = area.scrollHeight;
   return div;
 }
 
 function addTyping(){
-  const area=document.getElementById('messagesArea');
-  const div=document.createElement('div');
-  div.className='message ai';
-  div.innerHTML=`<div class="message-inner"><div class="avatar ai">🤖</div><div class="typing"><span></span><span></span><span></span></div></div>`;
+  const area = document.getElementById('messagesArea');
+  const div = document.createElement('div');
+  div.className = 'message ai';
+  div.innerHTML = `<div class="message-inner"><div class="avatar ai">🤖</div><div class="typing"><span></span><span></span><span></span></div></div>`;
   area.appendChild(div);
-  area.scrollTop=area.scrollHeight;
+  area.scrollTop = area.scrollHeight;
   return div;
 }
 
 function formatText(text){
-  text=text.replace(/```(\w+)?\n([\s\S]*?)```/g,(_,l,c)=>`<pre><code>${esc(c.trim())}</code></pre>`);
-  text=text.replace(/`([^`]+)`/g,'<code>$1</code>');
-  text=text.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
-  text=text.replace(/_([^_\n]+)_/g,'<em style="color:var(--text3);font-size:12px">$1</em>');
-  text=text.replace(/^• (.+)$/gm,'<span style="display:block;padding-left:12px">• $1</span>');
-  text=text.replace(/\n/g,'<br>');
+  text = text.replace(/```(\w+)?\n([\s\S]*?)```/g,(_,l,c)=>`<pre><code>${esc(c.trim())}</code></pre>`);
+  text = text.replace(/`([^`]+)`/g,'<code>$1</code>');
+  text = text.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
+  text = text.replace(/_([^_\n]+)_/g,'<em style="color:var(--text3);font-size:12px">$1</em>');
+  text = text.replace(/^• (.+)$/gm,'<span style="display:block;padding-left:12px">• $1</span>');
+  text = text.replace(/\n/g,'<br>');
   return text;
 }
 
-function esc(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function esc(t){ return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-function suggest(text){document.getElementById('userInput').value=text;sendMessage();}
-function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}}
-function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,180)+'px';}
+function suggest(text){
+  document.getElementById('userInput').value = text;
+  sendMessage();
+}
+
+function handleKey(e){
+  if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendMessage(); }
+}
+
+function autoResize(el){
+  el.style.height='auto';
+  el.style.height=Math.min(el.scrollHeight,180)+'px';
+}
 
 function newChat(){
   document.getElementById('messagesArea').innerHTML=`
@@ -467,10 +439,10 @@ function newChat(){
       <h1>How can I help you?</h1>
       <p>I'm Aperonix — built from scratch by Mohammad Khan, age 14 🇮🇳</p>
       <div class="suggestions">
-        <div class="scard" onclick="suggest('Create a Python hello world program')"><div class="s-title">🐍 Python code</div><div class="s-sub">Create a simple Python program</div></div>
-        <div class="scard" onclick="suggest('Create a JavaScript game')"><div class="s-title">🎮 Make a game</div><div class="s-sub">Build a fun JavaScript game</div></div>
-        <div class="scard" onclick="suggest('Create a simple HTML website')"><div class="s-title">🌐 HTML website</div><div class="s-sub">Build a webpage from scratch</div></div>
-        <div class="scard" onclick="suggest('Who made you and how do you work?')"><div class="s-title">🧠 About Aperonix</div><div class="s-sub">Learn how I was built</div></div>
+        <button class="scard" onclick="suggest('Create a Python hello world program')"><div class="s-title">🐍 Python code</div><div class="s-sub">Create a simple Python program</div></button>
+        <button class="scard" onclick="suggest('Create a JavaScript game')"><div class="s-title">🎮 Make a game</div><div class="s-sub">Build a fun JavaScript game</div></button>
+        <button class="scard" onclick="suggest('Create a simple HTML website')"><div class="s-title">🌐 HTML website</div><div class="s-sub">Build a webpage from scratch</div></button>
+        <button class="scard" onclick="suggest('Who made you and how do you work?')"><div class="s-title">🧠 About Aperonix</div><div class="s-sub">Learn how I was built</div></button>
       </div>
     </div>`;
 }
@@ -482,10 +454,18 @@ function toggleTheme(){
   document.getElementById('darkToggle').classList.toggle('on',isDark);
 }
 
-function openSettings(){document.getElementById('settingsOverlay').classList.add('open');}
-function closeSettings(e){if(e.target===document.getElementById('settingsOverlay'))closeSettingsPanel();}
-function closeSettingsPanel(){document.getElementById('settingsOverlay').classList.remove('open');}
-function toggleConf(){showConf=!showConf;document.getElementById('confToggle').classList.toggle('on',showConf);}
+function openSettings(){ document.getElementById('settingsOverlay').classList.add('open'); }
+function closeSettingsOutside(e){ if(e.target===document.getElementById('settingsOverlay')) closeSettingsPanel(); }
+function closeSettingsPanel(){ document.getElementById('settingsOverlay').classList.remove('open'); }
+function toggleConf(){
+  showConf=!showConf;
+  document.getElementById('confToggle').classList.toggle('on',showConf);
+}
+
+// START!
+window.addEventListener('load',()=>{
+  setTimeout(trainBrain, 100);
+});
 </script>
 </body>
 </html>
