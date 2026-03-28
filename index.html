@@ -4,283 +4,96 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aperonix AI</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #ffffff; --bg2: #f7f7f8; --bg3: #ececec;
-      --sidebar: #f7f7f8; --text: #0d0d0d; --text2: #6e6e80;
-      --text3: #acacbe; --border: #e5e5e5; --accent: #10a37f;
-      --accent-hover: #0d8c6d; --ai-bubble: #f7f7f8;
-      --shadow: rgba(0,0,0,0.08); --input-bg: #ffffff;
+      --bg:#ffffff;--bg2:#f7f7f8;--bg3:#ececec;--sidebar:#f7f7f8;
+      --text:#0d0d0d;--text2:#6e6e80;--text3:#acacbe;--border:#e5e5e5;
+      --accent:#10a37f;--accent-hover:#0d8c6d;--ai-bubble:#f7f7f8;
+      --shadow:rgba(0,0,0,0.08);--input-bg:#ffffff;
     }
     [data-theme="dark"] {
-      --bg: #212121; --bg2: #2f2f2f; --bg3: #3a3a3a;
-      --sidebar: #171717; --text: #ececec; --text2: #8e8ea0;
-      --text3: #565869; --border: #3a3a3a; --ai-bubble: #2f2f2f;
-      --shadow: rgba(0,0,0,0.3); --input-bg: #2f2f2f;
+      --bg:#212121;--bg2:#2f2f2f;--bg3:#3a3a3a;--sidebar:#171717;
+      --text:#ececec;--text2:#8e8ea0;--text3:#565869;--border:#3a3a3a;
+      --ai-bubble:#2f2f2f;--shadow:rgba(0,0,0,0.3);--input-bg:#2f2f2f;
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--bg); color: var(--text);
-      height: 100vh; display: flex; overflow: hidden;
-      transition: background 0.3s, color 0.3s;
-    }
-    .sidebar {
-      width: 260px; background: var(--sidebar);
-      border-right: 1px solid var(--border);
-      display: flex; flex-direction: column;
-      padding: 12px; gap: 4px; flex-shrink: 0;
-      transition: background 0.3s;
-    }
-    .sidebar-logo {
-      display: flex; align-items: center; gap: 10px;
-      padding: 10px 12px; margin-bottom: 4px;
-    }
-    .logo-icon {
-      width: 32px; height: 32px; background: var(--accent);
-      border-radius: 8px; display: flex; align-items: center;
-      justify-content: center; font-size: 16px;
-    }
-    .logo-text { font-size: 16px; font-weight: 600; color: var(--text); }
-    .new-chat-btn {
-      display: flex; align-items: center; gap: 10px;
-      padding: 10px 12px; background: transparent;
-      border: 1px solid var(--border); border-radius: 8px;
-      color: var(--text); cursor: pointer; font-size: 14px;
-      font-family: 'DM Sans', sans-serif; font-weight: 500;
-      transition: background 0.2s; width: 100%;
-      text-align: left; margin-bottom: 8px;
-    }
-    .new-chat-btn:hover { background: var(--bg3); }
-    .sidebar-section {
-      font-size: 11px; font-weight: 600; color: var(--text3);
-      padding: 8px 12px 4px; letter-spacing: 0.5px; text-transform: uppercase;
-    }
-    .chat-history-item {
-      padding: 8px 12px; border-radius: 8px; cursor: pointer;
-      font-size: 13px; color: var(--text2);
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-      transition: background 0.2s, color 0.2s;
-    }
-    .chat-history-item:hover, .chat-history-item.active {
-      background: var(--bg3); color: var(--text);
-    }
-    .sidebar-bottom {
-      margin-top: auto; border-top: 1px solid var(--border);
-      padding-top: 12px; display: flex; flex-direction: column; gap: 4px;
-    }
-    .sidebar-btn {
-      display: flex; align-items: center; gap: 10px;
-      padding: 10px 12px; border-radius: 8px; cursor: pointer;
-      font-size: 13px; color: var(--text2);
-      transition: background 0.2s, color 0.2s;
-    }
-    .sidebar-btn:hover { background: var(--bg3); color: var(--text); }
-    .status-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: #ccc; display: inline-block;
-      margin-right: 6px; transition: background 0.3s;
-    }
-    .status-dot.online { background: #10a37f; }
-    .status-dot.offline { background: #ff4444; }
-    .status-dot.connecting { background: #ffa500; animation: pulse 1s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-    .topbar {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 20px; border-bottom: 1px solid var(--border);
-      background: var(--bg); transition: background 0.3s;
-    }
-    .model-selector {
-      display: flex; align-items: center; gap: 6px;
-      padding: 6px 12px; border-radius: 8px;
-      border: 1px solid var(--border); cursor: pointer;
-      font-size: 14px; font-weight: 500; color: var(--text);
-      background: var(--bg); font-family: 'DM Sans', sans-serif;
-    }
-    .topbar-right { display: flex; align-items: center; gap: 8px; }
-    .icon-btn {
-      width: 36px; height: 36px; border-radius: 8px;
-      border: 1px solid var(--border); background: var(--bg);
-      cursor: pointer; display: flex; align-items: center;
-      justify-content: center; font-size: 16px;
-      transition: background 0.2s; color: var(--text);
-    }
-    .icon-btn:hover { background: var(--bg2); }
-    .server-banner {
-      padding: 8px 20px; font-size: 13px; text-align: center;
-      display: none; transition: all 0.3s;
-    }
-    .server-banner.connecting {
-      display: block; background: #fff8e1;
-      color: #f57c00; border-bottom: 1px solid #ffe082;
-    }
-    .server-banner.offline {
-      display: block; background: #fff3f3;
-      color: #c62828; border-bottom: 1px solid #ffcdd2;
-    }
-    .server-banner.online {
-      display: block; background: #f0faf5;
-      color: #10a37f; border-bottom: 1px solid #b2dfdb;
-    }
-    [data-theme="dark"] .server-banner.connecting { background: #2a2000; color: #ffd54f; border-color: #5c4000; }
-    [data-theme="dark"] .server-banner.offline { background: #2a1a1a; color: #ff8a80; border-color: #5c2020; }
-    [data-theme="dark"] .server-banner.online { background: #0a2a1a; color: #69f0ae; border-color: #1a5c3a; }
-    .messages-area {
-      flex: 1; overflow-y: auto; padding: 20px 0; scroll-behavior: smooth;
-    }
-    .messages-area::-webkit-scrollbar { width: 4px; }
-    .messages-area::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-    .welcome {
-      display: flex; flex-direction: column; align-items: center;
-      justify-content: center; height: 100%; gap: 24px; padding: 20px;
-      animation: fadeIn 0.5s ease;
-    }
-    .welcome-logo {
-      width: 56px; height: 56px; background: var(--accent);
-      border-radius: 16px; display: flex; align-items: center;
-      justify-content: center; font-size: 28px;
-    }
-    .welcome h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.5px; }
-    .welcome p { font-size: 15px; color: var(--text2); text-align: center; max-width: 400px; line-height: 1.6; }
-    .suggestions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; max-width: 580px; }
-    .suggestion-card {
-      padding: 14px 16px; border: 1px solid var(--border);
-      border-radius: 12px; cursor: pointer;
-      transition: background 0.2s, border-color 0.2s; background: var(--bg);
-    }
-    .suggestion-card:hover { background: var(--bg2); border-color: var(--accent); }
-    .s-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
-    .s-sub { font-size: 12px; color: var(--text2); }
-    .message {
-      padding: 0 20px; margin-bottom: 4px;
-      max-width: 780px; margin-left: auto; margin-right: auto;
-      width: 100%; animation: slideUp 0.3s ease;
-    }
-    @keyframes slideUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
-    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
-    .message-inner { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; }
-    .message.user .message-inner { flex-direction: row-reverse; }
-    .avatar {
-      width: 32px; height: 32px; border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 14px; flex-shrink: 0; font-weight: 600;
-    }
-    .avatar.ai { background: var(--accent); color: white; }
-    .avatar.user { background: var(--bg3); color: var(--text); }
-    .bubble {
-      max-width: calc(100% - 50px); padding: 12px 16px;
-      border-radius: 12px; font-size: 14px; line-height: 1.65;
-      color: var(--text); white-space: pre-wrap; word-break: break-word;
-    }
-    .message.user .bubble {
-      background: var(--accent); color: white;
-      border-radius: 12px 4px 12px 12px;
-    }
-    .message.ai .bubble {
-      background: var(--ai-bubble); border: 1px solid var(--border);
-      border-radius: 4px 12px 12px 12px;
-    }
-    .bubble pre {
-      background: var(--bg3); border: 1px solid var(--border);
-      border-radius: 8px; padding: 14px; overflow-x: auto;
-      margin: 8px 0; font-family: 'DM Mono', monospace;
-      font-size: 13px; line-height: 1.5;
-    }
-    .bubble code {
-      font-family: 'DM Mono', monospace; font-size: 13px;
-      background: var(--bg3); padding: 2px 6px; border-radius: 4px;
-    }
-    .typing {
-      display: flex; gap: 4px; padding: 12px 16px;
-      background: var(--ai-bubble); border: 1px solid var(--border);
-      border-radius: 4px 12px 12px 12px; width: fit-content;
-    }
-    .typing span {
-      width: 6px; height: 6px; background: var(--text3);
-      border-radius: 50%; animation: bounce 1.2s infinite;
-    }
-    .typing span:nth-child(2) { animation-delay: 0.2s; }
-    .typing span:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-6px)} }
-    .input-area {
-      padding: 16px 20px 20px; background: var(--bg);
-      border-top: 1px solid var(--border);
-    }
-    .input-wrapper {
-      max-width: 780px; margin: 0 auto; background: var(--input-bg);
-      border: 1px solid var(--border); border-radius: 14px;
-      display: flex; align-items: flex-end; gap: 8px;
-      padding: 10px 10px 10px 16px;
-      box-shadow: 0 2px 12px var(--shadow); transition: border-color 0.2s;
-    }
-    .input-wrapper:focus-within {
-      border-color: var(--accent);
-      box-shadow: 0 2px 16px rgba(16,163,127,0.15);
-    }
-    #userInput {
-      flex: 1; border: none; outline: none; background: transparent;
-      font-size: 15px; font-family: 'DM Sans', sans-serif;
-      color: var(--text); resize: none;
-      max-height: 180px; min-height: 24px; line-height: 1.5;
-    }
-    #userInput::placeholder { color: var(--text3); }
-    .send-btn {
-      width: 36px; height: 36px; border-radius: 8px;
-      background: var(--accent); border: none; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.2s, transform 0.1s; flex-shrink: 0;
-    }
-    .send-btn:hover { background: var(--accent-hover); }
-    .send-btn:active { transform: scale(0.95); }
-    .send-btn:disabled { background: var(--bg3); cursor: not-allowed; }
-    .send-btn svg { width: 16px; height: 16px; fill: white; }
-    .input-footer { text-align: center; font-size: 11px; color: var(--text3); margin-top: 8px; }
-    .settings-overlay {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.4); z-index: 100;
-      align-items: center; justify-content: center;
-    }
-    .settings-overlay.open { display: flex; }
-    .settings-panel {
-      background: var(--bg); border: 1px solid var(--border);
-      border-radius: 16px; width: 480px; max-width: 90vw;
-      padding: 24px; animation: fadeIn 0.2s ease;
-    }
-    .settings-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
-    .settings-header h2 { font-size: 18px; font-weight: 600; }
-    .close-btn {
-      width: 32px; height: 32px; border-radius: 8px;
-      border: 1px solid var(--border); background: transparent;
-      cursor: pointer; font-size: 18px; color: var(--text2);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .close-btn:hover { background: var(--bg2); }
-    .settings-row {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 14px 0; border-bottom: 1px solid var(--border);
-    }
-    .settings-row:last-child { border-bottom: none; }
-    .settings-label { font-size: 14px; font-weight: 500; }
-    .settings-sub { font-size: 12px; color: var(--text2); margin-top: 2px; }
-    .toggle-switch {
-      width: 44px; height: 24px; background: var(--bg3);
-      border-radius: 12px; cursor: pointer; position: relative;
-      transition: background 0.2s; border: none; flex-shrink: 0;
-    }
-    .toggle-switch.on { background: var(--accent); }
-    .toggle-switch::after {
-      content: ''; position: absolute; width: 18px; height: 18px;
-      background: white; border-radius: 50%; top: 3px; left: 3px;
-      transition: transform 0.2s;
-    }
-    .toggle-switch.on::after { transform: translateX(20px); }
-    @media (max-width: 768px) {
-      .sidebar { display: none; }
-      .suggestions { grid-template-columns: 1fr; }
-    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);height:100vh;display:flex;overflow:hidden;transition:background .3s,color .3s;}
+    .sidebar{width:260px;background:var(--sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:12px;gap:4px;flex-shrink:0;}
+    .sidebar-logo{display:flex;align-items:center;gap:10px;padding:10px 12px;margin-bottom:4px;}
+    .logo-icon{width:32px;height:32px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;}
+    .logo-text{font-size:16px;font-weight:600;color:var(--text);}
+    .new-chat-btn{display:flex;align-items:center;gap:10px;padding:10px 12px;background:transparent;border:1px solid var(--border);border-radius:8px;color:var(--text);cursor:pointer;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;transition:background .2s;width:100%;text-align:left;margin-bottom:8px;}
+    .new-chat-btn:hover{background:var(--bg3);}
+    .sidebar-section{font-size:11px;font-weight:600;color:var(--text3);padding:8px 12px 4px;letter-spacing:.5px;text-transform:uppercase;}
+    .chat-item{padding:8px 12px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:background .2s,color .2s;}
+    .chat-item:hover,.chat-item.active{background:var(--bg3);color:var(--text);}
+    .sidebar-bottom{margin-top:auto;border-top:1px solid var(--border);padding-top:12px;display:flex;flex-direction:column;gap:4px;}
+    .sidebar-btn{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--text2);transition:background .2s,color .2s;}
+    .sidebar-btn:hover{background:var(--bg3);color:var(--text);}
+    .online-dot{width:8px;height:8px;border-radius:50%;background:#10a37f;display:inline-block;margin-right:6px;}
+    .main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+    .topbar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid var(--border);background:var(--bg);}
+    .model-tag{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:8px;border:1px solid var(--border);font-size:14px;font-weight:500;color:var(--text);background:var(--bg);font-family:'DM Sans',sans-serif;cursor:default;}
+    .icon-btn{width:36px;height:36px;border-radius:8px;border:1px solid var(--border);background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:background .2s;}
+    .icon-btn:hover{background:var(--bg2);}
+    .messages-area{flex:1;overflow-y:auto;padding:20px 0;scroll-behavior:smooth;}
+    .messages-area::-webkit-scrollbar{width:4px;}
+    .messages-area::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
+    .welcome{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:24px;padding:20px;animation:fadeIn .5s ease;}
+    .welcome-logo{width:56px;height:56px;background:var(--accent);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;}
+    .welcome h1{font-size:28px;font-weight:600;letter-spacing:-.5px;}
+    .welcome p{font-size:15px;color:var(--text2);text-align:center;max-width:400px;line-height:1.6;}
+    .suggestions{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:580px;}
+    .scard{padding:14px 16px;border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:background .2s,border-color .2s;background:var(--bg);}
+    .scard:hover{background:var(--bg2);border-color:var(--accent);}
+    .s-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px;}
+    .s-sub{font-size:12px;color:var(--text2);}
+    .message{padding:0 20px;margin-bottom:4px;max-width:780px;margin-left:auto;margin-right:auto;width:100%;animation:slideUp .3s ease;}
+    @keyframes slideUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    .message-inner{display:flex;gap:14px;align-items:flex-start;padding:14px 0;}
+    .message.user .message-inner{flex-direction:row-reverse;}
+    .avatar{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;font-weight:600;}
+    .avatar.ai{background:var(--accent);color:white;}
+    .avatar.user{background:var(--bg3);color:var(--text);}
+    .bubble{max-width:calc(100% - 50px);padding:12px 16px;border-radius:12px;font-size:14px;line-height:1.65;color:var(--text);white-space:pre-wrap;word-break:break-word;}
+    .message.user .bubble{background:var(--accent);color:white;border-radius:12px 4px 12px 12px;}
+    .message.ai .bubble{background:var(--ai-bubble);border:1px solid var(--border);border-radius:4px 12px 12px 12px;}
+    .bubble pre{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;overflow-x:auto;margin:8px 0;font-family:'DM Mono',monospace;font-size:13px;line-height:1.5;}
+    .bubble code{font-family:'DM Mono',monospace;font-size:13px;background:var(--bg3);padding:2px 6px;border-radius:4px;}
+    .typing{display:flex;gap:4px;padding:12px 16px;background:var(--ai-bubble);border:1px solid var(--border);border-radius:4px 12px 12px 12px;width:fit-content;}
+    .typing span{width:6px;height:6px;background:var(--text3);border-radius:50%;animation:bounce 1.2s infinite;}
+    .typing span:nth-child(2){animation-delay:.2s;}
+    .typing span:nth-child(3){animation-delay:.4s;}
+    @keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+    .input-area{padding:16px 20px 20px;background:var(--bg);border-top:1px solid var(--border);}
+    .input-wrap{max-width:780px;margin:0 auto;background:var(--input-bg);border:1px solid var(--border);border-radius:14px;display:flex;align-items:flex-end;gap:8px;padding:10px 10px 10px 16px;box-shadow:0 2px 12px var(--shadow);transition:border-color .2s;}
+    .input-wrap:focus-within{border-color:var(--accent);box-shadow:0 2px 16px rgba(16,163,127,.15);}
+    #userInput{flex:1;border:none;outline:none;background:transparent;font-size:15px;font-family:'DM Sans',sans-serif;color:var(--text);resize:none;max-height:180px;min-height:24px;line-height:1.5;}
+    #userInput::placeholder{color:var(--text3);}
+    .send-btn{width:36px;height:36px;border-radius:8px;background:var(--accent);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .1s;flex-shrink:0;}
+    .send-btn:hover{background:var(--accent-hover);}
+    .send-btn:active{transform:scale(.95);}
+    .send-btn:disabled{background:var(--bg3);cursor:not-allowed;}
+    .send-btn svg{width:16px;height:16px;fill:white;}
+    .input-footer{text-align:center;font-size:11px;color:var(--text3);margin-top:8px;}
+    .settings-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:100;align-items:center;justify-content:center;}
+    .settings-overlay.open{display:flex;}
+    .settings-panel{background:var(--bg);border:1px solid var(--border);border-radius:16px;width:480px;max-width:90vw;padding:24px;animation:fadeIn .2s ease;}
+    .settings-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+    .settings-header h2{font-size:18px;font-weight:600;}
+    .close-btn{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:transparent;cursor:pointer;font-size:18px;color:var(--text2);display:flex;align-items:center;justify-content:center;}
+    .close-btn:hover{background:var(--bg2);}
+    .settings-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--border);}
+    .settings-row:last-child{border-bottom:none;}
+    .settings-label{font-size:14px;font-weight:500;}
+    .settings-sub{font-size:12px;color:var(--text2);margin-top:2px;}
+    .toggle{width:44px;height:24px;background:var(--bg3);border-radius:12px;cursor:pointer;position:relative;transition:background .2s;border:none;flex-shrink:0;}
+    .toggle.on{background:var(--accent);}
+    .toggle::after{content:'';position:absolute;width:18px;height:18px;background:white;border-radius:50%;top:3px;left:3px;transition:transform .2s;}
+    .toggle.on::after{transform:translateX(20px);}
+    @media(max-width:768px){.sidebar{display:none;}.suggestions{grid-template-columns:1fr;}}
   </style>
 </head>
 <body>
@@ -292,32 +105,26 @@
   </div>
   <button class="new-chat-btn" onclick="newChat()">✏️ &nbsp; New chat</button>
   <div class="sidebar-section">Recent</div>
-  <div class="chat-history-item active">Hello from Aperonix!</div>
-  <div class="chat-history-item">Create Python code</div>
-  <div class="chat-history-item">Who made you?</div>
-  <div class="chat-history-item">Make a JavaScript game</div>
-  <div class="chat-history-item">What is HTML?</div>
+  <div class="chat-item active">Hello from Aperonix!</div>
+  <div class="chat-item">Create Python code</div>
+  <div class="chat-item">Who made you?</div>
+  <div class="chat-item">Make a JavaScript game</div>
+  <div class="chat-item">What is HTML?</div>
   <div class="sidebar-bottom">
     <div class="sidebar-btn" onclick="openSettings()">⚙️ &nbsp; Settings</div>
     <div class="sidebar-btn">
-      <span class="status-dot connecting" id="statusDot"></span>
-      <span id="statusText">Connecting...</span>
+      <span class="online-dot"></span>
+      Mohammad Khan
     </div>
   </div>
 </aside>
 
 <main class="main">
   <div class="topbar">
-    <button class="model-selector">🧠 Aperonix v0.8 ▾</button>
-    <div class="topbar-right">
-      <button class="icon-btn" onclick="toggleTheme()">
-        <span id="themeIcon">🌙</span>
-      </button>
+    <div class="model-tag">🧠 Aperonix v0.9 — Direct Mode</div>
+    <div style="display:flex;gap:8px;">
+      <button class="icon-btn" onclick="toggleTheme()"><span id="themeIcon">🌙</span></button>
     </div>
-  </div>
-
-  <div class="server-banner connecting" id="serverBanner">
-    ⏳ Connecting to Aperonix server... (first load may take 60 seconds)
   </div>
 
   <div class="messages-area" id="messagesArea">
@@ -326,19 +133,19 @@
       <h1>How can I help you?</h1>
       <p>I'm Aperonix — an AI built from scratch using GitHub data by Mohammad Khan, age 14 🇮🇳</p>
       <div class="suggestions">
-        <div class="suggestion-card" onclick="suggest('Create a Python hello world program')">
+        <div class="scard" onclick="suggest('Create a Python hello world program')">
           <div class="s-title">🐍 Python code</div>
           <div class="s-sub">Create a simple Python program</div>
         </div>
-        <div class="suggestion-card" onclick="suggest('Create a JavaScript game')">
+        <div class="scard" onclick="suggest('Create a JavaScript game')">
           <div class="s-title">🎮 Make a game</div>
           <div class="s-sub">Build a fun JavaScript game</div>
         </div>
-        <div class="suggestion-card" onclick="suggest('Create a simple HTML website')">
+        <div class="scard" onclick="suggest('Create a simple HTML website')">
           <div class="s-title">🌐 HTML website</div>
           <div class="s-sub">Build a webpage from scratch</div>
         </div>
-        <div class="suggestion-card" onclick="suggest('Who made you and how do you work?')">
+        <div class="scard" onclick="suggest('Who made you and how do you work?')">
           <div class="s-title">🧠 About Aperonix</div>
           <div class="s-sub">Learn how I was built</div>
         </div>
@@ -347,7 +154,7 @@
   </div>
 
   <div class="input-area">
-    <div class="input-wrapper">
+    <div class="input-wrap">
       <textarea id="userInput" placeholder="Message Aperonix..." rows="1"
         onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
       <button class="send-btn" id="sendBtn" onclick="sendMessage()">
@@ -355,7 +162,7 @@
       </button>
     </div>
     <div class="input-footer">
-      Aperonix AI — Built by Mohammad Khan, Age 14 🇮🇳 — Powered by GitHub data
+      Aperonix AI v0.9 — Built by Mohammad Khan, Age 14 🇮🇳 — Powered by GitHub data
     </div>
   </div>
 </main>
@@ -367,38 +174,27 @@
       <button class="close-btn" onclick="closeSettingsPanel()">×</button>
     </div>
     <div class="settings-row">
-      <div>
-        <div class="settings-label">Dark Mode</div>
-        <div class="settings-sub">Switch between light and dark theme</div>
-      </div>
-      <button class="toggle-switch" id="darkToggle" onclick="toggleTheme()"></button>
+      <div><div class="settings-label">Dark Mode</div><div class="settings-sub">Switch theme</div></div>
+      <button class="toggle" id="darkToggle" onclick="toggleTheme()"></button>
     </div>
     <div class="settings-row">
-      <div>
-        <div class="settings-label">Show Neural Confidence</div>
-        <div class="settings-sub">Show AI confidence % in responses</div>
-      </div>
-      <button class="toggle-switch on" id="confidenceToggle" onclick="toggleConfidence()"></button>
+      <div><div class="settings-label">Neural Confidence</div><div class="settings-sub">Show AI confidence %</div></div>
+      <button class="toggle on" id="confToggle" onclick="toggleConf()"></button>
     </div>
     <div class="settings-row">
-      <div>
-        <div class="settings-label">Server Status</div>
-        <div class="settings-sub" id="serverStatusText">Checking...</div>
-      </div>
-      <span id="serverStatusBadge">...</span>
+      <div><div class="settings-label">Mode</div><div class="settings-sub">How Aperonix runs</div></div>
+      <span style="font-size:13px;color:#10a37f;font-weight:500">🟢 Direct (Fast!)</span>
     </div>
     <div class="settings-row">
-      <div>
-        <div class="settings-label">Version</div>
-        <div class="settings-sub">Current Aperonix version</div>
-      </div>
-      <span style="font-size:13px;color:var(--text2)">v0.8</span>
+      <div><div class="settings-label">Neurons</div><div class="settings-sub">Real neural network</div></div>
+      <span style="font-size:13px;color:var(--text2)">1000 neurons</span>
     </div>
     <div class="settings-row">
-      <div>
-        <div class="settings-label">Creator</div>
-        <div class="settings-sub">Built by</div>
-      </div>
+      <div><div class="settings-label">Version</div><div class="settings-sub">Current build</div></div>
+      <span style="font-size:13px;color:var(--text2)">v0.9</span>
+    </div>
+    <div class="settings-row">
+      <div><div class="settings-label">Creator</div><div class="settings-sub">Built by</div></div>
       <span style="font-size:13px;color:var(--text2)">Mohammad Khan, 14 🇮🇳</span>
     </div>
   </div>
@@ -406,239 +202,290 @@
 
 <script>
 // ============================
-// SERVER URL
+// APERONIX v0.9 — DIRECT MODE!
+// No server needed — runs in browser!
+// 1000 neurons — pure JavaScript!
+// By Mohammad Khan, Age 14, India
 // ============================
-const SERVER_URL = 'https://aperonix-backend.onrender.com';
-
-let showConfidence = true;
-let isDark = false;
-let isTyping = false;
-let serverOnline = false;
 
 // ============================
-// LOCAL FALLBACK BRAIN
+// MATRIX MATH
 // ============================
-const localBrain = {
-  think(input) {
-    const t = input.toLowerCase();
-    const bad = ["hack","virus","cheat","harm","crack","steal","exploit","malware","illegal"];
-    if(bad.some(w => t.includes(w))) return { text: "I can't help with that! Let's keep it positive! 😊", confidence: 99 };
-    if(/hello|hi\b|hey|salam|namaste|hii+/.test(t)) return { text: "Hey there! I'm Aperonix! 😊 How can I help you today?", confidence: 97 };
-    if(/who made|kisne|banaya|creator|mohammad/.test(t)) return { text: "I was built by Mohammad Khan — a 14-year-old genius from India! 🇮🇳✨\n\n• Zero paid tools\n• Zero GPU\n• 1000 real neurons\n• Pure GitHub data!", confidence: 98 };
-    if(/who are|naam|kaun/.test(t)) return { text: "I'm Aperonix! 🤖✨\nA female AI — 1000 real neurons!\nBuilt by Mohammad Khan, Age 14 🇮🇳", confidence: 97 };
-    if(/how are|kaise ho|kaisi/.test(t)) return { text: "I'm doing amazing! 😊\nMy neurons just finished training!\nHow are you? 🌟", confidence: 95 };
-    if(/python/.test(t)) return { text: "Here's Python! 🐍\n\n```python\nprint('Hello from Aperonix!')\nname = input('Your name: ')\nprint(f'Hello {name}!')\n```\n\nSave as hello.py → Run: python hello.py", confidence: 96 };
-    if(/\bjava\b/.test(t)&&!/javascript/.test(t)) return { text: "Here's Java! ☕\n\n```java\npublic class Hello {\n    public static void main(String[] args) {\n        System.out.println(\"Hello from Aperonix!\");\n    }\n}\n```\n\nSave as Hello.java → Run: javac Hello.java && java Hello", confidence: 95 };
-    if(/javascript|js\b/.test(t)) return { text: "Here's JavaScript! ✨\n\n```javascript\nconsole.log('Hello from Aperonix!');\nfunction greet(name) {\n    return `Hello ${name}!`;\n}\nconsole.log(greet('Mohammad'));\n```\n\nSave as hello.js → Run: node hello.js", confidence: 95 };
-    if(/html|website|webpage/.test(t)) return { text: "Here's HTML! 🌐\n\n```html\n<!DOCTYPE html>\n<html>\n<body>\n    <h1>Hello from Aperonix!</h1>\n    <button onclick=\"alert('Hi!')\">Click!</button>\n</body>\n</html>\n```\n\nSave as index.html → Open in browser!", confidence: 95 };
-    if(/game/.test(t)) return { text: "Here's a game! 🎮\n\n```javascript\nconst secret = Math.floor(Math.random()*10)+1;\nconst rl = require('readline').createInterface({input:process.stdin,output:process.stdout});\nconsole.log('Guess 1-10!');\nlet attempts=0;\nfunction guess(){\n    rl.question('Guess: ',(a)=>{\n        attempts++;\n        let n=parseInt(a);\n        if(n===secret){console.log(`Won in ${attempts} tries! 🎉`);rl.close();}\n        else{console.log(n<secret?'Too low!':'Too high!');guess();}\n    });\n}\nguess();\n```\n\nSave as game.js → Run: node game.js", confidence: 94 };
-    if(/css|style/.test(t)) return { text: "Here's CSS! 🎨\n\n```css\nbody {\n    background: #1a1a2e;\n    color: white;\n    font-family: Arial;\n    text-align: center;\n}\nh1 { color: #10a37f; }\n```\n\nSave as style.css → Link in HTML!", confidence: 93 };
-    if(/thank|shukriya/.test(t)) return { text: "You're welcome! 😊 Ask me anything! ✨", confidence: 96 };
+class Matrix {
+  constructor(r,c){
+    this.rows=r;this.cols=c;
+    this.data=Array.from({length:r},()=>Array.from({length:c},()=>(Math.random()-.5)*.1));
+  }
+  static multiply(a,b){
+    let r=new Matrix(a.rows,b.cols);
+    for(let i=0;i<r.rows;i++)for(let j=0;j<r.cols;j++){let s=0;for(let k=0;k<a.cols;k++)s+=a.data[i][k]*b.data[k][j];r.data[i][j]=s;}
+    return r;
+  }
+  static fromArray(a){let m=new Matrix(a.length,1);a.forEach((v,i)=>m.data[i][0]=v);return m;}
+  toArray(){return this.data.map(r=>r[0]);}
+  add(o){for(let i=0;i<this.rows;i++)for(let j=0;j<this.cols;j++)this.data[i][j]+=o instanceof Matrix?o.data[i][j]:o;return this;}
+  static subtract(a,b){let r=new Matrix(a.rows,a.cols);for(let i=0;i<r.rows;i++)for(let j=0;j<r.cols;j++)r.data[i][j]=a.data[i][j]-b.data[i][j];return r;}
+  map(fn){let r=new Matrix(this.rows,this.cols);for(let i=0;i<r.rows;i++)for(let j=0;j<r.cols;j++)r.data[i][j]=fn(this.data[i][j]);return r;}
+  static transpose(m){let r=new Matrix(m.cols,m.rows);for(let i=0;i<m.rows;i++)for(let j=0;j<m.cols;j++)r.data[j][i]=m.data[i][j];return r;}
+  scale(n){let r=new Matrix(this.rows,this.cols);for(let i=0;i<r.rows;i++)for(let j=0;j<r.cols;j++)r.data[i][j]=this.data[i][j]*n;return r;}
+  static em(a,b){let r=new Matrix(a.rows,a.cols);for(let i=0;i<r.rows;i++)for(let j=0;j<r.cols;j++)r.data[i][j]=a.data[i][j]*b.data[i][j];return r;}
+}
+
+// ============================
+// NEURAL NETWORK — 1000 NEURONS!
+// ============================
+class NeuralNetwork {
+  constructor(i,h,o){
+    this.wIH=new Matrix(h,i);this.wHO=new Matrix(o,h);
+    this.bH=new Matrix(h,1);this.bO=new Matrix(o,1);this.lr=0.01;
+  }
+  sig(x){return 1/(1+Math.exp(-x));}
+  sigD(x){return x*(1-x);}
+  think(inp){
+    let i=Matrix.fromArray(inp);
+    let h=Matrix.multiply(this.wIH,i);h.add(this.bH);h=h.map(x=>this.sig(x));
+    let o=Matrix.multiply(this.wHO,h);o.add(this.bO);o=o.map(x=>this.sig(x));
+    return o.toArray();
+  }
+  train(inp,tgt){
+    let i=Matrix.fromArray(inp);
+    let h=Matrix.multiply(this.wIH,i);h.add(this.bH);h=h.map(x=>this.sig(x));
+    let o=Matrix.multiply(this.wHO,h);o.add(this.bO);o=o.map(x=>this.sig(x));
+    let t=Matrix.fromArray(tgt);
+    let oE=Matrix.subtract(t,o);
+    let oG=Matrix.em(o.map(x=>this.sigD(x)),oE).scale(this.lr);
+    this.wHO.add(Matrix.multiply(oG,Matrix.transpose(h)));this.bO.add(oG);
+    let hE=Matrix.multiply(Matrix.transpose(this.wHO),oE);
+    let hG=Matrix.em(h.map(x=>this.sigD(x)),hE).scale(this.lr);
+    this.wIH.add(Matrix.multiply(hG,Matrix.transpose(i)));this.bH.add(hG);
+  }
+}
+
+// ============================
+// APERONIX BRAIN
+// ============================
+const aperonix = {
+  nn: new NeuralNetwork(15,1000,10),
+  trained: false,
+
+  trainingData(){
+    let d=[];
+    const p=(i,o,n=15)=>{for(let x=0;x<n;x++)d.push({i:[...i],o:[...o]});};
+    p([1,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[1,0,0,0,0,0,0,0,0,0]);
+    p([1,0,0,0,0,0,0,0,0,1,0,0,0,0,0],[1,0,0,0,0,0,0,0,0,0]);
+    p([1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0]);
+    p([1,0,0,0,0,0,0,0,1,0,0,0,0,0,0],[1,0,0,0,0,0,0,0,0,0]);
+    p([0,1,1,0,0,0,0,0,0,0,0,0,0,0,0],[0,1,0,0,0,0,0,0,0,0]);
+    p([1,1,1,0,0,0,0,0,0,0,0,0,0,0,0],[0,1,0,0,0,0,0,0,0,0]);
+    p([0,0,1,0,0,0,0,0,0,0,1,0,0,0,0],[0,1,0,0,0,0,0,0,0,0]);
+    p([0,1,1,0,0,0,0,0,0,0,0,0,0,1,0],[0,1,0,0,0,0,0,0,0,0]);
+    p([0,1,0,1,0,0,0,0,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,0,0,0]);
+    p([1,1,0,1,0,0,0,0,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,0,0,0]);
+    p([0,0,0,1,0,0,0,0,0,0,1,0,0,0,0],[0,0,1,0,0,0,0,0,0,0]);
+    p([0,1,0,0,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,1,0,0,0,0,0,0]);
+    p([1,1,0,0,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,1,0,0,0,0,0,0]);
+    p([0,0,0,0,1,0,0,0,0,0,1,0,0,0,0],[0,0,0,1,0,0,0,0,0,0]);
+    p([0,1,0,0,0,1,0,0,0,0,0,0,0,0,0],[0,0,0,0,1,0,0,0,0,0]);
+    p([0,0,0,0,0,1,0,0,0,0,1,0,0,0,0],[0,0,0,0,1,0,0,0,0,0]);
+    p([0,1,0,0,0,0,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,0,0,0,0]);
+    p([1,1,0,0,0,0,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,0,0,0,0]);
+    p([0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,1,0,0,0]);
+    p([1,0,0,0,0,0,0,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,1,0,0,0]);
+    p([0,0,0,0,0,0,0,1,0,0,0,0,0,0,1],[0,0,0,0,0,0,1,0,0,0]);
+    p([0,0,0,0,0,0,0,0,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,1,0,0]);
+    p([1,0,0,0,0,0,0,0,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,1,0,0]);
+    p([0,1,0,0,0,0,0,0,0,0,0,1,0,0,0],[0,0,0,0,0,0,0,0,0,1]);
+    p([0,0,0,0,0,0,0,0,0,0,1,0,0,0,0],[0,0,0,0,0,0,0,0,1,0]);
+    // Shuffle
+    for(let i=d.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[d[i],d[j]]=[d[j],d[i]];}
+    return d;
+  },
+
+  train(){
+    console.log('🔥 Training 1000 neurons...');
+    let td=this.trainingData();
+    for(let e=0;e<3000;e++)for(let d of td)this.nn.train(d.i,d.o);
+    this.trained=true;
+    console.log('✅ Aperonix ready!');
+  },
+
+  analyze(text){
+    let t=text.toLowerCase();
+    return [
+      /hello|hi\b|hey|salam|namaste|hii+/.test(t)?1:0,
+      /code|program|create|write|build|banao/.test(t)?1:0,
+      /python|py\b/.test(t)?1:0,
+      /\bjava\b/.test(t)&&!/javascript/.test(t)?1:0,
+      /javascript|js\b/.test(t)?1:0,
+      /html|webpage|website/.test(t)?1:0,
+      /game|gaming/.test(t)?1:0,
+      /who made|who built|kisne|banaya|creator|mohammad/.test(t)?1:0,
+      /how are|kaise ho|kaisi/.test(t)?1:0,
+      /thank|shukriya/.test(t)?1:0,
+      /what is|kya hai|explain|batao/.test(t)?1:0,
+      /css|style|design/.test(t)?1:0,
+      /error|bug|fix/.test(t)?1:0,
+      /help|madad/.test(t)?1:0,
+      /name|naam|who are|kaun/.test(t)?1:0,
+    ];
+  },
+
+  isEthical(t){
+    return !["hack","virus","cheat","harm","crack","steal","exploit","malware","illegal","ddos"].some(w=>t.toLowerCase().includes(w));
+  },
+
+  rand(a){return a[Math.floor(Math.random()*a.length)];},
+
+  responses: [
+    ()=>this.rand(["Hey there! I'm Aperonix! 😊 How can I help you today?","Hello! Aperonix here — ask me anything! 🌟","Hi! Great to see you! What would you like to know? ✨"]),
+    ()=>`Here's Python! 🐍\n\`\`\`python\nprint("Hello from Aperonix!")\nname = input("Your name: ")\nprint(f"Hello {name}! Nice to meet you!")\n\na = int(input("Number 1: "))\nb = int(input("Number 2: "))\nprint(f"Sum = {a+b}")\n\`\`\`\nSave as hello.py → Run: python hello.py`,
+    ()=>`Here's Java! ☕\n\`\`\`java\npublic class Hello {\n    public static void main(String[] args) {\n        System.out.println("Hello from Aperonix!");\n        System.out.println("Built by Mohammad Khan, Age 14!");\n    }\n}\n\`\`\`\nSave as Hello.java → Run: javac Hello.java && java Hello`,
+    ()=>`Here's JavaScript! ✨\n\`\`\`javascript\nconsole.log("Hello from Aperonix!");\n\nfunction greet(name) {\n    return \`Hello \${name}! Welcome!\`;\n}\nconsole.log(greet("Mohammad"));\n\nlet skills = ["AI", "Games", "Web"];\nskills.forEach(s => console.log(s));\n\`\`\`\nSave as hello.js → Run: node hello.js`,
+    ()=>`Here's HTML! 🌐\n\`\`\`html\n<!DOCTYPE html>\n<html>\n<head>\n    <title>Aperonix Page</title>\n    <style>\n        body{background:#1a1a2e;color:white;text-align:center;padding:50px;font-family:Arial}\n        button{background:#10a37f;color:white;padding:12px 24px;border:none;border-radius:8px;cursor:pointer;font-size:16px}\n    </style>\n</head>\n<body>\n    <h1>Hello from Aperonix! 🤖</h1>\n    <p>Built by Mohammad Khan, Age 14 🇮🇳</p>\n    <button onclick="alert('Aperonix says hi!')">Click Me!</button>\n</body>\n</html>\n\`\`\`\nSave as index.html → Open in browser!`,
+    ()=>`A game — like your creator builds! 🎮\n\`\`\`javascript\nconst secret = Math.floor(Math.random()*10)+1;\nconst rl = require('readline').createInterface({input:process.stdin,output:process.stdout});\nconsole.log("Guess 1-10!");\nlet attempts=0;\nfunction guess(){\n    rl.question("Guess: ",(a)=>{\n        attempts++;\n        let n=parseInt(a);\n        if(n===secret){console.log(\`🎉 Won in \${attempts} tries!\`);rl.close();}\n        else{console.log(n<secret?"Too low!":"Too high!");guess();}\n    });\n}\nguess();\n\`\`\`\nSave as game.js → Run: node game.js`,
+    ()=>`I was built by Mohammad Khan! 🇮🇳✨\n\n👤 Name: Mohammad Khan\n🎂 Age: 14 years old\n🌍 Country: India\n💡 Zero paid tools!\n🖥️ Zero GPU — pure GitHub data!\n🧠 1000 real neurons — from scratch!\n🎮 Also built a Game Engine at 14!\n\nPretty legendary, right? 😊`,
+    ()=>this.rand(["I'm doing amazing! 😊 My 1000 neurons are active!\nHow are you? 🌟","Feeling great! Just learned from GitHub! ✨\nHow about you? 😊"]),
+    ()=>`I'd love to explain! 😊\n\nI can help with:\n• Python 🐍\n• Java ☕\n• JavaScript ✨\n• HTML & CSS 🌐\n• Games 🎮\n• How I work 🧠\n\nWhat would you like to learn?`,
+    ()=>`Here's CSS! 🎨\n\`\`\`css\nbody {\n    background: #1a1a2e;\n    color: white;\n    font-family: Arial;\n    text-align: center;\n    padding: 20px;\n}\n\nh1 { color: #10a37f; font-size: 2em; }\n\n.btn {\n    background: #10a37f;\n    color: white;\n    padding: 12px 24px;\n    border: none;\n    border-radius: 8px;\n    cursor: pointer;\n    font-size: 16px;\n}\n\n.btn:hover { background: #0d8c6d; }\n\`\`\`\nSave as style.css → Link in HTML!`,
+  ],
+
+  think(input){
+    if(!this.isEthical(input)) return {text:"I can't help with that. Let's keep it positive! 😊",confidence:99};
+
+    let features=this.analyze(input);
+    let output=this.nn.think(features);
+    let maxIdx=output.indexOf(Math.max(...output));
+    let confidence=Math.max(...output);
+
+    let t=input.toLowerCase();
+
+    // High confidence — neural network decide karta hai!
+    if(confidence>0.5 && maxIdx<this.responses.length){
+      return {text:this.responses[maxIdx](),confidence:Math.round(confidence*100)};
+    }
+
+    // Manual checks
+    if(/thank|shukriya/.test(t)) return {text:"You're welcome! 😊 Ask me anything! ✨",confidence:96};
+    if(/who are|naam|kaun/.test(t)) return {text:"I'm Aperonix! 🤖✨\nA female AI with 1000 real neurons!\nBuilt by Mohammad Khan, Age 14 🇮🇳\nNo server, no API — runs directly in your browser!",confidence:96};
+    if(/bye|alvida/.test(t)) return {text:"Goodbye! Come back anytime! 😊✨",confidence:95};
+    if(/css|style/.test(t)) return {text:this.responses[9](),confidence:90};
+
     return {
-      text: "I'm still learning! 🌱 Try asking:\n• 'Create Python code'\n• 'Make a JavaScript game'\n• 'Build HTML website'\n• 'Who made you?'\n\nI grow smarter every 6 hours from GitHub! 💪",
-      confidence: 35
+      text:"I'm still learning! 🌱 Try asking:\n• 'Create Python code'\n• 'Make a JavaScript game'\n• 'Build HTML website'\n• 'Who made you?'\n• 'What is CSS?'\n\nI grow smarter every 6 hours from GitHub! 💪",
+      confidence:35
     };
   }
 };
 
 // ============================
-// SERVER CHECK — 60 SEC TIMEOUT!
+// UI STATE
 // ============================
-async function checkServer() {
-  try {
-    setBanner('connecting', '⏳ Waking up Aperonix server... (may take 60 seconds on first load)');
-    const res = await fetch(SERVER_URL + '/', {
-      method: 'GET',
-      signal: AbortSignal.timeout(90000) // 90 seconds!
-    });
-    const data = await res.json();
-    serverOnline = true;
-    document.getElementById('statusDot').className = 'status-dot online';
-    document.getElementById('statusText').textContent = 'Mohammad Khan';
-    document.getElementById('serverStatusText').textContent = `Connected! ${data.knowledge || 0} facts learned`;
-    document.getElementById('serverStatusBadge').textContent = '🟢 Online';
-    setBanner('online', '✅ Aperonix server connected! Running with 1000 real neurons!');
-    setTimeout(() => {
-      document.getElementById('serverBanner').style.display = 'none';
-    }, 3000);
-  } catch(e) {
-    serverOnline = false;
-    document.getElementById('statusDot').className = 'status-dot offline';
-    document.getElementById('statusText').textContent = 'Local mode';
-    document.getElementById('serverStatusText').textContent = 'Server offline — using local AI';
-    document.getElementById('serverStatusBadge').textContent = '🔴 Offline';
-    setBanner('offline', '⚠️ Server offline — using local AI mode (still works!)');
-  }
-}
+let showConf=true,isDark=false,isTyping=false;
 
-function setBanner(type, msg) {
-  const b = document.getElementById('serverBanner');
-  b.className = `server-banner ${type}`;
-  b.textContent = msg;
-}
+// ============================
+// TRAIN ON LOAD
+// ============================
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    aperonix.train();
+    console.log('🤖 Aperonix v0.9 ready — Direct Mode!');
+  },100);
+});
 
 // ============================
 // SEND MESSAGE
 // ============================
-async function sendMessage() {
-  const input = document.getElementById('userInput');
-  const text = input.value.trim();
-  if(!text || isTyping) return;
+async function sendMessage(){
+  const inp=document.getElementById('userInput');
+  const text=inp.value.trim();
+  if(!text||isTyping)return;
 
-  const welcome = document.getElementById('welcomeScreen');
-  if(welcome) welcome.style.display = 'none';
+  const w=document.getElementById('welcomeScreen');
+  if(w)w.style.display='none';
 
-  addMessage('user', text);
-  input.value = '';
-  input.style.height = 'auto';
-  isTyping = true;
-  document.getElementById('sendBtn').disabled = true;
+  addMessage('user',text);
+  inp.value='';inp.style.height='auto';
+  isTyping=true;
+  document.getElementById('sendBtn').disabled=true;
 
-  const typingEl = addTyping();
+  const typing=addTyping();
 
-  try {
-    let responseData;
-
-    if(serverOnline) {
-      const res = await fetch(SERVER_URL + '/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text }),
-        signal: AbortSignal.timeout(60000) // 60 seconds!
-      });
-      responseData = await res.json();
-    } else {
-      await new Promise(r => setTimeout(r, 700));
-      const local = localBrain.think(text);
-      responseData = { response: local.text, confidence: local.confidence };
-    }
-
-    typingEl.remove();
-    let finalText = responseData.response || "Something went wrong!";
-    if(showConfidence && responseData.confidence) {
-      finalText += `\n\n_Neural confidence: ${responseData.confidence}%_`;
-    }
-    addMessage('ai', finalText);
-
-  } catch(e) {
-    typingEl.remove();
-    serverOnline = false;
-    document.getElementById('statusDot').className = 'status-dot offline';
-    setBanner('offline', '⚠️ Server timeout — switched to local AI mode');
-    const local = localBrain.think(text);
-    let finalText = local.text;
-    if(showConfidence) finalText += `\n\n_Neural confidence: ${local.confidence}% (local mode)_`;
-    addMessage('ai', finalText);
-  }
-
-  isTyping = false;
-  document.getElementById('sendBtn').disabled = false;
+  setTimeout(()=>{
+    typing.remove();
+    const resp=aperonix.think(text);
+    let finalText=resp.text;
+    if(showConf)finalText+=`\n\n_Neural confidence: ${resp.confidence}%_`;
+    addMessage('ai',finalText);
+    isTyping=false;
+    document.getElementById('sendBtn').disabled=false;
+  },600+Math.random()*400);
 }
 
 // ============================
 // MESSAGE HELPERS
 // ============================
-function addMessage(role, text) {
-  const area = document.getElementById('messagesArea');
-  const div = document.createElement('div');
-  div.className = `message ${role}`;
-  div.innerHTML = `
-    <div class="message-inner">
-      <div class="avatar ${role}">${role==='ai'?'🤖':'M'}</div>
-      <div class="bubble">${formatText(text)}</div>
-    </div>`;
+function addMessage(role,text){
+  const area=document.getElementById('messagesArea');
+  const div=document.createElement('div');
+  div.className=`message ${role}`;
+  div.innerHTML=`<div class="message-inner"><div class="avatar ${role}">${role==='ai'?'🤖':'M'}</div><div class="bubble">${formatText(text)}</div></div>`;
   area.appendChild(div);
-  area.scrollTop = area.scrollHeight;
+  area.scrollTop=area.scrollHeight;
   return div;
 }
 
-function addTyping() {
-  const area = document.getElementById('messagesArea');
-  const div = document.createElement('div');
-  div.className = 'message ai';
-  div.innerHTML = `
-    <div class="message-inner">
-      <div class="avatar ai">🤖</div>
-      <div class="typing"><span></span><span></span><span></span></div>
-    </div>`;
+function addTyping(){
+  const area=document.getElementById('messagesArea');
+  const div=document.createElement('div');
+  div.className='message ai';
+  div.innerHTML=`<div class="message-inner"><div class="avatar ai">🤖</div><div class="typing"><span></span><span></span><span></span></div></div>`;
   area.appendChild(div);
-  area.scrollTop = area.scrollHeight;
+  area.scrollTop=area.scrollHeight;
   return div;
 }
 
-function formatText(text) {
-  text = text.replace(/```(\w+)?\n([\s\S]*?)```/g, (_,l,c) =>
-    `<pre><code>${escapeHtml(c.trim())}</code></pre>`);
-  text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
-  text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-  text = text.replace(/_([^_\n]+)_/g, '<em style="color:var(--text3);font-size:12px">$1</em>');
-  text = text.replace(/^• (.+)$/gm, '<span style="display:block;padding-left:12px">• $1</span>');
-  text = text.replace(/\n/g, '<br>');
+function formatText(text){
+  text=text.replace(/```(\w+)?\n([\s\S]*?)```/g,(_,l,c)=>`<pre><code>${esc(c.trim())}</code></pre>`);
+  text=text.replace(/`([^`]+)`/g,'<code>$1</code>');
+  text=text.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
+  text=text.replace(/_([^_\n]+)_/g,'<em style="color:var(--text3);font-size:12px">$1</em>');
+  text=text.replace(/^• (.+)$/gm,'<span style="display:block;padding-left:12px">• $1</span>');
+  text=text.replace(/\n/g,'<br>');
   return text;
 }
 
-function escapeHtml(t) {
-  return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
+function esc(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
-function suggest(text) {
-  document.getElementById('userInput').value = text;
-  sendMessage();
-}
+function suggest(text){document.getElementById('userInput').value=text;sendMessage();}
+function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}}
+function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,180)+'px';}
 
-function handleKey(e) {
-  if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); sendMessage(); }
-}
-
-function autoResize(el) {
-  el.style.height = 'auto';
-  el.style.height = Math.min(el.scrollHeight, 180)+'px';
-}
-
-function newChat() {
-  document.getElementById('messagesArea').innerHTML = `
+function newChat(){
+  document.getElementById('messagesArea').innerHTML=`
     <div class="welcome" id="welcomeScreen">
       <div class="welcome-logo">🤖</div>
       <h1>How can I help you?</h1>
       <p>I'm Aperonix — built from scratch by Mohammad Khan, age 14 🇮🇳</p>
       <div class="suggestions">
-        <div class="suggestion-card" onclick="suggest('Create a Python hello world program')">
-          <div class="s-title">🐍 Python code</div><div class="s-sub">Create a simple Python program</div>
-        </div>
-        <div class="suggestion-card" onclick="suggest('Create a JavaScript game')">
-          <div class="s-title">🎮 Make a game</div><div class="s-sub">Build a fun JavaScript game</div>
-        </div>
-        <div class="suggestion-card" onclick="suggest('Create a simple HTML website')">
-          <div class="s-title">🌐 HTML website</div><div class="s-sub">Build a webpage from scratch</div>
-        </div>
-        <div class="suggestion-card" onclick="suggest('Who made you and how do you work?')">
-          <div class="s-title">🧠 About Aperonix</div><div class="s-sub">Learn how I was built</div>
-        </div>
+        <div class="scard" onclick="suggest('Create a Python hello world program')"><div class="s-title">🐍 Python code</div><div class="s-sub">Create a simple Python program</div></div>
+        <div class="scard" onclick="suggest('Create a JavaScript game')"><div class="s-title">🎮 Make a game</div><div class="s-sub">Build a fun JavaScript game</div></div>
+        <div class="scard" onclick="suggest('Create a simple HTML website')"><div class="s-title">🌐 HTML website</div><div class="s-sub">Build a webpage from scratch</div></div>
+        <div class="scard" onclick="suggest('Who made you and how do you work?')"><div class="s-title">🧠 About Aperonix</div><div class="s-sub">Learn how I was built</div></div>
       </div>
     </div>`;
 }
 
-function toggleTheme() {
-  isDark = !isDark;
-  document.documentElement.setAttribute('data-theme', isDark?'dark':'light');
-  document.getElementById('themeIcon').textContent = isDark?'☀️':'🌙';
-  document.getElementById('darkToggle').classList.toggle('on', isDark);
+function toggleTheme(){
+  isDark=!isDark;
+  document.documentElement.setAttribute('data-theme',isDark?'dark':'light');
+  document.getElementById('themeIcon').textContent=isDark?'☀️':'🌙';
+  document.getElementById('darkToggle').classList.toggle('on',isDark);
 }
 
-function openSettings() { document.getElementById('settingsOverlay').classList.add('open'); }
-function closeSettings(e) { if(e.target===document.getElementById('settingsOverlay')) closeSettingsPanel(); }
-function closeSettingsPanel() { document.getElementById('settingsOverlay').classList.remove('open'); }
-function toggleConfidence() {
-  showConfidence = !showConfidence;
-  document.getElementById('confidenceToggle').classList.toggle('on', showConfidence);
-}
-
-// ============================
-// START
-// ============================
-checkServer();
-setInterval(checkServer, 60000);
+function openSettings(){document.getElementById('settingsOverlay').classList.add('open');}
+function closeSettings(e){if(e.target===document.getElementById('settingsOverlay'))closeSettingsPanel();}
+function closeSettingsPanel(){document.getElementById('settingsOverlay').classList.remove('open');}
+function toggleConf(){showConf=!showConf;document.getElementById('confToggle').classList.toggle('on',showConf);}
 </script>
 </body>
 </html>
-✅ Local mode bhi kaam karega!
