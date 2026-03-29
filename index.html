@@ -23,15 +23,11 @@
     .sidebar-btn{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--text2);transition:background .2s,color .2s;border:none;background:transparent;width:100%;text-align:left;font-family:'DM Sans',sans-serif;}
     .sidebar-btn:hover{background:var(--bg3);color:var(--text);}
     .online-dot{width:8px;height:8px;border-radius:50%;background:#10a37f;display:inline-block;margin-right:6px;}
-    .knowledge-badge{font-size:11px;color:var(--accent);background:rgba(16,163,127,0.1);padding:2px 8px;border-radius:10px;margin-left:auto;}
     .main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
     .topbar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid var(--border);background:var(--bg);}
     .model-tag{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:8px;border:1px solid var(--border);font-size:14px;font-weight:500;color:var(--text);background:var(--bg);font-family:'DM Sans',sans-serif;}
     .icon-btn{width:36px;height:36px;border-radius:8px;border:1px solid var(--border);background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:background .2s;}
     .icon-btn:hover{background:var(--bg2);}
-    .loading-bar{height:2px;background:linear-gradient(90deg,var(--accent),transparent);width:0%;transition:width 0.5s;display:none;}
-    .loading-bar.active{display:block;animation:loading 1.5s infinite;}
-    @keyframes loading{0%{width:0%;margin-left:0}50%{width:60%}100%{width:0%;margin-left:100%}}
     .messages-area{flex:1;overflow-y:auto;padding:20px 0;scroll-behavior:smooth;}
     .messages-area::-webkit-scrollbar{width:4px;}
     .messages-area::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
@@ -39,7 +35,6 @@
     .welcome-logo{width:56px;height:56px;background:var(--accent);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;}
     .welcome h1{font-size:28px;font-weight:600;letter-spacing:-.5px;}
     .welcome p{font-size:15px;color:var(--text2);text-align:center;max-width:400px;line-height:1.6;}
-    .knowledge-info{font-size:13px;color:var(--accent);background:rgba(16,163,127,0.08);padding:8px 16px;border-radius:20px;border:1px solid rgba(16,163,127,0.2);}
     .suggestions{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:580px;}
     .scard{padding:14px 16px;border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:background .2s,border-color .2s;background:var(--bg);text-align:left;font-family:'DM Sans',sans-serif;width:100%;}
     .scard:hover{background:var(--bg2);border-color:var(--accent);}
@@ -58,7 +53,6 @@
     .message.ai .bubble{background:var(--ai-bubble);border:1px solid var(--border);border-radius:4px 12px 12px 12px;}
     .bubble pre{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;overflow-x:auto;margin:8px 0;font-family:'DM Mono',monospace;font-size:13px;line-height:1.5;}
     .bubble code{font-family:'DM Mono',monospace;font-size:13px;background:var(--bg3);padding:2px 6px;border-radius:4px;}
-    .source-tag{font-size:11px;color:var(--accent);margin-top:6px;display:block;opacity:0.8;}
     .typing{display:flex;gap:4px;padding:12px 16px;background:var(--ai-bubble);border:1px solid var(--border);border-radius:4px 12px 12px 12px;width:fit-content;}
     .typing span{width:6px;height:6px;background:var(--text3);border-radius:50%;animation:bounce 1.2s infinite;}
     .typing span:nth-child(2){animation-delay:.2s;}
@@ -109,29 +103,21 @@
   <button class="chat-item" onclick="suggest('Create a simple HTML website')">What is HTML?</button>
   <div class="sidebar-bottom">
     <button class="sidebar-btn" onclick="openSettings()">⚙️ &nbsp; Settings</button>
-    <div class="sidebar-btn">
-      <span class="online-dot"></span>
-      Mohammad Khan
-      <span class="knowledge-badge" id="knowledgeBadge">Loading...</span>
-    </div>
+    <div class="sidebar-btn"><span class="online-dot"></span>Mohammad Khan</div>
   </div>
 </aside>
 
 <main class="main">
   <div class="topbar">
-    <div class="model-tag">🧠 Aperonix v1.1 — GitHub Knowledge</div>
+    <div class="model-tag">🧠 Aperonix v1.2 — Context Memory</div>
     <button class="icon-btn" onclick="toggleTheme()"><span id="themeIcon">🌙</span></button>
   </div>
-  <div class="loading-bar" id="loadingBar"></div>
 
   <div class="messages-area" id="messagesArea">
     <div class="welcome" id="welcomeScreen">
       <div class="welcome-logo">🤖</div>
       <h1>How can I help you?</h1>
       <p>I'm Aperonix — an AI built from scratch using GitHub data by Mohammad Khan, age 14 🇮🇳</p>
-      <div class="knowledge-info" id="knowledgeInfo">
-        🔄 Loading GitHub knowledge...
-      </div>
       <div class="suggestions">
         <button class="scard" onclick="suggest('Create a Python hello world program')">
           <div class="s-title">🐍 Python code</div>
@@ -161,7 +147,7 @@
         <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
       </button>
     </div>
-    <div class="input-footer">Aperonix AI v1.1 — Built by Mohammad Khan, Age 14 🇮🇳 — Powered by GitHub data</div>
+    <div class="input-footer">Aperonix AI v1.2 — Built by Mohammad Khan, Age 14 🇮🇳 — Powered by GitHub data</div>
   </div>
 </main>
 
@@ -176,16 +162,16 @@
       <button class="toggle" id="darkToggle" onclick="toggleTheme()"></button>
     </div>
     <div class="settings-row">
-      <div><div class="settings-label">Neural Confidence</div><div class="settings-sub">Show AI confidence %</div></div>
+      <div><div class="settings-label">Show Confidence</div><div class="settings-sub">Show AI confidence %</div></div>
       <button class="toggle on" id="confToggle" onclick="toggleConf()"></button>
     </div>
     <div class="settings-row">
-      <div><div class="settings-label">Knowledge Base</div><div class="settings-sub">GitHub facts loaded</div></div>
-      <span id="knowledgeCount" style="font-size:13px;color:var(--accent);font-weight:500">Loading...</span>
+      <div><div class="settings-label">Context Memory</div><div class="settings-sub">Remembers last 5 messages</div></div>
+      <span style="font-size:13px;color:#10a37f;font-weight:500">🟢 Active</span>
     </div>
     <div class="settings-row">
       <div><div class="settings-label">Version</div><div class="settings-sub">Current build</div></div>
-      <span style="font-size:13px;color:var(--text2)">v1.1</span>
+      <span style="font-size:13px;color:var(--text2)">v1.2</span>
     </div>
     <div class="settings-row">
       <div><div class="settings-label">Creator</div><div class="settings-sub">Built by</div></div>
@@ -196,206 +182,338 @@
 
 <script>
 // ============================
-// APERONIX v1.1
-// Now with REAL GitHub Knowledge!
-// memory.json se direct answers!
-// By Mohammad Khan, Age 14
+// APERONIX v1.2
+// Context Memory + Natural Chat!
+// By Mohammad Khan, Age 14 🇮🇳
 // ============================
 
 let showConf = true;
 let isDark = false;
 let isTyping = false;
-let knowledge = []; // GitHub se aaya data!
 
 // ============================
-// MEMORY.JSON LOAD KARO!
+// CONTEXT MEMORY — NEW! 🧠
+// Pichli 5 baatein yaad rakhe!
 // ============================
-async function loadKnowledge() {
-  try {
-    document.getElementById('loadingBar').classList.add('active');
+const memory = {
+  history: [],        // Full conversation
+  lastTopic: null,    // Last topic discussed
+  userName: null,     // User ka naam
+  messageCount: 0,    // Kitni baatein hui
 
-    // GitHub raw URL se memory.json fetch karo!
-    const response = await fetch(
-      'https://raw.githubusercontent.com/mohammad123443214554/Aperonix-AI/main/memory.json'
-    );
+  add(role, text) {
+    this.history.push({ role, text, time: Date.now() });
+    if(this.history.length > 10) this.history.shift();
+    this.messageCount++;
+  },
 
-    const data = await response.json();
-    knowledge = data.knowledge || [];
+  getLastUserMessages(n=3) {
+    return this.history
+      .filter(h => h.role === 'user')
+      .slice(-n)
+      .map(h => h.text.toLowerCase());
+  },
 
-    // UI update karo
-    const count = knowledge.length;
-    document.getElementById('knowledgeInfo').textContent =
-      `🧠 ${count.toLocaleString()} GitHub facts loaded! Ask me anything!`;
-    document.getElementById('knowledgeBadge').textContent = `${count} facts`;
-    document.getElementById('knowledgeCount').textContent = `${count.toLocaleString()} facts`;
-    document.getElementById('loadingBar').classList.remove('active');
+  getContext() {
+    return this.history.slice(-6);
+  },
 
-    console.log(`✅ Loaded ${count} knowledge facts from GitHub!`);
-  } catch(e) {
-    document.getElementById('knowledgeInfo').textContent =
-      '🤖 Ready to help! Ask me anything!';
-    document.getElementById('knowledgeBadge').textContent = 'Online';
-    document.getElementById('knowledgeCount').textContent = 'Offline';
-    document.getElementById('loadingBar').classList.remove('active');
-    console.log('Knowledge load failed, using built-in responses');
+  setTopic(topic) { this.lastTopic = topic; },
+  getTopic() { return this.lastTopic; },
+
+  setName(name) { this.userName = name; },
+  getName() { return this.userName; },
+
+  clear() {
+    this.history = [];
+    this.lastTopic = null;
+    this.userName = null;
+    this.messageCount = 0;
   }
-}
+};
 
 // ============================
-// KNOWLEDGE SEARCH
-// memory.json mein dhundho!
-// ============================
-function searchKnowledge(query) {
-  if(knowledge.length === 0) return null;
-
-  const q = query.toLowerCase();
-  const words = q.split(' ').filter(w => w.length > 2);
-
-  let bestMatch = null;
-  let bestScore = 0;
-
-  for(let fact of knowledge) {
-    let score = 0;
-    const keyword = fact.keyword.toLowerCase();
-    const answer = fact.answer.toLowerCase();
-
-    // Exact keyword match
-    if(q.includes(keyword)) score += 10;
-
-    // Word by word match
-    for(let word of words) {
-      if(keyword.includes(word)) score += 3;
-      if(answer.includes(word)) score += 1;
-    }
-
-    if(score > bestScore) {
-      bestScore = score;
-      bestMatch = fact;
-    }
-  }
-
-  // Minimum score chahiye
-  if(bestScore >= 3) return bestMatch;
-  return null;
-}
-
-// ============================
-// SMART BRAIN
+// HELPERS
 // ============================
 function rand(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
 
 function isEthical(t){
-  return !["hack","virus","cheat","harm","crack","steal","exploit","malware","illegal","ddos"].some(w=>t.includes(w));
+  return !["hack","virus","cheat","harm","crack","steal",
+           "exploit","malware","illegal","ddos","ransomware"]
+    .some(w => t.includes(w));
 }
 
-function think(input) {
+// Name extract karo
+function extractName(text) {
+  const patterns = [
+    /my name is (\w+)/i,
+    /i am (\w+)/i,
+    /i'm (\w+)/i,
+    /call me (\w+)/i,
+    /mera naam (\w+)/i,
+    /main (\w+) hu/i,
+    /(\w+) here/i,
+  ];
+  for(let p of patterns) {
+    const match = text.match(p);
+    if(match && match[1].length > 1) return match[1];
+  }
+  return null;
+}
+
+// ============================
+// CONTEXT-AWARE RESPONSES
+// Pichli baat se samjhe!
+// ============================
+function getContextResponse(input) {
   const t = input.toLowerCase();
+  const lastMsgs = memory.getLastUserMessages(3);
+  const lastTopic = memory.getTopic();
 
-  // Ethics check
-  if(!isEthical(t)) return {
-    text:"I can't help with that. Let's keep it positive! 😊",
-    conf:99, source: null
-  };
+  // "aur batao" / "tell me more"
+  if(/aur batao|tell me more|more|aur|continue|aage|go on/.test(t)) {
+    if(lastTopic === 'python') {
+      memory.setTopic('python_more');
+      return {
+        text: `Sure! More about Python! 🐍\n\nPython is used for:\n• Artificial Intelligence & Machine Learning\n• Web development (Django, Flask)\n• Data Science & Analytics\n• Game development (Pygame)\n• Automation & scripting\n\nFun fact: Python was created by Guido van Rossum in 1991!\nIt's named after "Monty Python" — a comedy show! 😄\n\nWant a specific Python project?`,
+        conf: 88
+      };
+    }
+    if(lastTopic === 'java') {
+      return {
+        text: `More about Java! ☕\n\nJava is used in:\n• Android app development\n• Enterprise software\n• Web backends (Spring)\n• Games (Minecraft is Java!)\n• Banking systems\n\nJava was created by James Gosling in 1995.\n"Write once, run anywhere" — iska famous slogan hai!\n\nWant me to write a more complex Java program?`,
+        conf: 88
+      };
+    }
+    if(lastTopic === 'javascript') {
+      return {
+        text: `More about JavaScript! ✨\n\nJavaScript is everywhere:\n• Every website uses it!\n• React, Vue, Angular — JS frameworks\n• Node.js — server side\n• React Native — mobile apps\n• Electron — desktop apps\n\nCreated by Brendan Eich in just 10 days in 1995!\nMost popular language on GitHub! 🌍\n\nWant a specific JavaScript project?`,
+        conf: 88
+      };
+    }
+    if(lastTopic === 'creator') {
+      return {
+        text: `More about Mohammad Khan! 🌟\n\n🎮 Built a complete Game Engine at age 14\n🤖 Built Aperonix AI from scratch\n📊 Uses GitHub as AI training data\n💡 Zero paid tools, zero GPU\n🇮🇳 From India — showing the world!\n\nHis philosophy:\n"5 saal lagein — par khud karunga!"\n"I will show the world what I can do!"\n\nPretty legendary, right? 😊`,
+        conf: 92
+      };
+    }
+    if(lastTopic === 'html') {
+      return {
+        text: `More HTML tips! 🌐\n\nUseful HTML tags:\n\`\`\`html\n<!-- Heading tags -->\n<h1>Big heading</h1>\n<h2>Smaller heading</h2>\n\n<!-- Links -->\n<a href="https://google.com">Click here</a>\n\n<!-- Images -->\n<img src="photo.jpg" alt="My photo">\n\n<!-- Lists -->\n<ul>\n  <li>Item 1</li>\n  <li>Item 2</li>\n</ul>\n\n<!-- Input -->\n<input type="text" placeholder="Type here">\n<button onclick="alert('Hi!')">Click!</button>\n\`\`\`\n\nWant me to build a complete webpage?`,
+        conf: 87
+      };
+    }
+  }
 
-  // Greetings
-  if(/hello|hi\b|hey|salam|namaste|hii+|assalam/.test(t)) return {
-    text: rand([
-      "Hey there! I'm Aperonix! 😊 How can I help you today?",
-      "Hello! Aperonix here — ask me anything! 🌟",
-      "Hi! Great to see you! What would you like to know? ✨",
-      "Hey! Aperonix is ready to help! What's on your mind? 😊"
-    ]), conf:97, source: null
-  };
-
-  // Who made you
-  if(/who made|who built|kisne|banaya|creator|mohammad|banane wala/.test(t)) return {
-    text:`I was built by Mohammad Khan! 🇮🇳✨\n\n👤 Name: Mohammad Khan\n🎂 Age: 14 years old\n🌍 Country: India\n💡 Zero paid tools!\n🖥️ Zero GPU — pure GitHub data!\n🧠 Real knowledge from GitHub!\n🎮 Also built a Game Engine at 14!\n\nPretty legendary, right? 😊`,
-    conf:98, source: null
-  };
-
-  // Who are you
-  if(/who are you|what are you|your name|naam|kaun ho/.test(t)) return {
-    text:`I'm Aperonix! 🤖✨\n\nA female AI built completely from scratch.\nI have ${knowledge.length.toLocaleString()} GitHub facts in my brain!\nI learn from real GitHub projects — automatically!\n\n• Real GitHub knowledge\n• No API keys\n• No paid tools\n• Built by Mohammad Khan, Age 14 🇮🇳`,
-    conf:97, source: null
-  };
-
-  // How are you
-  if(/how are you|kaise ho|kaisi ho/.test(t)) return {
-    text: rand([
-      "I'm doing amazing! 😊 I have " + knowledge.length.toLocaleString() + " GitHub facts in my brain!\nHow are you? 🌟",
-      "Feeling great! My brain is full of GitHub knowledge! ✨\nHow about you? 😊"
-    ]), conf:95, source: null
-  };
-
-  // Python
-  if(/python/.test(t) && /code|program|create|write|example|simple/.test(t)) return {
-    text:`Here's Python for you! 🐍\n\`\`\`python\nprint("Hello from Aperonix!")\n\nname = input("Your name: ")\nprint(f"Hello {name}! Nice to meet you!")\n\n# Calculator\na = int(input("Number 1: "))\nb = int(input("Number 2: "))\nprint(f"Sum = {a+b}")\nprint(f"Product = {a*b}")\n\`\`\`\nSave as hello.py → Run: python hello.py`,
-    conf:96, source: null
-  };
-
-  // Java
-  if(/\bjava\b/.test(t) && !/javascript/.test(t) && /code|program|create|write|example/.test(t)) return {
-    text:`Here's Java! ☕\n\`\`\`java\npublic class Hello {\n    public static void main(String[] args) {\n        System.out.println("Hello from Aperonix!");\n        System.out.println("Built by Mohammad Khan, Age 14!");\n        \n        int age = 14;\n        String name = "Mohammad";\n        System.out.println(name + " is " + age + " years old!");\n    }\n}\n\`\`\`\nSave as Hello.java → Run: javac Hello.java && java Hello`,
-    conf:95, source: null
-  };
-
-  // JavaScript
-  if(/javascript|js\b/.test(t) && /code|program|create|write|example/.test(t)) return {
-    text:`Here's JavaScript! ✨\n\`\`\`javascript\nconsole.log("Hello from Aperonix!");\n\nfunction greet(name) {\n    return \`Hello \${name}! Welcome!\`;\n}\nconsole.log(greet("Mohammad"));\n\nlet skills = ["AI", "Games", "Web"];\nskills.forEach(s => console.log("Skill:", s));\n\`\`\`\nSave as hello.js → Run: node hello.js`,
-    conf:95, source: null
-  };
-
-  // HTML
-  if(/html|webpage/.test(t) && /code|create|write|example|build/.test(t)) return {
-    text:`Here's HTML! 🌐\n\`\`\`html\n<!DOCTYPE html>\n<html>\n<head>\n    <title>My Page</title>\n    <style>\n        body{background:#1a1a2e;color:white;text-align:center;padding:50px;font-family:Arial}\n        button{background:#10a37f;color:white;padding:12px 24px;border:none;border-radius:8px;cursor:pointer;font-size:16px}\n    </style>\n</head>\n<body>\n    <h1>Hello from Aperonix! 🤖</h1>\n    <p>Built by Mohammad Khan, Age 14 🇮🇳</p>\n    <button onclick="alert('Hi!')">Click Me!</button>\n</body>\n</html>\n\`\`\`\nSave as index.html → Open in browser!`,
-    conf:95, source: null
-  };
-
-  // CSS
-  if(/css|style/.test(t)) return {
-    text:`Here's CSS! 🎨\n\`\`\`css\nbody {\n    background: #1a1a2e;\n    color: white;\n    font-family: Arial;\n    text-align: center;\n}\nh1 { color: #10a37f; }\n.btn {\n    background: #10a37f;\n    color: white;\n    padding: 12px 24px;\n    border: none;\n    border-radius: 8px;\n    cursor: pointer;\n}\n.btn:hover { background: #0d8c6d; }\n\`\`\`\nSave as style.css → Link in HTML!`,
-    conf:93, source: null
-  };
-
-  // Game
-  if(/game/.test(t)) return {
-    text:`A game — like your creator builds! 🎮\n\`\`\`javascript\nconst secret = Math.floor(Math.random()*10)+1;\nconst rl = require('readline').createInterface({input:process.stdin,output:process.stdout});\nconsole.log("Guess 1-10!");\nlet attempts=0;\nfunction guess(){\n    rl.question("Guess: ",(a)=>{\n        attempts++;\n        let n=parseInt(a);\n        if(n===secret){console.log(\`🎉 Won in \${attempts} tries!\`);rl.close();}\n        else{console.log(n<secret?"Too low!":"Too high!");guess();}\n    });\n}\nguess();\n\`\`\`\nSave as game.js → Run: node game.js`,
-    conf:94, source: null
-  };
-
-  // Thank you
-  if(/thank|shukriya/.test(t)) return {
-    text:"You're so welcome! 😊 Ask me anything anytime! ✨",
-    conf:96, source: null
-  };
-
-  // Bye
-  if(/bye|goodbye|alvida/.test(t)) return {
-    text:"Goodbye! Come back anytime! 😊✨",
-    conf:95, source: null
-  };
-
-  // ============================
-  // GITHUB KNOWLEDGE SEARCH!
-  // Yeh naya feature hai! 🔥
-  // ============================
-  const githubFact = searchKnowledge(input);
-  if(githubFact) {
+  // "samajh nahi aaya" / "i don't understand"
+  if(/samajh nahi|don't understand|nahi samjha|confused|kya matlab|what do you mean/.test(t)) {
+    if(lastTopic === 'python') {
+      return {
+        text: `No worries! Let me explain Python simply! 😊\n\nPython = ek language jo computer samjhta hai\n\nJaise:\n• Tu computer se kehta hai: print("Hello")\n• Computer wahi print kar deta hai!\n\nSuper simple example:\n\`\`\`python\n# Yeh ek comment hai (computer ignore karta hai)\nprint("Hello!")    # Yeh screen pe dikhega\nname = "Mohammad"  # Variable mein naam store kiya\nprint(name)        # Mohammad print hoga\n\`\`\`\n\nSamjha? Koi specific cheez puchh! 😄`,
+        conf: 90
+      };
+    }
     return {
-      text: `Great question! Here's what I found in my GitHub knowledge! 🧠\n\n${githubFact.answer}\n\n📂 Language: ${githubFact.language || 'Unknown'}`,
-      conf: 82,
-      source: `📚 Source: GitHub — ${githubFact.keyword}`
+      text: `No problem! Let me explain differently! 😊\n\nKaunsi cheez samajh nahi aayi?\nBata — main aur simple tarike se samjhaunga! 🌟`,
+      conf: 85
     };
   }
 
-  // Default
-  return {
-    text: rand([
-      `I'm still learning! 🌱\n\nI have ${knowledge.length.toLocaleString()} GitHub facts but couldn't find a match.\n\nTry asking about:\n• 'Create Python code'\n• 'Make a JavaScript game'\n• 'Build HTML website'\n• Specific GitHub project names\n• 'Who made you?'\n\nI grow smarter every 6 hours! 💪`,
-      `Hmm, I'm not sure about that yet! 🤔\n\nMy ${knowledge.length.toLocaleString()} GitHub facts didn't match.\nTry being more specific or ask about coding! 😊`
-    ]),
-    conf: 30, source: null
-  };
+  // Thank you ke baad
+  if(/thank|shukriya|thanks|great|awesome|nice|bahut acha|zabardast/.test(t)) {
+    const name = memory.getName();
+    return {
+      text: rand([
+        `You're so welcome${name ? ', ' + name : ''}! 😊 That's what I'm here for!\nAnything else I can help with? 🌟`,
+        `Happy to help${name ? ', ' + name : ''}! 😊\nFeel free to ask anything! ✨`,
+        `Glad I could help! 😊 Ask me anything anytime! 🚀`
+      ]),
+      conf: 96
+    };
+  }
+
+  return null; // No context match
+}
+
+// ============================
+// MAIN BRAIN
+// ============================
+function think(input) {
+  const t = input.toLowerCase();
+
+  // Memory mein add karo
+  memory.add('user', input);
+
+  // Name check karo
+  const foundName = extractName(input);
+  if(foundName) memory.setName(foundName);
+  const userName = memory.getName();
+
+  // Ethics
+  if(!isEthical(t)) {
+    memory.add('ai', 'ethics');
+    return { text: "I can't help with that. Let's keep it positive! 😊", conf: 99 };
+  }
+
+  // Context response pehle check karo!
+  const contextResp = getContextResponse(input);
+  if(contextResp) {
+    memory.add('ai', contextResp.text);
+    return contextResp;
+  }
+
+  // Name introduce
+  if(foundName) {
+    memory.setTopic('greeting');
+    const resp = {
+      text: `Nice to meet you, ${foundName}! 😊 I'm Aperonix!\nHow can I help you today? Ask me anything — coding, games, websites, or just chat! 🌟`,
+      conf: 95
+    };
+    memory.add('ai', resp.text);
+    return resp;
+  }
+
+  // Greetings
+  if(/hello|hi\b|hey|salam|namaste|hii+|assalam/.test(t)) {
+    memory.setTopic('greeting');
+    const greeting = rand([
+      `Hey there${userName ? ', ' + userName : ''}! I'm Aperonix! 😊 How can I help you today?`,
+      `Hello${userName ? ', ' + userName : ''}! Aperonix here — ask me anything! 🌟`,
+      `Hi${userName ? ', ' + userName : ''}! Great to see you! What would you like to know? ✨`,
+      `Hey! Aperonix is ready to help${userName ? ', ' + userName : ''}! What's on your mind? 😊`
+    ]);
+    memory.add('ai', greeting);
+    return { text: greeting, conf: 97 };
+  }
+
+  // Who made you
+  if(/who made|who built|kisne|banaya|creator|mohammad|banane wala/.test(t)) {
+    memory.setTopic('creator');
+    const resp = {
+      text: `I was built by Mohammad Khan! 🇮🇳✨\n\n👤 Name: Mohammad Khan\n🎂 Age: 14 years old\n🌍 Country: India\n💡 Zero paid tools — everything from scratch!\n🖥️ Zero GPU — pure GitHub data!\n🎮 Also built a Game Engine at 14!\n\nHis motto: "5 saal lagein — par khud karunga!"\n\nPretty legendary, right? 😊\n\nWant to know more about him?`,
+      conf: 98
+    };
+    memory.add('ai', resp.text);
+    return resp;
+  }
+
+  // Who are you
+  if(/who are you|what are you|your name|naam|kaun ho|aperonix kya/.test(t)) {
+    memory.setTopic('identity');
+    const resp = {
+      text: `I'm Aperonix! 🤖✨\n\nA female AI assistant built completely from scratch.\nNo paid APIs, no GPU, no shortcuts!\n\n• I learn from GitHub data every 6 hours\n• I remember our conversation context\n• I understand English, Hindi & Hinglish\n• Built by Mohammad Khan, Age 14 🇮🇳\n\nI'm still growing — but I'm YOUR AI! 😊\n\nWhat would you like to talk about?`,
+      conf: 97
+    };
+    memory.add('ai', resp.text);
+    return resp;
+  }
+
+  // How are you
+  if(/how are you|kaise ho|kaisi ho|kaisa/.test(t)) {
+    memory.setTopic('smalltalk');
+    const resp = {
+      text: rand([
+        `I'm doing amazing${userName ? ', ' + userName : ''}! 😊\nI just learned new things from GitHub today!\nHow are YOU doing? 🌟`,
+        `Feeling great${userName ? ', ' + userName : ''}! ✨\nEvery 6 hours I get smarter from GitHub!\nHow about you? 😊`,
+        `I'm wonderful, thanks for asking${userName ? ', ' + userName : ''}! 💪\nReady to help you with anything!\nHow are you doing today? 🌟`
+      ]),
+      conf: 95
+    };
+    memory.add('ai', resp.text);
+    return resp;
+  }
+
+  // Python
+  if(/python/.test(t)) {
+    memory.setTopic('python');
+    let text = '';
+    if(/code|program|create|write|example|simple|basic/.test(t)) {
+      text = `Here's Python for you! 🐍\n\`\`\`python\nprint("Hello from Aperonix!")\n\nname = input("Your name: ")\nprint(f"Hello {name}! Nice to meet you!")\n\n# Simple calculator\na = int(input("Number 1: "))\nb = int(input("Number 2: "))\nprint(f"Sum = {a+b}")\nprint(f"Product = {a*b}")\n\`\`\`\nSave as hello.py → Run: python hello.py\n\nWant more Python examples? Just say "tell me more"! 😊`;
+    } else {
+      text = `Python is an amazing language! 🐍\n\nIt's used for:\n• Artificial Intelligence\n• Web development\n• Data Science\n• Automation\n• Games\n\nCreated in 1991 — super easy to learn!\nWant me to write some Python code for you? 😊`;
+    }
+    memory.add('ai', text);
+    return { text, conf: 96 };
+  }
+
+  // Java
+  if(/\bjava\b/.test(t) && !/javascript/.test(t)) {
+    memory.setTopic('java');
+    let text = '';
+    if(/code|program|create|write|example/.test(t)) {
+      text = `Here's Java! ☕\n\`\`\`java\npublic class Hello {\n    public static void main(String[] args) {\n        System.out.println("Hello from Aperonix!");\n        \n        // Variables\n        int age = 14;\n        String name = "Mohammad";\n        System.out.println(name + " is " + age + " years old!");\n        \n        // Loop\n        for(int i=1; i<=5; i++) {\n            System.out.println("Count: " + i);\n        }\n    }\n}\n\`\`\`\nSave as Hello.java → Run: javac Hello.java && java Hello\n\nWant more Java examples? Say "tell me more"! 😊`;
+    } else {
+      text = `Java is a powerful language! ☕\n\nUsed for:\n• Android apps (your phone!)\n• Enterprise software\n• Minecraft (yes, it's Java!)\n• Banking systems\n\nCreated in 1995 — "Write once, run anywhere!"\nWant me to write some Java code? 😊`;
+    }
+    memory.add('ai', text);
+    return { text, conf: 95 };
+  }
+
+  // JavaScript
+  if(/javascript|js\b/.test(t)) {
+    memory.setTopic('javascript');
+    let text = '';
+    if(/code|program|create|write|example/.test(t)) {
+      text = `Here's JavaScript! ✨\n\`\`\`javascript\nconsole.log("Hello from Aperonix!");\n\n// Function\nfunction greet(name) {\n    return \`Hello \${name}! Welcome!\`;\n}\nconsole.log(greet("Mohammad"));\n\n// Array\nlet skills = ["AI", "Games", "Web"];\nskills.forEach(s => console.log("Skill:", s));\n\n// Object\nlet aperonix = {\n    name: "Aperonix",\n    creator: "Mohammad Khan",\n    age: 0\n};\nconsole.log(aperonix);\n\`\`\`\nSave as hello.js → Run: node hello.js\n\nWant more? Say "tell me more"! 😊`;
+    } else {
+      text = `JavaScript is the language of the web! ✨\n\nIt runs in EVERY browser!\nUsed for:\n• Websites & web apps\n• Games\n• Mobile apps (React Native)\n• Servers (Node.js)\n\nCreated in just 10 days in 1995!\nMost popular language on GitHub! 🌍\nWant some JavaScript code? 😊`;
+    }
+    memory.add('ai', text);
+    return { text, conf: 95 };
+  }
+
+  // HTML
+  if(/html|webpage|website/.test(t)) {
+    memory.setTopic('html');
+    let text = '';
+    if(/code|create|write|example|build/.test(t)) {
+      text = `Here's HTML! 🌐\n\`\`\`html\n<!DOCTYPE html>\n<html>\n<head>\n    <title>My Aperonix Page</title>\n    <style>\n        body{background:#1a1a2e;color:white;text-align:center;padding:50px;font-family:Arial}\n        button{background:#10a37f;color:white;padding:12px 24px;border:none;border-radius:8px;cursor:pointer;font-size:16px}\n        button:hover{background:#0d8c6d}\n    </style>\n</head>\n<body>\n    <h1>Hello from Aperonix! 🤖</h1>\n    <p>Built by Mohammad Khan, Age 14 🇮🇳</p>\n    <button onclick="alert('Aperonix says hi! 👋')">Click Me!</button>\n    <script>\n        console.log("Page loaded!");\n    </scr` + `ipt>\n</body>\n</html>\n\`\`\`\nSave as index.html → Open in browser!\n\nWant more HTML tips? Say "tell me more"! 😊`;
+    } else {
+      text = `HTML is the foundation of every website! 🌐\n\nHTML = HyperText Markup Language\n\nIt creates the STRUCTURE of webpages.\nCSS makes it BEAUTIFUL.\nJavaScript makes it INTERACTIVE.\n\nTogether they make amazing websites!\nWant me to write some HTML? 😊`;
+    }
+    memory.add('ai', text);
+    return { text, conf: 95 };
+  }
+
+  // CSS
+  if(/css|style|design/.test(t)) {
+    memory.setTopic('css');
+    const text = `Here's CSS! 🎨\n\`\`\`css\nbody {\n    background: #1a1a2e;\n    color: white;\n    font-family: Arial, sans-serif;\n    text-align: center;\n    padding: 20px;\n}\n\nh1 {\n    color: #10a37f;\n    font-size: 2.5em;\n    margin-bottom: 20px;\n}\n\n.card {\n    background: rgba(255,255,255,0.1);\n    border-radius: 12px;\n    padding: 20px;\n    margin: 10px auto;\n    max-width: 400px;\n}\n\n.button {\n    background: #10a37f;\n    color: white;\n    padding: 12px 24px;\n    border: none;\n    border-radius: 8px;\n    cursor: pointer;\n    font-size: 16px;\n    transition: all 0.2s;\n}\n\n.button:hover {\n    background: #0d8c6d;\n    transform: scale(1.05);\n}\n\`\`\`\nSave as style.css → Link in your HTML file!`;
+    memory.add('ai', text);
+    return { text, conf: 93 };
+  }
+
+  // Game
+  if(/game/.test(t)) {
+    memory.setTopic('game');
+    const text = `A game — just like your creator builds! 🎮\n\`\`\`javascript\n// Number Guessing Game\nconst secret = Math.floor(Math.random() * 10) + 1;\nconst readline = require('readline');\nconst rl = readline.createInterface({\n    input: process.stdin,\n    output: process.stdout\n});\n\nconsole.log("🎮 Guess a number between 1 and 10!");\nlet attempts = 0;\n\nfunction guess() {\n    rl.question("Your guess: ", (answer) => {\n        attempts++;\n        const n = parseInt(answer);\n        if(n === secret) {\n            console.log(\`🎉 Correct! Won in \${attempts} attempts!\`);\n            rl.close();\n        } else {\n            console.log(n < secret ? "📈 Too low!" : "📉 Too high!");\n            guess();\n        }\n    });\n}\nguess();\n\`\`\`\nSave as game.js → Run: node game.js`;
+    memory.add('ai', text);
+    return { text, conf: 94 };
+  }
+
+  // What can you do
+  if(/what can you|kya kar sakti|capabilities|help me|kya karta/.test(t)) {
+    memory.setTopic('capabilities');
+    const text = `I can help you with lots of things${userName ? ', ' + userName : ''}! 😊\n\n🐍 Python — write code, explain concepts\n☕ Java — programs, examples\n✨ JavaScript — web, games, apps\n🌐 HTML — websites, webpages\n🎨 CSS — styling, design\n🎮 Games — JavaScript games\n🧠 AI — how I work, concepts\n💬 Chat — just talk to me!\n\nI also remember our conversation!\nSo I know what we talked about before! 🧠\n\nWhat would you like to do? 😊`;
+    memory.add('ai', text);
+    return { text, conf: 95 };
+  }
+
+  // Bye
+  if(/bye|goodbye|alvida|cya/.test(t)) {
+    const text = `Goodbye${userName ? ', ' + userName : ''}! 😊✨\nIt was great talking to you!\nCome back anytime — I'll be here! 🤖`;
+    memory.add('ai', text);
+    return { text, conf: 95 };
+  }
+
+  // Default — but context aware!
+  const lastMsgs = memory.getLastUserMessages(2);
+  const text = rand([
+    `Hmm, I'm still learning about that${userName ? ', ' + userName : ''}! 🤔\n\nI understand:\n• Python, Java, JavaScript, HTML, CSS\n• Games & websites\n• General chat\n\nTry asking something specific! 😊`,
+    `I'm not sure about that yet${userName ? ', ' + userName : ''}! 🌱\n\nBut I'm growing smarter every 6 hours from GitHub!\n\nTry asking:\n• "Create Python code"\n• "Make a JavaScript game"\n• "Build HTML website"\n• Or just chat with me! 😊`,
+  ]);
+  memory.add('ai', text);
+  return { text, conf: 35 };
 }
 
 // ============================
@@ -421,12 +539,11 @@ function sendMessage(){
     typing.remove();
     const resp = think(text);
     let finalText = resp.text;
-    if(showConf) finalText += `\n\n_Neural confidence: ${resp.conf}%_`;
-    if(resp.source) finalText += `\n_${resp.source}_`;
+    if(showConf) finalText += `\n\n_Confidence: ${resp.conf}%_`;
     addMessage('ai', finalText);
     isTyping = false;
     document.getElementById('sendBtn').disabled = false;
-  }, 400 + Math.random()*300);
+  }, 400 + Math.random()*400);
 }
 
 // ============================
@@ -461,12 +578,12 @@ function addTyping(){
 }
 
 function formatText(text){
-  text = text.replace(/```(\w+)?\n([\s\S]*?)```/g, (_,l,c)=>`<pre><code>${esc(c.trim())}</code></pre>`);
-  text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
-  text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-  text = text.replace(/_([^_\n]+)_/g, '<em style="color:var(--text3);font-size:12px">$1</em>');
-  text = text.replace(/^• (.+)$/gm, '<span style="display:block;padding-left:12px">• $1</span>');
-  text = text.replace(/\n/g, '<br>');
+  text = text.replace(/```(\w+)?\n([\s\S]*?)```/g,(_,l,c)=>`<pre><code>${esc(c.trim())}</code></pre>`);
+  text = text.replace(/`([^`]+)`/g,'<code>$1</code>');
+  text = text.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
+  text = text.replace(/_([^_\n]+)_/g,'<em style="color:var(--text3);font-size:12px">$1</em>');
+  text = text.replace(/^• (.+)$/gm,'<span style="display:block;padding-left:12px">• $1</span>');
+  text = text.replace(/\n/g,'<br>');
   return text;
 }
 
@@ -487,14 +604,12 @@ function autoResize(el){
 }
 
 function newChat(){
+  memory.clear();
   document.getElementById('messagesArea').innerHTML = `
     <div class="welcome" id="welcomeScreen">
       <div class="welcome-logo">🤖</div>
       <h1>How can I help you?</h1>
       <p>I'm Aperonix — built from scratch by Mohammad Khan, age 14 🇮🇳</p>
-      <div class="knowledge-info" id="knowledgeInfo">
-        🧠 ${knowledge.length.toLocaleString()} GitHub facts loaded!
-      </div>
       <div class="suggestions">
         <button class="scard" onclick="suggest('Create a Python hello world program')">
           <div class="s-title">🐍 Python code</div><div class="s-sub">Create a simple Python program</div>
@@ -526,9 +641,6 @@ function toggleConf(){
   showConf = !showConf;
   document.getElementById('confToggle').classList.toggle('on',showConf);
 }
-
-// START — memory.json load karo!
-loadKnowledge();
 </script>
 </body>
 </html>
