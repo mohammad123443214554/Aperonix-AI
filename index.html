@@ -97,10 +97,10 @@
   <button class="new-chat-btn" onclick="newChat()">✏️ &nbsp; New chat</button>
   <div class="sidebar-section">Recent</div>
   <button class="chat-item active" onclick="newChat()">Hello from Aperonix!</button>
-  <button class="chat-item" onclick="suggest('Python code banana sikhao')">Python sikhao</button>
+  <button class="chat-item" onclick="suggest('Create a Python hello world program')">Create Python code</button>
   <button class="chat-item" onclick="suggest('Who made you and how do you work?')">Who made you?</button>
-  <button class="chat-item" onclick="suggest('JavaScript game banao')">JS Game banao</button>
-  <button class="chat-item" onclick="suggest('HTML website banao')">HTML website</button>
+  <button class="chat-item" onclick="suggest('Create a JavaScript game')">Make a JavaScript game</button>
+  <button class="chat-item" onclick="suggest('Create a simple HTML website')">What is HTML?</button>
   <div class="sidebar-bottom">
     <button class="sidebar-btn" onclick="openSettings()">⚙️ &nbsp; Settings</button>
     <div class="sidebar-btn"><span class="online-dot"></span>Mohammad Khan</div>
@@ -109,7 +109,7 @@
 
 <main class="main">
   <div class="topbar">
-    <div class="model-tag">🧠 Aperonix v1.3 — Smart Language</div>
+    <div class="model-tag">🧠 Aperonix v1.2 — Context Memory</div>
     <button class="icon-btn" onclick="toggleTheme()"><span id="themeIcon">🌙</span></button>
   </div>
 
@@ -117,23 +117,23 @@
     <div class="welcome" id="welcomeScreen">
       <div class="welcome-logo">🤖</div>
       <h1>How can I help you?</h1>
-      <p>I'm Aperonix — an AI built from scratch by Mohammad Khan, age 14 🇮🇳<br>English • Hindi • Hinglish — sab samajhti hoon!</p>
+      <p>I'm Aperonix — an AI built from scratch using GitHub data by Mohammad Khan, age 14 🇮🇳</p>
       <div class="suggestions">
-        <button class="scard" onclick="suggest('Python code banana sikhao')">
-          <div class="s-title">🐍 Python sikhao</div>
-          <div class="s-sub">Simple Python program banao</div>
+        <button class="scard" onclick="suggest('Create a Python hello world program')">
+          <div class="s-title">🐍 Python code</div>
+          <div class="s-sub">Create a simple Python program</div>
         </button>
-        <button class="scard" onclick="suggest('JavaScript game banao')">
-          <div class="s-title">🎮 Game banao</div>
-          <div class="s-sub">Fun JavaScript game banao</div>
+        <button class="scard" onclick="suggest('Create a JavaScript game')">
+          <div class="s-title">🎮 Make a game</div>
+          <div class="s-sub">Build a fun JavaScript game</div>
         </button>
-        <button class="scard" onclick="suggest('HTML website banao')">
-          <div class="s-title">🌐 Website banao</div>
-          <div class="s-sub">HTML se webpage banao</div>
+        <button class="scard" onclick="suggest('Create a simple HTML website')">
+          <div class="s-title">🌐 HTML website</div>
+          <div class="s-sub">Build a webpage from scratch</div>
         </button>
-        <button class="scard" onclick="suggest('Aperonix kaun hai aur kisne banaya')">
-          <div class="s-title">🧠 Aperonix ke baare mein</div>
-          <div class="s-sub">Kaise bani main?</div>
+        <button class="scard" onclick="suggest('Who made you and how do you work?')">
+          <div class="s-title">🧠 About Aperonix</div>
+          <div class="s-sub">Learn how I was built</div>
         </button>
       </div>
     </div>
@@ -141,13 +141,13 @@
 
   <div class="input-area">
     <div class="input-wrap">
-      <textarea id="userInput" placeholder="Kuch bhi puchho Aperonix se..." rows="1"
+      <textarea id="userInput" placeholder="Message Aperonix..." rows="1"
         onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
       <button class="send-btn" id="sendBtn" onclick="sendMessage()">
         <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
       </button>
     </div>
-    <div class="input-footer">Aperonix AI v1.3 — Built by Mohammad Khan, Age 14 🇮🇳 — English • Hindi • Hinglish</div>
+    <div class="input-footer">Aperonix AI v1.2 — Built by Mohammad Khan, Age 14 🇮🇳 — Powered by GitHub data</div>
   </div>
 </main>
 
@@ -158,23 +158,23 @@
       <button class="close-btn" onclick="closeSettings()">×</button>
     </div>
     <div class="settings-row">
-      <div><div class="settings-label">Dark Mode</div><div class="settings-sub">Theme switch karo</div></div>
+      <div><div class="settings-label">Dark Mode</div><div class="settings-sub">Switch theme</div></div>
       <button class="toggle" id="darkToggle" onclick="toggleTheme()"></button>
     </div>
     <div class="settings-row">
-      <div><div class="settings-label">Confidence Show Karo</div><div class="settings-sub">AI confidence % dikhao</div></div>
+      <div><div class="settings-label">Show Confidence</div><div class="settings-sub">Show AI confidence %</div></div>
       <button class="toggle on" id="confToggle" onclick="toggleConf()"></button>
     </div>
     <div class="settings-row">
-      <div><div class="settings-label">Language Mode</div><div class="settings-sub">Auto detect karta hai</div></div>
-      <span style="font-size:13px;color:#10a37f;font-weight:500">🟢 Auto</span>
+      <div><div class="settings-label">Context Memory</div><div class="settings-sub">Remembers last 5 messages</div></div>
+      <span style="font-size:13px;color:#10a37f;font-weight:500">🟢 Active</span>
     </div>
     <div class="settings-row">
       <div><div class="settings-label">Version</div><div class="settings-sub">Current build</div></div>
-      <span style="font-size:13px;color:var(--text2)">v1.3</span>
+      <span style="font-size:13px;color:var(--text2)">v1.2</span>
     </div>
     <div class="settings-row">
-      <div><div class="settings-label">Creator</div><div class="settings-sub">Banaya kisne</div></div>
+      <div><div class="settings-label">Creator</div><div class="settings-sub">Built by</div></div>
       <span style="font-size:13px;color:var(--text2)">Mohammad Khan, 14 🇮🇳</span>
     </div>
   </div>
@@ -182,9 +182,8 @@
 
 <script>
 // ============================
-// APERONIX v1.3
-// Smart Language Detection!
-// English + Hindi + Hinglish!
+// APERONIX v1.2
+// Context Memory + Natural Chat!
 // By Mohammad Khan, Age 14 🇮🇳
 // ============================
 
@@ -193,103 +192,45 @@ let isDark = false;
 let isTyping = false;
 
 // ============================
-// MEMORY — Context yaad rakhe
+// CONTEXT MEMORY — NEW! 🧠
+// Pichli 5 baatein yaad rakhe!
 // ============================
 const memory = {
-  history: [],
-  lastTopic: null,
-  userName: null,
-  msgCount: 0,
+  history: [],        // Full conversation
+  lastTopic: null,    // Last topic discussed
+  userName: null,     // User ka naam
+  messageCount: 0,    // Kitni baatein hui
 
   add(role, text) {
-    this.history.push({ role, text });
+    this.history.push({ role, text, time: Date.now() });
     if(this.history.length > 10) this.history.shift();
-    if(role === 'user') this.msgCount++;
+    this.messageCount++;
   },
 
-  getLastUserMsgs(n=3) {
-    return this.history.filter(h=>h.role==='user').slice(-n).map(h=>h.text.toLowerCase());
+  getLastUserMessages(n=3) {
+    return this.history
+      .filter(h => h.role === 'user')
+      .slice(-n)
+      .map(h => h.text.toLowerCase());
   },
 
-  setTopic(t) { this.lastTopic = t; },
+  getContext() {
+    return this.history.slice(-6);
+  },
+
+  setTopic(topic) { this.lastTopic = topic; },
   getTopic() { return this.lastTopic; },
-  setName(n) { this.userName = n; },
+
+  setName(name) { this.userName = name; },
   getName() { return this.userName; },
 
   clear() {
-    this.history=[];this.lastTopic=null;
-    this.userName=null;this.msgCount=0;
+    this.history = [];
+    this.lastTopic = null;
+    this.userName = null;
+    this.messageCount = 0;
   }
 };
-
-// ============================
-// LANGUAGE DETECTION
-// ============================
-const hindiWords = [
-  'kya','hai','hain','mera','tera','aap','main','hoon','hu','nahi',
-  'haan','kese','kaise','batao','samjhao','karo','bhai','yaar',
-  'accha','acha','theek','bohot','bahut','abhi','aur','par','lekin',
-  'mujhe','mere','tumhe','usse','kitna','kahan','kab','kyun','kaun',
-  'jo','wo','ye','sikhao','likhao','banao','dikhao','chahiye','lagta',
-  'tha','thi','the','raha','rahi','rahe','gaya','gayi','shukriya',
-  'alvida','namaste','salam','yeh','woh','isko','usko','unko',
-  'matlab','matlab','seedha','directly','pehle','baad','phir',
-  'toh','to','bhi','hi','na','pe','se','mein','ka','ki','ke',
-  'kaisa','kaisi','kuch','sab','zyada','kam','acchi','buri',
-  'dekho','suno','samjhe','pata','jaanta','jaanti','chahta','chahti'
-];
-
-function detectLang(text) {
-  const words = text.toLowerCase().split(/\s+/);
-  let hindiCount = 0;
-  for(let w of words) {
-    if(hindiWords.includes(w)) hindiCount++;
-  }
-  const ratio = hindiCount / words.length;
-  if(ratio > 0.15) return 'hindi';
-  return 'english';
-}
-
-// ============================
-// NAME EXTRACTION
-// ============================
-const notNames = [
-  'kesa','kaisa','kaisi','acha','theek','nahi','haan','kya','aap',
-  'mera','mujhe','mere','yeh','woh','good','bad','fine','okay','ok',
-  'yes','no','not','what','how','why','when','where','who','tell',
-  'help','make','create','build','write','show','give','please',
-  'thanks','hello','hi','hey','bhai','yaar','iska','uska','kuch',
-  'sab','main','tum','aap','woh','hum','app','code','game','html',
-  'python','java','css','web','site','page','program','function',
-  'aperonix','ai','bot','chat','name','naam','tera','mera','apna'
-];
-
-function extractName(text) {
-  const patterns = [
-    /my name is ([a-zA-Z]+)/i,
-    /i am ([a-zA-Z]+)/i,
-    /i'm ([a-zA-Z]+)/i,
-    /call me ([a-zA-Z]+)/i,
-    /mera naam ([a-zA-Z]+) hai/i,
-    /mera naam ([a-zA-Z]+)/i,
-    /main ([a-zA-Z]+) hoon/i,
-    /main ([a-zA-Z]+) hu/i,
-    /naam ([a-zA-Z]+) hai/i,
-    /naam hai ([a-zA-Z]+)/i,
-    /([a-zA-Z]+) here/i,
-    /([a-zA-Z]+) bol rahe/i,
-  ];
-  for(let p of patterns) {
-    const m = text.match(p);
-    if(m && m[1].length > 1) {
-      const name = m[1].toLowerCase();
-      if(!notNames.includes(name) && name.length > 1) {
-        return m[1].charAt(0).toUpperCase() + m[1].slice(1).toLowerCase();
-      }
-    }
-  }
-  return null;
-}
 
 // ============================
 // HELPERS
@@ -299,93 +240,99 @@ function rand(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
 function isEthical(t){
   return !["hack","virus","cheat","harm","crack","steal",
            "exploit","malware","illegal","ddos","ransomware"]
-    .some(w=>t.includes(w));
+    .some(w => t.includes(w));
 }
 
-// Name ke saath address karna
-function addr(lang, name) {
-  if(!name) return lang==='hindi' ? ' bhai' : '';
-  return lang==='hindi' ? ` ${name} bhai` : `, ${name}`;
+// Name extract karo
+function extractName(text) {
+  const patterns = [
+    /my name is (\w+)/i,
+    /i am (\w+)/i,
+    /i'm (\w+)/i,
+    /call me (\w+)/i,
+    /mera naam (\w+)/i,
+    /main (\w+) hu/i,
+    /(\w+) here/i,
+  ];
+  for(let p of patterns) {
+    const match = text.match(p);
+    if(match && match[1].length > 1) return match[1];
+  }
+  return null;
 }
 
 // ============================
-// CONTEXT RESPONSES
+// CONTEXT-AWARE RESPONSES
+// Pichli baat se samjhe!
 // ============================
-function contextResponse(input, lang) {
+function getContextResponse(input) {
   const t = input.toLowerCase();
-  const topic = memory.getTopic();
-  const name = memory.getName();
+  const lastMsgs = memory.getLastUserMessages(3);
+  const lastTopic = memory.getTopic();
 
-  // Aur batao / Tell me more
-  if(/aur batao|aur|tell me more|more details|aage|continue|elaborate|details/.test(t) && t.split(' ').length < 5) {
-    if(topic === 'python') return {
-      text: lang==='hindi'
-        ? `Python ke baare mein aur batati hoon${addr(lang,name)}! 🐍\n\nPython use hoti hai:\n• Artificial Intelligence (ChatGPT bhi Python se!)\n• Web development (Django, Flask)\n• Data Science\n• Game development (Pygame)\n• Automation\n\nFun fact: Python ka naam "Monty Python" comedy show se aaya!\n1991 mein Guido van Rossum ne banaya!\n\nKoi specific Python cheez sikhni hai? 😊`
-        : `More about Python! 🐍\n\nPython is used for:\n• AI & Machine Learning\n• Web development (Django, Flask)\n• Data Science\n• Games (Pygame)\n• Automation\n\nFun fact: Python was named after "Monty Python"!\nCreated by Guido van Rossum in 1991!\n\nWant a specific Python project? 😊`,
-      conf: 88
-    };
-    if(topic === 'java') return {
-      text: lang==='hindi'
-        ? `Java ke baare mein aur${addr(lang,name)}! ☕\n\nJava use hoti hai:\n• Android apps (tera phone!)\n• Enterprise software\n• Minecraft (haan, Java mein hai!)\n• Banking systems\n\n"Write once, run anywhere" — Java ka famous slogan!\n1995 mein James Gosling ne banaya!\n\nAur complex Java program chahiye? 😊`
-        : `More about Java${addr(lang,name)}! ☕\n\nJava is used in:\n• Android app development\n• Enterprise software\n• Games (Minecraft is Java!)\n• Banking systems\n\n"Write once, run anywhere" — Java's famous motto!\nCreated by James Gosling in 1995!\n\nWant a more complex Java program? 😊`,
-      conf: 88
-    };
-    if(topic === 'javascript') return {
-      text: lang==='hindi'
-        ? `JavaScript ke baare mein aur${addr(lang,name)}! ✨\n\nJS har jagah hai:\n• Har website mein!\n• React, Vue, Angular — JS frameworks\n• Node.js — server pe\n• React Native — mobile apps\n• Electron — desktop apps\n\nSirf 10 din mein banaya tha Brendan Eich ne 1995 mein!\nGitHub ki #1 language! 🌍\n\nKoi specific JS project? 😊`
-        : `More about JavaScript${addr(lang,name)}! ✨\n\nJavaScript is everywhere:\n• Every website uses it!\n• React, Vue, Angular frameworks\n• Node.js for servers\n• React Native for mobile\n\nCreated in just 10 days in 1995!\nMost popular language on GitHub! 🌍\n\nWant a specific JavaScript project? 😊`,
-      conf: 88
-    };
-    if(topic === 'creator') return {
-      text: lang==='hindi'
-        ? `Mohammad Khan ke baare mein aur! 🌟\n\n🎮 14 saal mein poora Game Engine banaya\n🤖 Aperonix AI khud se banai — zero se\n📊 GitHub ko AI training data ki tarah use kiya\n💡 Zero paid tools, zero GPU\n🇮🇳 India se — duniya ko dikha raha hai!\n\nUska motto:\n"5 saal lagein — par khud karunga!"\n"Main duniya ko dikhaunga ki main sab kuch kar sakta hoon!"\n\nSach mein legend hai! 😊`
-        : `More about Mohammad Khan! 🌟\n\n🎮 Built a complete Game Engine at age 14\n🤖 Built Aperonix AI from scratch\n📊 Uses GitHub as AI training data\n💡 Zero paid tools, zero GPU\n🇮🇳 From India — showing the world!\n\nHis motto:\n"5 saal lagein — par khud karunga!"\n\nTruly legendary! 😊`,
-      conf: 92
-    };
-    if(topic === 'html') return {
-      text: lang==='hindi'
-        ? `HTML ke aur tags${addr(lang,name)}! 🌐\n\`\`\`html\n<!-- Headings -->\n<h1>Bada heading</h1>\n<h2>Chota heading</h2>\n\n<!-- Links -->\n<a href="https://google.com">Yahan click karo</a>\n\n<!-- Images -->\n<img src="photo.jpg" alt="Meri photo">\n\n<!-- Lists -->\n<ul>\n  <li>Item 1</li>\n  <li>Item 2</li>\n</ul>\n\n<!-- Form -->\n<input type="text" placeholder="Kuch likho">\n<button onclick="alert('Hi!')">Click!</button>\n\`\`\`\nPuri website banani hai? Bol! 😊`
-        : `More HTML tags${addr(lang,name)}! 🌐\n\`\`\`html\n<!-- Headings -->\n<h1>Big heading</h1>\n<h2>Smaller heading</h2>\n\n<!-- Links -->\n<a href="https://google.com">Click here</a>\n\n<!-- Images -->\n<img src="photo.jpg" alt="My photo">\n\n<!-- Lists -->\n<ul>\n  <li>Item 1</li>\n  <li>Item 2</li>\n</ul>\n\n<!-- Input -->\n<input type="text" placeholder="Type here">\n<button onclick="alert('Hi!')">Click!</button>\n\`\`\`\nWant a complete webpage? Just say! 😊`,
-      conf: 87
-    };
+  // "aur batao" / "tell me more"
+  if(/aur batao|tell me more|more|aur|continue|aage|go on/.test(t)) {
+    if(lastTopic === 'python') {
+      memory.setTopic('python_more');
+      return {
+        text: `Sure! More about Python! 🐍\n\nPython is used for:\n• Artificial Intelligence & Machine Learning\n• Web development (Django, Flask)\n• Data Science & Analytics\n• Game development (Pygame)\n• Automation & scripting\n\nFun fact: Python was created by Guido van Rossum in 1991!\nIt's named after "Monty Python" — a comedy show! 😄\n\nWant a specific Python project?`,
+        conf: 88
+      };
+    }
+    if(lastTopic === 'java') {
+      return {
+        text: `More about Java! ☕\n\nJava is used in:\n• Android app development\n• Enterprise software\n• Web backends (Spring)\n• Games (Minecraft is Java!)\n• Banking systems\n\nJava was created by James Gosling in 1995.\n"Write once, run anywhere" — iska famous slogan hai!\n\nWant me to write a more complex Java program?`,
+        conf: 88
+      };
+    }
+    if(lastTopic === 'javascript') {
+      return {
+        text: `More about JavaScript! ✨\n\nJavaScript is everywhere:\n• Every website uses it!\n• React, Vue, Angular — JS frameworks\n• Node.js — server side\n• React Native — mobile apps\n• Electron — desktop apps\n\nCreated by Brendan Eich in just 10 days in 1995!\nMost popular language on GitHub! 🌍\n\nWant a specific JavaScript project?`,
+        conf: 88
+      };
+    }
+    if(lastTopic === 'creator') {
+      return {
+        text: `More about Mohammad Khan! 🌟\n\n🎮 Built a complete Game Engine at age 14\n🤖 Built Aperonix AI from scratch\n📊 Uses GitHub as AI training data\n💡 Zero paid tools, zero GPU\n🇮🇳 From India — showing the world!\n\nHis philosophy:\n"5 saal lagein — par khud karunga!"\n"I will show the world what I can do!"\n\nPretty legendary, right? 😊`,
+        conf: 92
+      };
+    }
+    if(lastTopic === 'html') {
+      return {
+        text: `More HTML tips! 🌐\n\nUseful HTML tags:\n\`\`\`html\n<!-- Heading tags -->\n<h1>Big heading</h1>\n<h2>Smaller heading</h2>\n\n<!-- Links -->\n<a href="https://google.com">Click here</a>\n\n<!-- Images -->\n<img src="photo.jpg" alt="My photo">\n\n<!-- Lists -->\n<ul>\n  <li>Item 1</li>\n  <li>Item 2</li>\n</ul>\n\n<!-- Input -->\n<input type="text" placeholder="Type here">\n<button onclick="alert('Hi!')">Click!</button>\n\`\`\`\n\nWant me to build a complete webpage?`,
+        conf: 87
+      };
+    }
   }
 
-  // Samajh nahi aaya
-  if(/samajh nahi|nahi samjha|samajh nahi aaya|confused|kya matlab|don't understand|what do you mean|explain again/.test(t)) {
-    if(topic==='python') return {
-      text: lang==='hindi'
-        ? `Arey koi baat nahi${addr(lang,name)}! Aur simple bataati hoon! 😊\n\nPython = computer ki language\n\nJaise:\n• Tu computer se kehta hai: print("Hello")\n• Computer screen pe "Hello" dikha deta hai!\n\nEkdam simple:\n\`\`\`python\n# Yeh comment hai (computer ignore karta)\nprint("Namaste!")  # Yeh screen pe aayega\nnaam = "Mohammad"  # Variable mein naam store\nprint(naam)        # Mohammad print hoga\n\`\`\`\n\nAb samjha? Koi cheez puchh! 😄`
-        : `No worries${addr(lang,name)}! Let me explain simply! 😊\n\nPython = language computer understands\n\nExample:\n• You tell computer: print("Hello")\n• Computer shows "Hello" on screen!\n\`\`\`python\n# This is a comment (ignored)\nprint("Hello!")    # Shows on screen\nname = "Mohammad"  # Store in variable\nprint(name)        # Prints Mohammad\n\`\`\`\n\nClear now? Ask anything! 😄`,
-      conf: 90
-    };
+  // "samajh nahi aaya" / "i don't understand"
+  if(/samajh nahi|don't understand|nahi samjha|confused|kya matlab|what do you mean/.test(t)) {
+    if(lastTopic === 'python') {
+      return {
+        text: `No worries! Let me explain Python simply! 😊\n\nPython = ek language jo computer samjhta hai\n\nJaise:\n• Tu computer se kehta hai: print("Hello")\n• Computer wahi print kar deta hai!\n\nSuper simple example:\n\`\`\`python\n# Yeh ek comment hai (computer ignore karta hai)\nprint("Hello!")    # Yeh screen pe dikhega\nname = "Mohammad"  # Variable mein naam store kiya\nprint(name)        # Mohammad print hoga\n\`\`\`\n\nSamjha? Koi specific cheez puchh! 😄`,
+        conf: 90
+      };
+    }
     return {
-      text: lang==='hindi'
-        ? `Koi baat nahi${addr(lang,name)}! Kaunsi cheez nahi samjhi?\nAur simple tarike se samjhaunga! 😊`
-        : `No problem${addr(lang,name)}! Which part didn't you understand?\nI'll explain more simply! 😊`,
+      text: `No problem! Let me explain differently! 😊\n\nKaunsi cheez samajh nahi aayi?\nBata — main aur simple tarike se samjhaunga! 🌟`,
       conf: 85
     };
   }
 
-  // Thanks
-  if(/thank|shukriya|thanks|bahut acha|zabardast|great|awesome|nice|badhiya|mast/.test(t)) {
+  // Thank you ke baad
+  if(/thank|shukriya|thanks|great|awesome|nice|bahut acha|zabardast/.test(t)) {
     const name = memory.getName();
     return {
-      text: lang==='hindi'
-        ? rand([
-            `Koi baat nahi${addr(lang,name)}! 😊 Yahi toh kaam hai mera!\nAur kuch chahiye? 🌟`,
-            `Khushi hui madad karke${addr(lang,name)}! 😊\nKuch aur puchhna hai? ✨`,
-            `Hamesha khush raho${addr(lang,name)}! 😊 Kuch bhi puchho! 🚀`
-          ])
-        : rand([
-            `You're so welcome${addr(lang,name)}! 😊 That's what I'm here for!\nAnything else? 🌟`,
-            `Happy to help${addr(lang,name)}! 😊 Feel free to ask anything! ✨`,
-            `Glad I could help${addr(lang,name)}! 😊 Ask me anytime! 🚀`
-          ]),
+      text: rand([
+        `You're so welcome${name ? ', ' + name : ''}! 😊 That's what I'm here for!\nAnything else I can help with? 🌟`,
+        `Happy to help${name ? ', ' + name : ''}! 😊\nFeel free to ask anything! ✨`,
+        `Glad I could help! 😊 Ask me anything anytime! 🚀`
+      ]),
       conf: 96
     };
   }
 
-  return null;
+  return null; // No context match
 }
 
 // ============================
@@ -393,39 +340,33 @@ function contextResponse(input, lang) {
 // ============================
 function think(input) {
   const t = input.toLowerCase();
-  const lang = detectLang(input);
+
+  // Memory mein add karo
   memory.add('user', input);
 
-  // Name extract
+  // Name check karo
   const foundName = extractName(input);
   if(foundName) memory.setName(foundName);
-  const name = memory.getName();
+  const userName = memory.getName();
 
   // Ethics
   if(!isEthical(t)) {
-    const resp = {
-      text: lang==='hindi'
-        ? `Yeh main nahi bata sakti${addr(lang,name)}! Seedhi baat karo! 😊`
-        : `I can't help with that${addr(lang,name)}. Let's keep it positive! 😊`,
-      conf: 99
-    };
-    memory.add('ai', resp.text);
-    return resp;
+    memory.add('ai', 'ethics');
+    return { text: "I can't help with that. Let's keep it positive! 😊", conf: 99 };
   }
 
-  // Context response pehle!
-  const ctx = contextResponse(input, lang);
-  if(ctx) {
-    memory.add('ai', ctx.text);
-    return ctx;
+  // Context response pehle check karo!
+  const contextResp = getContextResponse(input);
+  if(contextResp) {
+    memory.add('ai', contextResp.text);
+    return contextResp;
   }
 
-  // Name introduce hua
-  if(foundName && memory.msgCount <= 3) {
+  // Name introduce
+  if(foundName) {
+    memory.setTopic('greeting');
     const resp = {
-      text: lang==='hindi'
-        ? `Arre wah${addr(lang,name)}! Mil ke khushi hui! 😊\nMain Aperonix hoon!\nBolo kya karna hai — coding, games, websites, ya bas baatein! 🌟`
-        : `Nice to meet you${addr(lang,name)}! 😊 I'm Aperonix!\nHow can I help you today? Coding, games, websites, or just chat! 🌟`,
+      text: `Nice to meet you, ${foundName}! 😊 I'm Aperonix!\nHow can I help you today? Ask me anything — coding, games, websites, or just chat! 🌟`,
       conf: 95
     };
     memory.add('ai', resp.text);
@@ -433,48 +374,34 @@ function think(input) {
   }
 
   // Greetings
-  if(/hello|hi\b|hey|salam|namaste|hii+|assalam|hy|helo|namaskar/.test(t)) {
+  if(/hello|hi\b|hey|salam|namaste|hii+|assalam/.test(t)) {
     memory.setTopic('greeting');
-    const resp = {
-      text: lang==='hindi'
-        ? rand([
-            `Arey${addr(lang,name)}! Main Aperonix hoon! 😊 Kya karna hai aaj?`,
-            `Hello${addr(lang,name)}! Kaise ho? Kuch coding karein? 🌟`,
-            `Namaste${addr(lang,name)}! Batao kya seekhna hai aaj? ✨`,
-            `Arre yaar${addr(lang,name)}! Kya haal hai? Kuch banate hain? 😊`
-          ])
-        : rand([
-            `Hey there${addr(lang,name)}! I'm Aperonix! 😊 How can I help?`,
-            `Hello${addr(lang,name)}! Aperonix here — ask me anything! 🌟`,
-            `Hi${addr(lang,name)}! What would you like to know? ✨`,
-            `Hey${addr(lang,name)}! Ready to help! What's on your mind? 😊`
-          ]),
-      conf: 97
-    };
-    memory.add('ai', resp.text);
-    return resp;
+    const greeting = rand([
+      `Hey there${userName ? ', ' + userName : ''}! I'm Aperonix! 😊 How can I help you today?`,
+      `Hello${userName ? ', ' + userName : ''}! Aperonix here — ask me anything! 🌟`,
+      `Hi${userName ? ', ' + userName : ''}! Great to see you! What would you like to know? ✨`,
+      `Hey! Aperonix is ready to help${userName ? ', ' + userName : ''}! What's on your mind? 😊`
+    ]);
+    memory.add('ai', greeting);
+    return { text: greeting, conf: 97 };
   }
 
   // Who made you
-  if(/who made|who built|kisne banaya|kisne banayi|creator|mohammad|banane wala|kisne|banaya|aapko kisne|tumhe kisne/.test(t)) {
+  if(/who made|who built|kisne|banaya|creator|mohammad|banane wala/.test(t)) {
     memory.setTopic('creator');
     const resp = {
-      text: lang==='hindi'
-        ? `Main Mohammad Khan ne banai hoon! 🇮🇳✨\n\n👤 Naam: Mohammad Khan\n🎂 Umar: 14 saal\n🌍 Desh: India\n💡 Zero paid tools — sab khud se!\n🖥️ Zero GPU — sirf GitHub ka data!\n🎮 14 saal mein Game Engine bhi banaya!\n\nUska motto:\n"5 saal lagein — par khud karunga!"\n"Main duniya ko dikhaunga!"\n\nSach mein legend hai na? 😊\n\nAur jaanna hai? Bol!`
-        : `I was built by Mohammad Khan! 🇮🇳✨\n\n👤 Name: Mohammad Khan\n🎂 Age: 14 years old\n🌍 Country: India\n💡 Zero paid tools — everything from scratch!\n🖥️ Zero GPU — pure GitHub data!\n🎮 Also built a Game Engine at 14!\n\nHis motto:\n"5 saal lagein — par khud karunga!"\n"I will show the world!"\n\nPretty legendary, right? 😊\n\nWant to know more?`,
+      text: `I was built by Mohammad Khan! 🇮🇳✨\n\n👤 Name: Mohammad Khan\n🎂 Age: 14 years old\n🌍 Country: India\n💡 Zero paid tools — everything from scratch!\n🖥️ Zero GPU — pure GitHub data!\n🎮 Also built a Game Engine at 14!\n\nHis motto: "5 saal lagein — par khud karunga!"\n\nPretty legendary, right? 😊\n\nWant to know more about him?`,
       conf: 98
     };
     memory.add('ai', resp.text);
     return resp;
   }
 
-  // Who are you / Aperonix kaun hai
-  if(/who are you|what are you|your name|naam kya|kaun ho|aperonix kaun|aap kaun|tum kaun|tu kaun|kya ho/.test(t)) {
+  // Who are you
+  if(/who are you|what are you|your name|naam|kaun ho|aperonix kya/.test(t)) {
     memory.setTopic('identity');
     const resp = {
-      text: lang==='hindi'
-        ? `Main Aperonix hoon! 🤖✨\n\nEk female AI jo bilkul zero se bani hai!\nKoi paid API nahi, koi GPU nahi, koi shortcut nahi!\n\n• Main GitHub se har 6 ghante seekhti hoon\n• Mujhe conversation yaad rehti hai\n• English, Hindi, Hinglish — sab samajhti hoon\n• Mohammad Khan ne banaya, umar 14 saal 🇮🇳\n\nMain abhi chhoti hoon — par badi ho rahi hoon! 😊\nKya puchhna hai bol!`
-        : `I'm Aperonix! 🤖✨\n\nA female AI built completely from scratch!\nNo paid APIs, no GPU, no shortcuts!\n\n• I learn from GitHub every 6 hours\n• I remember our conversation\n• English, Hindi, Hinglish — all supported\n• Built by Mohammad Khan, Age 14 🇮🇳\n\nStill growing — but always improving! 😊\nWhat would you like to know?`,
+      text: `I'm Aperonix! 🤖✨\n\nA female AI assistant built completely from scratch.\nNo paid APIs, no GPU, no shortcuts!\n\n• I learn from GitHub data every 6 hours\n• I remember our conversation context\n• I understand English, Hindi & Hinglish\n• Built by Mohammad Khan, Age 14 🇮🇳\n\nI'm still growing — but I'm YOUR AI! 😊\n\nWhat would you like to talk about?`,
       conf: 97
     };
     memory.add('ai', resp.text);
@@ -482,20 +409,14 @@ function think(input) {
   }
 
   // How are you
-  if(/how are you|kaise ho|kaisi ho|kaisa|kya haal|kya hal|theek ho|sab theek/.test(t)) {
+  if(/how are you|kaise ho|kaisi ho|kaisa/.test(t)) {
     memory.setTopic('smalltalk');
     const resp = {
-      text: lang==='hindi'
-        ? rand([
-            `Main bilkul mast hoon${addr(lang,name)}! 😊\nGitHub se aaj bhi naya seekha!\nAur tu kaisa hai? 🌟`,
-            `Ekdum badhiya${addr(lang,name)}! ✨\nHar 6 ghante mein aur smart ho jaati hoon!\nTu bata kaisa hai? 😊`,
-            `Sab theek hai${addr(lang,name)}! 💪\nKuch coding karein aaj? Bol! 😊`
-          ])
-        : rand([
-            `I'm doing amazing${addr(lang,name)}! 😊\nJust learned new things from GitHub!\nHow are YOU doing? 🌟`,
-            `Feeling great${addr(lang,name)}! ✨\nGrowing smarter every 6 hours!\nHow about you? 😊`,
-            `I'm wonderful${addr(lang,name)}! 💪\nReady to help! How are you? 🌟`
-          ]),
+      text: rand([
+        `I'm doing amazing${userName ? ', ' + userName : ''}! 😊\nI just learned new things from GitHub today!\nHow are YOU doing? 🌟`,
+        `Feeling great${userName ? ', ' + userName : ''}! ✨\nEvery 6 hours I get smarter from GitHub!\nHow about you? 😊`,
+        `I'm wonderful, thanks for asking${userName ? ', ' + userName : ''}! 💪\nReady to help you with anything!\nHow are you doing today? 🌟`
+      ]),
       conf: 95
     };
     memory.add('ai', resp.text);
@@ -506,14 +427,10 @@ function think(input) {
   if(/python/.test(t)) {
     memory.setTopic('python');
     let text = '';
-    if(/code|program|banao|likho|sikhao|example|simple|basic|create|write/.test(t)) {
-      text = lang==='hindi'
-        ? `Yeh lo Python code${addr(lang,name)}! 🐍\n\`\`\`python\nprint("Namaste Aperonix se!")\n\nnaam = input("Tera naam kya hai? ")\nprint(f"Namaste {naam}! Kaise ho?")\n\n# Calculator\na = int(input("Pehla number: "))\nb = int(input("Doosra number: "))\nprint(f"Jod = {a+b}")\nprint(f"Guna = {a*b}")\n\`\`\`\nSave karo hello.py → Run karo: python hello.py\n\nAur examples chahiye? Bol "aur batao"! 😊`
-        : `Here's Python for you${addr(lang,name)}! 🐍\n\`\`\`python\nprint("Hello from Aperonix!")\n\nname = input("Your name: ")\nprint(f"Hello {name}! Nice to meet you!")\n\n# Calculator\na = int(input("Number 1: "))\nb = int(input("Number 2: "))\nprint(f"Sum = {a+b}")\nprint(f"Product = {a*b}")\n\`\`\`\nSave as hello.py → Run: python hello.py\n\nWant more? Say "tell me more"! 😊`;
+    if(/code|program|create|write|example|simple|basic/.test(t)) {
+      text = `Here's Python for you! 🐍\n\`\`\`python\nprint("Hello from Aperonix!")\n\nname = input("Your name: ")\nprint(f"Hello {name}! Nice to meet you!")\n\n# Simple calculator\na = int(input("Number 1: "))\nb = int(input("Number 2: "))\nprint(f"Sum = {a+b}")\nprint(f"Product = {a*b}")\n\`\`\`\nSave as hello.py → Run: python hello.py\n\nWant more Python examples? Just say "tell me more"! 😊`;
     } else {
-      text = lang==='hindi'
-        ? `Python ek kamaal ki language hai${addr(lang,name)}! 🐍\n\nKahan use hoti hai:\n• Artificial Intelligence\n• Web development\n• Data Science\n• Games\n• Automation\n\n1991 mein bani — seekhna bahut aasaan!\nChatGPT bhi Python se bana hai!\n\nCode likhwaana hai? Bol! 😊`
-        : `Python is an amazing language${addr(lang,name)}! 🐍\n\nUsed for:\n• Artificial Intelligence\n• Web development\n• Data Science\n• Games & automation\n\nCreated in 1991 — super easy to learn!\nWant me to write some Python code? 😊`;
+      text = `Python is an amazing language! 🐍\n\nIt's used for:\n• Artificial Intelligence\n• Web development\n• Data Science\n• Automation\n• Games\n\nCreated in 1991 — super easy to learn!\nWant me to write some Python code for you? 😊`;
     }
     memory.add('ai', text);
     return { text, conf: 96 };
@@ -523,14 +440,10 @@ function think(input) {
   if(/\bjava\b/.test(t) && !/javascript/.test(t)) {
     memory.setTopic('java');
     let text = '';
-    if(/code|program|banao|likho|sikhao|example|create|write/.test(t)) {
-      text = lang==='hindi'
-        ? `Yeh lo Java code${addr(lang,name)}! ☕\n\`\`\`java\npublic class Hello {\n    public static void main(String[] args) {\n        System.out.println("Namaste Aperonix se!");\n        \n        int umar = 14;\n        String naam = "Mohammad";\n        System.out.println(naam + " ki umar " + umar + " saal hai!");\n        \n        for(int i=1; i<=5; i++) {\n            System.out.println("Count: " + i);\n        }\n    }\n}\n\`\`\`\nSave karo Hello.java → Run: javac Hello.java && java Hello\n\nAur chahiye? "Aur batao" bol! 😊`
-        : `Here's Java${addr(lang,name)}! ☕\n\`\`\`java\npublic class Hello {\n    public static void main(String[] args) {\n        System.out.println("Hello from Aperonix!");\n        \n        int age = 14;\n        String name = "Mohammad";\n        System.out.println(name + " is " + age + " years old!");\n        \n        for(int i=1; i<=5; i++) {\n            System.out.println("Count: " + i);\n        }\n    }\n}\n\`\`\`\nSave as Hello.java → Run: javac Hello.java && java Hello\n\nWant more? Say "tell me more"! 😊`;
+    if(/code|program|create|write|example/.test(t)) {
+      text = `Here's Java! ☕\n\`\`\`java\npublic class Hello {\n    public static void main(String[] args) {\n        System.out.println("Hello from Aperonix!");\n        \n        // Variables\n        int age = 14;\n        String name = "Mohammad";\n        System.out.println(name + " is " + age + " years old!");\n        \n        // Loop\n        for(int i=1; i<=5; i++) {\n            System.out.println("Count: " + i);\n        }\n    }\n}\n\`\`\`\nSave as Hello.java → Run: javac Hello.java && java Hello\n\nWant more Java examples? Say "tell me more"! 😊`;
     } else {
-      text = lang==='hindi'
-        ? `Java ek powerful language hai${addr(lang,name)}! ☕\n\nKahan use hoti hai:\n• Android apps (tera phone!)\n• Minecraft (haan Java mein!)\n• Enterprise software\n• Banking systems\n\n1995 mein bani — "Write once, run anywhere!"\nCode likhwaana hai? 😊`
-        : `Java is a powerful language${addr(lang,name)}! ☕\n\nUsed for:\n• Android apps\n• Minecraft (yes, it's Java!)\n• Enterprise software\n• Banking systems\n\nCreated in 1995!\nWant some Java code? 😊`;
+      text = `Java is a powerful language! ☕\n\nUsed for:\n• Android apps (your phone!)\n• Enterprise software\n• Minecraft (yes, it's Java!)\n• Banking systems\n\nCreated in 1995 — "Write once, run anywhere!"\nWant me to write some Java code? 😊`;
     }
     memory.add('ai', text);
     return { text, conf: 95 };
@@ -540,14 +453,10 @@ function think(input) {
   if(/javascript|js\b/.test(t)) {
     memory.setTopic('javascript');
     let text = '';
-    if(/code|program|banao|likho|sikhao|example|create|write/.test(t)) {
-      text = lang==='hindi'
-        ? `Yeh lo JavaScript${addr(lang,name)}! ✨\n\`\`\`javascript\nconsole.log("Namaste Aperonix se!");\n\nfunction namasteKaho(naam) {\n    return \`Namaste \${naam}! Swagat hai!\`;\n}\nconsole.log(namasteKaho("Mohammad"));\n\nlet skills = ["AI", "Games", "Web"];\nskills.forEach(s => console.log("Skill:", s));\n\nlet aperonix = {\n    naam: "Aperonix",\n    creator: "Mohammad Khan",\n    umar: 0\n};\nconsole.log(aperonix);\n\`\`\`\nSave karo hello.js → Run: node hello.js\n\nAur chahiye? Bol! 😊`
-        : `Here's JavaScript${addr(lang,name)}! ✨\n\`\`\`javascript\nconsole.log("Hello from Aperonix!");\n\nfunction greet(name) {\n    return \`Hello \${name}! Welcome!\`;\n}\nconsole.log(greet("Mohammad"));\n\nlet skills = ["AI", "Games", "Web"];\nskills.forEach(s => console.log("Skill:", s));\n\nlet aperonix = {\n    name: "Aperonix",\n    creator: "Mohammad Khan"\n};\nconsole.log(aperonix);\n\`\`\`\nSave as hello.js → Run: node hello.js\n\nWant more? Just ask! 😊`;
+    if(/code|program|create|write|example/.test(t)) {
+      text = `Here's JavaScript! ✨\n\`\`\`javascript\nconsole.log("Hello from Aperonix!");\n\n// Function\nfunction greet(name) {\n    return \`Hello \${name}! Welcome!\`;\n}\nconsole.log(greet("Mohammad"));\n\n// Array\nlet skills = ["AI", "Games", "Web"];\nskills.forEach(s => console.log("Skill:", s));\n\n// Object\nlet aperonix = {\n    name: "Aperonix",\n    creator: "Mohammad Khan",\n    age: 0\n};\nconsole.log(aperonix);\n\`\`\`\nSave as hello.js → Run: node hello.js\n\nWant more? Say "tell me more"! 😊`;
     } else {
-      text = lang==='hindi'
-        ? `JavaScript web ki language hai${addr(lang,name)}! ✨\n\nHar jagah use hoti hai:\n• Har website mein!\n• React, Vue — JS frameworks\n• Node.js — server pe\n• Mobile apps bhi!\n\nGitHub ki #1 language!\nCode likhwaana hai? 😊`
-        : `JavaScript is the language of the web${addr(lang,name)}! ✨\n\nEverywhere:\n• Every website!\n• React, Vue frameworks\n• Node.js for servers\n• Mobile apps too!\n\nMost popular on GitHub!\nWant some code? 😊`;
+      text = `JavaScript is the language of the web! ✨\n\nIt runs in EVERY browser!\nUsed for:\n• Websites & web apps\n• Games\n• Mobile apps (React Native)\n• Servers (Node.js)\n\nCreated in just 10 days in 1995!\nMost popular language on GitHub! 🌍\nWant some JavaScript code? 😊`;
     }
     memory.add('ai', text);
     return { text, conf: 95 };
@@ -557,78 +466,52 @@ function think(input) {
   if(/html|webpage|website/.test(t)) {
     memory.setTopic('html');
     let text = '';
-    if(/code|banao|likho|sikhao|create|build|write|example/.test(t)) {
-      text = lang==='hindi'
-        ? `Yeh lo HTML${addr(lang,name)}! 🌐\n\`\`\`html\n<!DOCTYPE html>\n<html>\n<head>\n    <title>Mera Aperonix Page</title>\n    <style>\n        body{background:#1a1a2e;color:white;text-align:center;padding:50px;font-family:Arial}\n        button{background:#10a37f;color:white;padding:12px 24px;border:none;border-radius:8px;cursor:pointer;font-size:16px}\n        button:hover{background:#0d8c6d}\n    </style>\n</head>\n<body>\n    <h1>Namaste Aperonix se! 🤖</h1>\n    <p>Mohammad Khan ne banaya, umar 14 🇮🇳</p>\n    <button onclick="alert('Aperonix bol rahi hai hi! 👋')">Click karo!</button>\n</body>\n</html>\n\`\`\`\nSave karo index.html → Browser mein kholo!\n\nAur HTML tips chahiye? "Aur batao" bol! 😊`
-        : `Here's HTML${addr(lang,name)}! 🌐\n\`\`\`html\n<!DOCTYPE html>\n<html>\n<head>\n    <title>My Aperonix Page</title>\n    <style>\n        body{background:#1a1a2e;color:white;text-align:center;padding:50px;font-family:Arial}\n        button{background:#10a37f;color:white;padding:12px 24px;border:none;border-radius:8px;cursor:pointer;font-size:16px}\n        button:hover{background:#0d8c6d}\n    </style>\n</head>\n<body>\n    <h1>Hello from Aperonix! 🤖</h1>\n    <p>Built by Mohammad Khan, Age 14 🇮🇳</p>\n    <button onclick="alert('Aperonix says hi! 👋')">Click Me!</button>\n</body>\n</html>\n\`\`\`\nSave as index.html → Open in browser!\n\nWant more HTML tips? Say "tell me more"! 😊`;
+    if(/code|create|write|example|build/.test(t)) {
+      text = `Here's HTML! 🌐\n\`\`\`html\n<!DOCTYPE html>\n<html>\n<head>\n    <title>My Aperonix Page</title>\n    <style>\n        body{background:#1a1a2e;color:white;text-align:center;padding:50px;font-family:Arial}\n        button{background:#10a37f;color:white;padding:12px 24px;border:none;border-radius:8px;cursor:pointer;font-size:16px}\n        button:hover{background:#0d8c6d}\n    </style>\n</head>\n<body>\n    <h1>Hello from Aperonix! 🤖</h1>\n    <p>Built by Mohammad Khan, Age 14 🇮🇳</p>\n    <button onclick="alert('Aperonix says hi! 👋')">Click Me!</button>\n    <script>\n        console.log("Page loaded!");\n    </scr` + `ipt>\n</body>\n</html>\n\`\`\`\nSave as index.html → Open in browser!\n\nWant more HTML tips? Say "tell me more"! 😊`;
     } else {
-      text = lang==='hindi'
-        ? `HTML har website ki neenv hai${addr(lang,name)}! 🌐\n\nHTML = Structure\nCSS = Design\nJavaScript = Interactivity\n\nTeenon milke amazing website banti hai!\nCode likhwaana hai? 😊`
-        : `HTML is the foundation of every website${addr(lang,name)}! 🌐\n\nHTML = Structure\nCSS = Beauty\nJavaScript = Interactivity\n\nTogether they make amazing websites!\nWant some HTML code? 😊`;
+      text = `HTML is the foundation of every website! 🌐\n\nHTML = HyperText Markup Language\n\nIt creates the STRUCTURE of webpages.\nCSS makes it BEAUTIFUL.\nJavaScript makes it INTERACTIVE.\n\nTogether they make amazing websites!\nWant me to write some HTML? 😊`;
     }
     memory.add('ai', text);
     return { text, conf: 95 };
   }
 
   // CSS
-  if(/css|styling|design|style/.test(t)) {
+  if(/css|style|design/.test(t)) {
     memory.setTopic('css');
-    const text = lang==='hindi'
-      ? `Yeh lo CSS${addr(lang,name)}! 🎨\n\`\`\`css\nbody {\n    background: #1a1a2e;\n    color: white;\n    font-family: Arial;\n    text-align: center;\n    padding: 20px;\n}\n\nh1 {\n    color: #10a37f;\n    font-size: 2.5em;\n}\n\n.button {\n    background: #10a37f;\n    color: white;\n    padding: 12px 24px;\n    border: none;\n    border-radius: 8px;\n    cursor: pointer;\n    transition: all 0.2s;\n}\n\n.button:hover {\n    background: #0d8c6d;\n    transform: scale(1.05);\n}\n\`\`\`\nSave karo style.css → HTML mein link karo!\n\nAur chahiye? Bol! 😊`
-      : `Here's CSS${addr(lang,name)}! 🎨\n\`\`\`css\nbody {\n    background: #1a1a2e;\n    color: white;\n    font-family: Arial;\n    text-align: center;\n    padding: 20px;\n}\n\nh1 { color: #10a37f; font-size: 2.5em; }\n\n.button {\n    background: #10a37f;\n    color: white;\n    padding: 12px 24px;\n    border: none;\n    border-radius: 8px;\n    cursor: pointer;\n    transition: all 0.2s;\n}\n\n.button:hover {\n    background: #0d8c6d;\n    transform: scale(1.05);\n}\n\`\`\`\nSave as style.css → Link in HTML!\n\nWant more? Just ask! 😊`;
+    const text = `Here's CSS! 🎨\n\`\`\`css\nbody {\n    background: #1a1a2e;\n    color: white;\n    font-family: Arial, sans-serif;\n    text-align: center;\n    padding: 20px;\n}\n\nh1 {\n    color: #10a37f;\n    font-size: 2.5em;\n    margin-bottom: 20px;\n}\n\n.card {\n    background: rgba(255,255,255,0.1);\n    border-radius: 12px;\n    padding: 20px;\n    margin: 10px auto;\n    max-width: 400px;\n}\n\n.button {\n    background: #10a37f;\n    color: white;\n    padding: 12px 24px;\n    border: none;\n    border-radius: 8px;\n    cursor: pointer;\n    font-size: 16px;\n    transition: all 0.2s;\n}\n\n.button:hover {\n    background: #0d8c6d;\n    transform: scale(1.05);\n}\n\`\`\`\nSave as style.css → Link in your HTML file!`;
     memory.add('ai', text);
     return { text, conf: 93 };
   }
 
   // Game
-  if(/game|khel/.test(t)) {
+  if(/game/.test(t)) {
     memory.setTopic('game');
-    const text = lang==='hindi'
-      ? `Ek game${addr(lang,name)} — bilkul tere creator ki tarah! 🎮\n\`\`\`javascript\n// Number Guessing Game\nconst secret = Math.floor(Math.random()*10)+1;\nconst rl = require('readline').createInterface({\n    input:process.stdin,output:process.stdout\n});\nconsole.log("🎮 1 se 10 ke beech number guess karo!");\nlet attempts=0;\nfunction guess(){\n    rl.question("Tera guess: ",(a)=>{\n        attempts++;\n        let n=parseInt(a);\n        if(n===secret){console.log(\`🎉 Sahi! \${attempts} tries mein jeeta!\`);rl.close();}\n        else{console.log(n<secret?"📈 Chhota hai!":"📉 Bada hai!");guess();}\n    });\n}\nguess();\n\`\`\`\nSave karo game.js → Run: node game.js\n\nAur complex game chahiye? Bol! 😊`
-      : `A game${addr(lang,name)} — like your creator builds! 🎮\n\`\`\`javascript\n// Number Guessing Game\nconst secret = Math.floor(Math.random()*10)+1;\nconst rl = require('readline').createInterface({\n    input:process.stdin,output:process.stdout\n});\nconsole.log("🎮 Guess a number 1-10!");\nlet attempts=0;\nfunction guess(){\n    rl.question("Your guess: ",(a)=>{\n        attempts++;\n        let n=parseInt(a);\n        if(n===secret){console.log(\`🎉 Won in \${attempts} tries!\`);rl.close();}\n        else{console.log(n<secret?"📈 Too low!":"📉 Too high!");guess();}\n    });\n}\nguess();\n\`\`\`\nSave as game.js → Run: node game.js\n\nWant a more complex game? Just ask! 😊`;
+    const text = `A game — just like your creator builds! 🎮\n\`\`\`javascript\n// Number Guessing Game\nconst secret = Math.floor(Math.random() * 10) + 1;\nconst readline = require('readline');\nconst rl = readline.createInterface({\n    input: process.stdin,\n    output: process.stdout\n});\n\nconsole.log("🎮 Guess a number between 1 and 10!");\nlet attempts = 0;\n\nfunction guess() {\n    rl.question("Your guess: ", (answer) => {\n        attempts++;\n        const n = parseInt(answer);\n        if(n === secret) {\n            console.log(\`🎉 Correct! Won in \${attempts} attempts!\`);\n            rl.close();\n        } else {\n            console.log(n < secret ? "📈 Too low!" : "📉 Too high!");\n            guess();\n        }\n    });\n}\nguess();\n\`\`\`\nSave as game.js → Run: node game.js`;
     memory.add('ai', text);
     return { text, conf: 94 };
   }
 
-  // Kya kar sakti ho / What can you do
-  if(/kya kar sakti|kya kar sakte|capabilities|what can you|help karo|madad karo|kya karta/.test(t)) {
-    const text = lang==='hindi'
-      ? `Main bahut kuch kar sakti hoon${addr(lang,name)}! 😊\n\n🐍 Python — code likhna, samjhana\n☕ Java — programs, examples\n✨ JavaScript — web, games, apps\n🌐 HTML — websites, webpages\n🎨 CSS — styling, design\n🎮 Games — JavaScript games\n🧠 AI ke baare mein — kaise kaam karta hai\n💬 Baat karna — kuch bhi!\n\nAur main conversation yaad rakhti hoon!\nPichli baatein bhoolti nahi! 🧠\n\nKya karna hai? 😊`
-      : `I can help with lots of things${addr(lang,name)}! 😊\n\n🐍 Python — code, explanations\n☕ Java — programs, examples\n✨ JavaScript — web, games, apps\n🌐 HTML — websites, webpages\n🎨 CSS — styling, design\n🎮 Games — JavaScript games\n🧠 About AI — how it works\n💬 Chat — just talk to me!\n\nI also remember our conversation!\nSo I know what we talked about! 🧠\n\nWhat would you like to do? 😊`,
-    conf: 95;
+  // What can you do
+  if(/what can you|kya kar sakti|capabilities|help me|kya karta/.test(t)) {
+    memory.setTopic('capabilities');
+    const text = `I can help you with lots of things${userName ? ', ' + userName : ''}! 😊\n\n🐍 Python — write code, explain concepts\n☕ Java — programs, examples\n✨ JavaScript — web, games, apps\n🌐 HTML — websites, webpages\n🎨 CSS — styling, design\n🎮 Games — JavaScript games\n🧠 AI — how I work, concepts\n💬 Chat — just talk to me!\n\nI also remember our conversation!\nSo I know what we talked about before! 🧠\n\nWhat would you like to do? 😊`;
     memory.add('ai', text);
     return { text, conf: 95 };
-  }
-
-  // AI ke baare mein
-  if(/how do you work|how are you made|neural|ai kaise|kaise bani|kaise kaam|artificial intelligence/.test(t)) {
-    const text = lang==='hindi'
-      ? `Main kaise kaam karti hoon${addr(lang,name)}? 🧠\n\nMain Aperonix hoon — Mohammad Khan ne banaya 14 saal mein!\n\n1️⃣ Pattern Recognition — teri baatein samjhti hoon\n2️⃣ Smart Matching — best jawab dhundti hoon\n3️⃣ GitHub Learning — real code se seekhti hoon!\n4️⃣ Context Memory — conversation yaad rakhti hoon\n5️⃣ Ethics Filter — buri cheezein block karti hoon\n\nSab kuch browser mein directly chalta hai!\nKoi server nahi, koi API nahi, koi cost nahi! 🚀\n\nPure JavaScript — zero libraries! 💪`
-      : `How do I work${addr(lang,name)}? 🧠\n\nI'm Aperonix — built by Mohammad Khan at age 14!\n\n1️⃣ Pattern Recognition — I understand your words\n2️⃣ Smart Matching — I find the best response\n3️⃣ GitHub Learning — I learn from real code!\n4️⃣ Context Memory — I remember our conversation\n5️⃣ Ethics Filter — I block harmful requests\n\nAll runs directly in your browser!\nNo server, no API keys, no cost! 🚀\n\nPure JavaScript — zero libraries! 💪`,
-    conf: 94;
-    memory.add('ai', text);
-    return { text, conf: 94 };
   }
 
   // Bye
-  if(/bye|goodbye|alvida|cya|phir milenge|baad mein/.test(t)) {
-    const text = lang==='hindi'
-      ? `Alvida${addr(lang,name)}! 😊✨\nBaat karke acha laga!\nPhir aana — hamesha yahan hoon! 🤖`
-      : `Goodbye${addr(lang,name)}! 😊✨\nWas great talking to you!\nCome back anytime — I'll be here! 🤖`;
+  if(/bye|goodbye|alvida|cya/.test(t)) {
+    const text = `Goodbye${userName ? ', ' + userName : ''}! 😊✨\nIt was great talking to you!\nCome back anytime — I'll be here! 🤖`;
     memory.add('ai', text);
     return { text, conf: 95 };
   }
 
-  // Default
-  const text = lang==='hindi'
-    ? rand([
-        `Hmm, abhi yeh nahi jaanti${addr(lang,name)}! 🤔\nPar GitHub se seekh rahi hoon har 6 ghante!\n\nYeh try karo:\n• "Python code banao"\n• "JavaScript game banao"\n• "HTML website banao"\n• Ya bas baatein karo! 😊`,
-        `Yeh topic abhi seekh rahi hoon${addr(lang,name)}! 🌱\nJaldi smart ho jaaungi!\n\nKodign ke baare mein puchho? 😊`
-      ])
-    : rand([
-        `Hmm, still learning about that${addr(lang,name)}! 🤔\nGrowing smarter from GitHub every 6 hours!\n\nTry asking:\n• "Create Python code"\n• "Make a JavaScript game"\n• "Build HTML website"\n• Or just chat! 😊`,
-        `Not sure about that yet${addr(lang,name)}! 🌱\nBut I'm always learning!\n\nAsk me about coding? 😊`
-      ]);
+  // Default — but context aware!
+  const lastMsgs = memory.getLastUserMessages(2);
+  const text = rand([
+    `Hmm, I'm still learning about that${userName ? ', ' + userName : ''}! 🤔\n\nI understand:\n• Python, Java, JavaScript, HTML, CSS\n• Games & websites\n• General chat\n\nTry asking something specific! 😊`,
+    `I'm not sure about that yet${userName ? ', ' + userName : ''}! 🌱\n\nBut I'm growing smarter every 6 hours from GitHub!\n\nTry asking:\n• "Create Python code"\n• "Make a JavaScript game"\n• "Build HTML website"\n• Or just chat with me! 😊`,
+  ]);
   memory.add('ai', text);
   return { text, conf: 35 };
 }
@@ -726,19 +609,19 @@ function newChat(){
     <div class="welcome" id="welcomeScreen">
       <div class="welcome-logo">🤖</div>
       <h1>How can I help you?</h1>
-      <p>I'm Aperonix — built from scratch by Mohammad Khan, age 14 🇮🇳<br>English • Hindi • Hinglish — sab samajhti hoon!</p>
+      <p>I'm Aperonix — built from scratch by Mohammad Khan, age 14 🇮🇳</p>
       <div class="suggestions">
-        <button class="scard" onclick="suggest('Python code banana sikhao')">
-          <div class="s-title">🐍 Python sikhao</div><div class="s-sub">Simple Python program banao</div>
+        <button class="scard" onclick="suggest('Create a Python hello world program')">
+          <div class="s-title">🐍 Python code</div><div class="s-sub">Create a simple Python program</div>
         </button>
-        <button class="scard" onclick="suggest('JavaScript game banao')">
-          <div class="s-title">🎮 Game banao</div><div class="s-sub">Fun JavaScript game banao</div>
+        <button class="scard" onclick="suggest('Create a JavaScript game')">
+          <div class="s-title">🎮 Make a game</div><div class="s-sub">Build a fun JavaScript game</div>
         </button>
-        <button class="scard" onclick="suggest('HTML website banao')">
-          <div class="s-title">🌐 Website banao</div><div class="s-sub">HTML se webpage banao</div>
+        <button class="scard" onclick="suggest('Create a simple HTML website')">
+          <div class="s-title">🌐 HTML website</div><div class="s-sub">Build a webpage from scratch</div>
         </button>
-        <button class="scard" onclick="suggest('Aperonix kaun hai aur kisne banaya')">
-          <div class="s-title">🧠 Aperonix ke baare mein</div><div class="s-sub">Kaise bani main?</div>
+        <button class="scard" onclick="suggest('Who made you and how do you work?')">
+          <div class="s-title">🧠 About Aperonix</div><div class="s-sub">Learn how I was built</div>
         </button>
       </div>
     </div>`;
